@@ -37,7 +37,7 @@ return [
 
         'categories' => [
             'driver' => 'local',
-            'root' => storage_path('app/categories'),
+            'root' => storage_path('app/public/categories'),
         ],
 
         'public' => [
