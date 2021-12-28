@@ -127,6 +127,13 @@ class SubcategoryController1 extends Controller
             $category->subname_ar=$request->subname_ar;
             $category->subname_en=$request->subname_en;
             $category->status= $request->status;
+
+            if($request->image){
+                $folder_name='first';
+                $photo_name= ($request->image)->getClientOriginalName();
+                ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
+                $category->image= $photo_name;
+           }
            // $category->image= $photo_name;
 
             $category->save();

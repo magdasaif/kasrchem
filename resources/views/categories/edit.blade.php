@@ -65,23 +65,13 @@
                     @enderror
                 </div>
 
-                
-                <div class="control">
-                    <div data-v-20a423fa="" class="uploader-block">
-                        <div data-v-20a423fa="" class="uploader">
-                            <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> 
-                            <input data-v-20a423fa="" type="file" id="image" name="image" accept="image/*" style="display: none;"> 
-                            <button data-v-20a423fa="" type="button" class="button add-btn" style="display: none;"><i data-v-20a423fa="" class="fa fa-upload"></i> صورة التصنيف</button> 
-                            <button data-v-20a423fa="" type="button" class="button delete-btn"><i data-v-20a423fa="" class="fa fa-trash"></i> مسح</button>
-                        </div> 
-                        <!---->
-                    </div>
-                </div>
 
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label>
-                    <input type="file" class="form-control" name="image">
+                    <label for="exampleInputEmail1">صوره</label><br>
+                    <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> 
+
+                    <input type="file" class="form-control" name="image" accept="image/*">
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
