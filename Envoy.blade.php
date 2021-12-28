@@ -7,7 +7,7 @@
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
 
-    $appDir = '/home/viewmurabba/public_html/training/backend';
+    $appDir = '/home/viewmurabba/public_html/training';
 
     $buildsDir = $appDir . '/backendreleases';
 
