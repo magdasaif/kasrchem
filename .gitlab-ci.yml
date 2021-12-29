@@ -101,8 +101,8 @@ staging:
   environment:
     name: dev
     url: https://backend.training.murabba.dev
-  # only:
-  #   - yasmeen
+  only:
+    - yasmeen
 
 production:
   stage: deploy
