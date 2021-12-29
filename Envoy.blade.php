@@ -2,7 +2,7 @@
 
 @setup
     $repo = 'ssh://s3/training/eradco/backend';
-    $branch = 'magda';
+    $branch = 'yasmeen';
 
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
