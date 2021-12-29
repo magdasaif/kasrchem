@@ -46,7 +46,7 @@
 
     rm -rf {{ $deploymentDir }}/storage
 
-    {{-- ln -ndsf {{ $env }} {{ $deploymentDir }}/.env --}}
+    ln -ndsf {{ $env }} {{ $deploymentDir }}/.env
     ln -ndsf {{ $storage }} {{ $deploymentDir }}/storage
     ln -ndsf {{ $storage }}/app/public {{ $deploymentDir }}/public/storage
     ln -ndsf {{ $htaccess }} {{ $deploymentDir }}/.htaccess
