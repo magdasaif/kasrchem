@@ -35,10 +35,11 @@
             {{-- 
            --}}
             <form method="POST"  action="{{route('site_section.update',$section->id)}}" enctype="multipart/form-data">
-                {{method_field('PATCH ')}}
-
-                @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
+                {{-- {{method_field('PATCH')}} --}}
+                <input type="hidden"  name="_token" value="{{ csrf_token() }}">
+                {{method_field('PATCH')}}
+                {{-- @csrf --}}
+               
 
                 
                 

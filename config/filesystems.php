@@ -51,7 +51,7 @@ return [
         // ],
         'site_sections' => [
             'driver' => 'local',
-            'root' => storage_path('storage/app/public/site_sections'),
+            'root' => storage_path('app/public/site_sections'),
         ],
 
         // 'site_sections'=> [

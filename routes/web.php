@@ -26,6 +26,6 @@ Route::group(['namespace'=>'SiteSection'],function(){
 
 //Route::resource('site_section', 'App\Http\Controllers\Category\SiteSectionController');
 //------------------------------------------------------------------------------------------
-Route::group(['namespace'=>'Category'],function(){
-    Route::resource('categories', 'SubcategoryController1');
-});
+// Route::group(['namespace'=>'Category'],function(){
+//     Route::resource('categories', 'SubcategoryController1');
+// });
