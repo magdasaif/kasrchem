@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\SiteSectionRequest;
 
-use App\Http\Controllers\Category\SiteSectionController;
+use App\Http\Controllers\SiteSection\SiteSectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('empty');
 });
 //------------------site_section------------------------------------------------------
-Route::group(['namespace'=>'Category'],function(){
+Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
 });
 

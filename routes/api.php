@@ -22,8 +22,7 @@ use Illuminate\Support\Facades\Route;
 ///---------------sections--------------
 Route::get('/Sitesections',[SiteSectionController::class,'index']);
 Route::get('/Sitesections/{section_id}',[SiteSectionController::class,'get_one_section']);
-Route::post('/Sitesections',[SiteSectionController::class,'store']);
-Route::post('/Sitesections/{id}',[SiteSectionController::class,'update']);
+
 
 ///------------------------------------------------
 Route::get('/sub_category1',[SubCategoryController1::class,'index']);

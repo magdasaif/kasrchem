@@ -29,7 +29,7 @@ class SiteSectionRequest extends FormRequest
             'site_name_en' => 'required',
             'statues' => 'required',
            
-            'image' => 'required',
+            'image' => 'required|mimes:jpeg,bmp,png',
         ];
     }
         public function messages()
