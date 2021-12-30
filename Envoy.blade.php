@@ -2,7 +2,11 @@
 
 @setup
     $repo = 'ssh://s3/training/eradco/backend';
+<<<<<<< HEAD
     $branch = 'yasmeen';
+=======
+    $branch = 'dev';
+>>>>>>> magda
 
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
@@ -44,8 +48,11 @@
     echo "Starting the setup_links Task"
     cd {{ $deploymentDir }}
 
+<<<<<<< HEAD
     rsync -rav {{ $deploymentDir }}/storage {{ $storage }}
 
+=======
+>>>>>>> magda
     rm -rf {{ $deploymentDir }}/storage
 
     ln -ndsf {{ $env }} {{ $deploymentDir }}/.env

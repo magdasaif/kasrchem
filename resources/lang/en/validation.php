@@ -46,9 +46,12 @@ return [
     'email' => 'The :attribute must be a valid email address.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     'enum' => 'The selected :attribute is invalid.',
 >>>>>>> yasmeen
+=======
+>>>>>>> magda
     'exists' => 'The selected :attribute is invalid.',
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
@@ -72,9 +75,12 @@ return [
     'ipv4' => 'The :attribute must be a valid IPv4 address.',
     'ipv6' => 'The :attribute must be a valid IPv6 address.',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     'mac_address' => 'The :attribute must be a valid MAC address.',
 >>>>>>> yasmeen
+=======
+>>>>>>> magda
     'json' => 'The :attribute must be a valid JSON string.',
     'lt' => [
         'numeric' => 'The :attribute must be less than :value.',

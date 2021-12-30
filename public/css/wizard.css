@@ -1,5 +1,8 @@
 body{
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> magda
     margin-top:40px;
 }
 .stepwizard-step p {
@@ -40,6 +43,7 @@ body{
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px;
+<<<<<<< HEAD
 =======
   margin-top:40px;
 }
@@ -82,4 +86,6 @@ body{
   line-height: 1.428571429;
   border-radius: 15px;
 >>>>>>> yasmeen
+=======
+>>>>>>> magda
 }

@@ -15,8 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 <<<<<<< HEAD
+<<<<<<< HEAD
         $this->call(SectionsSeeder::class);
 =======
 >>>>>>> yasmeen
+=======
+        $this->call(SectionsSeeder::class);
+>>>>>>> magda
     }
 }

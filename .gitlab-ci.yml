@@ -102,7 +102,11 @@ staging:
     name: dev
     url: https://backend.training.murabba.dev
   only:
+<<<<<<< HEAD
     - yasmeen
+=======
+    - dev
+>>>>>>> magda
 
 production:
   stage: deploy

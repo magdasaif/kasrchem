@@ -3,10 +3,14 @@
 
 @section('title')
 <<<<<<< HEAD
+<<<<<<< HEAD
     empty
 =======
    eradco
 >>>>>>> yasmeen
+=======
+    empty
+>>>>>>> magda
 @stop
 @endsection
 @section('page-header')

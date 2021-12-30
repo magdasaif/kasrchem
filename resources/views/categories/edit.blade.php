@@ -66,6 +66,9 @@
                 </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> magda
 
                 
                 <div class="form-group">
@@ -73,12 +76,15 @@
                     <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> 
 
                     <input type="file" class="form-control" name="image" accept="image/*">
+<<<<<<< HEAD
 =======
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
                     <input type="file" class="form-control" name="image">
 >>>>>>> yasmeen
+=======
+>>>>>>> magda
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

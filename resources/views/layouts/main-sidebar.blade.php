@@ -14,6 +14,7 @@
                         </a>
                     </li>
                    
+<<<<<<< HEAD
 				   
 				    <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
@@ -30,6 +31,8 @@
                     </li>
 					
 					
+=======
+>>>>>>> magda
                     <!-- menu item Elements-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#sub1">

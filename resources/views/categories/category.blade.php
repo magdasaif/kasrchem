@@ -66,10 +66,14 @@
                         <tr>
                             <td>{{$i}}</td>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/categories/first/$category->image")?>"></td>
 =======
                             <td><img  style="width: 90px; height: 90px;" src="../storage/app/categories/first/{{$category->image}}"></td>
 >>>>>>> yasmeen
+=======
+                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/categories/first/$category->image")?>"></td>
+>>>>>>> magda
                             <td>{{$category->subname_ar}}</td>
                             <td><?php if($category->status==1){echo'<label class="badge badge-success">مُفعل</label>';}else{echo'<label class="badge badge-danger">غير مُفعل</label>';}?></td>
                             <td>2</td> 
