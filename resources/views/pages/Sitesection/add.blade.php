@@ -2,7 +2,8 @@
 @section('css')
 
 @section('title')
-التصنيفات الرئيسيه
+
+أقسام الموقع
 @stop
 @endsection
 @section('page-header')
@@ -26,55 +27,40 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">اضافه تصنيف</h5>
+            <h5 class="modal-title"> اضافة قسم جديد</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             
-            <form method="POST" action="{{route('categories.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('site_section.store')}}" enctype="multipart/form-data">
             
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
-                <div class="form-group">
-                    <select class="form-control" name="section_id">
-                        @foreach ($sections as $section)
-                            <option value="{{ $section->id }}">{{ $section->site_name_ar }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
+              
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" required>
-                    @error('subname_ar')
+                    <label for="site_name_ar">اسم القسـم بالعربيه</label>
+                    <input type="text" class="form-control" id="site_name_ar" aria-describedby="site_name_ar" placeholder="Enter name" name="site_name_ar" required>
+                    @error('site_name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" required>
-                    @error('subname_en')
+                    <label for="site_name_en">اسم القسم بالانجليزيه</label>
+                    <input type="text" class="form-control" id="site_name_en" aria-describedby="site_name_en" placeholder="Enter name" name="site_name_en" required>
+                    @error('site_name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
 
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    <input type="file" class="form-control" name="image" accept="image/*">
-=======
+                    <label for="image">صوره</label>
                     <input type="file" class="form-control" name="image">
->>>>>>> yasmeen
-=======
-                    <input type="file" class="form-control" name="image" accept="image/*">
->>>>>>> magda
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -82,7 +68,8 @@
 
 
                 <div class="form-group">
-                    <select class="form-control" name="status">
+                    <label for="image">الحالـة</label>
+                    <select class="form-control" name="statues">
                             <option value="1">مُفعل</option>
                             <option value="0">غير مُفعل</option>
                     </select>

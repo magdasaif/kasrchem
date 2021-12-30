@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Sitesection extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
+    public $fillable = ['site_name_ar','site_name_en','statues','image'];
+    protected $table = 'site_sections';
+=======
   //  public $table='sitesections';
     public $fillable = ['site_name_ar','site_name_en','statues','image'];
     protected $table = 'site_sections';
 
     
+>>>>>>> magda
 }

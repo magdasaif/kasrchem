@@ -27,7 +27,15 @@
 
         @include('layouts.main-header')
 
+<<<<<<< HEAD
+<<<<<<< HEAD
         @include('layouts.main-sidebar')
+=======
+        @include('layouts.main-sidebar') 
+>>>>>>> yasmeen
+=======
+        @include('layouts.main-sidebar')
+>>>>>>> magda
 
         <!--=================================
  Main content -->

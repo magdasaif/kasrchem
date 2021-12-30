@@ -35,11 +35,26 @@ return [
             'root' => storage_path('app'),
         ],
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> magda
         'categories' => [
             'driver' => 'local',
-            'root' => storage_path('app/categories'),
+            'root' => storage_path('app/public/categories'),
+        ],
+<<<<<<< HEAD
+        
+        'site_sections' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/site_sections'),
         ],
 
+=======
+>>>>>>> yasmeen
+=======
+
+>>>>>>> magda
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -47,10 +62,39 @@ return [
             'visibility' => 'public',
         ],
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> magda
         // 'categories' => [
         //     'driver' => 'local',
         //     'root' => storage_path('app/public/images/categories'),
         //     'url' => env('APP_URL').'/public',
+<<<<<<< HEAD
+=======
+>>>>>>> yasmeen
+        
+
+        // 'site_sections'=> [
+        //     'driver' => 'local',
+        //     'root' => storage_path('public/images/site_sections/'),
+            
+        // ],
+<<<<<<< HEAD
+        
+=======
+        'site_sections' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/site_sections'),
+        ],
+>>>>>>> yasmeen
+
+        // 'site_sections'=> [
+        //     'driver' => 'local',
+        //     'root' => base_path() . 'public/images/site_sections/',
+        //     'url' => env('APP_URL') . '/public',
+=======
+>>>>>>> magda
         //     'visibility' => 'public',
         // ],
 

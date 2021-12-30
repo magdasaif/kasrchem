@@ -14,15 +14,34 @@
                         </a>
                     </li>
                    
+<<<<<<< HEAD
+				   
+				    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text">اقســـام الموقع</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="elements" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="{{route('site_section.create')}}">اضافه قسم موقع</a></li>
+                            <li><a href="{{route('site_section.index')}}">اقسام الموقع</a></li>
+                            
+                        </ul>
+                    </li>
+					
+					
+=======
+>>>>>>> magda
                     <!-- menu item Elements-->
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#sub1">
                             <div class="pull-left"><i class="ti-palette"></i><span
                                     class="right-nav-text">التصنيفات الرئيسيه</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
-                        <ul id="elements" class="collapse" data-parent="#sidebarnav">
+                        <ul id="sub1" class="collapse" data-parent="#sidebarnav">
                             <li><a href="{{route('categories.create')}}">اضافه تصنيف</a></li>
                             <li><a href="{{route('categories.index')}}">قائمه التصنيفات</a></li>
                             
