@@ -2,7 +2,7 @@
 
 @setup
     $repo = 'ssh://s3/training/eradco/backend';
-    $branch = 'magda';
+    $branch = 'dev';
 
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
@@ -46,7 +46,7 @@
 
     rm -rf {{ $deploymentDir }}/storage
 
-    {{-- ln -ndsf {{ $env }} {{ $deploymentDir }}/.env --}}
+    ln -ndsf {{ $env }} {{ $deploymentDir }}/.env
     ln -ndsf {{ $storage }} {{ $deploymentDir }}/storage
     ln -ndsf {{ $storage }}/app/public {{ $deploymentDir }}/public/storage
     ln -ndsf {{ $htaccess }} {{ $deploymentDir }}/.htaccess
