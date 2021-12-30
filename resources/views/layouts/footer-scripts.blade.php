@@ -3,7 +3,11 @@
 <!-- plugins-jquery -->
 <script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
 <!-- plugin_path -->
+<<<<<<< HEAD
 <script type="text/javascript">var plugin_path ='{{ asset('assets/js')}}/';</script>
+=======
+<script type="text/javascript">var plugin_path ='{{asset('assets/js')}}/';</script>
+>>>>>>> yasmeen
 
 <!-- chart -->
 <script src="{{ URL::asset('assets/js/chart-init.js') }}"></script>
@@ -26,3 +30,25 @@
 <script src="{{ URL::asset('assets/js/lobilist.js') }}"></script>
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
+<<<<<<< HEAD
+=======
+
+
+
+<script>
+    function CheckAll(className, elem) {
+        var elements = document.getElementsByClassName(className);
+        var l = elements.length;
+
+        if (elem.checked) {
+            for (var i = 0; i < l; i++) {
+                elements[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < l; i++) {
+                elements[i].checked = false;
+            }
+        }
+    }
+</script>
+>>>>>>> yasmeen

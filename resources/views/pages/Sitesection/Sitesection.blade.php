@@ -80,8 +80,15 @@
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
                             <td>{{$section->site_name_ar}}</td> 
+<<<<<<< HEAD
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/site_sections/site_section_image/$section->image")?>"></td>
                            {{--  <td>{{$section->image}}</td>--}}
+=======
+                           
+                            {{-- <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/app/public/site_sections/site_section_image/$section->image")?>"></td> --}}
+                           
+                            <td><img  style="width: 90px; height: 90px;" src= {{ URL::asset("site_sections/site_section_image/{$section->image}") }}></td>
+>>>>>>> yasmeen
                             <td>{{$i}}</td>
                 
                             @if($section->statues==1)

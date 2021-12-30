@@ -1,9 +1,15 @@
 <?php
+<<<<<<< HEAD
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SubCategoryController1;
 use App\Http\Controllers\Api\SiteSectionController;
+=======
+use App\Http\Controllers\Api\SiteSectionController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+>>>>>>> yasmeen
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +26,7 @@ use App\Http\Controllers\Api\SiteSectionController;
 //     return $request->user();
 // });
 
+<<<<<<< HEAD
 Route::get('/sub_category1',[SubCategoryController1::class,'index']);
 
 Route::get('/sections_category/{section_id}',[SubCategoryController1::class,'getCategories']);
@@ -27,8 +34,17 @@ Route::get('/sections_category/{section_id}',[SubCategoryController1::class,'get
 Route::get('/test', function () {
     return 'hhh';
 });
+=======
+>>>>>>> yasmeen
 
 ///---------------sections--------------
 Route::get('/Sitesections',[SiteSectionController::class,'index']);
 Route::get('/Sitesections/{section_id}',[SiteSectionController::class,'get_one_section']);
 
+<<<<<<< HEAD
+=======
+
+///------------------------------------------------
+Route::get('/sub_category1',[SubCategoryController1::class,'index']);
+Route::get('/sections_category/{section_id}',[SubCategoryController1::class,'getCategories']);
+>>>>>>> yasmeen

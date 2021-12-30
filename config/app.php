@@ -161,7 +161,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+<<<<<<< HEAD
 
+=======
+        Yoeunes\Toastr\ToastrServiceProvider::class,
+>>>>>>> yasmeen
         /*
          * Package Service Providers...
          */
@@ -174,6 +178,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
+=======
+        
+>>>>>>> yasmeen
 
     ],
 

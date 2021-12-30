@@ -2,7 +2,11 @@
 @section('css')
 
 @section('title')
+<<<<<<< HEAD
     empty
+=======
+   eradco
+>>>>>>> yasmeen
 @stop
 @endsection
 @section('page-header')

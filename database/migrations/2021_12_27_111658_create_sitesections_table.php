@@ -13,14 +13,25 @@ class CreateSitesectionsTable extends Migration
      */
     public function up()
     {
+<<<<<<< HEAD
       //  Schema::create('sitesections', function (Blueprint $table) {
+=======
+>>>>>>> yasmeen
         Schema::create('site_sections', function (Blueprint $table) {
             $table->id();
             $table->string('site_name_ar');
             $table->string('site_name_en');
+<<<<<<< HEAD
             $table->integer('statues');
             $table->string('image');
             $table->timestamps();
+=======
+            $table->int('statues');
+            $table->string('image');
+            $table->timestamps();
+
+
+>>>>>>> yasmeen
         });
     }
 

@@ -35,6 +35,7 @@ return [
             'root' => storage_path('app'),
         ],
 
+<<<<<<< HEAD
         'categories' => [
             'driver' => 'local',
             'root' => storage_path('app/public/categories'),
@@ -45,6 +46,8 @@ return [
             'root' => storage_path('app/public/site_sections'),
         ],
 
+=======
+>>>>>>> yasmeen
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -52,10 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+<<<<<<< HEAD
         // 'categories' => [
         //     'driver' => 'local',
         //     'root' => storage_path('app/public/images/categories'),
         //     'url' => env('APP_URL').'/public',
+=======
+>>>>>>> yasmeen
         
 
         // 'site_sections'=> [
@@ -63,7 +69,14 @@ return [
         //     'root' => storage_path('public/images/site_sections/'),
             
         // ],
+<<<<<<< HEAD
         
+=======
+        'site_sections' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/site_sections'),
+        ],
+>>>>>>> yasmeen
 
         // 'site_sections'=> [
         //     'driver' => 'local',

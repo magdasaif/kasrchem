@@ -32,6 +32,7 @@
             </button>
         </div>
         <div class="modal-body">
+<<<<<<< HEAD
           
     
                 <form method="POST" action="{{route('site_section.update',$section->id)}}" enctype="multipart/form-data">
@@ -40,6 +41,18 @@
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
+=======
+            {{-- 
+           --}}
+            <form method="POST"  action="{{route('site_section.update',$section->id)}}" enctype="multipart/form-data">
+                {{-- {{method_field('PATCH')}} --}}
+                <input type="hidden"  name="_token" value="{{ csrf_token() }}">
+                {{method_field('PATCH')}}
+                {{-- @csrf --}}
+               
+
+                
+>>>>>>> yasmeen
                 
                 <div class="form-group">
                     <label for="Name"  class="mr-sm-2">اسم القسم بالعربية:</label>
@@ -77,7 +90,11 @@
 
                 <div class="form-group">
                     <label for="image">الحالة</label>
+<<<<<<< HEAD
                     <select class="form-control" name="statues">
+=======
+                    <select class="form-control" name="status">
+>>>>>>> yasmeen
                             <option value="1" <?php if($section->statues==1){echo'selected';}?> >مُفعل</option>
                             <option value="0" <?php if($section->statues==0){echo'selected';}?> >غير مُفعل</option>
                     </select>
