@@ -127,10 +127,7 @@ class SubcategoryController1 extends Controller
             $category->subname_ar=$request->subname_ar;
             $category->subname_en=$request->subname_en;
             $category->status= $request->status;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> magda
+
 
             if($request->image){
                 $folder_name='first';
@@ -138,11 +135,7 @@ class SubcategoryController1 extends Controller
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
                 $category->image= $photo_name;
            }
-<<<<<<< HEAD
-=======
->>>>>>> yasmeen
-=======
->>>>>>> magda
+
            // $category->image= $photo_name;
 
             $category->save();
