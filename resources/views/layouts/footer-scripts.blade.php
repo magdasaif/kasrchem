@@ -3,15 +3,9 @@
 <!-- plugins-jquery -->
 <script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
 <!-- plugin_path -->
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <script type="text/javascript">var plugin_path ='{{ asset('assets/js')}}/';</script>
-=======
-<script type="text/javascript">var plugin_path ='{{asset('assets/js')}}/';</script>
->>>>>>> yasmeen
-=======
-<script type="text/javascript">var plugin_path ='{{ asset('assets/js')}}/';</script>
->>>>>>> magda
+
 
 <!-- chart -->
 <script src="{{ URL::asset('assets/js/chart-init.js') }}"></script>
@@ -34,11 +28,6 @@
 <script src="{{ URL::asset('assets/js/lobilist.js') }}"></script>
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
 
 <script>
     function CheckAll(className, elem) {
@@ -56,8 +45,7 @@
         }
     }
 </script>
->>>>>>> yasmeen
-=======
+
 
 <script>
      function checkAll(name,elem){
@@ -75,4 +63,4 @@
         }
     }
 </script>
->>>>>>> magda
+

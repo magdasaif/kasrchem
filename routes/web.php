@@ -1,15 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 use App\Http\Requests\SiteSectionRequest;
 
 use App\Http\Controllers\SiteSection\SiteSectionController;
->>>>>>> yasmeen
-=======
->>>>>>> magda
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,30 +21,12 @@ use App\Http\Controllers\SiteSection\SiteSectionController;
 Route::get('/', function () {
     return view('empty');
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> magda
 
 Route::group(['namespace'=>'Category'],function(){
     Route::resource('categories', 'SubcategoryController1');
 });
-<<<<<<< HEAD
-=======
->>>>>>> yasmeen
 //------------------site_section------------------------------------------------------
 Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
 });
-<<<<<<< HEAD
-=======
 
-//Route::resource('site_section', 'App\Http\Controllers\Category\SiteSectionController');
-//------------------------------------------------------------------------------------------
-// Route::group(['namespace'=>'Category'],function(){
-//     Route::resource('categories', 'SubcategoryController1');
-// });
->>>>>>> yasmeen
-=======
->>>>>>> magda

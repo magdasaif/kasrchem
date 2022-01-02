@@ -66,15 +66,9 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                     <input type="file" class="form-control" name="image" accept="image/*">
-=======
-                    <input type="file" class="form-control" name="image">
->>>>>>> yasmeen
-=======
-                    <input type="file" class="form-control" name="image" accept="image/*">
->>>>>>> magda
+
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

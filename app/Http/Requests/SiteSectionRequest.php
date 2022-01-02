@@ -29,11 +29,7 @@ class SiteSectionRequest extends FormRequest
             'site_name_en' => 'required',
             'statues' => 'required',
            
-<<<<<<< HEAD
-          //  'image' => 'required|mimes:jpeg,bmp,png',
-=======
             'image' => 'required|mimes:jpeg,bmp,png',
->>>>>>> yasmeen
         ];
     }
         public function messages()
@@ -44,11 +40,7 @@ class SiteSectionRequest extends FormRequest
                 'site_name_en.required' =>"اسم القسم بالانجليزى مطلوب ",
                 'site_name_en.unique' => "هذا الاسم مسجل من قبل",
                 'statues.required' => 'الحالة مطلوبة',
-<<<<<<< HEAD
                // 'image.required' => 'الصورة مطلوبة ',
-=======
-                'image.required' => 'الصورة مطلوبة ',
->>>>>>> yasmeen
             ];    
         }
 }

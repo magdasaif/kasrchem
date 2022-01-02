@@ -10,17 +10,9 @@
 @yield('css')
 <!--- Style css -->
 <link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet">
-<<<<<<< HEAD
 <link href="{{ URL::asset('css/wizard.css') }}" rel="stylesheet" id="bootstrap-css">
 
 <!--- Style css -->
-=======
-
-<!--- wizard css -->
-<link href="{{ URL::asset('css/wizard.css') }}" rel="stylesheet">
-
-<!--- Style lang css -->
->>>>>>> magda
 @if (App::getLocale() == 'en')
     <link href="{{ URL::asset('assets/css/ltr.css') }}" rel="stylesheet">
 @else

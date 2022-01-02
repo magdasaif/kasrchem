@@ -25,11 +25,8 @@ class SiteSectionController extends Controller
 
     public function store(SiteSectionRequest $request)
     {
-<<<<<<< HEAD
-=======
 
        
->>>>>>> yasmeen
         if(  Sitesection::where('site_name_ar',$request->site_name_ar)
         ->orWhere('site_name_en',$request->site_name_en)
         ->exists()
@@ -83,9 +80,6 @@ class SiteSectionController extends Controller
         return view('pages.Sitesection.edit',compact('section'));
     }
 
-<<<<<<< HEAD
-    
-//SiteSectionRequest
     public function update(SiteSectionRequest $request)
     {
         try {
@@ -106,32 +100,6 @@ class SiteSectionController extends Controller
         }
         $section->save();
 
-=======
-    public function update(SiteSectionRequest $request)
-    {
-    
-       // return 'jjjjj';
-    try {
-    
-      $validated = $request->validated();
-        
-    //       // $file_name = $this->saveImage($request->image,'images\site_sections');
-    //         ///----------------------------
-           $folder_name='site_section_image';
-     $photo_name= ($request->image)->getClientOriginalName();
-       ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
-    //        ///------------------------------ 
-          $Sitesections = Sitesection::findOrFail($request->id);
-         $Sitesections->update([
-            
-
-             $Sitesections->site_name_ar = $request->site_name_ar,
-             $Sitesections->site_name_en = $request->site_name_en,
-            $Sitesections->statues = $request->statues, 
-          $Sitesections->image = $photo_name,
-         ]);
-          
->>>>>>> yasmeen
     //     //   toastr()->success('تم التعديل بنجاح');
     //     //   return redirect()->route('site_section.index');
       return redirect()->route('site_section.index')->with(['success'=>'تمت التعديل بنجاح']);

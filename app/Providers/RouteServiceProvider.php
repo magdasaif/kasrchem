@@ -26,16 +26,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-<<<<<<< HEAD
-<<<<<<< HEAD
-     protected $namespace = 'App\\Http\\Controllers';
-=======
-    protected $namespace = 'App\\Http\\Controllers';
->>>>>>> yasmeen
-=======
-     protected $namespace = 'App\\Http\\Controllers';
->>>>>>> magda
 
+     protected $namespace = 'App\\Http\\Controllers';
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -46,10 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-<<<<<<< HEAD
-=======
             
->>>>>>> magda
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -72,9 +61,4 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
     }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> magda
 }
