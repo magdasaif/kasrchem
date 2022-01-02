@@ -44,8 +44,8 @@
     echo "Starting the setup_links Task"
     cd {{ $deploymentDir }}
 
-    rsync -rav {{ $deploymentDir }}/storage {{ $storage }}
-    rm -rf {{ $deploymentDir }}/storage
+    rsync -rav {{ $deploymentDir }}/storage/ {{ $storage }}/
+    rm -rf {{ $deploymentDir }}/storage {{ $deploymentDir }}/.env
 
     ln -ndsf {{ $env }} {{ $deploymentDir }}/.env
     ln -ndsf {{ $storage }} {{ $deploymentDir }}/storage
