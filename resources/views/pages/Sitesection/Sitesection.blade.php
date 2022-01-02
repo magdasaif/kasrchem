@@ -69,7 +69,7 @@
                             <td>{{$section->site_name_ar}}</td>
 
 
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/{$section->image}")?> alt="" ></td>
+                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></td>
                             {{-- <td><img src="{{ public_path('images/$section->image')}}" /></td> --}}
                             <td>{{$section->priority}}</td>
 

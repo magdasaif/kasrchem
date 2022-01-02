@@ -40,8 +40,8 @@ class SiteSectionController extends Controller
            if($request->image){
                $folder_name='site_sections';
                 $photo_name= ($request->image)->getClientOriginalName();
-                // ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
-                ($request->image)->storeAs($folder_name,$photo_name);
+                 ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
+               // ($request->image)->storeAs($folder_name,$photo_name);
            }else{
                $photo_name='';
            }
@@ -88,6 +88,7 @@ class SiteSectionController extends Controller
        try {
 
           $validated = $request->validated();
+          $Sitesections = Sitesection::findOrFail($request->id);
 
           // $file_name = $this->saveImage($request->image,'images\site_sections');
 
@@ -108,21 +109,17 @@ class SiteSectionController extends Controller
       if($request->image){
               $folder_name='site_sections';
             $photo_name= ($request->image)->getClientOriginalName();
-            ($request->image)->storeAs($folder_name,$photo_name);
-        }else{
-            $photo_name='';
+             ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
+             $Sitesections->image = $photo_name;
         }
            ///------------------------------
-          $Sitesections = Sitesection::findOrFail($request->id);
-         $Sitesections->update([
-
-
-            $Sitesections->site_name_ar = $request->site_name_ar,
-            $Sitesections->site_name_en = $request->site_name_en,
-            $Sitesections->priority = $request->priority,
-            $Sitesections->statues = $request->statues,
-           $Sitesections->image = $photo_name,
-        ]);
+         
+            $Sitesections->site_name_ar = $request->site_name_ar;
+            $Sitesections->site_name_en = $request->site_name_en;
+            $Sitesections->priority = $request->priority;
+            $Sitesections->statues = $request->statues;
+          
+        $Sitesections->save();
 
         //   toastr()->success('تم التعديل بنجاح');
         //   return redirect()->route('site_section.index');
