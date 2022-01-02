@@ -18,7 +18,7 @@ class CreateMainCategoriesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('section_id');
-            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('site_sections')->onDelete('cascade');
 
             $table->string('subname_ar');
             $table->string('subname_en');
