@@ -14,19 +14,19 @@ class CreateMainCategoriesTable extends Migration
     public function up()
     {
         Schema::create('main_categories', function (Blueprint $table) {
-           
+
             $table->id();
-            
+
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
             $table->string('subname_ar');
             $table->string('subname_en');
-            
+
             $table->integer('status');
 
             $table->string('image');
-            
+
             $table->timestamps();
         });
     }
@@ -38,6 +38,6 @@ class CreateMainCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('main__categories');
+        Schema::dropIfExists('main_categories');
     }
 }
