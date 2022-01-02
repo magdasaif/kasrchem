@@ -16,7 +16,7 @@ class SectionsSeeder extends Seeder
     public function run()
     {
         DB::table('site_sections')->delete();
-        
+
         $data=[
            'ايرادكو الزراعية','ايرادكو للصحة العامة'
         ];
@@ -27,6 +27,7 @@ class SectionsSeeder extends Seeder
             $section->site_name_ar=$d;
             $section->site_name_en=$d;
             $section->image='';
+            $section->priority=0;
             $section->statues=1;
             $section->save();
         }
