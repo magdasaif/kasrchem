@@ -14,13 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-<<<<<<< HEAD
-<<<<<<< HEAD
         $this->call(SectionsSeeder::class);
-=======
->>>>>>> yasmeen
-=======
-        $this->call(SectionsSeeder::class);
->>>>>>> magda
     }
 }
