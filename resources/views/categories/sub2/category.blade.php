@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-التصنيفات الرئيسيه
+التصنيفات الفرعيه
 @stop
 @endsection
 @section('page-header')
@@ -26,22 +26,28 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0"> التصنيفات الرئيسيه</h4>
+            <h4 class="mb-0"> التصنيفات الفرعيه</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
                 <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
-                <li class="breadcrumb-item active">التصنيفات الرئيسيه</li>
+                <li class="breadcrumb-item active">التصنيفات الفرعيه</li>
             </ol>
         </div>
     </div>
 </div>
 <!-- breadcrumb -->
 @endsection
+
+
 @section('content')
 <!-- row -->
 <div class="row">
+
     <div class="col-md-12 mb-30">
+
+    <button type="button" class="btn btn-info" ><a href="{{route('categories2.create')}}"> اضافه</a></button>
+    <br>
         <div class="card card-statistics h-100">
             <div class="card-body">
 
@@ -55,7 +61,8 @@
                             <th>الصوره</th>
                             <th>اسم التصنيف</th>
                             <th>الحاله</th>
-                            <th>عدد التصنيفات</th>
+                            <th>التصنيف الرئيسى </th>
+                            <th>الانواع</th>
                             <th>الاجراءات</th>
                         </tr>
                     </thead>
@@ -66,13 +73,13 @@
                         <tr>
                             <td>{{$i}}</td>
 
-                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/categories/first/$category->image")?>"></td>
-
-                            <td>{{$category->subname_ar}}</td>
+                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/categories/second/$category->image2")?>"></td>
+                            <td>{{$category->subname2_ar}}</td>
                             <td><?php if($category->status==1){echo'<label class="badge badge-success">مُفعل</label>';}else{echo'<label class="badge badge-danger">غير مُفعل</label>';}?></td>
+                            <td>{{$category->relation_sub2_with_main->subname_ar}}</td>
                             <td>2</td> 
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{url('categories/'.$category ->id.'/edit/')}}"> تعديل</a></button>
+                                <button type="button" class="btn btn-info" ><a href="{{url('categories2/'.$category ->id.'/edit/')}}"> تعديل</a></button>
                             </td>
                         </tr>
 

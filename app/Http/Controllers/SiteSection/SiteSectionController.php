@@ -38,7 +38,7 @@ class SiteSectionController extends Controller
            $validated = $request->validated();
 
            if($request->image){
-               $folder_name='site_sections';
+               $folder_name='site_section_image';
                 $photo_name= ($request->image)->getClientOriginalName();
                  ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
                // ($request->image)->storeAs($folder_name,$photo_name);
@@ -107,7 +107,7 @@ class SiteSectionController extends Controller
             //    }
 ///----------------------------///----------------------------
       if($request->image){
-              $folder_name='site_sections';
+              $folder_name='site_section_image';
             $photo_name= ($request->image)->getClientOriginalName();
              ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
              $Sitesections->image = $photo_name;

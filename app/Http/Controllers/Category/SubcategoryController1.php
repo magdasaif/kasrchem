@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Sitesection; 
 use App\Models\Main_Category; 
+use App\Models\Sub_Category2; 
 use App\Http\Requests\CategoryRequest;
 use App\Traits\CategoryTrait;
 
@@ -24,14 +25,17 @@ class SubcategoryController1 extends Controller
        // $sections = Sitesection::all();
         $categories = Main_Category::all();
 
-        return view('categories.category',compact('categories'));
+      //  $count = Sub_Category2::where('cate_id', $categories->id)->count();
+        $count = Sub_Category2::where('cate_id', 1)->count();
+
+        return view('categories.sub1.category',compact('categories','count'));
     }
 
     public function create()
     {
         $sections = Sitesection::all();
 
-        return view('categories.add',compact('sections'));
+        return view('categories.sub1.add',compact('sections'));
     }
 
   
@@ -106,7 +110,7 @@ class SubcategoryController1 extends Controller
 
         $sections = Sitesection::all();
 
-        return view('categories.edit',compact('sections','categories'));
+        return view('categories.sub1.edit',compact('sections','categories'));
     }
 
    

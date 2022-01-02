@@ -24,7 +24,10 @@ Route::get('/', function () {
 
 Route::group(['namespace'=>'Category'],function(){
     Route::resource('categories', 'SubcategoryController1');
+    Route::resource('categories2', 'SubcategoryController2');
 });
+
+
 //------------------site_section------------------------------------------------------
 Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
