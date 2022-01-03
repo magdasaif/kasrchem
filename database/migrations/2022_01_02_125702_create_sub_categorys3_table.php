@@ -13,12 +13,12 @@ class CreateSubCategorys3Table extends Migration
      */
     public function up()
     {
-        Schema::create('sub_categorys3', function (Blueprint $table) {
+        Schema::create('sub_category3', function (Blueprint $table) {
           
             $table->id();
 
             $table->unsignedBigInteger('sub2_id');
-            $table->foreign('sub2_id')->references('id')->on('Sub_Category2')->onDelete('cascade');
+            $table->foreign('sub2_id')->references('id')->on('sub2_categories')->onDelete('cascade');
 
             $table->string('subname_ar');
             $table->string('subname_en');

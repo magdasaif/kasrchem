@@ -18,7 +18,7 @@ class CreateSub2CategoriesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('cate_id');
-            $table->foreign('cate_id')->references('id')->on('Main_Category')->onDelete('cascade');
+            $table->foreign('cate_id')->references('id')->on('main_categories')->onDelete('cascade');
 
             $table->string('subname2_ar');
             $table->string('subname2_en');
