@@ -23,7 +23,7 @@ class CreateSubCategorys3Table extends Migration
             $table->string('subname_ar');
             $table->string('subname_en');
 
-            $table->integer('statue');
+            $table->integer('status');
 
             $table->string('image');
 
