@@ -51,7 +51,7 @@ class SubcategoryController1 extends Controller
         ->orWhere('subname_en',$request->subname_en)
         ->exists()
         ){
-            return redirect()->back()->withErrors('هذا التصنيف مُضاف بالفعل من قبل ');
+            return redirect()->back()->with(['error'=>'هذا التصنيف مُضاف بالفعل من قبل ']);
         }
 
         try{
@@ -93,7 +93,7 @@ class SubcategoryController1 extends Controller
 
             return redirect()->route('categories.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 
@@ -154,7 +154,7 @@ class SubcategoryController1 extends Controller
 
             return redirect()->route('categories.index')->with(['success'=>'تمت التعديل بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 

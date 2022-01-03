@@ -25,10 +25,17 @@ class SubcategoryController2 extends Controller
         return view('categories.sub2.category',compact('categories'));
     }
 
+    public function show_add_form($cate_id)
+    {
+        $sub1_categories = Main_Category::find($cate_id);
+       
+        return view('categories.sub2.add',compact('sub1_categories'));
+    }
+
     public function create()
     {
-        $sub1_categories = Main_Category::all();
-
+        $sub1_categories = Main_Category::get();
+        
         return view('categories.sub2.add',compact('sub1_categories'));
     }
 
@@ -37,11 +44,11 @@ class SubcategoryController2 extends Controller
     {
 
         //this for check if this name stored before in sub category table or no 
-        if(  Sub_Category2::where('subname2_ar',$request->subname2_ar)
+        if(Sub_Category2::where('subname2_ar',$request->subname2_ar)
         ->orWhere('subname2_en',$request->subname2_en)
         ->exists()
         ){
-            return redirect()->back()->withErrors('هذا التصنيف مُضاف بالفعل من قبل ');
+            return redirect()->back()->with(['error'=>'هذا التصنيف مُضاف بالفعل من قبل ']);
         }
 
         try{
@@ -73,18 +80,18 @@ class SubcategoryController2 extends Controller
 
             //toastr()->success('تمت الاضافه بنجاح');
 
-            return redirect()->route('categories2.index')->with(['success'=>'تمت الاضافه بنجاح']);
+            return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 
    
     public function show($id)
     {
-        $categories = Sub_Category2::where('cate_id','=',$id)->get();
+        $categories = Sub_Category2::withcount('sub_cate3')->where('cate_id','=',$id)->get();
        // dd($categories);
-        return view('categories.sub2.category',compact('categories'));
+        return view('categories.sub2.category',compact('categories','id'));
     }
 
    
@@ -131,9 +138,9 @@ class SubcategoryController2 extends Controller
 
             //toastr()->success('تمت الاضافه بنجاح');
 
-            return redirect()->route('categories2.index')->with(['success'=>'تمت التعديل بنجاح']);
+            return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت التعديل بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 
