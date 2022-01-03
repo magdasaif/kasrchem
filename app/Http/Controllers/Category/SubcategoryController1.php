@@ -22,13 +22,17 @@ class SubcategoryController1 extends Controller
      */
     public function index()
     {
-       // $sections = Sitesection::all();
-        $categories = Main_Category::all();
 
-      //  $count = Sub_Category2::where('cate_id', $categories->id)->count();
-        $count = Sub_Category2::where('cate_id', 1)->count();
+      //  $categories = Main_Category::all();
 
-        return view('categories.sub1.category',compact('categories','count'));
+        $categories = Main_Category::withCount('sub_cate2')->get();
+
+       //dd($categories);
+      
+        //  $count = Sub_Category2::where('cate_id', $categories->id)->count();
+        // $count = Sub_Category2::where('cate_id', 1)->count();
+
+         return view('categories.sub1.category',compact('categories'));
     }
 
     public function create()

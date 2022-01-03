@@ -70,7 +70,7 @@
 
                             <td>{{$category->subname_ar}}</td>
                             <td><?php if($category->status==1){echo'<label class="badge badge-success">مُفعل</label>';}else{echo'<label class="badge badge-danger">غير مُفعل</label>';}?></td>
-                            <td><a href="{{url('categories2/'.$category ->id)}}"><label class="badge badge-success">{{$count}}</label></a></td> 
+                            <td><a href="{{url('categories2/'.$category ->id)}}"><label class="badge badge-success">{{$category->sub_cate2_count}}</label></a></td> 
                             <td>
                                 <button type="button" class="btn btn-info" ><a href="{{url('categories/'.$category ->id.'/edit/')}}"> تعديل</a></button>
                             </td>
