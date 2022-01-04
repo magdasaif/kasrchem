@@ -82,7 +82,8 @@
                             <!-- <td><a href="{{url('categories3/'.$sub2_id)}}"><label class="badge badge-success">{{$sub_3->sub_cate3_count}}</label></a></td> -->
                          
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{url('sub3/'.$sub_3 ->id.'/edit')}}"> تعديل</a></button>
+                            
+                                <button type="button" class="btn btn-info" ><a href="{{route('categories3.edit',$sub_3->id)}}"> تعديل</a></button>
                             </td>
                         </tr>
 
