@@ -22,6 +22,9 @@
      </div>
 @endif
 
+<button type="button" class="btn btn-info" ><a href="{{url('categories2/'.$sub_categories->relation_sub2_with_main->id)}}"> قائمه التصنيفات الفرعيه</a></button>
+    <br>
+
 <div>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -40,13 +43,9 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
-                    <select class="form-control" name="cate_id">
-                        <option value="{{ $sub_categories->relation_sub2_with_main->id }}">{{ $sub_categories->relation_sub2_with_main->subname_ar }}</option>
-
-                        @foreach ($main_categories as $main_category)
-                            <option value="{{ $main_category->id }}">{{ $main_category->subname_ar }}</option>
-                        @endforeach
-                    </select>
+                    <input type="test" class="form-control"  value="{{ $sub_categories->relation_sub2_with_main->subname_ar }}" disabled>
+                    <input type="hidden" class="form-control" name="cate_id" value="{{ $sub_categories->relation_sub2_with_main->id }}">
+                   
                 </div>
                 
                 <div class="form-group">

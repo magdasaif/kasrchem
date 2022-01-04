@@ -22,6 +22,9 @@
      </div>
 @endif
 
+<button type="button" class="btn btn-info" ><a href="{{url('categories2/'.$sub1_categories->id)}}"> قائمه التصنيفات الفرعيه</a></button>
+    <br>
+
 <div>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -39,11 +42,10 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
-                    <select class="form-control" name="cate_id">
-                        @foreach ($sub1_categories as $sub1_category)
-                            <option value="{{ $sub1_category->id }}">{{ $sub1_category->subname_ar }}</option>
-                        @endforeach
-                    </select>
+                    
+                    <input type="test" class="form-control"  value="{{ $sub1_categories->subname_ar }}" disabled>
+                    <input type="hidden" class="form-control" name="cate_id" value="{{ $sub1_categories->id }}">
+                   
                 </div>
 
                 
