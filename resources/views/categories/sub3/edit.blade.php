@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-انواع التصنيفات الفرعية
+تعديل التصنيفات الفرعية
 
 @stop
 @endsection
@@ -27,32 +27,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">تعديل انواع التصنيفات ا لفرعية</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+        
         </div>
         <div class="modal-body">
             
-            <form method="POST" action="{{route('sub_category3.update',$categories->id)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('categories3.update',$sub3->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH')}}
 
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
-                <div class="form-group">
-                    <select class="form-control" name="section_id">
-                        <option value="{{ $categories->Sections->id }}">{{ $categories->Sections->site_name_ar }}</option>
-
-                        @foreach ($sections as $section)
-                            <option value="{{ $section->id }}">{{ $section->site_name_ar }}</option>
-                        @endforeach
-                    </select>
+                   <div class="form-group">
+                   <label   for="exampleInputEmail1">اسم التصنيف الفرعي</label>
+                   <input type="text" class="form-control" name="sub_id2" id="sub_id2" value="{{ $sub3->sub2_id}}" hidden>
+                   <input type="text" class="form-control" name="sub2_name" id="sub2_name" value="{{ $sub3->Sub_Category3->subname2_ar}}" disabled="disabled" >
                 </div>
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$categories->subname_ar}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$sub3->subname_ar}}" required>
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -60,7 +51,7 @@
             
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$categories->subname_en}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$sub3->subname_en}}" required>
                     @error('subname_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -71,7 +62,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label><br>
-                    <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> 
+                    <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/thired/$sub3->image")?>" class="uploaded-img"> 
 
                     <input type="file" class="form-control" name="image" accept="image/*">
 
@@ -83,11 +74,11 @@
 
                 <div class="form-group">
                     <select class="form-control" name="status">
-                            <option value="1" <?php if($categories->status==1){echo'selected';}?> >مُفعل</option>
-                            <option value="0" <?php if($categories->status==0){echo'selected';}?> >غير مُفعل</option>
+                            <option value="1" <?php if($sub3->status==1){echo'selected';}?> >مُفعل</option>
+                            <option value="0" <?php if($sub3->status==0){echo'selected';}?> >غير مُفعل</option>
                     </select>
                 </div>
-                <input type="hidden" name="id" value="{{$categories->id}}">
+                <input type="hidden" name="id" value="{{$sub3->id}}">
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>

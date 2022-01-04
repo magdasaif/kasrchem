@@ -32,20 +32,24 @@
             </button>
         </div>
         <div class="modal-body">
-            
+       
+                     <br><br>
             <form method="POST" action="{{route('categories3.store')}}" enctype="multipart/form-data">
             
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
+               
                 <div class="form-group">
-                    <select class="form-control" name="sub2_id" selected readonly>
+                    <!-- <select class="form-control" name="sub2_id" selected readonly>
                         @foreach ($Sub_Category2 as $Sub_Category2)
                             <option value="{{ $Sub_Category2->id }}" >{{ $Sub_Category2->subname2_ar }}</option>
                         @endforeach
-                    </select>
+                    </select> -->
+                    <label for="exampleInputEmail1">اسم التصنيف الفرعي</label>
+                    <input type="text" class="form-control" name="sub2_id" id="sub2_id" value="{{ $Sub_Category2->id}}" hidden>
+                   <input type="text" class="form-control" name="sub2_name" id="sub2_name" value="{{ $Sub_Category2->subname2_ar }}" disabled="disabled" >
                 </div>
-
+               
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم النوع بالعربيه</label>
