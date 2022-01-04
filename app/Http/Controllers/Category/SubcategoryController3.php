@@ -4,54 +4,53 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Models\Sitesection; 
-use App\Models\Main_Category; 
-use App\Models\Sub_Category2; 
+use App\Models\sub_Category3; 
+use App\Models\Sub_Category2;
 use App\Http\Requests\CategoryRequest;
-use App\Traits\CategoryTrait;
 
 
 
-class SubcategoryController1 extends Controller
+
+class SubcategoryController3 extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+        
+    //     $sub_Category3 = sub_Category3::all();
+    //     return view('categories.sub_category3.show',compact('sub_Category3'));
+    // }
+    //----------------------------------------------
+    public function show($sub2_id)
     {
-
-      //  $categories = Main_Category::all();
-
-        $categories = Main_Category::withCount('sub_cate2')->get();
-
-       //dd($categories);
-      
-        //  $count = Sub_Category2::where('cate_id', $categories->id)->count();
-        // $count = Sub_Category2::where('cate_id', 1)->count();
-
-         return view('categories.sub1.category',compact('categories'));
+        //$sub_Category3 = sub_Category3::withcount('sub_cate3')->where('sub2_id',$sub2_id)->get();
+        $sub_Category3 = sub_Category3::where('sub2_id',$sub2_id)->get();
+        return view('categories.sub3.show',compact('sub_Category3','sub2_id'));
     }
+    //----------------------------------------------
 
-    public function create()
+    public function create($sub2_id)
     {
-        $sections = Sitesection::all();
+        $Sub_Category2 = Sub_Category2::where('id',$sub2_id)->get();
 
-        return view('categories.sub1.add',compact('sections'));
+        return view('categories.sub3.add',compact('Sub_Category2'));
     }
-
+//----------------------------------------------
   
     public function store(CategoryRequest $request)
     {
-
-        //this for check if this name stored before in category table or no 
-        if(  Main_Category::where('subname_ar',$request->subname_ar)
+      
+        //dd($request->all());
+        //this for check if this name stored before in sub_Category3 table or no 
+       if(  sub_Category3::where('subname_ar',$request->subname_ar)
         ->orWhere('subname_en',$request->subname_en)
         ->exists()
         ){
-            return redirect()->back()->withErrors('هذا التصنيف مُضاف بالفعل من قبل ');
+            return redirect()->back()->with(['error'=>'هذا النوع مُضاف بالفعل من قبل ']);
         }
 
         try{
@@ -59,46 +58,30 @@ class SubcategoryController1 extends Controller
            $validated = $request->validated();
             
            if($request->image){
-                $folder_name='first';
+                $folder_name='thired';
                 $photo_name= ($request->image)->getClientOriginalName();
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
            }else{
                $photo_name='';
            }
 
-           //when using trait
-           //$file_name = $this->saveImage($request->image, 'images/categories');
+            $sub_Category3 =new sub_Category3();
+            $sub_Category3->sub2_id=$request->sub2_id;
+            $sub_Category3->subname_ar=$request->subname_ar;
+            $sub_Category3->subname_en=$request->subname_en;
+            $sub_Category3->status= $request->status;
+            $sub_Category3->image= $photo_name;
+            //$sub_Category3->image='';
+           $sub_Category3->save();
 
-            $category =new Main_Category();
-
-            $category->section_id=$request->section_id;
-            $category->subname_ar=$request->subname_ar;
-            $category->subname_en=$request->subname_en;
-            $category->status= $request->status;
-           // $category->image= $request->image;
-            $category->image= $photo_name;
-
-            $category->save();
-
-
-            // Main_Category::create([
-            //     'section_id' => $request->section_id,
-            //     'subname_ar' => $request->subname_ar,
-            //     'subname_en' => $request->subname_en,
-            //     'status' => $request->status,
-            //     'image' => $request->image,
-            // ]);
-
-            //toastr()->success('تمت الاضافه بنجاح');
-
-            return redirect()->route('categories.index')->with(['success'=>'تمت الاضافه بنجاح']);
+        return redirect()->route('categories3.show',$request->sub2_id)->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
-
+//----------------------------------------------
    
-    public function show($id)
+   /*  public function show($id)
     {
         //
     }
@@ -114,7 +97,7 @@ class SubcategoryController1 extends Controller
 
         $sections = Sitesection::all();
 
-        return view('categories.sub1.edit',compact('sections','categories'));
+        return view('categories.edit',compact('sections','categories'));
     }
 
    
@@ -162,5 +145,5 @@ class SubcategoryController1 extends Controller
     public function destroy($id)
     {
         //
-    }
+    } */
 }

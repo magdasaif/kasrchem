@@ -25,6 +25,9 @@ Route::get('/', function () {
 Route::group(['namespace'=>'Category'],function(){
     Route::resource('categories', 'SubcategoryController1');
     Route::resource('categories2', 'SubcategoryController2');
+    Route::resource('categories3', 'SubcategoryController3');
+    Route::get('categories3_add/{id}', 'SubcategoryController3@create');
+   
 });
 
 
