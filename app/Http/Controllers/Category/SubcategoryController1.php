@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Sitesection; 
 use App\Models\Main_Category; 
+use App\Models\Sub_Category2; 
 use App\Http\Requests\CategoryRequest;
 use App\Traits\CategoryTrait;
 
@@ -21,17 +22,24 @@ class SubcategoryController1 extends Controller
      */
     public function index()
     {
-       // $sections = Sitesection::all();
-        $categories = Main_Category::all();
 
-        return view('categories.category',compact('categories'));
+      //  $categories = Main_Category::all();
+
+        $categories = Main_Category::withCount('sub_cate2')->get();
+
+       //dd($categories);
+      
+        //  $count = Sub_Category2::where('cate_id', $categories->id)->count();
+        // $count = Sub_Category2::where('cate_id', 1)->count();
+
+         return view('categories.sub1.category',compact('categories'));
     }
 
     public function create()
     {
         $sections = Sitesection::all();
 
-        return view('categories.add',compact('sections'));
+        return view('categories.sub1.add',compact('sections'));
     }
 
   
@@ -43,7 +51,7 @@ class SubcategoryController1 extends Controller
         ->orWhere('subname_en',$request->subname_en)
         ->exists()
         ){
-            return redirect()->back()->withErrors('هذا التصنيف مُضاف بالفعل من قبل ');
+            return redirect()->back()->with(['error'=>'هذا التصنيف مُضاف بالفعل من قبل ']);
         }
 
         try{
@@ -85,7 +93,7 @@ class SubcategoryController1 extends Controller
 
             return redirect()->route('categories.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 
@@ -106,7 +114,7 @@ class SubcategoryController1 extends Controller
 
         $sections = Sitesection::all();
 
-        return view('categories.edit',compact('sections','categories'));
+        return view('categories.sub1.edit',compact('sections','categories'));
     }
 
    
@@ -146,7 +154,7 @@ class SubcategoryController1 extends Controller
 
             return redirect()->route('categories.index')->with(['success'=>'تمت التعديل بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 
