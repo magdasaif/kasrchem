@@ -30,6 +30,10 @@ Route::group(['namespace'=>'Category'],function(){
     Route::GET('categories2/add/{id}', 'SubcategoryController2@show_add_form');
 
     Route::resource('categories3', 'SubcategoryController3');
+    Route::get('categories3_add/{id}', 'SubcategoryController3@create');
+   
+    
+
 });
 
 
