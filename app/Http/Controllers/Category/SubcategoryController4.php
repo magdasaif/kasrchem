@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\sub_Category4; 
+use App\Models\Sub_Category4; 
 use App\Models\sub_Category3;
 use App\Http\Requests\SubCategory4Request;
 
