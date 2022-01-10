@@ -28,7 +28,9 @@ class SubcategoryController3 extends Controller
     //----------------------------------------------
     public function show($sub2_id)
     {
-        $sub_Category3 = sub_Category3::where('sub2_id',$sub2_id)->get();
+       
+        //dd( sub_Category3::where('sub2_id',$sub2_id)->get());
+        $sub_Category3 = sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->get();
         return view('categories.sub3.show',compact('sub_Category3','sub2_id'));
     }
     //----------------------------------------------
@@ -37,7 +39,7 @@ class SubcategoryController3 extends Controller
     {
         $Sub_Category2 = Sub_Category2::where('id',$sub2_id)->get();
 
-        return view('categories.sub3.add',compact('Sub_Category2'));
+        return view('categories.sub3.add',compact('Sub_Category2','sub2_id'));
     }
 //----------------------------------------------
   
@@ -71,8 +73,7 @@ class SubcategoryController3 extends Controller
             $sub_Category3->subname_en=$request->subname_en;
             $sub_Category3->status= $request->status;
             $sub_Category3->image= $photo_name;
-            //$sub_Category3->image='';
-           $sub_Category3->save();
+            $sub_Category3->save();
 
         return redirect()->route('categories3.show',$request->sub2_id)->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){

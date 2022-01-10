@@ -21,16 +21,16 @@ use App\Http\Controllers\Api\SiteSectionController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-Route::get('/sub_category1',[SubCategoryController1::class,'index']);
-
-Route::get('/sections_category/{section_id}',[SubCategoryController1::class,'getCategories']);
-
+//---------------------test------------------------
 Route::get('/test', function () {
     return 'hhh';
 });
+//---------------------main_category------------------------
+Route::get('/main_category',[SubCategoryController1::class,'index']);
+Route::get('/main_category/{section_id}',[SubCategoryController1::class,'getCategories']);
 
 ///---------------sections--------------
 Route::get('/Sitesections',[SiteSectionController::class,'index']);
 Route::get('/Sitesections/{section_id}',[SiteSectionController::class,'get_one_section']);
 
+///-------------------------------------

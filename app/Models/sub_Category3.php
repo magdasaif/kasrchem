@@ -17,6 +17,11 @@ class sub_Category3 extends Model
         return $this->belongsTo('App\Models\Sub_Category2', 'sub2_id');
     }
     
+
+    public function relation_sub3_with_sub4()
+     {
+         return $this->hasMany('App\Models\Sub_Category4', 'sub3_id');
+     }
 }
 
 

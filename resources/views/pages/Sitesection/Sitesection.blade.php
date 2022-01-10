@@ -47,7 +47,9 @@
 
             <!--#############################################################-->
                     <div class="table-responsive">
-
+                    <button type="button"   class="btn btn-success"><a href="{{URL('site_section/create')}}" target="_blank"> اضافة قسم جديد</a>
+                        </button>
+                     <br><br>
                     <table id="datatable" class="table table-striped table-bordered p-0">
                     <thead>
                         <tr  style="color: #17899b;" >
@@ -72,20 +74,12 @@
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></td>
                             <td>{{$section->priority}}</td>
 
-                            @if($section->statues==1)
-                            <td  style="color: green;font-size: 18px;">مفعل</td>
-                            @else
-                            <td  style="color: red;font-size: 18px;">غير مفعل</td>
-                            @endif
+                           
 
-                          {{--  <td>
-                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit{{ $section->id}}"
-                                   title="تعديل">  تعديل </button>
-                             </td>
+                            <td><?php if($section->statues==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
 
-                             --}}
 
-                            <td> <button type="button" class="btn btn-info" ><a href="{{route('site_section.edit',$section->id)}}"> تعديل</a></button>
+                            <td> <button type="button" class="btn btn-info" ><a href="{{route('site_section.edit',$section->id)}}"  target="_blank"> تعديل</a></button>
                              </td>
 
                             </tr>

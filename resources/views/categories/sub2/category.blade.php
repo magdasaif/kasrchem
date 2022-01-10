@@ -46,7 +46,7 @@
 
     <div class="col-md-12 mb-30">
 
-    <button type="button" class="btn btn-info" ><a href="{{url('categories2/add/'.$id)}}"> اضافه</a></button>
+    <button type="button" class="btn btn-info" ><a href="{{url('categories2/add/'.$id)}}" target="_blank"> اضافه</a></button>
     <br>
         <div class="card card-statistics h-100">
             <div class="card-body">
@@ -75,11 +75,11 @@
 
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/categories/second/$category->image2")?>"></td>
                             <td>{{$category->subname2_ar}}</td>
-                            <td><?php if($category->status==1){echo'<label class="badge badge-success">مُفعل</label>';}else{echo'<label class="badge badge-danger">غير مُفعل</label>';}?></td>
+                            <td><?php if($category->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
                             <td>{{$category->relation_sub2_with_main->subname_ar}}</td>
-                            <td><a href="{{url('categories3/'.$category ->id)}}"><label class="badge badge-success">{{$category->sub_cate3_count}}</label></a></td> 
+                            <td><a href="{{url('categories3/'.$category ->id)}}"><label class="btn btn-success">{{$category->sub_cate3_count}}</label></a></td> 
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{url('categories2/'.$category ->id.'/edit/')}}"> تعديل</a></button>
+                                <button type="button" class="btn btn-info" ><a href="{{url('categories2/'.$category ->id.'/edit/')}}" target="_blank"> تعديل</a></button>
                             </td>
                         </tr>
 

@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-التصنيفات الرئيسيه
+اضافة نوع فرعى
 @stop
 @endsection
 @section('page-header')
@@ -26,54 +26,42 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">اضافه تصنيف</h5>
-           
-        </div>
+            <h5 class="modal-title" style="color: #2569b1;">اضافة نوع فرعى</h5></div>
         <div class="modal-body">
-            
-            <form method="POST" action="{{route('categories.store')}}" enctype="multipart/form-data">
+       
+            <form method="POST" action="{{route('categories4.store')}}" enctype="multipart/form-data">
             
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
+               
                 <div class="form-group">
-                    <select class="form-control" name="section_id">
-                        @foreach ($sections as $section)
-                            <option value="{{ $section->id }}">{{ $section->site_name_ar }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <label for="exampleInputEmail1">اسم النوع الرئيسى</label>
+                <input type="text" class="form-control" name="sub3_name" id="sub3_name" value="{{ $sub_Category3->subname_ar }}" disabled="disabled" >
 
+                    <input type="text" class="form-control" name="sub3_id" id="sub3_id" value="{{ $sub_Category3->id}}" hidden>
+                </div>
+               
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" required>
+                    <label for="exampleInputEmail1">اسم النوع الفرعى  بالعربيه</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_ar" required>
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" required>
+                    <label for="exampleInputEmail1">اسم النوع الفرعى بالانجليزيه</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_en" required>
                     @error('subname_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
 
-                
-                <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label>
-
-                    <input type="file" class="form-control" name="image" accept="image/*">
-
-                    @error('image')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
 
 
                 <div class="form-group">
+                <label for="exampleInputEmail1">الحالة</label>
                     <select class="form-control" name="status">
                             <option value="1">مُفعل</option>
                             <option value="0">غير مُفعل</option>

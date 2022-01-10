@@ -21,7 +21,7 @@ use App\Http\Controllers\SiteSection\SiteSectionController;
 Route::get('/', function () {
     return view('empty');
 });
-
+//------------------Category------------------------------------------------------
 Route::group(['namespace'=>'Category'],function(){
     
     Route::resource('categories', 'SubcategoryController1');
@@ -32,11 +32,10 @@ Route::group(['namespace'=>'Category'],function(){
     Route::resource('categories3', 'SubcategoryController3');
     Route::get('categories3_add/{id}', 'SubcategoryController3@create');
    
-    
+     Route::resource('categories4', 'SubcategoryController4');
+    Route::get('categories4_add/{id}', 'SubcategoryController4@create');
 
 });
-
-
 //------------------site_section------------------------------------------------------
 Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
