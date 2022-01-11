@@ -41,7 +41,7 @@ Route::group(['namespace'=>'SiteSection'],function(){
    Route::resource('site_section', 'SiteSectionController');
 });
 //-----------------------slider-------------------------------------------------------
-Route::group(['namespace'=>'slider'],function(){
+Route::group(['namespace'=>'Slider'],function(){
     Route::resource('slider', 'SliderController');
 });
 //--------------------------------------------------------------------------------------
