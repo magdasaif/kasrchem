@@ -45,7 +45,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/site_sections'),
         ],
-
+        
+        'slider' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/slider'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

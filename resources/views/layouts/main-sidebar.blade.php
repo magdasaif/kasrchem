@@ -17,7 +17,7 @@
 				   
 				    <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
-                            <div class="pull-left"><i class="ti-palette"></i><span
+                            <div class="pull-left"><i class="fa fa-sitemap"></i><span
                                     class="right-nav-text">اقســـام الموقع</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -33,7 +33,7 @@
                     <!-- menu item Elements-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#sub1">
-                            <div class="pull-left"><i class="ti-palette"></i><span
+                            <div class="pull-left"><i class="fa fa-cubes"></i><span
                                     class="right-nav-text">التصنيفات الرئيسيه</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -45,6 +45,22 @@
                         </ul>
                     </li>
                    
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#slider">
+                            <div class="pull-left"><i class="fa fa-image"></i><span
+                                    class="right-nav-text">الصور المتحركة</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="slider" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="{{route('slider.create')}}">اضافة صورة</a></li>
+                            <li><a href="{{route('slider.index')}}">قائمة الصور</a></li>
+                            
+                        </ul>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
