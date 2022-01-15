@@ -112,9 +112,9 @@ class Productlivewire extends Component
         //get first cate_id to make it as default value for select category in blade
         $first_main_id = Main_Category::orderBy('id', 'desc')->first();
         if($first_main_id){
-            $this->first_main_id =$first_main_id->id;
+            $this->main_cate_id =$first_main_id->id;
         }else{
-            $this->first_main_id=1;
+            $this->main_cate_id=1;
         }
 
         return view('livewire.productlivewire',[
