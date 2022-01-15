@@ -45,6 +45,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/site_sections'),
         ],
+        
+        'products' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/products'),
+        ],
 
         'public' => [
             'driver' => 'local',

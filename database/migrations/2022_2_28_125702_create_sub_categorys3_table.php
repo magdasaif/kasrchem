@@ -14,6 +14,7 @@ class CreateSubCategorys3Table extends Migration
     public function up()
     {
         Schema::create('Sub_Categorys3', function (Blueprint $table) {
+            
           
             $table->id();
 

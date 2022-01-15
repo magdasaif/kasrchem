@@ -42,3 +42,18 @@ Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
 });
 
+//------------------Products------------------------------------------------------
+Route::group(['namespace'=>'Products'],function(){
+    Route::resource('products', 'ProductController');
+
+});
+
+//add product with livewire
+Route::view('add_product','livewire.show');
+
+Route::get('img/{id}','Products\ProductController@products_images');
+
+Route::post('add_product_images/{id}','Products\ProductController@add_product_images');
+
+Route::get('delete_product_images/{id}','Products\ProductController@delete_product_images');
+
