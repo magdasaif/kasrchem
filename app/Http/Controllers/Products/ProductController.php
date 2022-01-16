@@ -24,11 +24,13 @@ class ProductController extends Controller
 
     public function create()
     {
+        //this is uncomplete old page before using livewire package
          $title='المنتجات';
         $categories = Main_Category::get();
         return view('pages.products.add',compact('categories','title'));
     }
 
+    // --------------start products images funcrion -----------------------
     public function products_images($product_id)
     {
        // return 'pppp '.$product_id;
@@ -51,13 +53,10 @@ class ProductController extends Controller
 
     public function add_product_images(Request $request,$product_id){
         try{
-            //vaildation
-          //  $request->validate(['photos' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
-        
-       // dd($request->photos);
+            dd($request->photos);
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
- //echo $photo;
+                  //  dd($photo);
                     $folder_name0='product_no_'. $request->product_id;
                     // dd($last_id->id,$folder_name);
                     $photo_name0= ($photo)->getClientOriginalName();
@@ -82,8 +81,69 @@ class ProductController extends Controller
         Product_attachment::findOrfail($image_id)->delete();
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
+    // --------------end products images funcrion -----------------------
 
 
+       // --------------start products files funcrion -----------------------
+       public function products_files($product_id)
+       {
+         //  return 'pppp '.$product_id;
+             $title='ملفات المنتجات';
+
+
+         //$Product_files = \DB::table('products_attachments')->where('product_id', '=', $product_id)->where('type', '=', 'file')->get();
+
+         //$Product_files = Product_attachment::where('product_id', '=', $product_id)->where('type', '=', 'file')->get();
+
+         
+            $Product_files = Product_attachment::where([
+               ['product_id', '=', $product_id],
+               ['type', '=', 'file'],
+           ])->get();
+   
+          // dd($Product_files);
+            return view('pages.products.files',compact('Product_files','product_id','title'));
+       }
+   
+       public function add_products_files(Request $request,$product_id){
+           try{
+            // dd($request->ffff);
+               if(!empty($request->ffff)){
+                   foreach($request->ffff as $ff){
+                     //  dd($ff,($ff)->getClientOriginalName());
+                    
+                       $folder_name='product_no_'. $request->product_id;
+                       $file_name= ($ff)->getClientOriginalName();
+                       ($ff)->storeAs($folder_name,$file_name,$disk="products");
+
+                    //    Storage::putFileAs(
+                    //     'avatars', $request->file('avatar'), $request->user()->id
+                  //  );
+                    
+                      // dd($file_name,$request->product_id);
+                       Product_attachment::create([
+                           'path'=>$file_name,
+                           'type'=>'file',
+                           'product_id'=>$request->product_id
+                       ]);
+                  
+                   }
+               }
+   
+               return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
+           }catch(\Exception $e){
+               return redirect()->back()->with(['error'=>$e->getMessage()]);
+           }
+           
+       }
+   
+       public function delete_products_files($image_id){
+           Product_attachment::findOrfail($image_id)->delete();
+           return redirect()->back()->with(['success'=>'تم الحذف']);
+       }
+       // --------------end products files funcrion -----------------------
+   
+    
     public function store(ProductRequest $request)
     {
         try{
@@ -139,46 +199,21 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

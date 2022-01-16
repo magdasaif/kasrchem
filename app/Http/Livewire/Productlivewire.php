@@ -10,11 +10,17 @@ use App\Models\Product;
 use App\Models\Product_attachment;
 use App\Models\Product_Feature;
 
+use App\Models\Sub_Category2;
+use App\Models\sub_Category3;
+use App\Models\Sub_Category4;
+
+
 class Productlivewire extends Component
 {
     use WithFileUploads;
 
-    public $message,$main_cate_id,$code,$name_ar,$name_en,
+    public $message,$main_cate_id,$sub2,$sub3,$sub4,
+            $code,$name_ar,$name_en,
             $desc_ar,$desc_en,$price,$tax=0,$offer_price=0,
             $amount=1,$min_amount=1,$max_amount=1,$image,
             $video_link,$sell_through=1,$shipped_weight=0,
@@ -32,6 +38,9 @@ class Productlivewire extends Component
         $this->validateOnly($propertyName,[
 
             'main_cate_id' => 'required',
+            'sub2' => 'required',
+            'sub3' => 'required',
+            'sub4' => 'required',
             'code'=>'required|unique:products',
             'name_ar'=>'required|unique:products',
             'name_en'=>'required|unique:products',
@@ -61,6 +70,9 @@ class Productlivewire extends Component
     protected $rules = [
         //exists:main_categories,id
         'main_cate_id' => 'required',
+        'sub2' => 'required',
+        'sub3' => 'required',
+        'sub4' => 'required',
         'code'=>'required|unique:products',
         'name_ar'=>'required|unique:products',
         'name_en'=>'required|unique:products',
@@ -106,7 +118,19 @@ class Productlivewire extends Component
         $this->value_ar = '';
         $this->value_en = '';
     }
+    // public function find_sub2()
+    // {
+    //     $id=$this->main_cate_id;
 
+    //     $sub_Category3= sub_Category3::pluck("id");
+    //     //$sub_Category3= sub_Category3::select("id")->get();
+    //      Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id");
+
+    //     return view('livewire.productlivewire',[
+    //         'categories' =>Main_Category::withcount('sub_cate2')->get(),
+    //         'Sub_Category2' => Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id"),
+    //     ]);
+    // }
     public function render()
     {
         //get first cate_id to make it as default value for select category in blade
@@ -116,9 +140,9 @@ class Productlivewire extends Component
         }else{
             $this->main_cate_id=1;
         }
-
+        //dd(Main_Category::withcount('sub_cate2')->get());
         return view('livewire.productlivewire',[
-            'categories' =>Main_Category::all(),
+            'categories' =>Main_Category::withcount('sub_cate2')->get(),
         ]);
     }
 

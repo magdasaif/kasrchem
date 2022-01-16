@@ -31,15 +31,56 @@
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
+                  <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" wire:model="main_cate_id">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->subname_ar }}</option>
-                        @endforeach
+                    <select class="form-control" wire:model="main_cate_id" name="main_cate_id">
+                    <option value="0" >اختر التصنيف الرئيسى</option>
+
+                    <?php 
+                     foreach ($categories as $category)
+                      {
+                          if ($category->sub_cate2_count>0) 
+                          {
+                    ?>
+                            <option value="{{$category->id}}">{{$category->subname_ar}}</option>
+                   <?php }
+                     }
+                    ?>
+                      
                     </select>
                 </div>
+            <!----------------------------------------------------->
+            
+              
+            <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
+lllll
+            <div class="form-group"  id="sub2_div" wire:model="sub2_div" name="sub2_div" style="display: none";>    
+                    <label>   التصنيف الفرعي </label>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                        <option>oooooo</option>
+                     </select> 
+              </div>
 
+             <!----------------------------------------------------- -->
+             
+             <div class="form-group"  id="sub3_div"  style="display: block";>
+                <label>النوع</label>
+                 <select  class="form-control sub3"  id="sub3_id" wire:model="sub3" name="sub3" required>
+                 </select> 
+                </div>
+
+                <!----------------------------------------------------- -->
+                <div class="form-group"  id="sub4_div"  style="display: block";> 
+                <label>النوع الفرعى</label>
+                    <select  class="form-control sub4"  id="sub4_id" wire:model="sub4" name="sub4" required>
+
+                        
+                    </select>
+                    </div>
+            </div>
+               <!----------------------------------------------------->
+               
                 <div class="form-group">
                     <label for="exampleInputEmail1">كود المنتج</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter code" wire:model="code" >
