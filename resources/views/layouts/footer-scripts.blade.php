@@ -8,6 +8,7 @@
 
 <script type="text/javascript">var plugin_path ='{{ asset('assets/js')}}/';</script>
 
+<!-- <script src='jquery.repeater.min.js'></script> -->
 
 <!-- chart -->
 <script src="{{ URL::asset('assets/js/chart-init.js') }}"></script>

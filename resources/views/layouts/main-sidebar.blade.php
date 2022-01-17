@@ -73,6 +73,24 @@
                         </ul>
                     </li>
 
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#product">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text">المنتجات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="product" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="{{route('products.create')}}">اضافه منتج</a></li>
+                            <li><a href="{{route('products.index')}}">قائمه المنتجات</a></li>
+
+                            <li><a href="{{url('add_product')}}">اضافه منتج-livewire</a></li>
+
+                            
+                        </ul>
+                    </li>
+                    
                 </ul>
             </div>
         </div>

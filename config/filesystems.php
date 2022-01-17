@@ -51,6 +51,11 @@ return [
             'root' => storage_path('app/public/slider'),
         ],
 
+        'products' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/products'),
+        ],
+
         'article' => [
             'driver' => 'local',
             'root' => storage_path('app/public/article'),
