@@ -64,7 +64,6 @@ class ArticleController extends Controller
            }
             $article = new Article
            ([
-            
             'main_cate_id' =>  $request->main_category,
             'sub1_id' =>  $request->sub2,
             'sub2_id' =>  $request->sub3,
@@ -103,7 +102,7 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function update(ArticleRequest $request)
     {
-         // dd( $request->all());
+         //dd( $request->all());
          try {
 
             $validated = $request->validated();
@@ -127,19 +126,29 @@ class ArticleController extends Controller
             
             $Article->image = $photo_name;
             }
-  
-         ///------------------------------
-          $Article->save();
+       $Article->save();
       return redirect()->route('article.index')->with(['success'=>'تم التعديل بنجاح']);
     }
     catch
-    (\Exception $e) {
+    (\Exception $e) 
+    {
         return redirect()->back()->with(['error' => $e->getMessage()]);
     }
     }
 //--------------------------------------------
     public function destroy($id)
     {
-        //
+        // dd($id);
+        try 
+        {
+        $Article=Article::find($id);  
+        $Article->delete(); 
+        return redirect()->route('article.index')->with(['success'=>'تم الحذف بنجاح']);
+       }
+       catch
+       (\Exception $e)
+       {
+           return redirect()->back()->with(['error' => $e->getMessage()]);
+       }
     }
 }

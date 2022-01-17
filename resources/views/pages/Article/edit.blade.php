@@ -152,7 +152,8 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="content_ar">محتوى المقال </label>
-                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال " value="{{$article->content_ar}}"></textarea>
+                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال " >{!!$article->content_ar!!}</textarea>
+                    
                     @error('content_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -162,7 +163,7 @@
                <div class="form-group">
                     <label for="content_en">محتوى المقال  بالانجليزية</label>
                     
-                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية " value="{{$article->content_en}}"  ></textarea>
+                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية " > {!!$article->content_en!!}</textarea>
 
                     @error('content_en')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -189,6 +190,7 @@
                     </select>
                 </div>
                 <input type="hidden" name="id" value="{{$article->id}}">
+               
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
@@ -200,25 +202,45 @@
 @endsection
 @section('js')
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
-    <script>
+<script>
     tinymce.init({
         selector: 'textarea.tinymce-editor',
         height: 300,
         theme: 'modern',
         plugins: [
-          'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-          'searchreplace wordcount visualblocks visualchars code fullscreen',
-          'insertdatetime media nonbreaking save table contextmenu directionality',
-          'emoticons template paste textcolor colorpicker textpattern imagetools'
-        ],
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        toolbar2: 'print preview media | forecolor backcolor emoticons',
-        image_advtab: true
+        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+    ],
+
+    toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+    toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+    toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+    menubar: false,
+    toolbar_items_size: 'small',
+
+    style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Example 1', inline: 'span', classes: 'example1'},
+        {title: 'Example 2', inline: 'span', classes: 'example2'},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+    ],
+
+    templates: [
+        {title: 'Test template 1', content: 'Test 1'},
+        {title: 'Test template 2', content: 'Test 2'}
+    ],
+  
+  
     });
- 
+    
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
-            $('select[name="main_category"]').on('change', function () {
+    $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
                if (main_category_id) {
                 //   alert("{{ URL::to('sub2_article')}}/" + main_category_id);
