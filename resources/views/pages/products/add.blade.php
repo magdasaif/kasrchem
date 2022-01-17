@@ -56,15 +56,49 @@
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
+                   <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
                     <select class="form-control" name="main_cate_id">
+                        <option value="0" selected disable>اختر التصنيف الرئيسي</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->subname_ar }}</option>
+                            @if($category->sub_cate2_count>0)
+                                <option value="{{ $category->id }}">{{ $category->subname_ar }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
+                 
+            <!----------------------------------------------------->
+            
+              
+            <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
 
+            <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
+                    <label>   التصنيف الفرعي </label>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                    </select> 
+              </div>
+
+             <!----------------------------------------------------- -->
+             
+             <div class="form-group"  id="sub3_div" style="display: none";>
+                <label>النوع</label>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 </select> 
+                </div>
+
+                <!----------------------------------------------------- -->
+                <div class="form-group"  id="sub4_div"  style="display: none";> 
+                <label>النوع الفرعى</label>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+
+                        
+                    </select>
+                    </div>
+            </div>
+               <!----------------------------------------------------->
+               
                 <div class="form-group">
                     <label for="exampleInputEmail1">كود المنتج</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter code" name="code" required>
@@ -224,5 +258,115 @@
 </div>
 @endsection
 @section('js')
+<script>
 
+//  $("#all").css('display', 'none'); 
+        //---------------for show seelct option of sub2------------------------//
+        $(document).ready(function () {
+            $('select[name="main_cate_id"]').on('change', function () {
+                alert('ssss');
+                var main_cate_id = $(this).val();
+               if (main_cate_id) {
+                  // alert(main_cate_id);
+                  //alert("{{ URL::to('fetch_sub2')}}/" + main_cate_id);
+                   
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ URL::to('fetch_sub2')}}/" + main_cate_id,
+                        dataType: "json",
+                        success: function (data) 
+                        {
+                           //  alert(data);
+
+                            //  $("#all").show();
+                             $("#all").css('display', 'block');
+                            $("#sub2_div").show();
+                             $('#sub2_id').empty();
+                             $('#sub2_id').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $.each(data, function (key, value) {
+                                 //alert('<option value="' + key + '">' + value + '</option>');
+                              $('#sub2_id').append('<option value="' + key + '">' + value + '</option>');
+                             });
+                         
+                        },
+                        error:function()
+                        { alert("false"); }
+                    });
+                   
+                }
+                else {
+                    alert('AJAX load did not work');
+                }
+            });
+        });
+         //---------------for show seelct option of sub3------------------------//
+         $(document).ready(function () {
+            $('select[name="sub2"]').on('change', function () {
+                var sub2_id = $(this).val();
+               // alert (sub2_id);
+               if (sub2_id) {
+                   alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
+                   
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
+                        dataType: "json",
+                      
+                        success: function (data) 
+                        {
+                             //alert("true");
+                            $("#sub3_div").show();
+                             $('select[name="sub3"]').empty();
+                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
+                               $.each(data, function (key, value) {
+                              $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
+                             });
+                         
+                        },
+                        error:function()
+                        { alert("false"); }
+                    });
+                   
+                }
+                else {
+                    alert('AJAX load did not work');
+                }
+            });
+        });
+        //---------------for show seelct option of sub4------------------------//
+        $(document).ready(function () {
+            $('select[name="sub3"]').on('change', function () {
+                var sub3_id = $(this).val();
+                //alert (sub3_id);
+               if (sub3_id) {
+                  // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
+                   
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
+                        dataType: "json",
+                      
+                        success: function (data) 
+                        {
+                             //alert("true");
+                            $("#sub4_div").show();
+                             $('select[name="sub4"]').empty();
+                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                               $.each(data, function (key, value) {
+                              $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
+                             });
+                         
+                        },
+                        error:function()
+                        { alert("false"); }
+                    });
+                   
+                }
+                else {
+                    alert('AJAX load did not work');
+                }
+            });
+        });
+        //--------------------------------------------------------------------------//
+    </script>
 @endsection

@@ -26,7 +26,8 @@ class ProductController extends Controller
     {
         //this is uncomplete old page before using livewire package
          $title='المنتجات';
-        $categories = Main_Category::get();
+       // $categories = Main_Category::get();
+       $categories= Main_Category::withcount('sub_cate2')->get();
         return view('pages.products.add',compact('categories','title'));
     }
 

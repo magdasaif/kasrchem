@@ -53,8 +53,8 @@ Route::view('add_product','livewire.show');
 
 // get sub2,sub3,sub4 when change on any select
 Route::GET('/fetch_sub2/{main_category_id}','FetchCategoriesController@findsub2');
-Route::GET('/fetch_sub3/{sub2_id}','ArticleController@findsub3');
-Route::GET('/fetch_sub4/{sub3_id}','ArticleController@findsub4');
+Route::GET('/fetch_sub3/{sub2_id}','FetchCategoriesController@findsub3');
+Route::GET('/fetch_sub4/{sub3_id}','FetchCategoriesController@findsub4');
 
 // product images routes (show/add/delete)
 Route::get('img/{id}','Products\ProductController@products_images');

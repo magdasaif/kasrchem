@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
                     <select class="form-control" wire:model="main_cate_id" name="main_cate_id">
-                    <option value="0" >اختر التصنيف الرئيسى</option>
+                    <option value="0" selected >اختر التصنيف الرئيسى</option>
 
                     <?php 
                      foreach ($categories as $category)

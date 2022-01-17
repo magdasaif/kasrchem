@@ -15,8 +15,9 @@ class FetchCategoriesController extends Controller
     {
 
     // $sub_Category3= sub_Category3::where('sub2_id',$id)->pluck("id");
-    $sub_Category3= sub_Category3::pluck("id");
-    //$sub_Category3= sub_Category3::select("id")->get();
+     //$sub_Category3= sub_Category3::select("id")->get();
+     
+    $sub_Category3= sub_Category3::pluck("id"); 
     $data= Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id");
      return response()->json($data); //then sent this data to ajax success
     return $data;
@@ -26,8 +27,8 @@ class FetchCategoriesController extends Controller
 //--------------------------------------------
     public function findsub3($id)
     {
-    // $data= sub_Category3::where('sub2_id',$id)->pluck("subname_ar", "id");
-     $sub_Category4= sub_Category4::where('sub3_id',$id)->pluck("id");
+   //  $sub_Category4= sub_Category4::where('sub3_id',$id)->pluck("id");
+     $sub_Category4= sub_Category4::pluck("id");
      $data= Sub_Category3::where('sub2_id',$id)->whereIn('id',  $sub_Category4)-> pluck("subname_ar", "id");
       return response()->json($data); //then sent this data to ajax success
      return $data;
