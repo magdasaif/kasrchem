@@ -4,7 +4,7 @@
 
 @section('title')
 
-اضافة صورة
+اضافة فيديو
 @stop
 @endsection
 @section('page-header')
@@ -28,12 +28,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"  style="color: #2569b1;"> اضافة مقال</h5>
+            <h5 class="modal-title"  style="color: #2569b1;"> اضافة فيديو</h5>
             
         </div>
         <div class="modal-body">
 
-            <form method="POST" action="{{route('article.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('video.store')}}" enctype="multipart/form-data">
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -52,7 +52,11 @@
                    <?php }
                 }
                       ?>
-                 </select> </div>
+                 </select> 
+                 @error('main_category')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
 
             <!----------------------------------------------------->
         <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
@@ -82,8 +86,8 @@
                <!----------------------------------------------------->
               
                <div class="form-group">
-                    <label for="title_ar">عنوان المقال </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar" required>
+                    <label for="title_ar">عنوان الفيديو </label>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar" required>
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -91,36 +95,17 @@
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="title_en">عنوان المقال بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان المقال بالانجليزية" name="title_en" required>
+                    <label for="title_en">عنوان الفيديو بالانجليزية</label>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en" required>
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-               <!----------------------------------------------------->
-               <div class="form-group">
-                    <label for="content_ar">محتوى المقال </label>
-                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال "  ></textarea>
-                    @error('content_ar')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-              <!----------------------------------------------------->
-               
-               <div class="form-group">
-                    <label for="content_en"> محتوى المقال بالانجليزية </label>
-                    
-                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية "  ></textarea>
-
-                    @error('content_en')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-              <!----------------------------------------------------->
+                 <!----------------------------------------------------->
                 <div class="form-group">
-                    <label for="image">صوره</label>
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
-                    @error('image')
+                <label for="content_ar">رابط الفيديو </label>
+                    <input type="text" class="form-control" name="link" required>
+                    @error('link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
@@ -144,34 +129,21 @@
 </div>
 @endsection
 @section('js')
-<!-- tinymce -->
-<script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
-    <script>
-    tinymce.init({
-        selector: 'textarea.tinymce-editor',
-        height: 300,
-        theme: 'modern',
-        plugins: [
-          'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-          'searchreplace wordcount visualblocks visualchars code fullscreen',
-          'insertdatetime media nonbreaking save table contextmenu directionality',
-          'emoticons template paste textcolor colorpicker textpattern imagetools'
-        ],
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        toolbar2: 'print preview media | forecolor backcolor emoticons',
-        image_advtab: true
-    });
- 
+
+<script>
+    
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
             $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
-               if (main_category_id) {
-                //   alert("{{ URL::to('sub2_article')}}/" + main_category_id);
+               // alert(main_category_id);
+              
+               if (main_category_id ) {
+                 // alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('sub2_article')}}/" + main_category_id,
+                        url: "{{ URL::to('fetch_sub2')}}/" + main_category_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -196,18 +168,19 @@
                     alert('AJAX load did not work');
                 }
             });
+            
         });
          //---------------for show seelct option of sub3------------------------//
          $(document).ready(function () {
             $('select[name="sub2"]').on('change', function () {
                 var sub2_id = $(this).val();
-               // alert (sub2_id);
+                 // alert (sub2_id);
                if (sub2_id) {
-                  // alert("{{ URL::to('sub3_article')}}/" + sub2_id);
+                  // alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('sub3_article')}}/" + sub2_id,
+                        url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -237,11 +210,11 @@
                 var sub3_id = $(this).val();
                 //alert (sub3_id);
                if (sub3_id) {
-                  // alert("{{ URL::to('sub4_article')}}/" + sub3_id);
+                  // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('sub4_article')}}/" + sub3_id,
+                        url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
                         dataType: "json",
                       
                         success: function (data) 

@@ -62,7 +62,7 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#article">
-                            <div class="pull-left"><i class="fa fa-list-ul"></i><span
+                            <div class="pull-left"><i class="fa fa-newspaper-o"></i><span
                                     class="right-nav-text">المقالات</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -88,6 +88,20 @@
                             <li><a href="{{url('add_product')}}">اضافه منتج-livewire</a></li>
 
                             
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#video">
+                            <div class="pull-left"><i class="fa fa-video-camera"></i><span
+                                    class="right-nav-text">الفيديو</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="video" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="{{route('video.create')}}"> اضافة فيديو </a></li>
+                            <li><a href="{{route('video.index')}}">قائمة الفيديو</a></li>
                         </ul>
                     </li>
                     

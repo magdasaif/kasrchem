@@ -97,7 +97,7 @@ class ArticleController extends Controller
        $Sub_Category4 = Sub_Category4::get();
        $Sub_Category3=sub_Category3:: whereIn('id',  $Sub_Category4)->get();
        $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-        return view('pages.article.edit',compact('article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+        return view('pages.Article.edit',compact('article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
     }
 //--------------------------------------------
     public function update(ArticleRequest $request)
