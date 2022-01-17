@@ -43,7 +43,7 @@ class SliderController extends Controller
 
             return redirect()->route('slider.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 
@@ -82,7 +82,7 @@ class SliderController extends Controller
     }
     catch
     (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        return redirect()->back()->with(['error' => $e->getMessage()]);
     }
   
     }
@@ -100,7 +100,7 @@ class SliderController extends Controller
         catch
         (\Exception $e)
         {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
 }

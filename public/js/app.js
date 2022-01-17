@@ -49931,18 +49931,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 __webpack_require__(/*! C:\wamp64\www\school\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\wamp64\www\school\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
->>>>>>> yasmeen
-__webpack_require__(/*! C:\wamp64\www\school-management-system\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\school-management-system\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! C:\wamp64\www\school\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\school\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> magda
+
 
 
 /***/ })

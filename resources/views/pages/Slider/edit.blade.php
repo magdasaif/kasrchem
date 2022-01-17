@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label for="image">الصورة</label>
                     <input type="file" class="form-control" name="image" >
-                    <img  style="width: 200px;height: 200px;" src=<?php echo asset("storage/slider/{$Slider->image}")?> alt="" required>
+                    <img  style="width: 200px;height: 200px;" accept="image/*" src=<?php echo asset("storage/slider/{$Slider->image}")?> alt="" required>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

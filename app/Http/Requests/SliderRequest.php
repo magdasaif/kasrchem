@@ -35,6 +35,7 @@ class SliderRequest extends FormRequest
           
             'priority.required' => 'الاولوية مطلوبة ',
               'image.required' => 'الصورة مطلوبة ',
+              'image.image' => 'يجب ان يكون الملف المرفق صورة',
         ];
     }
 }

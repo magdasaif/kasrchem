@@ -44,4 +44,13 @@ Route::group(['namespace'=>'SiteSection'],function(){
 Route::group(['namespace'=>'Slider'],function(){
     Route::resource('slider', 'SliderController');
 });
-//--------------------------------------------------------------------------------------
+//--------------------------------article---------------------------------------------
+Route::group(['namespace'=>'Article'],function(){
+    Route::resource('article', 'ArticleController');
+
+    Route::GET('/sub2_article/{main_category_id}','ArticleController@findsub2');
+    Route::GET('/sub3_article/{sub2_id}','ArticleController@findsub3');
+    Route::GET('/sub4_article/{sub3_id}','ArticleController@findsub4');
+});
+
+//----------------------------------------------------------------------------------------
