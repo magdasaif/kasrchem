@@ -80,5 +80,5 @@ Route::get('delete_products_files/{id}','Products\ProductController@delete_produ
 Route::group(['namespace'=>'Video'],function(){
     Route::resource('video', 'VideoController');
   
-});\
+});
 //-----------------------------------------------------------------------------
