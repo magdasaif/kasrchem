@@ -59,6 +59,11 @@ Route::group(['namespace'=>'Products'],function(){
 
 });
 
+//form repeat routes
+Route::get('add/{id}','Products\ProductController@add');
+Route::get('remove/{id}','Products\ProductController@remove');
+
+
 //add product with livewire
 Route::view('add_product','livewire.show');
 

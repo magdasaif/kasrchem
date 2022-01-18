@@ -46,8 +46,11 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
-            <!-- <button type="button" class="btn btn-info" ><a href="{{route('products.create')}}"> اضافه</a></button> -->
-            <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button>
+
+            <button type="button" class="btn btn-info" ><a href="{{route('products.create')}}"> اضافه</a></button>
+
+            <!-- livewire add form
+                <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
 
             <!--#############################################################-->
                     <div class="table-responsive">
