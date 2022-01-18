@@ -47,7 +47,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-            <button type="button" class="btn btn-info" ><a href="{{route('products.create')}}"> اضافه</a></button>
+            <a href="{{route('products.create')}}"><button type="button" class="btn btn-info" > اضافه</button></a>
 
             <!-- livewire add form
                 <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
@@ -85,14 +85,14 @@
                             <td><?php if($product->availabe_or_no==1){echo'<label class="btn btn-success">متاح</label>';}else{echo'<label class="btn btn-danger">غير متاح</label>';}?></td>
 
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{ url('img/'.$product->id) }}"> الصور</a></button>
+                                <a href="{{ url('img/'.$product->id) }}"><button type="button" class="btn btn-info" > الصور</button></a>
                             
-                                <button type="button" class="btn btn-info" ><a href="{{url('products_files/'.$product ->id)}}"> الملفات</a></button>
+                               <a href="{{url('products_files/'.$product ->id)}}"> <button type="button" class="btn btn-info" > الملفات</button></a>
                             </td>
 
 
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{route('products.edit',$product ->id)}}"> تعديل</a></button>
+                                <a href="{{route('products.edit',$product ->id)}}"><button type="button" class="btn btn-info" > تعديل</button></a>
                             </td>
                         </tr>
 

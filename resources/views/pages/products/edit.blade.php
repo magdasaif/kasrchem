@@ -65,7 +65,7 @@
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" name="main_cate_id">
+                    <select class="form-control" name="main_cate_id" style="height: 50px;">
                         <option value="{{$product->relation_with_main_category->id}}" selected>{{$product->relation_with_main_category->subname_ar}}</option>
                         @foreach ($categories as $category)
                             @if($category->sub_cate2_count>0 && $product->relation_with_main_category->id != $category->id)
@@ -82,7 +82,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div">    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2" style="height: 50px;" required>
                         <option value="{{$product->relation_with_sub2_category->id}}" selected>{{$product->relation_with_sub2_category->subname2_ar}}</option>
                     </select> 
               </div>
@@ -91,7 +91,7 @@
              
              <div class="form-group"  id="sub3_div">
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3" style="height: 50px;" required>
                      <option value="{{$product->relation_with_sub3_category->id}}" selected>{{$product->relation_with_sub3_category->subname_ar}}</option>
                  </select> 
                 </div>
@@ -99,7 +99,7 @@
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" style="height: 50px;" required>
                          <option value="{{$product->relation_with_sub4_category->id}}" selected>{{$product->relation_with_sub4_category->subname_ar}}</option>
 
                         
@@ -227,7 +227,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">البيع من خلال</label>
-                    <select class="form-control" name="sell_through">
+                    <select class="form-control" name="sell_through" style="height: 50px;">
                             <option value="1" <?php if($product->sell_through==1){echo'selected';}?>>الموقع والفروع</option>
                             <option value="2" <?php if($product->sell_through==2){echo'selected';}?>>الموقع فقط</option>
                             <option value="3" <?php if($product->sell_through==3){echo'selected';}?>>الفروع فقط</option>
@@ -253,7 +253,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الحالة</label>
-                    <select class="form-control" name="status">
+                    <select class="form-control" name="status" style="height: 50px;">
                             <option value="1" <?php if($product->status==1){echo'selected';}?>>مُفعل</option>
                             <option value="0" <?php if($product->status==0){echo'selected';}?>>غير مُفعل</option>
                     </select>
@@ -261,7 +261,7 @@
 
                 <div class="form-group">
                 <label for="exampleInputEmail1">الاتاحة</label>
-                    <select class="form-control" name="availabe_or_no">
+                    <select class="form-control" name="availabe_or_no" style="height: 50px;">
                             <option value="1" <?php if($product->availabe_or_no==1){echo'selected';}?>>متاح</option>
                             <option value="0" <?php if($product->availabe_or_no==0){echo'selected';}?>>غير متاح</option>
                     </select>
@@ -270,6 +270,11 @@
                 <div class="form-group">
                 <label for="exampleInputEmail1">اضافه كمنتج جديد</label>
                       <input type="checkbox" class="form-control" id="exampleInputEmail1"  name="add_as_new" style="width: 100px;height: 20px;margin-right: 100px;">
+                </div>
+
+                <div class="form-group">
+                <label for="exampleInputEmail1"> يتطلب تصريح امنى</label>
+                      <input type="checkbox" class="form-control" id="exampleInputEmail1" <?php if($product->security_permit==1){echo'checked';}?> name="security_permit" style="width: 100px;height: 20px;margin-right: 100px;">
                 </div>
 
                  <!-------------------------------------------------------------------------->
@@ -367,6 +372,8 @@
                 
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
+                        <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger"  > الغاء</button></a>
+
                 </div>
                 </form>
         </div>

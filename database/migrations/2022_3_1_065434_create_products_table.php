@@ -53,6 +53,8 @@ class CreateProductsTable extends Migration
             $table->integer('availabe_or_no');
             $table->integer('status');
             
+            $table->integer('security_permit');
+            
             $table->timestamps();
         });
     }

@@ -92,6 +92,12 @@ class ProductController extends Controller
 
             $product->image= $photo_name;
 
+            if($request->security_permit=='on'){
+                $product->security_permit=1;
+            }else{
+                $product->security_permit=0;
+            }
+            
             $product->save();
 
             if(!empty($request->photos)){
@@ -325,6 +331,11 @@ class ProductController extends Controller
                 $product->availabe_or_no= $request->availabe_or_no;
                 $product->status= $request->status;
 
+                if($request->security_permit=='on'){
+                    $product->security_permit=1;
+                }else{
+                    $product->security_permit=0;
+                }
 
                 $product->save();
 

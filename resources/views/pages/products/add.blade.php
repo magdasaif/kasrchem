@@ -63,7 +63,7 @@
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" name="main_cate_id">
+                    <select class="form-control" name="main_cate_id" style="height: 50px;">
                         <option value="0" selected disable>اختر التصنيف الرئيسي</option>
                         @foreach ($categories as $category)
                             @if($category->sub_cate2_count>0)
@@ -80,7 +80,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  style="height: 50px;" required>
                     </select> 
               </div>
 
@@ -88,14 +88,14 @@
              
              <div class="form-group"  id="sub3_div" style="display: none";>
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3"  style="height: 50px;" required>
                  </select> 
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"  style="display: none";> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4"  style="height: 50px;" required>
 
                         
                     </select>
@@ -240,7 +240,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">البيع من خلال</label>
-                    <select class="form-control" name="sell_through">
+                    <select class="form-control" name="sell_through"  style="height: 50px;">
                             <option value="1" {{ old('sell_through') == '1' ? "selected" : "" }}>الموقع والفروع</option>
                             <option value="2" {{ old('sell_through') == '2' ? "selected" : "" }}>الموقع فقط</option>
                             <option value="3" {{ old('sell_through') == '3' ? "selected" : "" }}>الفروع فقط</option>
@@ -266,7 +266,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الحالة</label>
-                    <select class="form-control" name="status">
+                    <select class="form-control" name="status" style="height: 50px;">
                             <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
                             <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
@@ -274,13 +274,17 @@
 
                 <div class="form-group">
                 <label for="exampleInputEmail1">الاتاحة</label>
-                    <select class="form-control" name="availabe_or_no">
+                    <select class="form-control" name="availabe_or_no" style="height: 50px;">
                             <option value="1" {{ old('availabe_or_no') == '1' ? "selected" : "" }}>متاح</option>
                             <option value="0" {{ old('availabe_or_no') == '0' ? "selected" : "" }}>غير متاح</option>
                     </select>
                 </div>
 
-
+                <div class="form-group">
+                <label for="exampleInputEmail1"> يتطلب تصريح امنى</label>
+                      <input type="checkbox" class="form-control" id="exampleInputEmail1"  name="security_permit" style="width: 100px;height: 20px;margin-right: 100px;" {{ old('security_permit') == 'on' ? "checked" : "" }}>
+                </div>
+                
                  <!-------------------------------------------------------------------------->
                  <label for="exampleInputEmail1">اضافه خصائص المنتج</label>
                 <div class="card-body">
@@ -333,6 +337,8 @@
                 
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">اضافه</button>
+                        <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger"  > الغاء</button></a>
+
                 </div>
                 </form>
         </div>

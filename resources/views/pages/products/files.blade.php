@@ -108,7 +108,7 @@
             </div>
             </div>
 
-            <br><center><button type="button" class="btn btn-success" ><a href="{{route('products.index')}}"> قائمه المنتجات</a></button></center><br>
+            <br><center><a href="{{route('products.index')}}"><button type="button" class="btn btn-success" > قائمه المنتجات</button></a></center><br>
 
             
         </div>
