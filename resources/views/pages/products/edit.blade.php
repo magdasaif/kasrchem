@@ -83,7 +83,8 @@
             <div class="form-group"  id="sub2_div" name="sub2_div">    
                     <label>   التصنيف الفرعي </label>
                     <select  class="form-control sub2"  id="sub2_id" name="sub2" style="height: 50px;" required>
-                        <option value="{{$product->relation_with_sub2_category->id}}" selected>{{$product->relation_with_sub2_category->subname2_ar}}</option>
+                     
+
                     </select> 
               </div>
 
