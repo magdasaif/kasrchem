@@ -87,12 +87,12 @@
                             <td>
                                 <a href="{{ url('img/'.$product->id) }}"><button type="button" class="btn btn-info" > الصور</button></a>
                             
-                               <a href="{{url('products_files/'.$product ->id)}}"> <button type="button" class="btn btn-info" > الملفات</button></a>
+                               <a href="{{url('products_files/'.$product->id)}}"> <button type="button" class="btn btn-info" > الملفات</button></a>
                             </td>
 
 
                             <td>
-                                <a href="{{route('products.edit',$product ->id)}}"><button type="button" class="btn btn-info" > تعديل</button></a>
+                                <a href="{{route('products.edit',$product->id)}}"><button type="button" class="btn btn-info" > تعديل</button></a>
                             </td>
                         </tr>
 
