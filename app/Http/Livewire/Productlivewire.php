@@ -118,19 +118,7 @@ class Productlivewire extends Component
         $this->value_ar = '';
         $this->value_en = '';
     }
-    // public function find_sub2()
-    // {
-    //     $id=$this->main_cate_id;
-
-    //     $sub_Category3= sub_Category3::pluck("id");
-    //     //$sub_Category3= sub_Category3::select("id")->get();
-    //      Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id");
-
-    //     return view('livewire.productlivewire',[
-    //         'categories' =>Main_Category::withcount('sub_cate2')->get(),
-    //         'Sub_Category2' => Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id"),
-    //     ]);
-    // }
+  
     public function render()
     {
         //get first cate_id to make it as default value for select category in blade

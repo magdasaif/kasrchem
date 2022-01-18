@@ -24,17 +24,45 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required|unique:products',
-            'name_ar'=>'required|unique:products',
-            'name_en'=>'required|unique:products',
+           
+            //exists:main_categories,id
+            'main_cate_id' => 'required',
+            'sub2' => 'required',
+            'sub3' => 'required',
+            'sub4' => 'required',
+
+            'code'=>'required|unique:products,code,'.$this->id,
+            'name_ar'=>'required|unique:products,name_ar,'.$this->id,
+            'name_en'=>'required|unique:products,name_en,'.$this->id,
+            
+            // 'code'=>'required|unique:products',
+            // 'name_ar'=>'required|unique:products',
+            // 'name_en'=>'required|unique:products',
+            
             'price'=>'required',
             'desc_ar'=>'required',
             'desc_en'=>'required',
             'amount'=>'required',
-            'min_amount'=>'required',
-            'max_amount'=>'required',
-            'image'=>'required',
+            'amount'=>'required|integer',
+            'min_amount'=>'required|integer',
+            'max_amount'=>'required|integer',
+            'sort'=>'integer',
+            //'image'=>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'shipped_weight'=>'required',
+
+            'List_Classes.*.weight_ar' => 'required',
+            'List_Classes.*.value_ar' => 'required',
+            'List_Classes.*.weight_en' => 'required',
+            'List_Classes.*.value_en' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'List_Classes.*.weight_ar.required' => 'هذا الحقل مطلوب',
+            'List_Classes.*.value_ar.required' => 'تاكد من ادخال حصائص المنتج',
+            'List_Classes.*.weight_en.required' => 'نن',
+            'List_Classes.*.value_en.required' => 'خخ',
         ];
     }
 }
