@@ -12,7 +12,7 @@ class Product extends Model
 
 
     protected $table = 'products';
-    public $fillable=['id','main_cate_id','sub1_id','sub2_id','sub3_id','name_ar','name_en','code','desc_ar','desc_en','image','status','video_link',];
+    //public $fillable=['id','main_cate_id','sub2_id','sub3_id','sub4_id','name_ar','name_en','code','desc_ar','desc_en','image','status','video_link',];
     protected $guarded=[];
     public $timestamps = true;
 
@@ -30,21 +30,21 @@ class Product extends Model
 
     public function relation_with_sub2_category()
     {
-        return $this->belongsTo('App\Models\Sub_Category2', 'sub1_id');
+        return $this->belongsTo('App\Models\Sub_Category2', 'sub2_id');
     }
 
 
     public function relation_with_sub3_category()
     {
-        return $this->belongsTo('App\Models\sub_Category3', 'sub2_id');
+        return $this->belongsTo('App\Models\sub_Category3', 'sub3_id');
     }
 
     public function relation_with_sub4_category()
     {
-        return $this->belongsTo('App\Models\Sub_Category4', 'sub3_id');
+        return $this->belongsTo('App\Models\Sub_Category4', 'sub4_id');
     }
 
-    public function images()
+   /* public function images()
     {
         return $this->hasMany(Product_attachment::class,'product_id')->where('type', 'image');
     }
@@ -57,6 +57,6 @@ class Product extends Model
     public function features()
     {
         return $this->hasMany(Product_Feature::class,'product_id');
-    }
+    }*/
 
 }

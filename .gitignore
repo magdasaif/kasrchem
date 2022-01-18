@@ -12,4 +12,8 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /.idea
+/storage
 /.vscode
+error_log
+viewmurabba_trainingeradico_dataonly.sql
+viewmurabba_trainingeradico_full.sql
