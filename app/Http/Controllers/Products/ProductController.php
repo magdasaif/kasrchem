@@ -271,7 +271,7 @@ class ProductController extends Controller
          $features = Product_Feature::where('product_id','=',$id)->get();
 
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
-         //dd($feat_count);
+         //dd($product);
         return view('pages.products.edit',compact('product','categories','title','features','feature_count'));
     }
 
