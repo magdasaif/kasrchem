@@ -2,15 +2,9 @@
 @section('css')
 
 @section('title')
-<<<<<<< HEAD
-<<<<<<< HEAD
-    empty
-=======
-   eradco
->>>>>>> yasmeen
-=======
-    empty
->>>>>>> magda
+
+    eradco
+
 @stop
 @endsection
 @section('page-header')
@@ -18,7 +12,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0"> ncvlxcnvxcnvxcv</h4>
+            <h4 class="mb-0"> الصفحه الرئيسيه</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">

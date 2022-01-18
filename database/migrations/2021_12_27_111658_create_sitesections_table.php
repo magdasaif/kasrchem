@@ -6,30 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSitesectionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-
         Schema::create('site_sections', function (Blueprint $table) {
             $table->id();
             $table->string('site_name_ar');
             $table->string('site_name_en');
-
+             $table->integer('priority');
             $table->integer('statues');
             $table->string('image');
             $table->timestamps();
+
+
         });
+        
+
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('site_sections');

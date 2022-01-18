@@ -2,11 +2,7 @@
 
 @setup
     $repo = 'ssh://s3/training/eradco/backend';
-<<<<<<< HEAD
-    $branch = 'yasmeen';
-=======
     $branch = 'dev';
->>>>>>> magda
 
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
@@ -48,12 +44,8 @@
     echo "Starting the setup_links Task"
     cd {{ $deploymentDir }}
 
-<<<<<<< HEAD
-    rsync -rav {{ $deploymentDir }}/storage {{ $storage }}
-
-=======
->>>>>>> magda
-    rm -rf {{ $deploymentDir }}/storage
+    rsync -rav {{ $deploymentDir }}/storage/ {{ $storage }}/
+    rm -rf {{ $deploymentDir }}/storage {{ $deploymentDir }}/.env
 
     ln -ndsf {{ $env }} {{ $deploymentDir }}/.env
     ln -ndsf {{ $storage }} {{ $deploymentDir }}/storage
@@ -95,7 +87,7 @@
 @task('db_migrate', ['on' => 'dev'])
     echo "Starting db_migrate Task"
     cd {{ $deploymentDir }}
-    {{ $phpver }} artisan schema:dump || echo "There is some issue in creating full structure dump of the database using schema:dump command"
+    {{-- {{ $phpver }} artisan schema:dump || echo "There is some issue in creating full structure dump of the database using schema:dump command" --}}
     mysqldump --complete-insert --lock-all-tables --extended-insert --insert-ignore {{ $dbname }} > ./{{ $dbname }}_full.sql || echo "There is some issue in creating full dump of the database"
     mysqldump --complete-insert --lock-all-tables --extended-insert --no-create-db --no-create-info --insert-ignore {{ $dbname }} > ./{{ $dbname }}_dataonly.sql || echo "There is some issue in creating a dataonly dump of the database"
     runuser -l {{ $user }} -c "cd {{ $deploymentDir }}; {{ $phpver }} {{ $composer }} install --prefer-dist --no-dev" || echo "Composer Task Doesn\'t Complete successfully !!, It needs some investigation."

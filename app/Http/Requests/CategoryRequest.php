@@ -26,6 +26,7 @@ class CategoryRequest extends FormRequest
         return [
             'subname_ar'=>'required',
             'subname_en'=>'required',
+            
         ];
     }
 }
