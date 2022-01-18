@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSub2CategoriesTable extends Migration
+class CreateMainCategorysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateSub2CategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub2_categories', function (Blueprint $table) {
+        Schema::create('main_categorys', function (Blueprint $table) {
 
             $table->id();
 
-            $table->unsignedBigInteger('cate_id');
-            $table->foreign('cate_id')->references('id')->on('main_categories')->onDelete('cascade');
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('site_sections')->onDelete('cascade');
 
-            $table->string('subname2_ar');
-            $table->string('subname2_en');
+            $table->string('subname_ar');
+            $table->string('subname_en');
 
             $table->integer('status');
 
-            $table->string('image2');
+            $table->string('image');
 
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ class CreateSub2CategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub2_categories');
+        Schema::dropIfExists('main_categorys');
     }
 }

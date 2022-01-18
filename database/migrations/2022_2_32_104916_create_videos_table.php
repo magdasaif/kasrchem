@@ -16,10 +16,10 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('main_cate_id');
-            $table->foreign('main_cate_id')->references('id')->on('main_categories')->onDelete('cascade');
+            $table->foreign('main_cate_id')->references('id')->on('main_categorys')->onDelete('cascade');
             
             $table->unsignedBigInteger('sub1_id');
-            $table->foreign('sub1_id')->references('id')->on('sub2_categories')->onDelete('cascade');
+            $table->foreign('sub1_id')->references('id')->on('sub_categorys2')->onDelete('cascade');
             
             $table->unsignedBigInteger('sub2_id');
             $table->foreign('sub2_id')->references('id')->on('Sub_Categorys3')->onDelete('cascade');

@@ -11,7 +11,7 @@ class Sub_Category2 extends Model
 {
     use HasFactory;
 
-    protected $table = 'sub2_categories';
+    protected $table = 'sub_categorys2';
     public $fillable=['id','subname2_ar','subname2_en','image2','cate_id','status'];
     public $timestamps = true;
 
