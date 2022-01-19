@@ -26,10 +26,10 @@ class Release extends Model
 
     public function relation_with_sub3_category()
     {
-        return $this->belongsTo('App\Models\sub_Category3', 'sub2_id');
+        return $this->belongsTo('App\Models\Sub_Category3', 'sub2_id');
     }
 
-    
+
     public function relation_with_sub4_category()
     {
         return $this->belongsTo('App\Models\Sub_Category4', 'sub3_id');
