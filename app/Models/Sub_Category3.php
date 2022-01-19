@@ -12,8 +12,8 @@ class Sub_Category3 extends Model
     public $fillable=['id','sub2_id','subname_ar','subname_en','image','status'];
     public $timestamps = true;
 
-  //  public function Sub_Category3()
- public function vv()
+    public function Sub_Category3()
+ //public function vv()
 
     {
         return $this->belongsTo('App\Models\Sub_Category2', 'sub2_id');
