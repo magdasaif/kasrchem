@@ -4,7 +4,7 @@
 
 <?php $__env->startSection('title'); ?>
 
-اضافة صورة
+اضافة نشرة
 <?php $__env->stopSection(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('page-header'); ?>
@@ -30,17 +30,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"  style="color: #2569b1;"> اضافة مقال</h5>
+            <h5 class="modal-title"  style="color: #2569b1;"> اضافة نشرة</h5>
             
         </div>
         <div class="modal-body">
 
-            <form method="POST" action="<?php echo e(route('article.store')); ?>" enctype="multipart/form-data">
+            <form method="POST" action="<?php echo e(route('release.store')); ?>" enctype="multipart/form-data">
 
                 <?php echo csrf_field(); ?>
                 
                   <!----------------------------------------------------->
-              
+                
                   <div class="form-group">
                  <label>التصنيف الرئيسى</label>
                 <select   class="form-control main_category" id="main_category_id" name="main_category" required>
@@ -54,7 +54,18 @@
                    <?php }
                 }
                       ?>
-                 </select> </div>
+                 </select> 
+                 <?php $__errorArgs = ['main_category'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="form-text text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
 
             <!----------------------------------------------------->
         <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
@@ -84,8 +95,8 @@
                <!----------------------------------------------------->
               
                <div class="form-group">
-                    <label for="title_ar">عنوان المقال </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar" required>
+                    <label for="title_ar">اسم النشرة</label>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم النشرة" name="title_ar" required>
                     <?php $__errorArgs = ['title_ar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -100,8 +111,8 @@ unset($__errorArgs, $__bag); ?>
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="title_en">عنوان المقال بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان المقال بالانجليزية" name="title_en" required>
+                    <label for="title_en">اسم النشرة بالانجليزية</label>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en" required>
                     <?php $__errorArgs = ['title_en'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -113,42 +124,9 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
-               <!----------------------------------------------------->
-               <div class="form-group">
-                    <label for="content_ar">محتوى المقال </label>
-                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال "  ></textarea>
-                    <?php $__errorArgs = ['content_ar'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="form-text text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-              <!----------------------------------------------------->
-               
-               <div class="form-group">
-                    <label for="content_en"> محتوى المقال بالانجليزية </label>
-                    
-                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية "  ></textarea>
-
-                    <?php $__errorArgs = ['content_en'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="form-text text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-              <!----------------------------------------------------->
-                <div class="form-group">
-                    <label for="image">صوره</label>
+                 <!----------------------------------------------------->
+                 <div class="form-group">
+                    <label for="image">صورة النشرة</label>
                     <input type="file" class="form-control" name="image" accept="image/*" required>
                     <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -162,6 +140,21 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
              <!----------------------------------------------------->
+             <div class="form-group">
+                    <label for="image">ملف النشرة</label>
+                    <input type="file" class="form-control" name="file"  accept="application/pdf,application/vnd.ms-excel" required>
+                    <?php $__errorArgs = ['file'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="form-text text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+              <!----------------------------------------------------->
 
                 <div class="form-group">
                     <label for="image">الحالـة</label>
@@ -170,7 +163,9 @@ unset($__errorArgs, $__bag); ?>
                             <option value="0">غير مُفعل</option>
                     </select>
                 </div>
+     
           <!----------------------------------------------------->
+         
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
@@ -181,34 +176,21 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
-<!-- tinymce -->
-<script src="<?php echo e(URL::asset('assets/tinymce/tinymce.min.js')); ?>"></script>
-    <script>
-    tinymce.init({
-        selector: 'textarea.tinymce-editor',
-        height: 300,
-        theme: 'modern',
-        plugins: [
-          'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-          'searchreplace wordcount visualblocks visualchars code fullscreen',
-          'insertdatetime media nonbreaking save table contextmenu directionality',
-          'emoticons template paste textcolor colorpicker textpattern imagetools'
-        ],
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        toolbar2: 'print preview media | forecolor backcolor emoticons',
-        image_advtab: true
-    });
- 
+
+<script>
+    
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
             $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
-               if (main_category_id) {
-                //   alert("<?php echo e(URL::to('sub2_article')); ?>/" + main_category_id);
+               // alert(main_category_id);
+              
+               if (main_category_id ) {
+                 // alert("<?php echo e(URL::to('fetch_sub2')); ?>/" + main_category_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "<?php echo e(URL::to('sub2_article')); ?>/" + main_category_id,
+                        url: "<?php echo e(URL::to('fetch_sub2')); ?>/" + main_category_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -233,18 +215,19 @@ unset($__errorArgs, $__bag); ?>
                     alert('AJAX load did not work');
                 }
             });
+            
         });
          //---------------for show seelct option of sub3------------------------//
          $(document).ready(function () {
             $('select[name="sub2"]').on('change', function () {
                 var sub2_id = $(this).val();
-               // alert (sub2_id);
+                 // alert (sub2_id);
                if (sub2_id) {
-                  // alert("<?php echo e(URL::to('sub3_article')); ?>/" + sub2_id);
+                  // alert("<?php echo e(URL::to('fetch_sub3')); ?>/" + sub2_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "<?php echo e(URL::to('sub3_article')); ?>/" + sub2_id,
+                        url: "<?php echo e(URL::to('fetch_sub3')); ?>/" + sub2_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -274,11 +257,11 @@ unset($__errorArgs, $__bag); ?>
                 var sub3_id = $(this).val();
                 //alert (sub3_id);
                if (sub3_id) {
-                  // alert("<?php echo e(URL::to('sub4_article')); ?>/" + sub3_id);
+                  // alert("<?php echo e(URL::to('fetch_sub4')); ?>/" + sub3_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "<?php echo e(URL::to('sub4_article')); ?>/" + sub3_id,
+                        url: "<?php echo e(URL::to('fetch_sub4')); ?>/" + sub3_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -307,4 +290,4 @@ unset($__errorArgs, $__bag); ?>
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\eradco-backend\final\backend\resources\views/pages/Article/add.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\eradco-backend\final\backend\resources\views\pages\Release\add.blade.php ENDPATH**/ ?>
