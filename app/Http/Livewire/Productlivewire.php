@@ -11,7 +11,7 @@ use App\Models\Product_attachment;
 use App\Models\Product_Feature;
 
 use App\Models\Sub_Category2;
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 
 
@@ -145,7 +145,7 @@ class Productlivewire extends Component
          try{
             //vaildation
             $this->validate();
-           
+
            if($this->image){
 
                 $last_id = Product::orderBy('id', 'desc')->first();
@@ -238,9 +238,9 @@ class Productlivewire extends Component
                     'product_id'=>Product::latest()->first()->id
                 ]);
             }
-      
+
             $this->inputs = [];
-       
+
             $this->resetInputFields();
 
 

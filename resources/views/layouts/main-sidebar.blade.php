@@ -44,7 +44,23 @@
                             
                         </ul>
                     </li>
-                   
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#product">
+                            <div class="pull-left"><i class="ti-palette"></i><span
+                                    class="right-nav-text">المنتجات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="product" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="{{route('products.create')}}">اضافه منتج</a></li>
+                            <li><a href="{{route('products.index')}}">قائمه المنتجات</a></li>
+
+                            <li><a href="{{url('add_product')}}">اضافه منتج-livewire</a></li>
+
+                            
+                        </ul>
+                    </li>
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#slider">
@@ -73,25 +89,6 @@
                         </ul>
                     </li>
 
-
-                    <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#product">
-                            <div class="pull-left"><i class="ti-palette"></i><span
-                                    class="right-nav-text">المنتجات</span></div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="product" class="collapse" data-parent="#sidebarnav">
-                            <li><a href="{{route('products.create')}}">اضافه منتج</a></li>
-                            <li><a href="{{route('products.index')}}">قائمه المنتجات</a></li>
-
-                            <li><a href="{{url('add_product')}}">اضافه منتج-livewire</a></li>
-
-                            
-                        </ul>
-                    </li>
-
-
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#video">
                             <div class="pull-left"><i class="fa fa-video-camera"></i><span
@@ -107,14 +104,26 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#partners">
-                            <div class="pull-left"><i class="fas fa-handshake"></i><span
+                            <div class="pull-left"><i class="fa fa-handshake-o"></i><span
                                     class="right-nav-text">الشركاء</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="partners" class="collapse" data-parent="#sidebarnav">
-                        <li><a href="{{route('partner.create')}}"> اضافة شريك </a></li>
+                             <li><a href="{{route('partner.create')}}"> اضافة شريك </a></li>
                             <li><a href="{{route('partner.index')}}">قائمة الشركاء</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#release">
+                            <div class="pull-left"><i class="fa fa-file-pdf-o"></i><span
+                                    class="right-nav-text">النشرات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="release" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="{{route('release.create')}}"> اضافة نشرة </a></li>
+                            <li><a href="{{route('release.index')}}">قائمة النشرة</a></li>
                         </ul>
                     </li>
                     

@@ -6,7 +6,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Main_Category; 
 use App\Models\Sub_Category2;
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 
 class ArticleController extends Controller
@@ -26,7 +26,7 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function findsub2($id)
     {
-    $sub_Category3= sub_Category3::pluck("id");
+    $sub_Category3= Sub_Category3::pluck("sub2_id");
     $data= Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id");
      return response()->json($data); //then sent this data to ajax success
     return $data;
@@ -36,7 +36,7 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function findsub3($id)
     {
-     $sub_Category4= sub_Category4::pluck("id");
+     $sub_Category4= sub_Category4::pluck("sub3_id");
      $data= sub_Category3::where('sub2_id',$id)->whereIn('id',  $sub_Category4)-> pluck("subname_ar", "id");
       return response()->json($data); //then sent this data to ajax success
      return $data;
@@ -91,11 +91,12 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function edit($id)
     {
+       
         $article = Article::findOrfail($id);
         if(!$article) return redirect()->back();
        $Main_Cat = Main_Category::withCount('sub_cate2')->get();
        $Sub_Category4 = Sub_Category4::get();
-       $Sub_Category3=sub_Category3:: whereIn('id',  $Sub_Category4)->get();
+       $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
        $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
         return view('pages.Article.edit',compact('article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
     }

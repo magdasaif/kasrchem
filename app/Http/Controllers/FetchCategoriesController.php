@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Main_Category; 
+use App\Models\Main_Category;
 use App\Models\Sub_Category2;
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 
 class FetchCategoriesController extends Controller
@@ -21,9 +21,9 @@ class FetchCategoriesController extends Controller
     $data= Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id");
      return response()->json($data); //then sent this data to ajax success
     return $data;
-    
+
     }
-    
+
 //--------------------------------------------
     public function findsub3($id)
     {

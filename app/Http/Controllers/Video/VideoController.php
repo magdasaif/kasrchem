@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\VideoRequest;
 use App\Models\Video;
-use App\Models\Main_Category; 
+use App\Models\Main_Category;
 use App\Models\Sub_Category2;
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 class VideoController extends Controller
 {
-    
+
     public function index()
     {
         $Vid=Video::all();
@@ -59,7 +59,7 @@ public function edit($id)
     if(!$video) return redirect()->back();
    $Main_Cat = Main_Category::withCount('sub_cate2')->get();
    $Sub_Category4 = Sub_Category4::get();
-   $Sub_Category3=sub_Category3:: whereIn('id',  $Sub_Category4)->get();
+   $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
    $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
     return view('pages.Video.edit',compact('video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
 }
@@ -85,7 +85,7 @@ public function edit($id)
       return redirect()->route('video.index')->with(['success'=>'تم التعديل بنجاح']);
     }
     catch
-    (\Exception $e) 
+    (\Exception $e)
     {
         return redirect()->back()->with(['error' => $e->getMessage()]);
     }
@@ -94,10 +94,10 @@ public function edit($id)
 public function destroy($id)
 {
     // dd($id);
-    try 
+    try
     {
-    $Video=Video::find($id);  
-    $Video->delete(); 
+    $Video=Video::find($id);
+    $Video->delete();
     return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
    }
    catch

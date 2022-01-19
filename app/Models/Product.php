@@ -36,7 +36,7 @@ class Product extends Model
 
     public function relation_with_sub3_category()
     {
-        return $this->belongsTo('App\Models\sub_Category3', 'sub3_id');
+        return $this->belongsTo('App\Models\Sub_Category3', 'sub3_id');
     }
 
     public function relation_with_sub4_category()

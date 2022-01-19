@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sub_Category4; 
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 use App\Http\Requests\SubCategory4Request;
 
 class SubcategoryController4 extends Controller
@@ -24,7 +24,7 @@ class SubcategoryController4 extends Controller
      public function create($sub3_id)
     {
        // return $sub3_id;
-        $sub_Category3 = sub_Category3::find($sub3_id);
+        $sub_Category3 = Sub_Category3::find($sub3_id);
         return view('categories.sub4.add',compact('sub_Category3','sub3_id'));
     }
 //-----------------------store to db-----------------------------------------------

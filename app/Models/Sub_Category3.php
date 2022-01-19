@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class sub_Category3 extends Model
+class Sub_Category3 extends Model
 {
     use HasFactory;
     protected $table = 'sub_categorys3';
@@ -13,10 +13,12 @@ class sub_Category3 extends Model
     public $timestamps = true;
 
     public function Sub_Category3()
+ //public function vv()
+
     {
         return $this->belongsTo('App\Models\Sub_Category2', 'sub2_id');
     }
-    
+
 
     public function relation_sub3_with_sub4()
      {

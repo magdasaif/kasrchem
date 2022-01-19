@@ -197,6 +197,8 @@
                              
                            //  $("#all").show();
                            // $("#sub2_div").show();
+                             $("#sub3_div").hide();
+                             $("#sub4_div").hide();
                              $('select[name="sub2"]').empty();
                              $('select[name="sub2"]').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
@@ -230,7 +232,7 @@
                         success: function (data) 
                         {
                              //alert("true");
-                          //  $("#sub3_div").show();
+                             $("#sub3_div").show();
                              $('select[name="sub3"]').empty();
                              $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
@@ -264,7 +266,7 @@
                         success: function (data) 
                         {
                              //alert("true");
-                         //   $("#sub4_div").show();
+                            $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
                              $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {

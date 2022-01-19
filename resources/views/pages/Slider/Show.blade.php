@@ -74,12 +74,12 @@
                             <td> 
                              <button type="button" class="btn btn-info" ><a href="{{route('slider.edit',$slider->id)}}"  target="_blank"> تعديل</a></button>
                              <!-- <button type="button" class=" btn btn-danger" onclick="return confirm('هل انت متاكد من الحذف?')"><a href="{{route('slider.destroy',$slider->id)}}"  > حذف</a></button>  -->
-                             <button class="btn btn-danger" data-catid={{$slider->id}} data-toggle="modal" data-target="#delete">حذف</button>
+                             <button class="btn btn-danger" data-catid={{$slider->id}} data-toggle="modal" data-target="#delete{{$slider->id}}">حذف</button>
                             </td>
                             </tr>
                         <!--############################ model for delete #################################-->
           
-                            <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal modal-danger fade" id="delete{{$slider->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header" style="direction: ltr;">

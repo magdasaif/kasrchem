@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 
 
 class Sub_Category2 extends Model
@@ -22,6 +22,6 @@ class Sub_Category2 extends Model
 
     public function sub_cate3()
     {
-        return $this->hasMany(sub_Category3::class,'sub2_id');
+        return $this->hasMany(Sub_Category3::class,'sub2_id');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\sub_Category3; 
+use App\Models\Sub_Category3; 
 use App\Models\Sub_Category2;
 use App\Http\Requests\SubCatergory3Request;
 
@@ -30,7 +30,7 @@ class SubcategoryController3 extends Controller
     {
        
         //dd( sub_Category3::where('sub2_id',$sub2_id)->get());
-        $sub_Category3 = sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->get();
+        $sub_Category3 = Sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->get();
         return view('categories.sub3.show',compact('sub_Category3','sub2_id'));
     }
     //----------------------------------------------
