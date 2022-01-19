@@ -88,4 +88,9 @@ Route::group(['namespace'=>'Video'],function(){
     Route::resource('video', 'VideoController');
   
 });
+//--------------------------------partners---------------------------------------------
+Route::group(['namespace'=>'Partners'],function(){
+    Route::resource('partner', 'PartnerController');
+  
+});
 //-----------------------------------------------------------------------------

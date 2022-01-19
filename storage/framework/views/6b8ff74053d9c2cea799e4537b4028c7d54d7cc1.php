@@ -91,12 +91,12 @@
                             <td>
                                 <a href="<?php echo e(url('img/'.$product->id)); ?>"><button type="button" class="btn btn-info" > الصور</button></a>
                             
-                               <a href="<?php echo e(url('products_files/'.$product ->id)); ?>"> <button type="button" class="btn btn-info" > الملفات</button></a>
+                               <a href="<?php echo e(url('products_files/'.$product->id)); ?>"> <button type="button" class="btn btn-info" > الملفات</button></a>
                             </td>
 
 
                             <td>
-                                <a href="<?php echo e(route('products.edit',$product ->id)); ?>"><button type="button" class="btn btn-info" > تعديل</button></a>
+                                <a href="<?php echo e(route('products.edit',$product->id)); ?>"><button type="button" class="btn btn-info" > تعديل</button></a>
                             </td>
                         </tr>
 

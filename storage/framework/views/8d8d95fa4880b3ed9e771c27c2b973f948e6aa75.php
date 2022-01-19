@@ -104,6 +104,19 @@
                             <li><a href="<?php echo e(route('video.index')); ?>">قائمة الفيديو</a></li>
                         </ul>
                     </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#partners">
+                            <div class="pull-left"><i class="fas fa-handshake"></i><span
+                                    class="right-nav-text">الشركاء</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="partners" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="<?php echo e(route('partner.create')); ?>"> اضافة شريك </a></li>
+                            <li><a href="<?php echo e(route('partner.index')); ?>">قائمة الشركاء</a></li>
+                        </ul>
+                    </li>
                     
                 </ul>
             </div>
