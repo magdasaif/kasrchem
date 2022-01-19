@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReleaseRequest;
 use App\Models\Release;
-use App\Models\Main_Category; 
+use App\Models\Main_Category;
 use App\Models\Sub_Category2;
-use App\Models\sub_Category3;
+use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 class ReleaseController extends Controller
 {
@@ -42,20 +42,20 @@ class ReleaseController extends Controller
          $validated = $request->validated();
            if($request->image)
            {
-               
+
             $folder_name='release_'. $last_id;
               $photo_name= ($request->image)->getClientOriginalName();
                ($request->image)->storeAs($folder_name,$photo_name,$disk="release");
-               
+
            }
           if($request->file)
            {
              $folder_name='release_'. $last_id;
               $file_name= ($request->file)->getClientOriginalName();
                ($request->file)->storeAs($folder_name,$file_name,$disk="release");
-               
+
            }
-         
+
             $release = new Release
            ([
             'main_cate_id' =>  $request->main_category,
@@ -69,7 +69,7 @@ class ReleaseController extends Controller
             'file' =>$file_name,
            ]);
         $release->save();
-       
+
             return redirect()->route('release.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }
         catch(\Exception $e){
@@ -83,7 +83,7 @@ class ReleaseController extends Controller
         if(!$release) return redirect()->back();
        $Main_Cat = Main_Category::withCount('sub_cate2')->get();
        $Sub_Category4 = Sub_Category4::get();
-       $Sub_Category3=sub_Category3:: whereIn('id',  $Sub_Category4)->get();
+       $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
        $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
         return view('pages.release.edit',compact('release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
     }
@@ -91,9 +91,9 @@ class ReleaseController extends Controller
     public function update(ReleaseRequest $request, $id)
     {
     // dd($request->$release_id);
-    
+
         try {
-           
+
              $validated = $request->validated();
             // $rel = Release::findOrFail($request->id);
             $rel = Release::findOrFail($id);
@@ -104,42 +104,42 @@ class ReleaseController extends Controller
              $rel-> title_ar= $request->title_ar;
              $rel->title_en = $request->title_en;
              $rel-> status=$request->status;
- 
+
              if($request->image)
              {
               $validator = $request->validate(['image' => 'required|image|mimes:jpg,png,PNG,jpeg,gif,svg|max:2048',]);
-              if ($validator->fails()) { 
+              if ($validator->fails()) {
                    return redirect()->back()->with($validator->errorrs());
                 }
-  
+
 
            $folder_name='release_'.$id;
              $photo_name= ($request->image)->getClientOriginalName();
              ($request->image)->storeAs($folder_name,$photo_name,$disk="release");
-             
+
              $rel->image = $photo_name;
              }
-           
- 
+
+
              if($request->filee)
              {
-             
+
                 $validator=$request->validate(['file' => 'required|max:10000|mimes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document',]);
-             if ($validator->fails()) { 
+             if ($validator->fails()) {
                 return redirect()->back()->with($validator->errorrs());
             }
              $folder_name='release_'.$id;
              $file_name= ($request->filee)->getClientOriginalName();
              ($request->filee)->storeAs($folder_name,$file_name,$disk="release");
-             
+
              $rel->file = $file_name;
              }
-          
+
         $rel->save();
        return redirect()->route('release.index')->with(['success'=>'تم التعديل بنجاح']);
      }
      catch
-     (\Exception $e) 
+     (\Exception $e)
      {
          return redirect()->back()->with(['error' => $e->getMessage()]);
      }
@@ -149,10 +149,10 @@ class ReleaseController extends Controller
     public function destroy($id)
     {
         // dd($id);
-        try 
+        try
         {
-        $Release=Release::find($id);  
-        $Release->delete(); 
+        $Release=Release::find($id);
+        $Release->delete();
         return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
        }
        catch
@@ -164,7 +164,7 @@ class ReleaseController extends Controller
     //--------------------------------------------
     public function errorrs()
     {
-     
+
     return   [
         'image.required' =>'الملف مطلوب',
         'image.max' =>'يجب ان يكون المرفق لا يتعدى ال 10000',

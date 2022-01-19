@@ -23,15 +23,15 @@ Route::get('/', function () {
 });
 //------------------Category------------------------------------------------------
 Route::group(['namespace'=>'Category'],function(){
-    
+
     Route::resource('categories', 'SubcategoryController1');
-    
+
     Route::resource('categories2', 'SubcategoryController2');
     Route::GET('categories2/add/{id}', 'SubcategoryController2@show_add_form');
 
     Route::resource('categories3', 'SubcategoryController3');
     Route::get('categories3_add/{id}', 'SubcategoryController3@create');
-   
+
     Route::resource('categories4', 'SubcategoryController4');
     Route::get('categories4_add/{id}', 'SubcategoryController4@create');
 
@@ -86,15 +86,21 @@ Route::get('delete_products_files/{id}','Products\ProductController@delete_produ
 //--------------------------------vedio---------------------------------------------
 Route::group(['namespace'=>'Video'],function(){
     Route::resource('video', 'VideoController');
-  
+
 });
 //--------------------------------partners---------------------------------------------
 Route::group(['namespace'=>'Partners'],function(){
     Route::resource('partner', 'PartnerController');
-  
+
 });
 //----------------------------release-------------------------------------------------
 Route::group(['namespace'=>'Release'],function(){
     Route::resource('release', 'ReleaseController');
-  
+
 });
+//--------------------------------------------photos_galleries-------------------------
+Route::group(['namespace'=>'Photos_Galleries'],function(){
+    Route::resource('photos_galleries', 'ReleaseController');
+
+});
+//-----------------------------------------------------------------------------------------

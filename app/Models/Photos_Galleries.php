@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Photos_Galleries extends Model
 {
     use HasFactory;
     public $fillable = ['main_cate_id','sub1_id','sub2_id','sub3_id','title_ar','title_en','content_ar','content_en','image','status'];
@@ -34,4 +34,3 @@ class Article extends Model
     {
         return $this->belongsTo('App\Models\Sub_Category4', 'sub3_id');
     }
-}

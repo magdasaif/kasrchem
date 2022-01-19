@@ -14,6 +14,6 @@ class Sub_Category4 extends Model
 
     public function Sub_Category4()
     {
-        return $this->belongsTo('App\Models\sub_Category3', 'sub3_id');
+        return $this->belongsTo('App\Models\Sub_Category3', 'sub3_id');
     }
 }

@@ -115,16 +115,9 @@
                         <ul id="partners" class="collapse" data-parent="#sidebarnav">
                         <li><a href="<?php echo e(route('partner.create')); ?>"> اضافة شريك </a></li>
                             <li><a href="<?php echo e(route('partner.index')); ?>">قائمة الشركاء</a></li>
-<<<<<<< HEAD
-                            </ul>
-</li>
-                         <li>
-
-=======
    </ul>
                     </li>
                     <li>
->>>>>>> a85f67b38bdd7a94ae5ec12a142ba9e49e43f083
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#release">
                             <div class="pull-left"><i class="fa fa-file-pdf-o"></i><span
                                     class="right-nav-text">النشرات</span></div>

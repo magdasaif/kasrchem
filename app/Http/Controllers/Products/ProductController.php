@@ -27,7 +27,7 @@ class ProductController extends Controller
         //this is uncomplete old page before using livewire package
 
         // $categories = Main_Category::get();
-        
+
          $title='اضافه منتج';
          $categories= Main_Category::withcount('sub_cate2')->get();
         return view('pages.products.add',compact('categories','title'));
@@ -51,13 +51,13 @@ class ProductController extends Controller
                 }
                 $folder_name='product_no_'. $new_id;
                 // dd($last_id->id,$folder_name);
-                
+
                 $photo_name= ($request->image)->getClientOriginalName();
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
            }else{
                $photo_name='';
            }
-       
+
             $product =new Product();
 
             $product->main_cate_id=$request->main_cate_id;
@@ -81,8 +81,8 @@ class ProductController extends Controller
             $product->min_amount= $request->min_amount;
             $product->max_amount= $request->max_amount;
 
-            $product->sell_through= $request->sell_through; 
-            $product->shipped_weight= $request->shipped_weight; 
+            $product->sell_through= $request->sell_through;
+            $product->shipped_weight= $request->shipped_weight;
             $product->sort= $request->sort;
 
             $product->video_link= $request->video_link;
@@ -97,7 +97,7 @@ class ProductController extends Controller
             }else{
                 $product->security_permit=0;
             }
-            
+
             $product->save();
 
             if(!empty($request->photos)){
@@ -141,7 +141,7 @@ class ProductController extends Controller
                     'product_id'=>Product::latest()->first()->id
                 ]);
             }
-            
+
             //toastr()->success('تمت الاضافه بنجاح');
 
             return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
@@ -195,7 +195,7 @@ class ProductController extends Controller
         }catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
-        
+
     }
     public function delete_product_images($image_id){
         Product_attachment::findOrfail($image_id)->delete();
@@ -215,12 +215,12 @@ class ProductController extends Controller
 
          //$Product_files = Product_attachment::where('product_id', '=', $product_id)->where('type', '=', 'file')->get();
 
-         
+
             $Product_files = Product_attachment::where([
                ['product_id', '=', $product_id],
                ['type', '=', 'file'],
            ])->get();
-   
+
           // dd($Product_files);
             return view('pages.products.files',compact('Product_files','product_id','title'));
        }
@@ -230,7 +230,7 @@ class ProductController extends Controller
                if(!empty($request->ffff)){
                    foreach($request->ffff as $ff){
                      //  dd($ff,($ff)->getClientOriginalName());
-                    
+
                        $folder_name='product_no_'. $request->product_id;
                        $file_name= ($ff)->getClientOriginalName();
                        ($ff)->storeAs($folder_name,$file_name,$disk="products");
@@ -238,29 +238,29 @@ class ProductController extends Controller
                     //    Storage::putFileAs(
                     //     'avatars', $request->file('avatar'), $request->user()->id
                   //  );
-                    
+
                       // dd($file_name,$request->product_id);
                        Product_attachment::create([
                            'path'=>$file_name,
                            'type'=>'file',
                            'product_id'=>$request->product_id
                        ]);
-                  
+
                    }
                }
-   
+
                return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
            }catch(\Exception $e){
                return redirect()->back()->with(['error'=>$e->getMessage()]);
            }
-           
+
        }
        public function delete_products_files($image_id){
            Product_attachment::findOrfail($image_id)->delete();
            return redirect()->back()->with(['success'=>'تم الحذف']);
        }
        // --------------end products files funcrion -----------------------
-   
+
 
     public function edit($id)
     {
@@ -288,19 +288,19 @@ class ProductController extends Controller
             $validated = $request->validated();
 
             $product =Product::findOrfail($request->id);
-            
+
             if($request->image){
                 $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
 
-                    $folder_name='product_no_'. $request->id;                
+                    $folder_name='product_no_'. $request->id;
                     $photo_name= ($request->image)->getClientOriginalName();
                     ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
 
 
                     $product->image= $photo_name;
             }
-        
-            
+
+
                 $product->main_cate_id=$request->main_cate_id;
                 $product->sub2_id=$request->sub2;
                 $product->sub3_id=$request->sub3;
@@ -322,8 +322,8 @@ class ProductController extends Controller
                 $product->min_amount= $request->min_amount;
                 $product->max_amount= $request->max_amount;
 
-                $product->sell_through= $request->sell_through; 
-                $product->shipped_weight= $request->shipped_weight; 
+                $product->sell_through= $request->sell_through;
+                $product->shipped_weight= $request->shipped_weight;
                 $product->sort= $request->sort;
 
                 $product->video_link= $request->video_link;
@@ -342,7 +342,7 @@ class ProductController extends Controller
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){
                     Product_Feature::where('product_id',$request->id) ->delete();
-                
+
                     foreach ($List_Classes as $list) {
                         Product_Feature::create([
                             'weight_ar' => $list['weight_ar'],
