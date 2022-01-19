@@ -93,4 +93,8 @@ Route::group(['namespace'=>'Partners'],function(){
     Route::resource('partner', 'PartnerController');
   
 });
-//-----------------------------------------------------------------------------
+//----------------------------release-------------------------------------------------
+Route::group(['namespace'=>'Release'],function(){
+    Route::resource('release', 'ReleaseController');
+  
+});
