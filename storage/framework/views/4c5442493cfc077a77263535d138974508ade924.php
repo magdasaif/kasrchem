@@ -85,7 +85,7 @@
             <div class="form-group"  id="sub2_div" name="sub2_div">    
                     <label>   التصنيف الفرعي </label>
                     <select  class="form-control sub2"  id="sub2_id" name="sub2" style="height: 50px;" required>
-                        <option value="<?php echo e($product->relation_with_sub2_category->id); ?>" selected><?php echo e($product->relation_with_sub2_category->subname2_ar); ?></option>
+                        <option value="<?php echo e($product->relation_with_sub2_category->id); ?>" selected ><?php echo e($product->relation_with_sub2_category->subname2_ar); ?></option>
                     </select> 
               </div>
 

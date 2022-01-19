@@ -60,6 +60,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/article'),
         ],
+
+        'partners' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/partners'),
+        ],
         
         'public' => [
             'driver' => 'local',

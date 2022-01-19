@@ -75,11 +75,11 @@
                  <div class="col">
                  <figure class="is-4by3"><img style="width: 150px; height: 150px;"  src="<?php echo asset("storage/products/pdf.png")?>"></figure>
                     <!-- <br><center><button type="button" class="btn btn-danger" ><a href="{{url('delete_products_files/'.$file->id)}}"> حذف</a></button></center> -->
-                    <br><center><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete" > حذف</button></center>
+                    <br><center><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$file->id}}" > حذف</button></center>
                 </div>
                  <!--############################ model for delete #################################-->
           
-                 <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                 <div class="modal modal-danger fade" id="delete{{$file->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header" style="direction: ltr;">

@@ -75,12 +75,12 @@
                  <div class="col">
                     <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/products/product_no_$product_id/$image->path")?>">
                     <!-- <br><center><button type="button" class="btn btn-danger" data-catid={{$image->id}} data-toggle="modal" data-target="#delete" ><a href="{{url('delete_product_images/'.$image->id)}}"> حذف</a></button></center> -->
-                    <br><center><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete" > حذف</button></center>
+                    <br><center><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$image->id}}" > حذف</button></center>
                 </div>
                 
                  <!--############################ model for delete #################################-->
           
-                 <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                 <div class="modal modal-danger fade" id="delete{{$image->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header" style="direction: ltr;">
