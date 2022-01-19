@@ -61,9 +61,9 @@ class ProductController extends Controller
             $product =new Product();
 
             $product->main_cate_id=$request->main_cate_id;
-            $product->sub1_id=$request->sub2;
-            $product->sub2_id=$request->sub3;
-            $product->sub3_id=$request->sub4;
+            $product->sub2_id=$request->sub2;
+            $product->sub3_id=$request->sub3;
+            $product->sub4_id=$request->sub4;
 
             $product->code=$request->code;
 
@@ -302,9 +302,9 @@ class ProductController extends Controller
         
             
                 $product->main_cate_id=$request->main_cate_id;
-                $product->sub1_id=$request->sub2;
-                $product->sub2_id=$request->sub3;
-                $product->sub3_id=$request->sub4;
+                $product->sub2_id=$request->sub2;
+                $product->sub3_id=$request->sub3;
+                $product->sub4_id=$request->sub4;
 
                 $product->code=$request->code;
 
