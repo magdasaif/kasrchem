@@ -8,7 +8,8 @@ use App\Http\Requests\VideoRequest;
 use App\Models\Video;
 use App\Models\Main_Category; 
 use App\Models\Sub_Category2;
-use App\Models\sub_Category3;
+use App\Models\sub_categorys3;
+
 use App\Models\Sub_Category4;
 class VideoController extends Controller
 {
