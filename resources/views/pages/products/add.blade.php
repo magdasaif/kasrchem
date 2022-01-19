@@ -15,12 +15,16 @@
     </div>
     @endif
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
 <!-- breadcrumb -->
 <div class="page-title">
     <div class="row">
@@ -59,7 +63,7 @@
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" name="main_cate_id">
+                    <select class="form-control" name="main_cate_id" style="height: 50px;">
                         <option value="0" selected disable>اختر التصنيف الرئيسي</option>
                         @foreach ($categories as $category)
                             @if($category->sub_cate2_count>0)
@@ -76,7 +80,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  style="height: 50px;" required>
                     </select> 
               </div>
 
@@ -84,14 +88,14 @@
              
              <div class="form-group"  id="sub3_div" style="display: none";>
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3"  style="height: 50px;" required>
                  </select> 
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"  style="display: none";> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4"  style="height: 50px;" required>
 
                         
                     </select>
@@ -101,7 +105,7 @@
                
                 <div class="form-group">
                     <label for="exampleInputEmail1">كود المنتج</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter code" name="code" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter code" name="code" value="{{ old('code') }}" required>
                     @error('code')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -109,7 +113,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" value="{{ old('name_ar') }}" required>
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -117,7 +121,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" value="{{ old('name_en') }}" required>
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -125,7 +129,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">وصف المنتج بالعربيه</label>
-                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="desc_ar" required></textarea>
+                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="desc_ar" required>{{ old('desc_ar') }}</textarea>
                     @error('desc_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -133,7 +137,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">وصف المنتج بالانجليزيه</label>
-                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="desc_en" required></textarea>
+                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="desc_en" required>{{ old('desc_ar') }}</textarea>
                     @error('desc_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -146,7 +150,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">سعر المنتج</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="price" required>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="price" value="{{ old('price') }}" required>
                     @error('price')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -154,7 +158,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الضريبه %</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="tax" value="0">
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="tax" value="{{ old('tax') }}">
                     @error('tax')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -203,19 +207,49 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">صور المنتج الفرعيه</label>
+
+                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple required>
+
+                    @error('image')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">ملفات المنتج</label>
+
+                    <input type="file" class="form-control" name="product_files[]" accept=".pdf" multiple required>
+
+                    @error('image')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                
                 <div class="form-group">
                     <label for="exampleInputEmail1">رابط فيديو للمنتج</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="video_link">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="video_link" value="{{old('video_link')}}">
                     @error('video_link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 
                 <hr>
-               
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">البيع من خلال</label>
+                    <select class="form-control" name="sell_through"  style="height: 50px;">
+                            <option value="1" {{ old('sell_through') == '1' ? "selected" : "" }}>الموقع والفروع</option>
+                            <option value="2" {{ old('sell_through') == '2' ? "selected" : "" }}>الموقع فقط</option>
+                            <option value="3" {{ old('sell_through') == '3' ? "selected" : "" }}>الفروع فقط</option>
+                    </select>
+                </div>
+                
                 <div class="form-group">
                     <label for="exampleInputEmail1">الوزن القائم عند الشحن بالكيلو جرام</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="shipped_weight" value="0" required>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="shipped_weight" value="{{old('shipped_weight')}}" required>
                     @error('shipped_weight')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -232,22 +266,79 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الحالة</label>
-                    <select class="form-control" name="status">
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <select class="form-control" name="status" style="height: 50px;">
+                            <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                            <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                 <label for="exampleInputEmail1">الاتاحة</label>
-                    <select class="form-control" name="availabe_or_no">
-                            <option value="1">متاح</option>
-                            <option value="0">غير متاح</option>
+                    <select class="form-control" name="availabe_or_no" style="height: 50px;">
+                            <option value="1" {{ old('availabe_or_no') == '1' ? "selected" : "" }}>متاح</option>
+                            <option value="0" {{ old('availabe_or_no') == '0' ? "selected" : "" }}>غير متاح</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                <label for="exampleInputEmail1"> يتطلب تصريح امنى</label>
+                      <input type="checkbox" class="form-control" id="exampleInputEmail1"  name="security_permit" style="width: 100px;height: 20px;margin-right: 100px;" {{ old('security_permit') == 'on' ? "checked" : "" }}>
+                </div>
+                
+                 <!-------------------------------------------------------------------------->
+                 <label for="exampleInputEmail1">اضافه خصائص المنتج</label>
+                <div class="card-body">
+                        <div class="repeater">
+                            <div data-repeater-list="List_Classes">
+                                <div data-repeater-item>
+                                    <div class="row">
+
+                                        <div class="col">
+                                            <input class="form-control" type="text" name="weight_ar"  placeholder="الخاصيه مثال : الوزن" value="{{old('weight_ar')}}"/>
+                                            @error('weight_ar') <span class="text-danger error">{{ $message }}</span>@enderror
+                                        </div>
+
+                                        <div class="col">
+                                            <input class="form-control" type="text" name="value_ar" placeholder="القيمة (مثال : 10كجم)" value="{{old('value_ar')}}"/>
+                                            @error('value_ar') <span class="text-danger error">{{ $message }}</span>@enderror
+                                        </div>
+
+                                        <div class="col">
+                                            <input class="form-control" type="text" name="weight_en" placeholder="الخاصية بالانجليزية (مثال : weight)" value="{{old('weight_en')}}"/>
+                                            @error('weight_en') <span class="text-danger error">{{ $message }}</span>@enderror
+                                        </div>
+
+                                        <div class="col">
+                                            <input class="form-control" type="text" name="value_en" placeholder="القيمة بالانجليزيه (مثال : 10كجم)" value="{{old('value_en')}}"/>
+                                            @error('value_en') <span class="text-danger error">{{ $message }}</span>@enderror
+                                        </div>
+
+
+                                        <div class="col">
+                                           
+                                            <input class="btn btn-danger btn-block" data-repeater-delete
+                                                type="button" value="حذف" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-20">
+                                <div class="col-12">
+                                    <input class="button" data-repeater-create type="button" value="اضافه"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                <!-------------------------------------------------------------------------->
+                
+            
                 
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">اضافه</button>
+                        <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger"  > الغاء</button></a>
+
                 </div>
                 </form>
         </div>
@@ -264,7 +355,7 @@
         //---------------for show seelct option of sub2------------------------//
         $(document).ready(function () {
             $('select[name="main_cate_id"]').on('change', function () {
-                alert('ssss');
+               // alert('ssss');
                 var main_cate_id = $(this).val();
                if (main_cate_id) {
                   // alert(main_cate_id);
@@ -305,7 +396,7 @@
                 var sub2_id = $(this).val();
                // alert (sub2_id);
                if (sub2_id) {
-                   alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
+                //   alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
                    
                     $.ajax({
                         type: "GET",
@@ -367,6 +458,7 @@
                 }
             });
         });
-        //--------------------------------------------------------------------------//
+
+       
     </script>
 @endsection

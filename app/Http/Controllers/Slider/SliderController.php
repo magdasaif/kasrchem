@@ -24,7 +24,7 @@ class SliderController extends Controller
       
     try{
             $validated = $request->validated();
-            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048','image requires']);
            if($request->image)
            {
               $folder_name='';

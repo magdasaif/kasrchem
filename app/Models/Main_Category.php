@@ -10,7 +10,7 @@ class Main_Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'main_categories';
+    protected $table = 'main_categorys';
     public $fillable=['id','subname_ar','subname_en','image','section_id','status'];
     public $timestamps = true;
 

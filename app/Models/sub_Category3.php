@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class sub_Category3 extends Model
 {
     use HasFactory;
-    protected $table = 'Sub_Categorys3';
+    protected $table = 'sub_categorys3';
     public $fillable=['id','sub2_id','subname_ar','subname_en','image','status'];
     public $timestamps = true;
 

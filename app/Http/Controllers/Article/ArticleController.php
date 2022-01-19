@@ -26,7 +26,7 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function findsub2($id)
     {
-    $sub_Category3= sub_Category3::pluck("id");
+    $sub_Category3= sub_Category3::pluck("sub2_id");
     $data= Sub_Category2::where('cate_id',$id)->whereIn('id',  $sub_Category3)-> pluck("subname2_ar", "id");
      return response()->json($data); //then sent this data to ajax success
     return $data;
@@ -36,7 +36,7 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function findsub3($id)
     {
-     $sub_Category4= sub_Category4::pluck("id");
+     $sub_Category4= sub_Category4::pluck("sub3_id");
      $data= sub_Category3::where('sub2_id',$id)->whereIn('id',  $sub_Category4)-> pluck("subname_ar", "id");
       return response()->json($data); //then sent this data to ajax success
      return $data;
@@ -91,6 +91,7 @@ class ArticleController extends Controller
 //--------------------------------------------
     public function edit($id)
     {
+       
         $article = Article::findOrfail($id);
         if(!$article) return redirect()->back();
        $Main_Cat = Main_Category::withCount('sub_cate2')->get();
