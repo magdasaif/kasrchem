@@ -13,7 +13,7 @@ class CreateSubCategorys3Table extends Migration
      */
     public function up()
     {
-        Schema::create('Sub_Categorys3', function (Blueprint $table) {
+        Schema::create('sub_categorys3', function (Blueprint $table) {
             
           
             $table->id();
@@ -39,7 +39,7 @@ class CreateSubCategorys3Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Sub_Categorys3');
+        Schema::dropIfExists('sub_categorys3');
     }
 
 }
