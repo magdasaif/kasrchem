@@ -23,5 +23,5 @@ class SiteSectionController extends Controller
      }
 
 
-    
+
 }
