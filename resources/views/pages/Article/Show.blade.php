@@ -71,12 +71,12 @@
                             <td><?php if($article->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
                             <td> 
                              <button type="button" class="btn btn-info" ><a href="{{route('article.edit',$article->id)}}"  target="_blank"> تعديل</a></button>
-                             <button class="btn btn-danger" data-catid={{$article->id}} data-toggle="modal" data-target="#delete">حذف</button>
+                             <button class="btn btn-danger" data-catid={{$article->id}} data-toggle="modal" data-target="#delete{{$article->id}}">حذف</button>
                             </td>
                             </tr>
                         <!--############################ model for delete #################################-->
           
-                            <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal modal-danger fade" id="delete{{$article->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header" style="direction: ltr;">

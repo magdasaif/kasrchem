@@ -104,6 +104,20 @@
                             <li><a href="{{route('video.index')}}">قائمة الفيديو</a></li>
                         </ul>
                     </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#release">
+                            <div class="pull-left"><i class="fa fa-file-pdf-o"></i><span
+                                    class="right-nav-text">النشرات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="release" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="{{route('release.create')}}"> اضافة نشرة </a></li>
+                            <li><a href="{{route('release.index')}}">قائمة النشرة</a></li>
+                        </ul>
+                    </li>
                     
                 </ul>
             </div>

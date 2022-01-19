@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-تعديل مقال
+تعديل النشرة
 @stop
 @endsection
 @section('page-header')
@@ -22,31 +22,41 @@
      </div>
 @endif
 
+
+@if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 <div>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل مقال</h5>
+            <h5 class="modal-title" style="color: #2569b1;">تعديل النشرة</h5>
            
         </div>
         <div class="modal-body">
             
-            <form method="POST"  action="{{route('article.update',$article->id)}}" enctype="multipart/form-data">
+            <form method="POST"  action="{{route('release.update',$release->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
-                 <!--------------article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'--------------------------------------->
-              
+                 <!--'release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'------------------------------------->
+              <input type="hidden" name="release_id"  value="{{$release->id}}">
                  <div class="form-group">
                  <label>التصنيف الرئيسى</label>
                 <select   class="form-control main_category" id="main_category_id" name="main_category" required>
                  <option value="0" disabled="true" >اختر التصنيف الرئيسى</option> 
-                    <option value="{{$article->relation_with_main_category->id}}" selected="true">{{$article->relation_with_main_category->subname_ar}}</option>
+                    <option value="{{$release->relation_with_main_category->id}}" selected="true">{{$release->relation_with_main_category->subname_ar}}</option>
                    <?php 
                     foreach($Main_Cat as $Main_Category)
-                        { if (($Main_Category->id!=$article->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  ) 
+                        { if (($Main_Category->id!=$release->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  ) 
                             {  
                     ?>
                               <option value="{{$Main_Category->id}}">{{$Main_Category->subname_ar}}</option>
@@ -59,15 +69,15 @@
             
              <!----------------------------------------------------->
         <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;">    
-            <div class="form-group"  id="sub2_div" >    
+            <div class="form-group"  id="sub2_div" style="display:block" >    
                     <label>   التصنيف الفرعي </label>
 
                     <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
                     <option value="0" disabled="true" >اختر التصنيف الفرعي</option>
-                    <option value="{{$article->relation_with_sub2_category->id}}" selected="true">{{$article->relation_with_sub2_category->subname2_ar}}</option>
+                    <option value="{{$release->relation_with_sub2_category->id}}" selected="true">{{$release->relation_with_sub2_category->subname2_ar}}</option>
                     <?php 
                     foreach($Sub_Category2 as $Sub_cat2)
-                        { if ($Sub_cat2->id!=$article->relation_with_sub2_category->id ) 
+                        { if ($Sub_cat2->id!=$release->relation_with_sub2_category->id ) 
                             {  
                     ?>
                               <option value="{{$Sub_cat2->id}}">{{$Sub_cat2->subname2_ar}}</option>
@@ -84,15 +94,15 @@
 
              <!----------------------------------------------------- -->
              
-             <div class="form-group"  id="sub3_div" >
+             <div class="form-group"  id="sub3_div" style="display:block" >
                 <label>النوع</label>
                  <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
 
                  <option value="0" disabled="true" >اختر النوع </option>
-                    <option value="{{$article->relation_with_sub3_category->id}}" selected="true">{{$article->relation_with_sub3_category->subname_ar}}</option>
+                    <option value="{{$release->relation_with_sub3_category->id}}" selected="true">{{$release->relation_with_sub3_category->subname_ar}}</option>
                     <?php 
                     foreach($Sub_Category3 as $Sub_cat3)
-                        { if ($Sub_cat3->id!=$article->relation_with_sub3_category->id ) 
+                        { if ($Sub_cat3->id!=$release->relation_with_sub3_category->id ) 
                             {  
                     ?>
                               <option value="{{$Sub_cat3->id}}">{{$Sub_cat3->subname_ar}}</option>
@@ -108,15 +118,15 @@
                 </div>
 
                 <!----------------------------------------------------- -->
-                <div class="form-group"  id="sub4_div" > 
+                <div class="form-group"  id="sub4_div" style="display:block" > 
                 <label>النوع الفرعى</label>
                     <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
 
                     <option value="0" disabled="true" >اختر النوع الفرعى</option>
-                    <option value="{{$article->relation_with_sub4_category->id}}" selected="true">{{$article->relation_with_sub4_category->subname_ar}}</option>
+                    <option value="{{$release->relation_with_sub4_category->id}}" selected="true">{{$release->relation_with_sub4_category->subname_ar}}</option>
                     <?php 
                     foreach($Sub_Category4 as $Sub_cat4)
-                        { if ($Sub_cat4->id!=$article->relation_with_sub4_category->id ) 
+                        { if ($Sub_cat4->id!=$release->relation_with_sub4_category->id ) 
                             {  
                     ?>
                               <option value="{{$Sub_cat4->id}}">{{$Sub_cat4->subname_ar}}</option>
@@ -134,8 +144,8 @@
                <!----------------------------------------------------->
               
                <div class="form-group">
-                    <label for="title_ar">عنوان المقال </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar" value="{{$article->title_ar}}" required>
+                    <label for="title_ar">اسم النشرة </label>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar" value="{{$release->title_ar}}" required>
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -143,53 +153,39 @@
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="title_en">عنوان المقال بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان المقال بالانجليزية" name="title_en"  value="{{$article->title_en}}" required>
+                    <label for="title_en">اسم النشرة بالانجليزية</label>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en"  value="{{$release->title_en}}" required>
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
                <!----------------------------------------------------->
-               <div class="form-group">
-                    <label for="content_ar">محتوى المقال </label>
-                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال " >{!!$article->content_ar!!}</textarea>
-                    
-                    @error('content_ar')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-              <!----------------------------------------------------->
                
                <div class="form-group">
-                    <label for="content_en">محتوى المقال  بالانجليزية</label>
-                    
-                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية " > {!!$article->content_en!!}</textarea>
-
-                    @error('content_en')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-              <!----------------------------------------------------->
-               
-                <div class="form-group">
-                    <label for="image">الصورة</label>
+                    <label for="image">صورة النشرة</label>
                     <input type="file" class="form-control" name="image" >
-                    <img  style="width: 200px;height: 200px;" accept="image/*" src=<?php echo asset("storage/article/{$article->image}")?> alt="" required>
+                    <img  style="width: 200px;height: 200px;" accept="image/*" src=<?php echo asset("storage/release/release_$release->id/{$release->image}")?> alt="" >
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-               
-
+              <!----------------------------------------------------->
+              <div class="form-group">
+                    <label for="image">ملف النشرة</label>
+                    <input type="file" class="form-control" name="filee"  >
+                    <embed src="<?php echo asset("storage/release/release_$release->id/{$release->file}")?>" width="200px" height="200px"  accept="application/pdf,application/vnd.ms-excel"/>
+                    @error('file')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+              <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="image">الحالة</label>
                     <select class="form-control" name="status">
-                            <option value="1" <?php if($article->status==1){echo'selected';}?> >مُفعل</option>
-                            <option value="0" <?php if($article->status==0){echo'selected';}?> >غير مُفعل</option>
+                            <option value="1" <?php if($release->status==1){echo'selected';}?> >مُفعل</option>
+                            <option value="0" <?php if($release->status==0){echo'selected';}?> >غير مُفعل</option>
                     </select>
                 </div>
-                <input type="hidden" name="id" value="{{$article->id}}">
                
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
@@ -201,64 +197,30 @@
 </div>
 @endsection
 @section('js')
-<script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script>
-    tinymce.init({
-        selector: 'textarea.tinymce-editor',
-        height: 300,
-        theme: 'modern',
-        plugins: [
-        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-        "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
-    ],
-
-    toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
-    toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
-    toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-
-    menubar: false,
-    toolbar_items_size: 'small',
-
-    style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Example 1', inline: 'span', classes: 'example1'},
-        {title: 'Example 2', inline: 'span', classes: 'example2'},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-    ],
-
-    templates: [
-        {title: 'Test template 1', content: 'Test 1'},
-        {title: 'Test template 2', content: 'Test 2'}
-    ],
-  
-  
-    });
-    
+   
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
     $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
                if (main_category_id) {
-                //   alert("{{ URL::to('sub2_article')}}/" + main_category_id);
+             //  alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('sub2_article')}}/" + main_category_id,
+                        url: "{{ URL::to('fetch_sub2')}}/" + main_category_id,
                         dataType: "json",
                       
                         success: function (data) 
                         {
-                             //alert("true");
+                           //  alert("true");
                              
                            //  $("#all").show();
                            // $("#sub2_div").show();
-                           $("#sub3_div").hide();
+                             $("#sub3_div").hide();
                              $("#sub4_div").hide();
                              $('select[name="sub2"]').empty();
+                             
                              $('select[name="sub2"]').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                               $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
@@ -281,11 +243,11 @@
                 var sub2_id = $(this).val();
                // alert (sub2_id);
                if (sub2_id) {
-                  // alert("{{ URL::to('sub3_article')}}/" + sub2_id);
+                  // alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('sub3_article')}}/" + sub2_id,
+                        url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -315,11 +277,11 @@
                 var sub3_id = $(this).val();
                 //alert (sub3_id);
                if (sub3_id) {
-                  // alert("{{ URL::to('sub4_article')}}/" + sub3_id);
+                  // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('sub4_article')}}/" + sub3_id,
+                        url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
                         dataType: "json",
                       
                         success: function (data) 

@@ -61,6 +61,10 @@ return [
             'root' => storage_path('app/public/article'),
         ],
         
+        'release' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/release'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
