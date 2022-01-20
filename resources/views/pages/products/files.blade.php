@@ -96,7 +96,13 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+
+                                        <input type="hidden" name="product_id" value="{{$product_id}}">
+                                        <input type="hidden" name="file_name" value="{{$file->path}}">
+                                        <input type="hidden" name="file_id" value="{{$file->id}}">
+
+                                        
+<button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success" >حذف</button>
                                     </div>
                                 </form>

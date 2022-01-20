@@ -97,4 +97,9 @@ Route::group(['namespace'=>'Release'],function(){
     Route::resource('release', 'ReleaseController');
 
 });
+//----------------------------release-------------------------------------------------
+Route::group(['namespace'=>'Branches'],function(){
+    Route::resource('branches', 'BrancheController');
+
+});
 

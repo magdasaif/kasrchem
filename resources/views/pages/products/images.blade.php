@@ -97,6 +97,11 @@
 
                                     </div>
                                     <div class="modal-footer">
+
+                                        <input type="hidden" name="product_id" value="{{$product_id}}">
+                                        <input type="hidden" name="image_name" value="{{$image->path}}">
+                                        <input type="hidden" name="image_id" value="{{$image->id}}">
+
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success" >حذف</button>
                                     </div>

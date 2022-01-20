@@ -109,6 +109,12 @@ unset($__errorArgs, $__bag); ?>
 
                                     </div>
                                     <div class="modal-footer">
+
+                                        <input type="hidden" name="product_id" value="<?php echo e($product_id); ?>">
+                                        <input type="hidden" name="file_name" value="<?php echo e($file->path); ?>">
+                                        <input type="hidden" name="file_id" value="<?php echo e($file->id); ?>">
+
+                                        
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success" >حذف</button>
                                     </div>
