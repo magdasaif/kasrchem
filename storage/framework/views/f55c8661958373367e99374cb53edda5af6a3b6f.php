@@ -159,8 +159,8 @@ unset($__errorArgs, $__bag); ?>
                    <!-- </div> -->
                    
 					<div id="map_canvas" style="height: 350px;width:450px;margin: 0.6em;"></div>
-			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" readonly>
-                    <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" readonly>
+			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" value="<?php echo e(old('map_long')); ?>" readonly>
+                    <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" value="<?php echo e(old('map_lat')); ?>" readonly>
                         
                     
                 </div>
@@ -185,7 +185,7 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
-<script src="http://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
+<script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
 
 <script>
 

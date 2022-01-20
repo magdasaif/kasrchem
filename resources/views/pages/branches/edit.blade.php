@@ -133,7 +133,7 @@
 </div>
 @endsection
 @section('js')
-<script src="http://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
+<script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
 
 <script>
 

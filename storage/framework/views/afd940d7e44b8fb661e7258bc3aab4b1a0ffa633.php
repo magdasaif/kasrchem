@@ -115,7 +115,7 @@ unset($__errorArgs, $__bag); ?>
                                         <input type="hidden" name="file_id" value="<?php echo e($file->id); ?>">
 
                                         
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+<button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success" >حذف</button>
                                     </div>
                                 </form>

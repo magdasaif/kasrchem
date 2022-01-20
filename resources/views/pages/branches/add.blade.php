@@ -108,8 +108,8 @@
                    <!-- </div> -->
                    
 					<div id="map_canvas" style="height: 350px;width:450px;margin: 0.6em;"></div>
-			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" readonly>
-                    <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" readonly>
+			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" value="{{old('map_long')}}" readonly>
+                    <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" value="{{old('map_lat')}}" readonly>
                         
                     
                 </div>
@@ -134,7 +134,7 @@
 </div>
 @endsection
 @section('js')
-<script src="http://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
+<script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
 
 <script>
 
