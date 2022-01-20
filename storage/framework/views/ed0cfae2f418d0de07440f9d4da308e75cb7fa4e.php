@@ -2,7 +2,8 @@
 <?php $__env->startSection('css'); ?>
 
 <?php $__env->startSection('title'); ?>
-التصنيفات الرئيسيه
+<?php echo e($title); ?>
+
 <?php $__env->stopSection(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('page-header'); ?>
@@ -28,32 +29,39 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل تصنيف</h5>
+            <h5 class="modal-title" style="color: #2569b1;"><?php echo e($title); ?></h5>
            
         </div>
         <div class="modal-body">
             
-            <form method="POST" action="<?php echo e(route('categories.update',$categories->id)); ?>" enctype="multipart/form-data">
-                <?php echo e(method_field('PATCH')); ?>
-
+            <form method="POST" action="<?php echo e(route('partner.update',$partner->id)); ?>" enctype="multipart/form-data">
+            <?php echo e(method_field('PATCH ')); ?>
 
                 <?php echo csrf_field(); ?>
                 
 
-                <div class="form-group">
-                    <select class="form-control" name="section_id">
-                        <option value="<?php echo e($categories->Sections->id); ?>"><?php echo e($categories->Sections->site_name_ar); ?></option>
 
-                        <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($section->id); ?>"><?php echo e($section->site_name_ar); ?></option>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </select>
-                </div>
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="<?php echo e($categories->subname_ar); ?>" required>
-                    <?php $__errorArgs = ['subname_ar'];
+                    <label for="exampleInputEmail1">اسم الشريك بالعربيه</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" value="<?php echo e($partner->name_ar); ?>" required>
+                    <?php $__errorArgs = ['name_ar'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="form-text text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">اسم الشريك بالانجليزيه</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" value="<?php echo e($partner->name_en); ?>" required>
+                    <?php $__errorArgs = ['name_en'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -65,28 +73,10 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
             
-                <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="<?php echo e($categories->subname_en); ?>" required>
-                    <?php $__errorArgs = ['subname_en'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="form-text text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-
-
-
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label><br>
-                    <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> 
-
+                    <label for="exampleInputEmail1">صوره</label>
+                    <img data-v-20a423fa="" width="20%" src="<?php echo asset("storage/partners/$partner->image")?>" class="uploaded-img"> 
                     <input type="file" class="form-control" name="image" accept="image/*">
 
                     <?php $__errorArgs = ['image'];
@@ -100,15 +90,29 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
-
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">لينك خارجى</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" value="<?php echo e($partner->external_link); ?>" name="external_link">
+                    <?php $__errorArgs = ['external_link'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="form-text text-danger"><?php echo e($message); ?></small>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
 
                 <div class="form-group">
                     <select class="form-control" name="status">
-                            <option value="1" <?php if($categories->status==1){echo'selected';}?> >مُفعل</option>
-                            <option value="0" <?php if($categories->status==0){echo'selected';}?> >غير مُفعل</option>
+                            <option value="1"<?php if($partner->status==1){echo'selected';}?>>مُفعل</option>
+                            <option value="0"<?php if($partner->status==0){echo'selected';}?>>غير مُفعل</option>
                     </select>
                 </div>
-                <input type="hidden" name="id" value="<?php echo e($categories->id); ?>">
+                <input type="hidden" name="id" value="<?php echo e($partner->id); ?>">
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>

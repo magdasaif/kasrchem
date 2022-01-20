@@ -47,7 +47,8 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
-
+            <a href="<?php echo e(route('partner.create')); ?>"><button type="button" class="btn btn-info" > اضافه</button></a>
+<br>
             <!--#############################################################-->
                     <div class="table-responsive">
 
@@ -74,8 +75,37 @@
                             <td><?php if($partner->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
                             <td>
                                 <button type="button" class="btn btn-info" ><a href="<?php echo e(url('partner/'.$partner ->id.'/edit/')); ?>" target="_blank"> تعديل</a></button>
+                                <button class="btn btn-danger" data-catid="<?php echo e($partner->id); ?>" data-toggle="modal" data-target="#delete<?php echo e($partner->id); ?>">حذف</button>
                             </td>
                         </tr>
+
+                         <!--############################ model for delete #################################-->     
+                         <div class="modal modal-danger fade" id="delete<?php echo e($partner->id); ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header" style="direction: ltr;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
+                                </div>
+                                <form action="<?php echo e(route('partner.destroy',$partner->id)); ?>"  method="post">
+                                        <?php echo e(method_field('delete')); ?>
+
+                                        <?php echo e(csrf_field()); ?>
+
+                                    <div class="modal-body">
+                                            <h3 class="text-center">
+                                                هل تريد الحذف بالفعل؟
+                                             </h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                        <button type="submit" class="btn btn-success">حذف</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
+            <!--#############################################################-->
 
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     
