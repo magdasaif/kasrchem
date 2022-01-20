@@ -126,7 +126,9 @@
                             <li><a href="{{route('release.index')}}">قائمة النشرة</a></li>
                         </ul>
                     </li>
-                    
+
+
+                   
                 </ul>
             </div>
         </div>

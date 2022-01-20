@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('sub1_id')->references('id')->on('sub_categorys2')->onDelete('cascade');
             
             $table->unsignedBigInteger('sub2_id');
-            $table->foreign('sub2_id')->references('id')->on('Sub_Categorys3')->onDelete('cascade');
+            $table->foreign('sub2_id')->references('id')->on('sub_categorys3')->onDelete('cascade');
            
             $table->unsignedBigInteger('sub3_id');
             $table->foreign('sub3_id')->references('id')->on('sub_categorys4')->onDelete('cascade');
