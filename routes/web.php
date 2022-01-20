@@ -98,9 +98,4 @@ Route::group(['namespace'=>'Release'],function(){
     Route::resource('release', 'ReleaseController');
 
 });
-//--------------------------------------------photos_galleries-------------------------
-Route::group(['namespace'=>'Photos_Galleries'],function(){
-    Route::resource('photos_galleries', 'ReleaseController');
 
-});
-//-----------------------------------------------------------------------------------------

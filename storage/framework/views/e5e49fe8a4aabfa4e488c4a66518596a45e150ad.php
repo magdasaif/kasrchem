@@ -129,7 +129,9 @@
                             <li><a href="<?php echo e(route('release.index')); ?>">قائمة النشرة</a></li>
                         </ul>
                     </li>
-                    
+
+
+                   
                 </ul>
             </div>
         </div>
