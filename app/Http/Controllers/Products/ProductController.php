@@ -11,6 +11,8 @@ use App\Models\Product_Feature;
 
 use App\Http\Requests\ProductRequest;
 
+use Illuminate\Support\Facades\Storage;
+
 //use Illuminate\Support\Facades\Schema;
 
 class ProductController extends Controller
@@ -192,8 +194,13 @@ class ProductController extends Controller
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
-    public function delete_product_images($image_id){
-        Product_attachment::findOrfail($image_id)->delete();
+    //public function delete_product_images($image_id){
+    public function delete_product_images(Request $request){
+
+        $image_path=storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->image_name;
+        unlink($image_path);
+      //  Storage::disk('products')->delete('products/product_no_'.$request->product_id.'/'.$request->image_name);
+        Product_attachment::findOrfail($request->image_id)->delete();
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
     // --------------end products images funcrion -----------------------
@@ -250,8 +257,12 @@ class ProductController extends Controller
            }
 
        }
-       public function delete_products_files($image_id){
-           Product_attachment::findOrfail($image_id)->delete();
+      // public function delete_products_files($image_id){
+       public function delete_products_files(Request $request){
+
+        $image_path=storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->file_name;
+        unlink($image_path);
+           Product_attachment::findOrfail($request->file_id)->delete();
            return redirect()->back()->with(['success'=>'تم الحذف']);
        }
        // --------------end products files funcrion -----------------------

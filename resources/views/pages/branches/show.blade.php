@@ -44,7 +44,7 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
-            <a href="{{route('partner.create')}}"><button type="button" class="btn btn-info" > اضافه</button></a>
+            <a href="{{route('branches.create')}}"><button type="button" class="btn btn-info" > اضافه</button></a>
 <br>
             <!--#############################################################-->
                     <div class="table-responsive">
@@ -84,7 +84,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('partner.destroy',$branche->id)}}"  method="post">
+                                <form action="{{route('branches.destroy',$branche->id)}}"  method="post">
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">

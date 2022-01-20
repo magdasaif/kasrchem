@@ -47,7 +47,7 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
-            <a href="<?php echo e(route('partner.create')); ?>"><button type="button" class="btn btn-info" > اضافه</button></a>
+            <a href="<?php echo e(route('branches.create')); ?>"><button type="button" class="btn btn-info" > اضافه</button></a>
 <br>
             <!--#############################################################-->
                     <div class="table-responsive">
@@ -87,7 +87,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="<?php echo e(route('partner.destroy',$branche->id)); ?>"  method="post">
+                                <form action="<?php echo e(route('branches.destroy',$branche->id)); ?>"  method="post">
                                         <?php echo e(method_field('delete')); ?>
 
                                         <?php echo e(csrf_field()); ?>

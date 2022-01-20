@@ -29,8 +29,8 @@ class CreateBranchesTable extends Migration
             $table->string('phone');
             $table->string('fax');
 
-            $table->double('latitude',15,8);
-            $table->double('longitude',15,8);
+            $table->double('latitude');
+            $table->double('longitude');
             
             $table->integer('status');
 

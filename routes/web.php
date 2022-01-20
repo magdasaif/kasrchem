@@ -102,3 +102,4 @@ Route::group(['namespace'=>'Branches'],function(){
     Route::resource('branches', 'BrancheController');
 
 });
+

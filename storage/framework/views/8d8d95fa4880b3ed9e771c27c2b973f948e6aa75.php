@@ -132,7 +132,7 @@
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#branches">
                             <div class="pull-left"><i class="fa fa-file-pdf-o"></i><span
-                                    class="right-nav-text">هناوين الفروع</span></div>
+                                    class="right-nav-text">عناوين الفروع</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
