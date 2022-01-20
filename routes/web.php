@@ -98,4 +98,14 @@ Route::group(['namespace'=>'Release'],function(){
     Route::resource('release', 'ReleaseController');
 
 });
+//------------------------photo_gallery-------------------------------------------------------
+Route::group(['namespace'=>'Photo_Gallery'],function(){
+    Route::resource('photo_gallery', 'Photo_GalleryController');
 
+});
+   //############photo_gallery images############-
+Route::get('show_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@show_gallery');
+Route::post('add_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@add_gallery_images');
+Route::get('delete_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@delete_gallery_images');
+
+//---------------------------------------------------------------------------------------

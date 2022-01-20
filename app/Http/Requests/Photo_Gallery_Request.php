@@ -4,18 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReleaseRequest extends FormRequest
+class Photo_Gallery_Request extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
     }
-
     public function rules()
     {
         return [
@@ -28,8 +22,8 @@ class ReleaseRequest extends FormRequest
     public function messages()
     {
         return $messages = [
-             'title_ar.required' =>'اسم النشرة بالعربية مطلوبة',
-             'title_en.required' => '  اسم النشرة  بالانجليزية مطلوبة',
+             'title_ar.required' =>'اسم المعرض بالعربية مطلوب',
+             'title_en.required' => '  اسم المعرض  بالانجليزية مطلوب',
              'status.required' =>'الحالة مطلوبة',
         ];
     }
