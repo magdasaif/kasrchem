@@ -140,7 +140,7 @@
                         </a>
                         <ul id="photo_gallery" class="collapse" data-parent="#sidebarnav">
                         <li><a href="<?php echo e(route('photo_gallery.create')); ?>"> اضافة معرض</a></li>
-                            <li><a href="<?php echo e(route('photo_gallery.index')); ?>">قائمة المعارض4</a></li>
+                            <li><a href="<?php echo e(route('photo_gallery.index')); ?>">قائمة المعارض</a></li>
                         </ul>
                     </li>
                    

@@ -99,6 +99,7 @@
                                             <input type="hidden" name="galary_id" id="$Photo_Gallery->id" value="<?php echo e($Photo_Gallery->id); ?>">
 
                                     </div>
+                                    <input type="hidden" name="deleted_image" value="<?php echo e($Photo_Gallery->image); ?>">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success">حذف</button>

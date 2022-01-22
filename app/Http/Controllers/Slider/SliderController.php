@@ -88,9 +88,11 @@ class SliderController extends Controller
     }
 
 //--------------------------------------------
-  public function destroy($id)
+  public function destroy(Request $request ,$id)
     {
        // dd($id);
+       $image_path=storage_path().'/app/public/slider/'.$request->deleted_image;
+       unlink($image_path);
          try 
          {
          $Slider=Slider::find($id);  

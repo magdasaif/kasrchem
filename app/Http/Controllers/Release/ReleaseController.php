@@ -146,9 +146,14 @@ class ReleaseController extends Controller
     }
 
    //--------------------------------------------
-    public function destroy($id)
+    public function destroy(Request $request ,$id)
     {
         // dd($id);
+        
+        $image_path=storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_image;
+        unlink($image_path);
+        $file_path=storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_file;
+        unlink($file_path);
         try
         {
         $Release=Release::find($id);

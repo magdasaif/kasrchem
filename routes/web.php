@@ -53,17 +53,16 @@ Route::group(['namespace'=>'Article'],function(){
     Route::GET('/sub4_article/{sub3_id}','ArticleController@findsub4');
 });
 
-//------------------Products------------------------------------------------------
+//-------------------------Products-----------------------------------------
 Route::group(['namespace'=>'Products'],function(){
     Route::resource('products', 'ProductController');
 
 });
-//-------------------add product with livewire-------------------
+//----------------------------add product with livewire-------------------
 
 //form repeat routes
 Route::get('add/{id}','Products\ProductController@add');
 Route::get('remove/{id}','Products\ProductController@remove');
-
 
 //add product with livewire
 Route::view('add_product','livewire.show');
