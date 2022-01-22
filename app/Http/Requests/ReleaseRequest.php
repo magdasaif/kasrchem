@@ -28,8 +28,8 @@ class ReleaseRequest extends FormRequest
     public function messages()
     {
         return $messages = [
-             'title_ar.required' =>'عنوان الفيديو بالعربية مطلوب',
-             'title_en.required' => 'عنوان الفيديو بالانجليزية مطلوب',
+             'title_ar.required' =>'اسم النشرة بالعربية مطلوبة',
+             'title_en.required' => '  اسم النشرة  بالانجليزية مطلوبة',
              'status.required' =>'الحالة مطلوبة',
         ];
     }

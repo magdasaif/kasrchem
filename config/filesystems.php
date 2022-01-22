@@ -70,6 +70,17 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/release'),
         ],
+
+        'photo_gallery' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_gallery'),
+        ],
+
+        'gallery_photo_images'=> [
+            'driver' => 'local',
+            'root' => storage_path('app/public/gallery_photo_images'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

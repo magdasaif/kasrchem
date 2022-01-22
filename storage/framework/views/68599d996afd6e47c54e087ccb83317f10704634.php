@@ -100,6 +100,7 @@
                                             <input type="hidden" name="slider_id" id="$slider->id" value="$slider->id">
 
                                     </div>
+                                    <input type="hidden" name="deleted_image" value="<?php echo e($slider->image); ?>">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success">حذف</button>

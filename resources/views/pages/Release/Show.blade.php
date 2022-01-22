@@ -93,6 +93,8 @@
                                             <input type="hidden" name="release_id" id="$release->id" value="$release->id">
 
                                     </div>
+                                    <input type="hidden" name="deleted_image" value="{{$release->image}}">
+                                    <input type="hidden" name="deleted_file" value="{{$release->file}}">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success">حذف</button>

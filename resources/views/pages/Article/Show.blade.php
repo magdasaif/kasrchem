@@ -93,6 +93,8 @@
                                             <input type="hidden" name="Article_id" id="$article->id" value="{{$article->id}}">
 
                                     </div>
+                                    <input type="hidden" name="deleted_image" value="{{$article->image}}">
+
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success">حذف</button>

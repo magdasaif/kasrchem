@@ -146,7 +146,21 @@
 
                     
                     
-</ul>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#photo_gallery">
+                            <div class="pull-left"><i class="fa fa-camera"></i><span
+                                    class="right-nav-text">المعارض</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="photo_gallery" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="{{route('photo_gallery.create')}}"> اضافة معرض</a></li>
+                            <li><a href="{{route('photo_gallery.index')}}">قائمة المعارض</a></li>
+                        </ul>
+                    </li>
+                   
+                </ul>
             </div>
         </div>
 

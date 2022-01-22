@@ -137,9 +137,11 @@ class ArticleController extends Controller
     }
     }
 //--------------------------------------------
-    public function destroy($id)
+    public function destroy(Request $request ,$id)
     {
         // dd($id);
+        $image_path=storage_path().'/app/public/article/'.$request->deleted_image;
+         unlink($image_path);
         try 
         {
         $Article=Article::find($id);  
