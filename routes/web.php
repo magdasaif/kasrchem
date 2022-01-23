@@ -117,4 +117,7 @@ Route::group(['namespace'=>'Pages'],function(){
 
 });
 
-//------------------------------------------------------------------
+//------------------------------cities------------------------------------
+Route::group(['namespace'=>'Cities'],function(){
+    Route::resource('city', 'CityController');
+});

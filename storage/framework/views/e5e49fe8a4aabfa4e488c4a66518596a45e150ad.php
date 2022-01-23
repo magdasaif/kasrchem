@@ -160,8 +160,7 @@
                         </ul>
                     </li>
 
-
-                    <li>
+                          <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#page">
                             <div class="pull-left"><i class="fa fa-code"></i><span
                                     class="right-nav-text">الصفحات</span></div>
@@ -174,6 +173,16 @@
                         </ul>
                     </li>
                    
+                   
+                    <li>
+                    <a href="<?php echo e(route('city.index')); ?>">المـدن
+                            <div class="pull-left"><i class="fa fa-city"></i>
+                            <div class="clearfix"></div>
+                        </a>
+                       
+                    </li>
+
+                  
                 </ul>
             </div>
         </div>

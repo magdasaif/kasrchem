@@ -173,6 +173,16 @@
                         </ul>
                     </li>
                    
+                   
+                    <li>
+                    <a href="<?php echo e(route('city.index')); ?>">المـدن
+                            <div class="pull-left"><i class="fa fa-city"></i>
+                            <div class="clearfix"></div>
+                        </a>
+                       
+                    </li>
+
+                  
                 </ul>
             </div>
         </div>
