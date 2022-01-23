@@ -203,8 +203,4 @@ unset($__errorArgs, $__bag); ?>
 
 <?php $__env->stopSection(); ?>
 
-<<<<<<<< HEAD:storage/framework/views/90ca5688215d4eea33f0e69a944e72414e2eb545.php
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\eradco-backend\final\backend\resources\views\pages\Pages\edit.blade.php ENDPATH**/ ?>
-========
-<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views\pages\Pages\edit.blade.php ENDPATH**/ ?>
->>>>>>>> 472e91cc2f6f4369ce7d4fc38b08b1d58ad27314:storage/framework/views/b415835126633fecbd31e9d8ce12c148187fe72d.php

@@ -18,7 +18,7 @@ class CityController extends Controller
     {
         $City = City::findOrfail($id);
         if(!$City) return redirect()->back();
-         return view('pages.city.edit',compact('City'));
+         return view('pages.City.edit',compact('City'));
     }
 
   

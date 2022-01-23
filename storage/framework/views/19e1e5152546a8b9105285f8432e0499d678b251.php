@@ -192,8 +192,4 @@ unset($__errorArgs, $__bag); ?>
 
 <?php $__env->stopSection(); ?>
 
-<<<<<<<< HEAD:storage/framework/views/19e1e5152546a8b9105285f8432e0499d678b251.php
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\eradco-backend\final\backend\resources\views\pages\Pages\add.blade.php ENDPATH**/ ?>
-========
-<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views\pages\Pages\add.blade.php ENDPATH**/ ?>
->>>>>>>> 472e91cc2f6f4369ce7d4fc38b08b1d58ad27314:storage/framework/views/e6ad57922c7d5fe0ce00af6b85007085072dc67a.php

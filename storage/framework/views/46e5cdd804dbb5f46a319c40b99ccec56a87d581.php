@@ -121,8 +121,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<<<<<<<< HEAD:storage/framework/views/46e5cdd804dbb5f46a319c40b99ccec56a87d581.php
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\eradco-backend\final\backend\resources\views\pages\Pages\Show.blade.php ENDPATH**/ ?>
-========
-<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views/pages/Pages/Show.blade.php ENDPATH**/ ?>
->>>>>>>> 472e91cc2f6f4369ce7d4fc38b08b1d58ad27314:storage/framework/views/0c4c2c38326ca1b7daf8a065f3be70a2b56df188.php

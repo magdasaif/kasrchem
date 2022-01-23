@@ -191,8 +191,8 @@
                    
                     <li>
                     <a href="<?php echo e(route('city.index')); ?>">المـدن
-                            <div class="pull-left"><i class="fa fa-city"></i>
-                            <div class="clearfix"></div>
+                            <div class="pull-left"><i class="fa fa-sitemap"></i></div>
+                           
                         </a>
                        
                     </li>
