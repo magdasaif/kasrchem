@@ -18,12 +18,15 @@
     <?php endif; ?>
 
 
-<?php if(Session::has('error')): ?>
-     <div class="alert alert-danger">
-         <?php echo e(Session::get('error')); ?>
-
-     </div>
-<?php endif; ?>
+    <?php if($errors->any()): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 
 <div>
     <div class="modal-dialog" role="document">
@@ -34,18 +37,17 @@
         </div>
         <div class="modal-body">
             
-            <form method="POST" action="<?php echo e(route('partner.update',$partner->id)); ?>" enctype="multipart/form-data">
-            <?php echo e(method_field('PATCH ')); ?>
+            <form method="POST" action="<?php echo e(route('social.update',$social->id)); ?>" enctype="multipart/form-data">
+            <?php echo e(method_field('PATCH')); ?>
+
 
                 <?php echo csrf_field(); ?>
                 
-
-
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم الشريك بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" value="<?php echo e($partner->name_ar); ?>" required>
-                    <?php $__errorArgs = ['name_ar'];
+                    <label for="exampleInputEmail1">اسم رابط التواصل</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name" value="<?php echo e($social->name); ?>" required>
+                    <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -59,27 +61,9 @@ unset($__errorArgs, $__bag); ?>
 
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم الشريك بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" value="<?php echo e($partner->name_en); ?>" required>
-                    <?php $__errorArgs = ['name_en'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="form-text text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-            
-                
-                <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label>
-                    <img data-v-20a423fa="" width="20%" src="<?php echo asset("storage/partners/$partner->image")?>" class="uploaded-img"> 
-                    <input type="file" class="form-control" name="image" accept="image/*">
-
-                    <?php $__errorArgs = ['image'];
+                    <label for="exampleInputEmail1"> رابط التواصل</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" name="link" value="<?php echo e($social->link); ?>" required>
+                    <?php $__errorArgs = ['link'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -91,28 +75,29 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
                 
+                <input type="hidden" name="id" value="<?php echo e($social->id); ?>">
+                
                 <div class="form-group">
-                    <label for="exampleInputEmail1">لينك خارجى</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" value="<?php echo e($partner->external_link); ?>" name="external_link">
-                    <?php $__errorArgs = ['external_link'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                    <small class="form-text text-danger"><?php echo e($message); ?></small>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                </div>
-
-                <div class="form-group">
+                    <label for="exampleInputEmail1">الحالة</label>
                     <select class="form-control" name="status">
-                            <option value="1"<?php if($partner->status==1){echo'selected';}?>>مُفعل</option>
-                            <option value="0"<?php if($partner->status==0){echo'selected';}?>>غير مُفعل</option>
+                            <option value="1" <?php echo e($social->status == '1' ? "selected" : ""); ?>>مُفعل</option>
+                            <option value="0" <?php echo e($social->status == '0' ? "selected" : ""); ?>>غير مُفعل</option>
                     </select>
                 </div>
-                <input type="hidden" name="id" value="<?php echo e($partner->id); ?>">
+
+                <hr>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">  الايقون</label>
+                    <i class="<?php echo e($social->icon); ?>" style="margin-right: 25px;"></i>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter icon" name="icon" value="<?php echo e($social->icon); ?>" required>
+
+                    <!-- Button tag -->
+                    <!-- <button class="btn btn-secondary" role="iconpicker"></button> -->
+                    <!-- Div tag -->
+                    <div role="iconpicker"></div>
+                </div>
+
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
@@ -123,6 +108,13 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
+<script>
+    var field = document.getElementsByClassName("form-control search-control");
+field.setAttribute("name", "icon");
+//   var x=  document.getElementsByClassName('search-control').value;
+//     alert(x);
+//     $('.search-control').attr('name', 'other_amount');
+</script>
 
 <?php $__env->stopSection(); ?>
 

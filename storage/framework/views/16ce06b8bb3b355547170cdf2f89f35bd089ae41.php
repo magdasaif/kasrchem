@@ -94,8 +94,6 @@
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                     </div>
-                                    <input type="hidden" name="deleted_image" value="<?php echo e($article->image); ?>">
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success">حذف</button>
@@ -123,8 +121,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<<<<<<< HEAD:storage/framework/views/83052ef934bf93e8fda9142f4f257871d4c9a960.php
-<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views/pages/Article/Show.blade.php ENDPATH**/ ?>
-=======
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views\pages\social_links\show.blade.php ENDPATH**/ ?>
->>>>>>> social_links:storage/framework/views/16ce06b8bb3b355547170cdf2f89f35bd089ae41.php

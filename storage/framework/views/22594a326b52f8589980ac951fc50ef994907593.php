@@ -87,7 +87,7 @@ unset($__errorArgs, $__bag); ?>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">  الايقون</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter icon" name="icon" value="<?php echo e(old('icon')); ?>" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="type icon class" name="icon" value="<?php echo e(old('icon')); ?>" required>
 
                     <!-- Button tag -->
                     <!-- <button class="btn btn-secondary" role="iconpicker"></button> -->

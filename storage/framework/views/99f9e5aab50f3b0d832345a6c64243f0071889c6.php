@@ -32,27 +32,15 @@
                  <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('productlivewire', [])->html();
-<<<<<<< HEAD
-} elseif ($_instance->childHasBeenRendered('Ng8etoo')) {
-    $componentId = $_instance->getRenderedChildComponentId('Ng8etoo');
-    $componentTag = $_instance->getRenderedChildComponentTagName('Ng8etoo');
+} elseif ($_instance->childHasBeenRendered('DCVzEye')) {
+    $componentId = $_instance->getRenderedChildComponentId('DCVzEye');
+    $componentTag = $_instance->getRenderedChildComponentTagName('DCVzEye');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('Ng8etoo');
+    $_instance->preserveRenderedChild('DCVzEye');
 } else {
     $response = \Livewire\Livewire::mount('productlivewire', []);
     $html = $response->html();
-    $_instance->logRenderedChild('Ng8etoo', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-=======
-} elseif ($_instance->childHasBeenRendered('xvbAjWP')) {
-    $componentId = $_instance->getRenderedChildComponentId('xvbAjWP');
-    $componentTag = $_instance->getRenderedChildComponentTagName('xvbAjWP');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('xvbAjWP');
-} else {
-    $response = \Livewire\Livewire::mount('productlivewire', []);
-    $html = $response->html();
-    $_instance->logRenderedChild('xvbAjWP', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
->>>>>>> social_links
+    $_instance->logRenderedChild('DCVzEye', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

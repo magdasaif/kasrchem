@@ -131,11 +131,7 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#branches">
-<<<<<<< HEAD
-                            <div class="pull-left"><i class="fa fa-file-pdf-o"></i><span
-=======
                             <div class="pull-left"><i class="fa fa-building-o"></i><span
->>>>>>> social_links
                                     class="right-nav-text">عناوين الفروع</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -165,7 +161,6 @@
 
                     
                     
-<<<<<<< HEAD
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#photo_gallery">
@@ -194,9 +189,6 @@
                     </li>
                    
                 </ul>
-=======
-</ul>
->>>>>>> social_links
             </div>
         </div>
 

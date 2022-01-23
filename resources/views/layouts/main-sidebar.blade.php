@@ -146,7 +146,7 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#links">
-                            <div class="pull-left"><i class="fa fa-link-o"></i><span
+                            <div class="pull-left"><i class="fas fa-link"></i><span
                                     class="right-nav-text">وسائل التواصل</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
