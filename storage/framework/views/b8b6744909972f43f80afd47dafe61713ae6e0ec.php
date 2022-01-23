@@ -57,7 +57,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
-
+                
+                <input type="hidden" name="id" value="<?php echo e($branch->id); ?>">
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالانجليزيه</label>
@@ -184,7 +185,7 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
-<script src="http://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
+<script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
 
 <script>
 

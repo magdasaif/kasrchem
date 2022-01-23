@@ -103,3 +103,9 @@ Route::group(['namespace'=>'Branches'],function(){
 
 });
 
+//----------------------------Social links-------------------------------------------------
+Route::group(['namespace'=>'SocialLinks'],function(){
+    Route::resource('social', 'SocialController');
+
+});
+

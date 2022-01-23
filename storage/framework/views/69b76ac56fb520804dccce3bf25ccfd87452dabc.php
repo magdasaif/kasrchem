@@ -12,6 +12,16 @@
 <link href="<?php echo e(URL::asset('assets/css/style.css')); ?>" rel="stylesheet">
 <link href="<?php echo e(URL::asset('css/wizard.css')); ?>" rel="stylesheet" id="bootstrap-css">
 
+
+
+<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+<!-- Bootstrap-Iconpicker -->
+<link rel="stylesheet" href="<?php echo e(URL::asset('dist/css/bootstrap-iconpicker.min.css')); ?>"/>
+
+
 <!--- Style css -->
 <?php if(App::getLocale() == 'en'): ?>
     <link href="<?php echo e(URL::asset('assets/css/ltr.css')); ?>" rel="stylesheet">
