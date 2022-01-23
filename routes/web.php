@@ -117,4 +117,9 @@ Route::group(['namespace'=>'Pages'],function(){
 
 });
 
-//------------------------------------------------------------------
+//----------------------------Social links-------------------------------------------------
+Route::group(['namespace'=>'SocialLinks'],function(){
+    Route::resource('social', 'SocialController');
+
+});
+

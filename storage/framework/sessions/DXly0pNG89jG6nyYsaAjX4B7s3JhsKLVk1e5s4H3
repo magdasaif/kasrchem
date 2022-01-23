@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 a:3:{s:6:"_token";s:40:"b1Nps9xBYiKx5avJZtm7ZPKZO2wGs7klsJarWl6z";s:9:"_previous";a:1:{s:3:"url";s:26:"http://localhost:8000/page";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
+=======
+a:3:{s:6:"_token";s:40:"mZf47NTBKXGjCSoPzwvNR21LfGbcbBDvWFKJnBkH";s:9:"_previous";a:1:{s:3:"url";s:35:"http://localhost:8000/social/create";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
+>>>>>>> social_links

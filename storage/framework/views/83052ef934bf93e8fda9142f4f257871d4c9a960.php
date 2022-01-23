@@ -2,7 +2,8 @@
 <?php $__env->startSection('css'); ?>
 
 <?php $__env->startSection('title'); ?>
-المقالات
+<?php echo e($title); ?>
+
 <?php $__env->stopSection(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('page-header'); ?>
@@ -28,12 +29,12 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0"> المقالات </h4>
+            <h4 class="mb-0"> <?php echo e($title); ?></h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسية</a></li>
-                <li class="breadcrumb-item active">المقالات</li>
+                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
+                <li class="breadcrumb-item active"><?php echo e($title); ?></li>
             </ol>
         </div>
     </div>
@@ -47,45 +48,43 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
+            <a href="<?php echo e(route('social.create')); ?>"><button type="button" class="btn btn-info" > اضافه</button></a>
+<br>
             <!--#############################################################-->
                     <div class="table-responsive">
-                    <button type="button"   class="btn btn-success"><a href="<?php echo e(route('article.create')); ?>"   target="_blank"> اضافة مقال</a>
-                        </button>
-                     <br><br>
+
                     <table id="datatable" class="table table-striped table-bordered p-0">
                     <thead>
-                        <tr  style="color: #17899b;" >
-                        <th>#</th>
-                        <th>صورة المقال</th>
-                        <th>عنوان المقال</th>
-                        <th>الحالة</th>
-                        <th>الاجراءات</th>
+                        <tr>
+                            <th>#</th>
+                            <th>اسم الرابط</th>
+                            <th>الحاله</th>
+                            <th>الاجراءات</th>
                         </tr>
                     </thead>
                     <tbody>
-                         <?php $i = 0; $status=1?>
-                        <?php $__currentLoopData = $Art; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <tr>
-                            <?php $i++; ?>
+                        <?php $i=1;?>
+                        <?php $__currentLoopData = $socialLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $i++;?>
+                        <tr>
                             <td><?php echo e($i); ?></td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/article/{$article->image}")?> alt="" ></td>
-                            <td><?php echo e($article->title_ar); ?></td>
-                            <td><?php if($article->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
-                            <td> 
-                             <button type="button" class="btn btn-info" ><a href="<?php echo e(route('article.edit',$article->id)); ?>"  target="_blank"> تعديل</a></button>
-                             <button class="btn btn-danger" data-catid=<?php echo e($article->id); ?> data-toggle="modal" data-target="#delete<?php echo e($article->id); ?>">حذف</button>
+                            <td><?php echo e($social->name); ?></td>
+                            <td><?php if($social->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
+                            <td>
+                                <button type="button" class="btn btn-info" ><a href="<?php echo e(url('social/'.$social ->id.'/edit/')); ?>" target="_blank"> تعديل</a></button>
+                                <button class="btn btn-danger" data-catid="<?php echo e($social->id); ?>" data-toggle="modal" data-target="#delete<?php echo e($social->id); ?>">حذف</button>
                             </td>
-                            </tr>
-                        <!--############################ model for delete #################################-->
-          
-                            <div class="modal modal-danger fade" id="delete<?php echo e($article->id); ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        </tr>
+
+                         <!--############################ model for delete #################################-->     
+                         <div class="modal modal-danger fade" id="delete<?php echo e($social->id); ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header" style="direction: ltr;">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="<?php echo e(route('article.destroy',$article->id)); ?>"  method="post">
+                                <form action="<?php echo e(route('social.destroy',$social->id)); ?>"  method="post">
                                         <?php echo e(method_field('delete')); ?>
 
                                         <?php echo e(csrf_field()); ?>
@@ -94,8 +93,6 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-                                            <input type="hidden" name="Article_id" id="$article->id" value="<?php echo e($article->id); ?>">
-
                                     </div>
                                     <input type="hidden" name="deleted_image" value="<?php echo e($article->image); ?>">
 
@@ -110,11 +107,12 @@
             <!--#############################################################-->
 
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                    </tbody>
+                    
+                    </tbody>              
                 </table>
             </div>
-            
+            <!--#############################################################-->
+
             </div>
         </div>
     </div>
@@ -125,4 +123,8 @@
 
 <?php $__env->stopSection(); ?>
 
+<<<<<<< HEAD:storage/framework/views/83052ef934bf93e8fda9142f4f257871d4c9a960.php
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views/pages/Article/Show.blade.php ENDPATH**/ ?>
+=======
+<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\final\backend\resources\views\pages\social_links\show.blade.php ENDPATH**/ ?>
+>>>>>>> social_links:storage/framework/views/16ce06b8bb3b355547170cdf2f89f35bd089ae41.php

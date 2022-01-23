@@ -131,7 +131,7 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#branches">
-                            <div class="pull-left"><i class="fa fa-file-pdf-o"></i><span
+                            <div class="pull-left"><i class="fa fa-building-o"></i><span
                                     class="right-nav-text">عناوين الفروع</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -139,6 +139,21 @@
                         <ul id="branches" class="collapse" data-parent="#sidebarnav">
                         <li><a href="<?php echo e(route('branches.create')); ?>"> اضافة فرع </a></li>
                             <li><a href="<?php echo e(route('branches.index')); ?>">قائمة الفروع</a></li>
+                        </ul>
+                    </li>
+
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#links">
+                            <div class="pull-left"><i class="fa fa-link-o"></i><span
+                                    class="right-nav-text">وسائل التواصل</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="links" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="<?php echo e(route('social.create')); ?>"> اضافة رابط </a></li>
+                            <li><a href="<?php echo e(route('social.index')); ?>">قائمة الروابط</a></li>
                         </ul>
                     </li>
 
