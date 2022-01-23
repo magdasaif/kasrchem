@@ -32,15 +32,15 @@
                  <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('productlivewire', [])->html();
-} elseif ($_instance->childHasBeenRendered('DCVzEye')) {
-    $componentId = $_instance->getRenderedChildComponentId('DCVzEye');
-    $componentTag = $_instance->getRenderedChildComponentTagName('DCVzEye');
+} elseif ($_instance->childHasBeenRendered('MwqRitW')) {
+    $componentId = $_instance->getRenderedChildComponentId('MwqRitW');
+    $componentTag = $_instance->getRenderedChildComponentTagName('MwqRitW');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('DCVzEye');
+    $_instance->preserveRenderedChild('MwqRitW');
 } else {
     $response = \Livewire\Livewire::mount('productlivewire', []);
     $html = $response->html();
-    $_instance->logRenderedChild('DCVzEye', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('MwqRitW', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

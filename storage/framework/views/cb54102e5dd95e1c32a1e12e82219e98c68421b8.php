@@ -14,7 +14,26 @@
                         </a>
                     </li>
                    
-				   
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#users">
+                            <div class="pull-left"><i class="fa fa-users"></i><span
+                                    class="right-nav-text">المستخدمين</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="users" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="#">اضافه مستخدم</a></li>
+                            <li><a href="#">قائمه المستخدمين</a></li>
+                            <li><a href="<?php echo e(route('user_type.index')); ?>">انواع المستخدمين</a></li>
+                            
+                        </ul>
+                    </li>
+
+
+
+                    
 				    <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
                             <div class="pull-left"><i class="fa fa-sitemap"></i><span
@@ -146,7 +165,7 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#links">
-                            <div class="pull-left"><i class="fa fa-link-o"></i><span
+                            <div class="pull-left"><i class="fas fa-link"></i><span
                                     class="right-nav-text">وسائل التواصل</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
