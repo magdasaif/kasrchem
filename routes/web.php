@@ -121,3 +121,9 @@ Route::group(['namespace'=>'Pages'],function(){
 Route::group(['namespace'=>'Cities'],function(){
     Route::resource('city', 'CityController');
 });
+//----------------------------Social links-------------------------------------------------
+Route::group(['namespace'=>'SocialLinks'],function(){
+    Route::resource('social', 'SocialController');
+
+});
+

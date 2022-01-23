@@ -32,7 +32,12 @@
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
 
-
+<!-- jQuery CDN -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap CDN -->
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap-Iconpicker Bundle -->
+<script type="text/javascript" src="{{ URL::asset('dist/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
 
 <script>
     function CheckAll(className, elem) {
