@@ -112,6 +112,7 @@ unset($__errorArgs, $__bag); ?>
 
                                     </div>
                                     <input type="hidden" name="deleted_image" value="<?php echo e($xx->image); ?>">
+                                    <input type="hidden" value="<?php echo e($id); ?>" name="gallery_id">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success" >حذف</button>

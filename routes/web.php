@@ -53,12 +53,12 @@ Route::group(['namespace'=>'Article'],function(){
     Route::GET('/sub4_article/{sub3_id}','ArticleController@findsub4');
 });
 
-//-------------------------Products-----------------------------------------
+//-------------------------Products----------------------------------------------------
 Route::group(['namespace'=>'Products'],function(){
     Route::resource('products', 'ProductController');
 
 });
-//----------------------------add product with livewire-------------------
+//----------------------------add product with livewire---------------------------------
 
 //form repeat routes
 Route::get('add/{id}','Products\ProductController@add');
@@ -111,4 +111,10 @@ Route::get('show_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@sho
 Route::post('add_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@add_gallery_images');
 Route::get('delete_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@delete_gallery_images');
 
-//---------------------------------------------------------------------------------------
+//---------------------------pages-----------------------------------------
+Route::group(['namespace'=>'Pages'],function(){
+    Route::resource('page', 'PageController');
+
+});
+
+//------------------------------------------------------------------

@@ -159,6 +159,19 @@
                             <li><a href="{{route('photo_gallery.index')}}">قائمة المعارض</a></li>
                         </ul>
                     </li>
+
+                          <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#page">
+                            <div class="pull-left"><i class="fa fa-code"></i><span
+                                    class="right-nav-text">الصفحات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="page" class="collapse" data-parent="#sidebarnav">
+                        <li><a href="{{route('page.create')}}"> اضافة صفحة</a></li>
+                            <li><a href="{{route('page.index')}}">قائمة الصفحات</a></li>
+                        </ul>
+                    </li>
                    
                 </ul>
             </div>
