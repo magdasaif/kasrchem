@@ -111,19 +111,23 @@ Route::get('show_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@sho
 Route::post('add_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@add_gallery_images');
 Route::get('delete_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@delete_gallery_images');
 
-//---------------------------pages-----------------------------------------
+//---------------------------pages-------------------------------------------------//
 Route::group(['namespace'=>'Pages'],function(){
     Route::resource('page', 'PageController');
 
 });
 
-//------------------------------cities------------------------------------
+//----------------------------------------cities------------------------------------//
 Route::group(['namespace'=>'Cities'],function(){
     Route::resource('city', 'CityController');
 });
-//----------------------------Social links-------------------------------------------------
+//----------------------------Social links-----------------------------------------------//
 Route::group(['namespace'=>'SocialLinks'],function(){
     Route::resource('social', 'SocialController');
 
 });
-
+//----------------------------------About_us--------------------------------------------//
+Route::get('About_us','About_us\About_usController@show');
+Route::POST('About_us_update','About_us\About_usController@update');
+// Route::POST('About_us_update','About_us\About_usController@update')->name('About_us_update');
+//--------------------------------------------------------------------------------------//

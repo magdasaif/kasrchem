@@ -81,6 +81,12 @@ return [
             'root' => storage_path('app/public/gallery_photo_images'),
         ],
 
+        'about_us'=> [
+            'driver' => 'local',
+            'root' => storage_path('app/public/about_us'),
+        ],
+
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
