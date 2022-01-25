@@ -11,11 +11,19 @@ class About_us_Controller extends Controller
     
     public function index()
     {
-        $AboutUs=AboutUs::first();
-        return view('pages.AboutUs.Show',compact('AboutUs'));
+        
+        $About=AboutUs::all();
+        return view('pages.AboutUs.Show',compact('About'));
     }
 
     //------------------------------------------------------//
+    public function show()
+    {
+      
+        $About=AboutUs::all();
+        return view('pages.AboutUs.Show',compact('About'));
+    }
+//------------------------------------------------------//
  
     public function update(About_us_Request $request,$id)
     {
@@ -23,8 +31,8 @@ class About_us_Controller extends Controller
        try 
        {
            $validated = $request->validated();
-         //  $AboutUs = AboutUs::findOrFail($id);
-            $AboutUs = AboutUs::first();
+         $AboutUs = AboutUs::findOrFail($id);
+            //  $AboutUs = AboutUs::first();
            $AboutUs-> title_ar= $request->title_ar;
            $AboutUs->title_en = $request->title_en;
            $AboutUs-> mission_ar= $request->mission_ar;
@@ -36,12 +44,13 @@ class About_us_Controller extends Controller
 
            if($request->image)
            {
-             $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg,PNG,JPEG']);
                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
              if($request->deleted_image!=null)
             {
              $image_path=storage_path().'/app/public/about_us/'.$request->deleted_image;
              unlink($image_path);
+             $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+
            }
             //----------------- //----------------- //-----------------
             $folder_name='';
@@ -50,7 +59,9 @@ class About_us_Controller extends Controller
              $AboutUs->image = $photo_name;
            }
            $AboutUs->save();
-           return redirect()->route('about_us.index')->with(['success'=>'تم التعديل بنجاح']);
+
+        //return redirect()->route('about_us.index')->with(['success'=>'تم التعديل بنجاح']);
+            return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
        }
        catch
        (\Exception $e) 

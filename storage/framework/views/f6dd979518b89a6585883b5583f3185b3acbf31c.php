@@ -31,8 +31,10 @@
             <h5 class="modal-title" style="color: #2569b1;">تعديل عن الموقع</h5>
            
         </div>
+      
         <div class="modal-body">
-            <form method="POST"  action="<?php echo e(route('about_us.update',$AboutUs->id)); ?>" enctype="multipart/form-data">
+        <?php $__currentLoopData = $About; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $AboutUs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>   
+        <form method="POST"  action="<?php echo e(route('about_us.update',$AboutUs->id)); ?>" enctype="multipart/form-data">
                 <?php echo e(method_field('PATCH')); ?>
 
 
@@ -169,7 +171,7 @@ unset($__errorArgs, $__bag); ?>
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="image">الصورة</label>
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                    <input type="file" class="form-control" name="image" accept="image/*" >
                    <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" ></center>
                     <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -189,6 +191,7 @@ unset($__errorArgs, $__bag); ?>
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         </div>
     </div>

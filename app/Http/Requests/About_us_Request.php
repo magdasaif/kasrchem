@@ -41,7 +41,6 @@ class About_us_Request extends FormRequest
          'goal_ar.required' =>'الهدف بالعربية مطلوب',
          'goal_en.required' =>'الهدف بالانجليزية مطلوب',
 
-
         
         ];
     }
