@@ -15,6 +15,7 @@ class About_usController extends Controller
     //------------------------------------------------------//
     public function update(About_us_Request $request)
     {
+     // dd($request->all());
         try 
         {
             $validated = $request->validated();
@@ -31,8 +32,14 @@ class About_usController extends Controller
 
             if($request->image)
             {
+              $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg,PNG,JPEG']);
+                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
+              if($request->deleted_image!=null)
+             {
               $image_path=storage_path().'/app/public/about_us/'.$request->deleted_image;
-             unlink($image_path);
+              unlink($image_path);
+            }
+             //----------------- //----------------- //-----------------
              $folder_name='';
              $photo_name= ($request->image)->getClientOriginalName();
              ($request->image)->storeAs($folder_name,$photo_name,$disk="about_us");

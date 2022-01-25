@@ -170,8 +170,8 @@ unset($__errorArgs, $__bag); ?>
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="image">الصورة</label>
-                    <input type="file" class="form-control" name="image" >
-                   <br> <center><img  style="width: 270px;height: 200px;" accept="image/*" src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" required></center>
+                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                   <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" ></center>
                     <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -234,18 +234,7 @@ unset($__errorArgs, $__bag); ?>
   
     });
     
-    // $("#submit").click(function() {
-    // var editorContent = tinyMCE.get('title_ar').getContent();
-    // alert(editorContent);
-    // if (editorContent == '')
-    // {
-    //     alert("ادخل اسم الموقع");
-    // }
-    // else
-    // {
-    //     alert("yes");
-    // }
-})
+  
     </script>
 <?php $__env->stopSection(); ?>
 

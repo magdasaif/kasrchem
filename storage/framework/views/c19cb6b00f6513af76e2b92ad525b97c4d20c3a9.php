@@ -33,9 +33,9 @@
 <script src="<?php echo e(URL::asset('assets/js/custom.js')); ?>"></script>
 
 <!-- jQuery CDN -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <!-- Bootstrap CDN -->
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<!-- <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script> -->
 <!-- Bootstrap-Iconpicker Bundle -->
 <script type="text/javascript" src="<?php echo e(URL::asset('dist/js/bootstrap-iconpicker.bundle.min.js')); ?>"></script>
 

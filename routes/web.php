@@ -129,5 +129,4 @@ Route::group(['namespace'=>'SocialLinks'],function(){
 //----------------------------------About_us--------------------------------------------//
 Route::get('About_us','About_us\About_usController@show');
 Route::POST('About_us_update','About_us\About_usController@update');
-// Route::POST('About_us_update','About_us\About_usController@update')->name('About_us_update');
 //--------------------------------------------------------------------------------------//

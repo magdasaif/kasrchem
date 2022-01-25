@@ -111,8 +111,8 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="image">الصورة</label>
-                    <input type="file" class="form-control" name="image" >
-                   <br> <center><img  style="width: 270px;height: 200px;" accept="image/*" src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" required></center>
+                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                   <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" ></center>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -168,17 +168,6 @@
   
     });
     
-    // $("#submit").click(function() {
-    // var editorContent = tinyMCE.get('title_ar').getContent();
-    // alert(editorContent);
-    // if (editorContent == '')
-    // {
-    //     alert("ادخل اسم الموقع");
-    // }
-    // else
-    // {
-    //     alert("yes");
-    // }
-})
+  
     </script>
 @endsection

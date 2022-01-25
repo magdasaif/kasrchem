@@ -198,7 +198,7 @@
                     </li>
 
                     <li>
-                    <a href="<?php echo e(url('About_us')); ?>">نحن
+                    <a href="<?php echo e(url('About_us')); ?>"> من نحن
                             <div class="pull-left"><i class="fa fa-info"></i></div>
                        </a>
                        

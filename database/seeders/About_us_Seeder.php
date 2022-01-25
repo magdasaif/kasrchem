@@ -21,7 +21,7 @@ class About_us_Seeder extends Seeder
                  'vision_en'=>'vision',
                  'goal_ar'=>'الهدف',
                  'goal_en'=>'goal',
-                 'image'=>'erdco.PNG' ,
+                 'image'=>'' ,
                 'created_at'=>date('Y-m-d H:i:s'),
                  'updated_at'=>date('Y-m-d H:i:s'),
                 ),
