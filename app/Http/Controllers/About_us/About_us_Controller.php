@@ -32,8 +32,8 @@ public function show()
        try 
        {
            $validated = $request->validated();
-         $AboutUs = AboutUs::findOrFail($id);
-            //  $AboutUs = AboutUs::first();
+         //  $AboutUs = AboutUs::findOrFail($id);
+            $AboutUs = AboutUs::first();
            $AboutUs-> title_ar= $request->title_ar;
            $AboutUs->title_en = $request->title_en;
            $AboutUs-> mission_ar= $request->mission_ar;
