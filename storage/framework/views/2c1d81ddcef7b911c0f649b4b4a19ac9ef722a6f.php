@@ -32,9 +32,8 @@
            
         </div>
         <div class="modal-body">
-            
-            <form method="POST"  action="<?php echo e(url('About_us_update')); ?>" enctype="multipart/form-data">
-                <?php echo e(method_field('POST')); ?>
+            <form method="POST"  action="<?php echo e(route('about_us.update',$AboutUs->id)); ?>" enctype="multipart/form-data">
+                <?php echo e(method_field('PATCH')); ?>
 
 
                 <?php echo csrf_field(); ?>
@@ -170,8 +169,8 @@ unset($__errorArgs, $__bag); ?>
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="image">الصورة</label>
-                    <input type="file" class="form-control" name="image" >
-                   <br> <center><img  style="width: 270px;height: 200px;" accept="image/*" src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" required></center>
+                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                   <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" ></center>
                     <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -184,6 +183,8 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
                <!----------------------------------------------------->
+               <input type="hidden" name="deleted_image" value="<?php echo e($AboutUs->image); ?>">
+
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
@@ -227,9 +228,12 @@ unset($__errorArgs, $__bag); ?>
         {title: 'Test template 1', content: 'Test 1'},
         {title: 'Test template 2', content: 'Test 2'}
     ],
-  
+    
+   
   
     });
+    
+  
     </script>
 <?php $__env->stopSection(); ?>
 

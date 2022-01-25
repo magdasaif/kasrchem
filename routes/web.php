@@ -127,6 +127,8 @@ Route::group(['namespace'=>'SocialLinks'],function(){
 
 });
 //----------------------------------About_us--------------------------------------------//
-Route::get('About_us','About_us\About_usController@show');
-Route::POST('About_us_update','About_us\About_usController@update');
+
+Route::group(['namespace'=>'About_us'],function(){
+    Route::resource('about_us', 'About_us_Controller');
+});
 //--------------------------------------------------------------------------------------//

@@ -32,9 +32,8 @@
            
         </div>
         <div class="modal-body">
-            
-            <form method="POST"  action="<?php echo e(url('About_us_update')); ?>" enctype="multipart/form-data">
-                <?php echo e(method_field('POST')); ?>
+            <form method="POST"  action="<?php echo e(route('about_us.update',$AboutUs->id)); ?>" enctype="multipart/form-data">
+                <?php echo e(method_field('PATCH')); ?>
 
 
                 <?php echo csrf_field(); ?>

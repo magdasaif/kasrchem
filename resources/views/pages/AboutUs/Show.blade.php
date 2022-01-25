@@ -30,9 +30,8 @@
            
         </div>
         <div class="modal-body">
-            
-            <form method="POST"  action="{{url('About_us_update')}}" enctype="multipart/form-data">
-                {{method_field('POST')}}
+            <form method="POST"  action="{{route('about_us.update',$AboutUs->id)}}" enctype="multipart/form-data">
+                {{method_field('PATCH')}}
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}

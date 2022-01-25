@@ -157,12 +157,7 @@
                         </ul>
                     </li>
 
-
-
-                    
-                    
-
-                    <li>
+                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#photo_gallery">
                             <div class="pull-left"><i class="fa fa-camera"></i><span
                                     class="right-nav-text">المعارض</span></div>
@@ -190,17 +185,11 @@
                    
                    
                     <li>
-                    <a href="<?php echo e(route('city.index')); ?>">المـدن
-                            <div class="pull-left"><i class="fa fa-sitemap"></i></div>
-                           
-                        </a>
-                       
-                    </li>
+                    <a href="<?php echo e(route('city.index')); ?>">المـدن<div class="pull-left"><i class="fa fa-sitemap"></i></div></a>
+                   </li>
 
-                    <li>
-                    <a href="<?php echo e(url('About_us')); ?>">نحن
-                            <div class="pull-left"><i class="fa fa-info"></i></div>
-                       </a>
+                   <li>
+                    <a href="<?php echo e(route('about_us.index')); ?>"> من نحن<div class="pull-left"><i class="fa fa-info"></i></div> </a>
                        
                     </li>
 

@@ -188,8 +188,8 @@
                     <a href="{{route('city.index')}}">المـدن<div class="pull-left"><i class="fa fa-sitemap"></i></div></a>
                    </li>
 
-                    <li>
-                    <a href="{{url('About_us')}}"> من نحن<div class="pull-left"><i class="fa fa-info"></i></div> </a>
+                   <li>
+                    <a href="{{route('about_us.index')}}"> من نحن<div class="pull-left"><i class="fa fa-info"></i></div> </a>
                        
                     </li>
 
