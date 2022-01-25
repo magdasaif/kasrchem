@@ -15,11 +15,6 @@ class About_us_Controller extends Controller
         return view('pages.AboutUs.Show',compact('AboutUs'));
     }
 
-    // public function show()
-    // {
-    //      $AboutUs=AboutUs::first();
-    //      return view('pages.AboutUs.Show',compact('AboutUs'));
-    // }
     //------------------------------------------------------//
  
     public function update(About_us_Request $request,$id)
@@ -55,7 +50,7 @@ class About_us_Controller extends Controller
              $AboutUs->image = $photo_name;
            }
            $AboutUs->save();
-         return redirect('about_us')->with(['success'=>'تم التعديل بنجاح']);
+           return redirect()->route('about_us.index')->with(['success'=>'تم التعديل بنجاح']);
        }
        catch
        (\Exception $e) 
