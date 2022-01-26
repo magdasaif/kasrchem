@@ -177,12 +177,7 @@
                         </ul>
                     </li>
 
-
-
-                    
-                    
-
-                    <li>
+                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#photo_gallery">
                             <div class="pull-left"><i class="fa fa-camera"></i><span
                                     class="right-nav-text">المعارض</span></div>
@@ -210,10 +205,11 @@
                    
                    
                     <li>
-                    <a href="{{route('city.index')}}">المـدن
-                            <div class="pull-left"><i class="fa fa-sitemap"></i></div>
-                           
-                        </a>
+                    <a href="{{route('city.index')}}">المـدن<div class="pull-left"><i class="fa fa-sitemap"></i></div></a>
+                   </li>
+
+                   <li>
+                    <a href="{{route('about_us.index')}}"> من نحن<div class="pull-left"><i class="fa fa-info"></i></div> </a>
                        
                     </li>
 

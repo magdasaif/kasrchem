@@ -111,21 +111,22 @@ Route::get('show_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@sho
 Route::post('add_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@add_gallery_images');
 Route::get('delete_gallery_images/{id}','Photo_Gallery\Photo_GalleryController@delete_gallery_images');
 
-//---------------------------pages-----------------------------------------
+//---------------------------pages-------------------------------------------------//
 Route::group(['namespace'=>'Pages'],function(){
     Route::resource('page', 'PageController');
 
 });
 
-//------------------------------cities------------------------------------
+//----------------------------------------cities------------------------------------//
 Route::group(['namespace'=>'Cities'],function(){
     Route::resource('city', 'CityController');
 });
-//----------------------------Social links-------------------------------------------------
+//----------------------------Social links-----------------------------------------------//
 Route::group(['namespace'=>'SocialLinks'],function(){
     Route::resource('social', 'SocialController');
 
 });
+//----------------------------------About_us--------------------------------------------//
 
 //----------------------------Users-------------------------------------------------
 Route::group(['namespace'=>'User'],function(){
@@ -133,3 +134,7 @@ Route::group(['namespace'=>'User'],function(){
 
 });
 
+Route::group(['namespace'=>'About_us'],function(){
+    Route::resource('about_us', 'About_us_Controller');
+});
+//--------------------------------------------------------------------------------------//
