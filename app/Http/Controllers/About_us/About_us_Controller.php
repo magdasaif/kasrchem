@@ -12,19 +12,20 @@ class About_us_Controller extends Controller
     public function index()
     {
         
-        $About=AboutUs::all();
+        //$AboutUs=AboutUs::all();
+        $About=AboutUs:: orderBy('id')->take(1)->get();
         return view('pages.AboutUs.Show',compact('About'));
     }
 
-    //------------------------------------------------------//
-    public function show()
-    {
-      
-        $About=AboutUs::all();
-        return view('pages.AboutUs.Show',compact('About'));
-    }
 //------------------------------------------------------//
- 
+public function show()
+{
+    
+    //$AboutUs=AboutUs::all();
+    $About=AboutUs:: orderBy('id')->take(1)->get();
+    return view('pages.AboutUs.Show',compact('About'));
+}
+//------------------------------------------------------//
     public function update(About_us_Request $request,$id)
     {
        // dd($request->all());
@@ -60,7 +61,6 @@ class About_us_Controller extends Controller
            }
            $AboutUs->save();
 
-        //return redirect()->route('about_us.index')->with(['success'=>'تم التعديل بنجاح']);
             return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
        }
        catch
