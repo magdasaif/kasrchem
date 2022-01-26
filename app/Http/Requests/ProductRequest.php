@@ -59,10 +59,10 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'List_Classes.*.weight_ar.required' => 'هذا الحقل مطلوب',
-            'List_Classes.*.value_ar.required' => 'تاكد من ادخال حصائص المنتج',
-            'List_Classes.*.weight_en.required' => 'نن',
-            'List_Classes.*.value_en.required' => 'خخ',
+            'List_Classes.*.weight_ar.required' => 'تاكد من ادخال خاصيه المنتج بالعربيه',
+            'List_Classes.*.value_ar.required' => 'تاكد من ادخال قيمه المنتج بالعربيه',
+            'List_Classes.*.weight_en.required' => 'تاكد من ادخال خاصيه المنتج بالانجليزيه',
+            'List_Classes.*.value_en.required' => 'تاكد من ادخال قيمه المنتج بالانجليزيه',
         ];
     }
 }

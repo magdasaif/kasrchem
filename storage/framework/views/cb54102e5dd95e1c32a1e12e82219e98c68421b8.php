@@ -15,6 +15,7 @@
                     </li>
                    
 
+                    
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#users">
@@ -204,18 +205,11 @@
                    
                    
                     <li>
-<<<<<<< HEAD:storage/framework/views/cb54102e5dd95e1c32a1e12e82219e98c68421b8.php
-                    <a href="<?php echo e(route('city.index')); ?>">المـدن
-                            <div class="pull-left"><i class="fa fa-sitemap"></i></div>
-                           
-                        </a>
-=======
                     <a href="<?php echo e(route('city.index')); ?>">المـدن<div class="pull-left"><i class="fa fa-sitemap"></i></div></a>
                    </li>
 
                    <li>
                     <a href="<?php echo e(route('about_us.index')); ?>"> من نحن<div class="pull-left"><i class="fa fa-info"></i></div> </a>
->>>>>>> 83babf9709b6cd585b759b5c811e77c4c4223a98:storage/framework/views/e5e49fe8a4aabfa4e488c4a66518596a45e150ad.php
                        
                     </li>
 
