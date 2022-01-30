@@ -19,6 +19,9 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\LatestProductController;
 
+use App\Http\Controllers\Api\PostsController;
+use App\Http\Controllers\Api\GalleryController;
+
 
 
  
@@ -67,10 +70,24 @@ Route::get('/social_links',[social_linksController::class,'getsocial_links']);
 // Route::get('/all_products/{lang}',[ProductController::class,'get_all_product']);
 //Route::get('/products/category_id={sub1}&sub_category_id={sub2}&type_id={sub3}&local={lang}',[ProductController::class,'filter_product']);
 
-
 Route::get('/products/{id}/{lang}',[ProductFilterController::class,'getProduct']);
+Route::apiResource('/products', 'ProductFilterController', array("as" => "api"));
+
+//---------------------latest products------------------------
 Route::get('/latest_products/{lang}',[LatestProductController::class,'latest_products']);
 
-Route::apiResource('/products', 'ProductFilterController', array("as" => "api"));
+//---------------------posts/article------------------------
+Route::apiResource('/posts', 'PostsController', array("as" => "api"));
+Route::get('/posts/{id}/{lang}',[PostsController::class,'getPost']);
+
+//---------------------videos------------------------
+Route::apiResource('/videos', 'VideoController', array("as" => "api"));
+
+//---------------------photos_galleries------------------------
+Route::apiResource('/photos_galleries', 'GalleryController', array("as" => "api"));
+Route::get('/photos_galleries/{id}/{lang}',[GalleryController::class,'getPhotoDetail']);
+
+//---------------------photos_galleries------------------------
+Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
 
 ///-------------------------------------

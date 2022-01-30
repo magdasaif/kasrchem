@@ -17,7 +17,7 @@ class ProductFilterController extends Controller
          $main_cate_id=$request->category_id;
          $sub2_id=$request->sub_category_id;
          $sub3_id=$request->type_id;
-         $lang=$request->local;
+         $lang=$request->locale;
 
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
          
@@ -30,8 +30,10 @@ class ProductFilterController extends Controller
          //min=min_amount
          //max=max_amount
          //security_clearance
-         $products = Product::select('id',$selected,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->orderBy('sort','asc')->paginate($perpage);
-       //  $products = ProductResource::collection(Product::select('id',$selected,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->get());
+
+         //  $products = Product::select('id',$selected,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->orderBy('sort','asc')->paginate($perpage);
+         $products = ProductResource::collection(Product::select('*',$selected)->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
+         $products->map(function($i) { $i->type = 'first_fun'; });
          return response($products,200,['OK']);
     }
 

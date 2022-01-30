@@ -11,11 +11,9 @@ class About_us_Controller extends Controller
 
     public function index()
     {
-            $AboutUs=AboutUs::findOrFail(1);
-
         //$AboutUs=AboutUs::all();
-        //$About=AboutUs:: orderBy('id')->take(1)->get();
-        return view('pages.AboutUs.Show',compact('AboutUs'));
+        $About=AboutUs:: orderBy('id')->take(1)->get();
+        return view('pages.AboutUs.Show',compact('About'));
     }
 
 

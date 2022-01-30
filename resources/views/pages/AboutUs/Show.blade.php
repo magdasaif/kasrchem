@@ -129,7 +129,7 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-
+                @endforeach
             </div>
         </div>
     </div>

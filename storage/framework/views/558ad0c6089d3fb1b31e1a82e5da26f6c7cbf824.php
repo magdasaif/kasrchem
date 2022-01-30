@@ -38,12 +38,16 @@
         <div class="modal-body">
 <<<<<<< HEAD:storage/framework/views/558ad0c6089d3fb1b31e1a82e5da26f6c7cbf824.php
              <form method="POST" action="<?php echo e(route('editt',$AboutUs->id)); ?>" enctype="multipart/form-data">
+<<<<<<< HEAD
             <?php echo e(method_field('PATCH ')); ?>
 =======
         <?php $__currentLoopData = $About; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $AboutUs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <form method="POST"  action="<?php echo e(route('about_us.update',$AboutUs->id)); ?>" enctype="multipart/form-data">
                 <?php echo e(method_field('PATCH')); ?>
 >>>>>>> 92fdbcd8efa6f24b8b3ad6b86623ac929c72a5e5:storage/framework/views/2c1d81ddcef7b911c0f649b4b4a19ac9ef722a6f.php
+=======
+            <?php echo e(method_field('POST')); ?>
+>>>>>>> multimedia
 
 
                 <?php echo csrf_field(); ?>
