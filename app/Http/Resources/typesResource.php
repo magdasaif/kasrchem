@@ -16,15 +16,25 @@ class typesResource extends JsonResource
               $subname= $this->subname_ar;
          }
         else
-         {
-             $subname= $this->subname_en;
-         }
+        {
+            $subname= $this->subname_en;
+        }
+        
+        $x= sub_typesResource::collection ($this->relation_sub3_with_sub4);
+         if($lang=='ar')
+        {
+              $x->map(function($i) { $i->lang = 'ar'; });
+        }
+          else
+        {
+            $x->map(function($i) { $i->lang = 'en'; });
+        }
        return 
        [
            'id'=>$this->id,
            'name'=>$subname,
-          'sub_types'=> sub_typesResource::collection ($this->relation_sub3_with_sub4),
-           //'sub_types'=> sub_typesResource::collection ($this->relation_sub3_with_sub4)->map(function($i) { $i->lang = 'ar'; }),
+           'image'=>$this->image,
+           'sub_types'=>  $x,
        ] ;
       
     }

@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\LatestProductController;
 
 
+
  
 
 /*
@@ -42,11 +43,15 @@ Route::get('/test', function () {
 });
 
 ///-------------------------------sections----------------------------------------------
-// Route::get('/Sitesections',[SiteSectionController::class,'index']);
-//Route::get('/Sitesections/{section_id}',[SiteSectionController::class,'get_one_section']);
-       //#######################################//
 Route::get('/sections/{lang}',[SiteSectionController::class,'index']);
+///-------------------------------section_category----------------------------------------------
 Route::get('/sections/{lang}/{section_id}',[SiteSectionController::class,'get_section_category']);
+///-------------------------------category_sub_category----------------------------------------------
+Route::get('/sub_category/{lang}/{category_id}/subs',[SiteSectionController::class,'get_category_sub_category']);
+///-------------------------------sub_category_types----------------------------------------------
+Route::get('/sub_categories/{lang}/{sub_category_id}/types',[SiteSectionController::class,'get_sub_category_types']);
+///-------------------------------sub_types_types----------------------------------------------
+Route::get('/types/{lang}/{type_id}/sub_types',[SiteSectionController::class,'get_types_sub_types']);
 ///------------------------slider---------------------------------------------------------
 Route::get('/sliders',[sliderController::class,'index']);
 //-------------------------Pages----------------------------------------------------------
@@ -57,25 +62,6 @@ Route::get('/partners/{lang}',[PartnerController::class,'getpartners']);
 Route::get('/branches/{lang}',[BranchController::class,'getbranches']);
 //----------------------------social_links--------------------------------------------------
 Route::get('/social_links',[social_linksController::class,'getsocial_links']);
-///---------------site sections/categories--------------
-Route::get('/Sitesections',[SiteSectionController::class,'index']);
-Route::get('/Sitesections/{section_id}',[SiteSectionController::class,'get_one_section']);
-
-//---------------------sub1_category------------------------
-Route::get('/sub_category1',[SubCategoryController1::class,'index']);
-Route::get('/sub_category1/{section_id}',[SubCategoryController1::class,'getCategories']);
-
-//---------------------sub2_category------------------------
-Route::get('/sub_category2',[SubCategoryController2::class,'index']);
-Route::get('/sub_category2/{sub1}',[SubCategoryController2::class,'getCategories']);
-
-//---------------------sub3_category------------------------
-Route::get('/sub_category3',[SubCategoryController3::class,'index']);
-Route::get('/sub_category3/{sub2}',[SubCategoryController3::class,'getCategories']);
-
-//---------------------sub4_category------------------------
-Route::get('/sub_category4',[SubCategoryController4::class,'index']);
-Route::get('/sub_category4/{sub3}',[SubCategoryController4::class,'getCategories']);
 
 //---------------------products------------------------
 // Route::get('/all_products/{lang}',[ProductController::class,'get_all_product']);

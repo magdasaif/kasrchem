@@ -17,24 +17,33 @@
     <?php endif; ?>
 
 
-<?php if(Session::has('error')): ?>
-     <div class="alert alert-danger">
-         <?php echo e(Session::get('error')); ?>
-
-     </div>
-<?php endif; ?>
+  <?php if($errors->any()): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 
 <div>
     <div class="modal-dialog" role="document" style="max-width: 900px;">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" style="color: #2569b1;">تعديل عن الموقع</h5>
-           
+
         </div>
-      
+
         <div class="modal-body">
+<<<<<<< HEAD:storage/framework/views/558ad0c6089d3fb1b31e1a82e5da26f6c7cbf824.php
              <form method="POST" action="<?php echo e(route('editt',$AboutUs->id)); ?>" enctype="multipart/form-data">
             <?php echo e(method_field('PATCH ')); ?>
+=======
+        <?php $__currentLoopData = $About; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $AboutUs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <form method="POST"  action="<?php echo e(route('about_us.update',$AboutUs->id)); ?>" enctype="multipart/form-data">
+                <?php echo e(method_field('PATCH')); ?>
+>>>>>>> 92fdbcd8efa6f24b8b3ad6b86623ac929c72a5e5:storage/framework/views/2c1d81ddcef7b911c0f649b4b4a19ac9ef722a6f.php
 
 
                 <?php echo csrf_field(); ?>
@@ -43,7 +52,7 @@
               <div class="form-group">
                     <label for="title_ar" style="font-weight: bold;color: black"> من نحن</label>
                     <textarea  rows="3" cols="22" class="form-control tinymce-editor" name="title_ar" id="title_ar"  ><?php echo $AboutUs->title_ar; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['title_ar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -59,7 +68,7 @@ unset($__errorArgs, $__bag); ?>
                <div class="form-group">
                     <label for="title_en" style="font-weight: bold;color: black"> من نحن بالانجليزية</label>
                     <textarea  class="form-control tinymce-editor" name="title_en" id="title_en"  ><?php echo $AboutUs->title_en; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['title_en'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -75,7 +84,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label for="mission_ar" style="font-weight: bold;color: black"> الرسالة</label>
                     <textarea  class="form-control tinymce-editor" name="mission_ar" id="mission_ar"  ><?php echo $AboutUs->mission_ar; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['mission_ar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -91,7 +100,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label for="mission_en" style="font-weight: bold;color: black">  الرسالة بالانجليزية</label>
                     <textarea  class="form-control tinymce-editor" name="mission_en" id="mission_en"  ><?php echo $AboutUs->mission_en; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['mission_en'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -107,7 +116,7 @@ unset($__errorArgs, $__bag); ?>
                <div class="form-group">
                     <label for="vision_ar" style="font-weight: bold;color: black"> الرؤية</label>
                     <textarea  class="form-control tinymce-editor" name="vision_ar" id="vision_ar"  ><?php echo $AboutUs->vision_ar; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['vision_ar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -123,7 +132,7 @@ unset($__errorArgs, $__bag); ?>
                <div class="form-group">
                     <label for="vision_en" style="font-weight: bold;color: black"> الرؤية بالانجليزية</label>
                     <textarea  class="form-control tinymce-editor" name="vision_en" id="vision_en"  ><?php echo $AboutUs->vision_en; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['vision_en'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -139,7 +148,7 @@ unset($__errorArgs, $__bag); ?>
                <div class="form-group">
                     <label for="goal_ar" style="font-weight: bold;color: black">الهدف</label>
                     <textarea  class="form-control tinymce-editor" name="goal_ar" id="goal_ar"  ><?php echo $AboutUs->goal_ar; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['goal_ar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -155,7 +164,7 @@ unset($__errorArgs, $__bag); ?>
                <div class="form-group">
                     <label for="goal_en" style="font-weight: bold;color: black"> الهدف بالانجليزية</label>
                     <textarea  class="form-control tinymce-editor" name="goal_en" id="goal_en"  ><?php echo $AboutUs->goal_en; ?></textarea>
-                    
+
                     <?php $__errorArgs = ['goal_en'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -230,12 +239,12 @@ unset($__errorArgs, $__bag); ?>
         {title: 'Test template 1', content: 'Test 1'},
         {title: 'Test template 2', content: 'Test 2'}
     ],
-    
-   
-  
+
+
+
     });
-    
-  
+
+
     </script>
 <?php $__env->stopSection(); ?>
 
