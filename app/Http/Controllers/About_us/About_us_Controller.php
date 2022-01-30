@@ -8,10 +8,10 @@ use App\Http\Requests\About_us_Request;
 use App\Models\AboutUs;
 class About_us_Controller extends Controller
 {
-    
+
     public function index()
     {
-        
+
         //$AboutUs=AboutUs::all();
         $About=AboutUs:: orderBy('id')->take(1)->get();
         return view('pages.AboutUs.Show',compact('About'));
@@ -20,7 +20,7 @@ class About_us_Controller extends Controller
 //------------------------------------------------------//
 public function show()
 {
-    
+
     //$AboutUs=AboutUs::all();
     $About=AboutUs:: orderBy('id')->take(1)->get();
     return view('pages.AboutUs.Show',compact('About'));
@@ -29,11 +29,11 @@ public function show()
     public function update(About_us_Request $request,$id)
     {
        // dd($request->all());
-       try 
+       try
        {
            $validated = $request->validated();
-         $AboutUs = AboutUs::findOrFail($id);
-            //  $AboutUs = AboutUs::first();
+         //  $AboutUs = AboutUs::findOrFail($id);
+            $AboutUs = AboutUs::first();
            $AboutUs-> title_ar= $request->title_ar;
            $AboutUs->title_en = $request->title_en;
            $AboutUs-> mission_ar= $request->mission_ar;
@@ -46,13 +46,13 @@ public function show()
            if($request->image)
            {
                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
-             if($request->deleted_image!=null)
+           /*  if($request->deleted_image!=null)
             {
              $image_path=storage_path().'/app/public/about_us/'.$request->deleted_image;
              unlink($image_path);
              $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
 
-           }
+           }*/
             //----------------- //----------------- //-----------------
             $folder_name='';
             $photo_name= ($request->image)->getClientOriginalName();
@@ -64,9 +64,9 @@ public function show()
             return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
        }
        catch
-       (\Exception $e) 
+       (\Exception $e)
        {
-           return redirect()->back()->with(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
        }
     }
 

@@ -13,6 +13,9 @@ use App\Http\Requests\ProductRequest;
 
 use Illuminate\Support\Facades\Storage;
 
+//to using beginTransaction
+use Illuminate\Support\Facades\DB;
+
 //use Illuminate\Support\Facades\Schema;
 
 class ProductController extends Controller
@@ -37,6 +40,9 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+        //to handel multiple insertion
+        DB::beginTransaction();
+        
        // dd('add');
         try{
             //vaildation
@@ -140,10 +146,14 @@ class ProductController extends Controller
                     'product_id'=>Product::latest()->first()->id
                 ]);
             }
+
+            DB::commit();
             //toastr()->success('تمت الاضافه بنجاح');
 
             return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
+            
+            DB::rollback();
          //   dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
 

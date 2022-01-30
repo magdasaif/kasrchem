@@ -128,6 +128,12 @@ Route::group(['namespace'=>'SocialLinks'],function(){
 });
 //----------------------------------About_us--------------------------------------------//
 
+//----------------------------Users-------------------------------------------------
+Route::group(['namespace'=>'User'],function(){
+    Route::resource('user_type', 'UserTypeController');
+
+});
+
 Route::group(['namespace'=>'About_us'],function(){
     Route::resource('about_us', 'About_us_Controller');
 });
