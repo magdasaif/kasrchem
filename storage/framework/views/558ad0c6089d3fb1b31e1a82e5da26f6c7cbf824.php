@@ -34,7 +34,7 @@
       
         <div class="modal-body">
              <form method="POST" action="<?php echo e(route('editt',$AboutUs->id)); ?>" enctype="multipart/form-data">
-            <?php echo e(method_field('PATCH ')); ?>
+            <?php echo e(method_field('POST')); ?>
 
 
                 <?php echo csrf_field(); ?>
