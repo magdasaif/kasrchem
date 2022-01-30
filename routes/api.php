@@ -45,7 +45,7 @@ Route::get('/test', function () {
 ///-------------------------------sections----------------------------------------------
 Route::get('/sections/{lang}',[SiteSectionController::class,'index']);
 ///-------------------------------section_category----------------------------------------------
-Route::get('/sections/{section_id}/{lang}',[SiteSectionController::class,'get_section_category']);
+Route::get('/sections/{lang}/{section_id}',[SiteSectionController::class,'get_section_category']);
 ///-------------------------------category_sub_category----------------------------------------------
 Route::get('/sub_category/{lang}/{category_id}/subs',[SiteSectionController::class,'get_category_sub_category']);
 ///-------------------------------sub_category_types----------------------------------------------
