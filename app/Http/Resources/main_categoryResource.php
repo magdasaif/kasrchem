@@ -20,7 +20,13 @@ class main_categoryResource extends JsonResource
         {
             $subname= $this->subname_en;
         }
-   
+
+       $x= sub_categoriesResource::collection ($this->sub_cate2);
+       if($lang=='ar'){
+            $x->map(function($i) { $i->lang = 'ar'; });
+        }else{
+            $x->map(function($i) { $i->lang = 'en'; });
+        }
        return 
        [
            'id'=>$this->id,
@@ -28,7 +34,7 @@ class main_categoryResource extends JsonResource
            'image'=>$this->image,
             //'sub_categories'=>   $this->sub_cate2,
             //'types'=>$this->sub_cate3,
-           'sub_categories'=> sub_categoriesResource::collection ($this->sub_cate2),
+           'sub_categories'=> response($x,200,['OK']),
            
        
        ] ;
