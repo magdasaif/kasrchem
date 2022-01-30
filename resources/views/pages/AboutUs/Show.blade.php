@@ -31,9 +31,8 @@
         </div>
       
         <div class="modal-body">
-        @foreach($About as $AboutUs)   
-        <form method="POST"  action="{{route('about_us.update',$AboutUs->id)}}" enctype="multipart/form-data">
-                {{method_field('PATCH')}}
+             <form method="POST" action="{{route('editt',$AboutUs->id)}}" enctype="multipart/form-data">
+            {{method_field('POST')}}
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -113,7 +112,7 @@
                <div class="form-group">
                     <label for="image">الصورة</label>
                     <input type="file" class="form-control" name="image" accept="image/*" >
-                   <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/{$AboutUs->image}")?> alt="" ></center>
+                   <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/$AboutUs->image")?> alt="" ></center>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -125,8 +124,8 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-                @endforeach
-        </div>
+
+            </div>
         </div>
     </div>
 </div>
