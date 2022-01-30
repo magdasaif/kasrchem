@@ -11,20 +11,19 @@ class sub_typesResource extends JsonResource
     {
          // return parent::toArray($request);
          $lang = $this->when( property_exists($this,'lang'), function() { return $this->lang; } );
-         if($lang=='ar')
-          {
-               $subname= $this->subname_ar;
-          }
-         else
-          {
-              $subname= $this->subname_en;
-          }
-         return 
-         [
+        if($lang=='ar')
+        {
+            $subname= $this->subname_ar;
+        }
+        else
+        {
+            $subname= $this->subname_en;
+        }
+        return 
+        [
              'id'=>$this->id,
              'name'=>$subname,
-             
-         ] ;
+        ] ;
         
     }
 }

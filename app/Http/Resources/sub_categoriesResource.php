@@ -20,20 +20,21 @@ class sub_categoriesResource extends JsonResource
             $subname= $this->subname2_en;
         }
         $x= typesResource::collection ($this->sub_cate3);
-        if($lang=='ar'){
-             $x->map(function($i) { $i->lang = 'ar'; });
-         }else{
-             $x->map(function($i) { $i->lang = 'en'; });
-         }
+        if($lang=='ar')
+        {
+           $x->map(function($i) { $i->lang = 'ar'; });
+        }
+        else
+        {
+            $x->map(function($i) { $i->lang = 'en'; });
+        }
        return 
-       [
-           'id'=>$this->id,
+        [ 
+            'id'=>$this->id,
            'name'=>$subname,
            'image'=>$this->image2,
            'types'=> $x,
-           //'types'=> typesResource::collection ($this->sub_cate3),
-       
-       ] ;
+        ] ;
       
     }
 }
