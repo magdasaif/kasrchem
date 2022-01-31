@@ -46,8 +46,8 @@ Route::get('/test', function () {
 });
 
 ///-------------------------------sections----------------------------------------------
-Route::get('/sections/{lang}',[SiteSectionController::class,'index']);
-
+//Route::get('/sections/{lang}',[SiteSectionController::class,'index']);
+Route::get('/sections',[SiteSectionController::class,'index']);
 ///-------------------------------section_category----------------------------------------------
 Route::get('/sections/{lang}/{section_id}',[SiteSectionController::class,'get_section_category']);
 ///-------------------------------category_sub_category----------------------------------------------
@@ -78,7 +78,7 @@ Route::apiResource('/products', 'ProductFilterController', array("as" => "api"))
 Route::get('/latest_products/{lang}',[LatestProductController::class,'latest_products']);
 
 //---------------------posts/article------------------------
-Route::get('/posts/{id}',[PostsController::class,'getPost']);
+//Route::get('/posts/{id}',[PostsController::class,'getPost']);
 Route::apiResource('/posts', 'PostsController', array("as" => "api"));
 
 
