@@ -1,7 +1,8 @@
 
 <?php $__env->startSection('css'); ?>
 
-@livewireStyles
+<?php echo \Livewire\Livewire::styles(); ?>
+
 
 <?php $__env->startSection('title'); ?>
     <?php echo e($title); ?>

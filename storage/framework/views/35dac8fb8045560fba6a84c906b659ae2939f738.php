@@ -1,7 +1,8 @@
 
 <?php $__env->startSection('css'); ?>
 
-@livewireStyles
+<?php echo \Livewire\Livewire::styles(); ?>
+
 
 <?php $__env->startSection('title'); ?>
     <?php echo e($title); ?>
@@ -113,7 +114,8 @@
 <!-- row closed -->
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
-@livewireScripts
+<?php echo \Livewire\Livewire::scripts(); ?>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\eradco-backend\final\backend\resources\views\pages\products\show.blade.php ENDPATH**/ ?>

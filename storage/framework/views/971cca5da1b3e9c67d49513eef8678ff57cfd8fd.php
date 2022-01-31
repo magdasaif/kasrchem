@@ -1,6 +1,7 @@
 
 <?php $__env->startSection('css'); ?>
-@livewireStyles
+<?php echo \Livewire\Livewire::styles(); ?>
+
 <?php $__env->startSection('title'); ?>
     اضافه منتج
 <?php $__env->stopSection(); ?>
@@ -28,7 +29,21 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
-                 <livewire:productlivewire />
+                 <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('productlivewire', [])->html();
+} elseif ($_instance->childHasBeenRendered('GQPwSiB')) {
+    $componentId = $_instance->getRenderedChildComponentId('GQPwSiB');
+    $componentTag = $_instance->getRenderedChildComponentTagName('GQPwSiB');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('GQPwSiB');
+} else {
+    $response = \Livewire\Livewire::mount('productlivewire', []);
+    $html = $response->html();
+    $_instance->logRenderedChild('GQPwSiB', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                  
             </div>
         </div>
@@ -37,7 +52,8 @@
 <!-- row closed -->
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
-    @livewireScripts
+    <?php echo \Livewire\Livewire::scripts(); ?>
+
 
 
     <script>
