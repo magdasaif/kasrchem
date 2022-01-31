@@ -60,8 +60,10 @@ class SiteSectionController extends Controller
      *     )
      */
 
-    public function index($lang)
+    // public function index($lang)
+    public function index(Request $request)
     {
+        $lang=$request->header('locale');
        // $Sitesections = Sitesection::get();
         if($lang=='ar')
         {
