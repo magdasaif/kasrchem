@@ -35,7 +35,7 @@ class PostsController extends Controller
          return response($posts,200,['OK']);
     }
 
-    public function getPost($id,Request $request){
+    public function show($id,Request $request){
 
         $lang=$request->header('locale');
         if($lang=='ar'){
