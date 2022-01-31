@@ -18,11 +18,6 @@ use App\Http\Controllers\Api\SubCategoryController4;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\LatestProductController;
-
-
-
- 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

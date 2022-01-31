@@ -12,12 +12,12 @@ class BranchController  extends Controller
       if($lang=='ar')
       {
         
-        $Branche = Branche::select('id','name_ar AS title','address_ar AS address','phone','fax','email','latitude','longitude')->get();
+        $Branche = Branche::select('id','name_ar AS title','address_ar AS address','phone','fax','email','latitude','longitude')->where('status','1')->get();
         
       }
       else
       { 
-        $Branche = Branche::select('id','name_en AS title','address_en AS address','phone','fax','email','latitude','longitude')->get();
+        $Branche = Branche::select('id','name_en AS title','address_en AS address','phone','fax','email','latitude','longitude')->where('status','1')->get();
       }
       
      

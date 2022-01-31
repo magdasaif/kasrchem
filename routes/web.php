@@ -138,3 +138,6 @@ Route::group(['namespace'=>'About_us'],function(){
     Route::resource('about_us', 'About_us_Controller');
 });
 //--------------------------------------------------------------------------------------//
+Route::get('/docs', function () {
+    return view('swagger.index');
+});

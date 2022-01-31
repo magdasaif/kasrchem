@@ -22,11 +22,11 @@ class SiteSectionController extends Controller
        // $Sitesections = Sitesection::get();
         if($lang=='ar')
         {
-           $Sitesections = Sitesection::select('id','site_name_ar AS name','image')->get();
+           $Sitesections = Sitesection::select('id','site_name_ar AS name','image')->where('statues','1')->orderBy('priority','asc')->get();
         }
         else
         { 
-          $Sitesections = Sitesection::select('id','site_name_en AS name','image')->get();
+          $Sitesections = Sitesection::select('id','site_name_en AS name','image')->where('statues','1')->orderBy('priority','asc')->get();
         }
 
         return response($Sitesections,200,['OK']);
@@ -35,7 +35,7 @@ class SiteSectionController extends Controller
 //------------------------------------------------------------------//
 public function get_section_category($lang,$section_id)
 {
-    $main_category=main_categoryResource::collection(Main_Category::where('section_id',$section_id)->get());
+    $main_category=main_categoryResource::collection(Main_Category::where('section_id',$section_id)->where('status','1')->get());
     if($lang=='ar'){
         $main_category->map(function($i) { $i->lang = 'ar'; });
     }else{
@@ -46,7 +46,7 @@ public function get_section_category($lang,$section_id)
 //----------------------------------------------------------------------//
 public function get_category_sub_category($lang,$category_id)
 {
-    $Sub_Category2=sub_categoriesResource::collection(Sub_Category2::where('cate_id',$category_id)->get());
+    $Sub_Category2=sub_categoriesResource::collection(Sub_Category2::where('cate_id',$category_id)->where('status','1')->get());
         if($lang=='ar'){
             $Sub_Category2->map(function($i) { $i->lang = 'ar'; });
         }else{
@@ -57,7 +57,7 @@ public function get_category_sub_category($lang,$category_id)
 //-------------------------------------------------------------//
 public function get_sub_category_types($lang,$sub_category_id)
 {
-     $Sub_Category3=typesResource::collection(Sub_Category3::where('sub2_id',$sub_category_id)->get());
+     $Sub_Category3=typesResource::collection(Sub_Category3::where('sub2_id',$sub_category_id)->where('status','1')->get());
         if($lang=='ar'){
             $Sub_Category3->map(function($i) { $i->lang = 'ar'; });
         }else{
@@ -68,7 +68,7 @@ public function get_sub_category_types($lang,$sub_category_id)
 //-----------------------------------------------------//
 public function get_types_sub_types($lang,$type_id)
 {
-   $Sub_Category4=sub_typesResource::collection(Sub_Category4::where('sub3_id',$type_id)->get());
+   $Sub_Category4=sub_typesResource::collection(Sub_Category4::where('sub3_id',$type_id)->where('status','1')->get());
      if($lang=='ar'){
             $Sub_Category4->map(function($i) { $i->lang = 'ar'; });
         }else{
