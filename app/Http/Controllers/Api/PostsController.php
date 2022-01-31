@@ -35,8 +35,8 @@ class PostsController extends Controller
          return response($posts,200,['OK']);
     }
 
-    public function getPost($id){
-    
+    public function getPost($id,Request $request){
+
         $lang=$request->header('locale');
         if($lang=='ar'){
             $selected="title_ar as title";
