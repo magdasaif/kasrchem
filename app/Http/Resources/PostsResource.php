@@ -29,7 +29,6 @@ class PostsResource extends JsonResource
             'id' =>$this->id,
             'title' =>$this->title,
             'image' =>$path,
-            'ggg' =>'lllll',
         ];
     }
       //  return parent::toArray($request);
