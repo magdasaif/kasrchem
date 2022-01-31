@@ -12,12 +12,12 @@ class PartnerController extends Controller
       if($lang=='ar')
       {
         
-        $Partner = Partner::select('id','name_ar AS name','image','external_link AS link')->get();
+        $Partner = Partner::select('id','name_ar AS name','image','external_link AS link')->where('status','1')->get();
         
       }
       else
       { 
-        $Partner = Partner::select('id','name_en AS name','image','external_link AS link')->get();
+        $Partner = Partner::select('id','name_en AS name','image','external_link AS link')->where('status','1')->get();
       }
       
      
