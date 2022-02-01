@@ -68,14 +68,10 @@ Route::get('/branches/{lang}',[BranchController::class,'getbranches']);
 Route::get('/social_links',[social_linksController::class,'getsocial_links']);
 
 //---------------------products------------------------
-// Route::get('/all_products/{lang}',[ProductController::class,'get_all_product']);
-//Route::get('/products/category_id={sub1}&sub_category_id={sub2}&type_id={sub3}&local={lang}',[ProductController::class,'filter_product']);
-
-Route::get('/products/{id}/{lang}',[ProductFilterController::class,'getProduct']);
 Route::apiResource('/products', 'ProductFilterController', array("as" => "api"));
 
 //---------------------latest products------------------------
-Route::get('/latest_products/{lang}',[LatestProductController::class,'latest_products']);
+Route::get('/latest_products',[LatestProductController::class,'latest_products']);
 
 //---------------------posts/article------------------------
 Route::apiResource('/posts', 'PostsController', array("as" => "api"));
@@ -85,7 +81,6 @@ Route::apiResource('/videos', 'VideoController', array("as" => "api"));
 
 //---------------------photos_galleries------------------------
 Route::apiResource('/photos_galleries', 'GalleryController', array("as" => "api"));
-Route::get('/photos_galleries/{id}/{lang}',[GalleryController::class,'getPhotoDetail']);
 
 //---------------------photos_galleries------------------------
 Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
