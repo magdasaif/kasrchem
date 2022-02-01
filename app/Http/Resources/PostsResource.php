@@ -19,7 +19,8 @@ class PostsResource extends JsonResource
             'id' =>$this->id,
             'title' =>$this->title,
             'image' =>$path,
-            'description' => strip_tags($this->description),
+            // 'description' => strip_tags($this->description),
+             'description' => $this->description,
             'date' =>$this->date,
         ];
 

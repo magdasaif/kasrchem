@@ -11,13 +11,78 @@ use App\Models\Product;
 class ProductFilterController extends Controller
 {
     
+     /**
+     * @OA\Get(
+     *      path="/products",
+     *      operationId="Get list of Products",
+     *      tags={"Products"},
+     *      summary="Get list of Products",
+     *      @OA\Parameter(
+     *          name="locale",
+     *          description="App Locale",
+     *          required=true,
+     *          in="header",
+     *          @OA\Schema(
+     *              type="string",
+     *              enum={"ar", "en"},
+     *              default="ar"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="category_id",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string",
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="sub_category_id",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string",
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="type_id",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *     )
+     */
     public function index(Request $request)
     {
     //select products in selected categories 
          $main_cate_id=$request->category_id;
          $sub2_id=$request->sub_category_id;
          $sub3_id=$request->type_id;
-         $lang=$request->locale;
+         
+        //use header to read parameter passed in header 
+        $lang=$request->header('locale');
 
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
          
@@ -37,8 +102,64 @@ class ProductFilterController extends Controller
          return response($products,200,['OK']);
     }
 
-    public function getProduct($id,$lang){
+   /**
+     * @OA\Get (
+     *      path="/products/{id}",
+     *      operationId="show_products",
+     *      tags={"Products"},
+     *      summary="Show product Data",
+     *     @OA\Parameter(
+     *         description="product ID",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *      @OA\Parameter(
+     *          name="locale",
+     *          description="App Locale",
+     *          required=true,
+     *          in="header",
+     *          @OA\Schema(
+     *              type="string",
+     *              enum={"ar", "en"},
+     *              default="ar"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *     )
+     */
 
+    public function show($id,Request $request){
+
+        //use header to read parameter passed in header 
+        $lang=$request->header('locale');
+       
         if($lang=='ar'){
             $selected="name_ar as name";
             $selected2="desc_ar as desc";
@@ -63,11 +184,6 @@ class ProductFilterController extends Controller
         //
     }
 
-   
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
