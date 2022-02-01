@@ -140,3 +140,6 @@ Route::group(['namespace'=>'About_us'],function(){
 
 });
 //--------------------------------------------------------------------------------------//
+Route::get('/docs', function () {
+    return view('swagger.index');
+});

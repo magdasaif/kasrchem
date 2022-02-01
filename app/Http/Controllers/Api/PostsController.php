@@ -10,18 +10,18 @@ use App\Models\Article;
 
 class PostsController extends Controller
 {
-    
+
     public function index(Request $request)
     {
         //return  $request->locale;
-    //select products in selected categories 
+    //select products in selected categories
          $main_cate_id=$request->category_id;
          $sub2_id=$request->sub_category_id;
          $sub3_id=$request->type_id;
-         $lang=$request->locale;
+         $lang=$request->header('locale');
 
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
-         
+
          if($lang=='ar'){
              $selected="title_ar as title";
          }else{
@@ -35,8 +35,9 @@ class PostsController extends Controller
          return response($posts,200,['OK']);
     }
 
-    public function getPost($id,$lang){
+    public function show($id,Request $request){
 
+        $lang=$request->header('locale');
         if($lang=='ar'){
             $selected="title_ar as title";
             $selected2="content_ar as description";
