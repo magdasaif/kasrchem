@@ -10,7 +10,6 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-
     
     public function get_all_product($lang){
         if($lang=='ar'){

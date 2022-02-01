@@ -78,9 +78,7 @@ Route::apiResource('/products', 'ProductFilterController', array("as" => "api"))
 Route::get('/latest_products/{lang}',[LatestProductController::class,'latest_products']);
 
 //---------------------posts/article------------------------
-//Route::get('/posts/{id}',[PostsController::class,'getPost']);
 Route::apiResource('/posts', 'PostsController', array("as" => "api"));
-
 
 //---------------------videos------------------------
 Route::apiResource('/videos', 'VideoController', array("as" => "api"));
