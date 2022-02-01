@@ -77,26 +77,24 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {
-       // return  $request->all();
-    //select products in selected categories 
+        //select posts in selected categories
+        
          $main_cate_id=$request->category_id;
          $sub2_id=$request->sub_category_id;
          $sub3_id=$request->type_id;
-        $lang=$request->header('locale');
+         
+          //use header to read parameter passed in header 
+         $lang=$request->header('locale');
 
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
-         
+
          if($lang=='ar'){
              $selected="title_ar as title";
          }else{
               $selected="title_en as title";
          }
-         //stock=amunt
-         //min=min_amount
-         //max=max_amount
-         //security_clearance
+         
          $posts =  PostsResource::collection(Article::select('id',$selected,'image')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
-       //  return $posts;
          return response($posts,200,['OK']);
     }
 
@@ -156,6 +154,7 @@ class PostsController extends Controller
 
     public function show($id,Request $request){
 
+        //use header to read parameter passed in header 
         $lang=$request->header('locale');
         if($lang=='ar'){
             $selected="title_ar as title";
@@ -176,7 +175,6 @@ class PostsController extends Controller
         }else{
             $all_posts->map(function($i) { $i->lang = 'en'; });
         }
-       // return $all_posts;
         return response($all_posts,200,['OK']);
     }
 

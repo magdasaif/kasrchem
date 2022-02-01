@@ -10,7 +10,7 @@ class social_linksController  extends Controller
     public function getsocial_links()
     {
       
-        $Social = Social::select('id','name','icon','link')->get();
+        $Social = Social::select('id','name','icon','link')->where('status','1')->get();
     
         return response($Social,200,['OK']);
     }

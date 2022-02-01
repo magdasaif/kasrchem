@@ -11,7 +11,7 @@ class sliderController extends Controller
     public function index()
     {
       //$Slider = Slider::get();
-      $Slider = Slider::select('id','priority','image')->get();
+      $Slider = Slider::select('id','priority','image')->where('status','1')->orderBy('priority','asc')->get();
      
         return response($Slider,200,['OK']);
     }
