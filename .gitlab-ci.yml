@@ -1,0 +1,125 @@
+#image: lorisleiva/laravel-docker:latest
+#  echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+.init_ssh: &init_ssh |
+  eval $(ssh-agent -s)
+  ssh-add <(echo "$SSH_PRIVATE_KEY")
+  [[ -d ~/.ssh ]] || mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
+  #[[ -f /.dockerenv ]] &&
+  echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+# Replace the last line with the following lines if you'd rather
+# leave StrictHostKeyChecking enabled (replace yourdomain.com):
+#
+#  ssh-keyscan yourdomain.com >> ~/.ssh/known_hosts
+#  chmod 644 ~/.ssh/known_hosts
+
+.clear_cache: &clear_cache |
+  echo "Cleaning up"
+  rm -rf "%CACHE_PATH%/%CI_PIPELINE_ID%"
+
+.change_file_permissions: &change_file_permissions |
+  find . -type f -not -path "./vendor/*" -exec chmod 644 {} \;
+  find . -type d -not -path "./vendor/*" -exec chmod 755 {} \;
+
+.copy_env_file: &copy_env_file |
+  [[ -f ".env" ]] || cp -p ".env.example" ".env"
+
+#perior_cleanup:
+#  stage: .pre
+#  script:
+#    - *clear_cache
+#  when: always
+
+composer:
+  stage: build
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-composer
+    paths:
+      - vendor/
+  script:
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+  #    - *copy_env_file
+  #    - cp -p ".env.example" ".env"
+  #   - php artisan key:generate
+  artifacts:
+    expire_in: 1 month
+    paths:
+      - vendor/
+      - .env
+
+npm:
+  stage: build
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-npm
+    paths:
+      - node_modules/
+  script:
+    - echo "Hello from NPM"
+  #      - npm install
+  #      - npm run production
+  artifacts:
+    expire_in: 1 month
+    paths:
+      - node_modules/
+      - public/css/
+      - public/js/
+
+codestyle:
+  stage: test
+  dependencies: []
+  script:
+    - echo "Hello from CODESTYLE"
+#    - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app
+
+phpunit:
+  stage: test
+  dependencies:
+    - composer
+  script:
+    - echo "Hello from PHPUNIT"
+#    - phpunit --coverage-text --colors=never
+
+staging:
+  stage: deploy
+  script:
+    #    - *init_ssh
+    - whoami
+    - hostname
+    - hostname -i
+    - pwd
+    - *change_file_permissions
+    #    - ./vendor/bin/dep deploy
+    - ([[ -f vendor/bin/envoy ]] || composer require laravel/envoy)
+    - php vendor/bin/envoy run deploy
+  #    - exit
+  #    - kill -9 $$
+  #    -  php artisan migrate
+  #    -  php artisan db:seed
+  #    - php artisan deploy auth.drones.murabba.dev -s upload
+  environment:
+    name: dev
+    url: https://backend.training.murabba.dev
+  only:
+    - dev
+production:
+  stage: deploy
+  script:
+    #    - *init_ssh
+    #    - *change_file_permissions
+    #    - ./vendor/bin/dep deploy
+    - ([[ -f  vendor/bin/envoy ]] || composer require laravel/envoy)
+    - php vendor/bin/envoy run deploy
+  #    - php artisan deploy droners.com -s upload
+  environment:
+    name: production
+    url: https://eradonline.com
+  when: manual
+  only:
+    - master
+#cleanup_job:
+#  stage: .post
+#  script:
+#    - *clear_cache
+#  when: always
