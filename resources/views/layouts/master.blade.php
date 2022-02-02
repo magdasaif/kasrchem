@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Webmin - Bootstrap 4 & Angular 5 Admin Dashboard Template" />
-    <meta name="author" content="potenzaglobalsolutions.com" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    @include('layouts.head')
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>{{ config('app.name', 'Laravel') }}</title>
+  
+
+  <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper" id="app">
 
-<body>
+  <!-- Navbar -->
+  @include('layouts.navbar')
+  <!-- /.navbar -->
 
-    <div class="wrapper">
+  <!-- Main Sidebar Container -->
+  @include('layouts.header')
 
-        <!--=================================
- preloader -->
-
-        <div id="pre-loader">
-            <img src="assets/images/pre-loader/loader-01.svg" alt="">
-        </div>
-
-        <!--=================================
- preloader -->
-
-        @include('layouts.main-header')
-
-        @include('layouts.main-sidebar') 
-
-        <!--=================================
- Main content -->
-        <!-- main-content -->
-        <div class="content-wrapper">
-
-            @yield('page-header')
-
-            @yield('content')
-
-            <!--=================================
- wrapper -->
-
-            <!--=================================
- footer -->
-
-            @include('layouts.footer')
-        </div><!-- main content wrapper end-->
+  {{-- Content Wrapper. Contains page content --}}
+  <div class="content-wrapper">
+    {{-- Main content --}}
+    
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        {{-- <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark"></h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row --> --}}
+      </div><!-- /.container-fluid -->
     </div>
-    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div>
+      @yield('content')
     </div>
 
-    <!--=================================
- footer -->
+    <vue-progress-bar></vue-progress-bar>
 
-    @include('layouts.footer-scripts')
+    {{-- /.content --}}
+  </div>
+  {{-- /.content-wrapper --}}
 
-</body>
-
-</html>
+  {{-- Main Footer --}}
+  @include('layouts.footer')
