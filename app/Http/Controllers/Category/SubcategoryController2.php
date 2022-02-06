@@ -36,7 +36,7 @@ class SubcategoryController2 extends Controller
     public function create()
     {
         $sub1_categories = Main_Category::get();
-        
+        //return $sub1_categories;
         return view('categories.sub2.add',compact('sub1_categories'));
     }
 
@@ -58,7 +58,7 @@ class SubcategoryController2 extends Controller
             
            if($request->image){
                 $folder_name='second';
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
            }else{
                $photo_name='';
@@ -126,7 +126,7 @@ class SubcategoryController2 extends Controller
 
             if($request->image){
                 $folder_name='second';
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
                 $category->image2= $photo_name;
            }

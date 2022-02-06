@@ -61,7 +61,7 @@ class SubcategoryController3 extends Controller
             
            if($request->image){
                 $folder_name='third';
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
            }else{
                $photo_name='';
@@ -104,8 +104,8 @@ public function edit($sub3_id)
 
             if($request->image){
                  $folder_name='third';
-                $photo_name= ($request->image)->getClientOriginalName();
-               ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
+                 $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
+                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
               $sub3->image= $photo_name;
           }
 

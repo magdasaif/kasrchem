@@ -60,7 +60,7 @@ class SubcategoryController1 extends Controller
             
            if($request->image){
                 $folder_name='first';
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
            }else{
                $photo_name='';
@@ -107,14 +107,14 @@ class SubcategoryController1 extends Controller
     public function edit($id)
     {
         $categories = Main_Category::findOrfail($id);
-      //  return $categories;
+        //return $categories;
         
         if(!$categories)
              return redirect()->back();
 
-        $sections = Sitesection::all();
+        $sectionss = Sitesection::all();
 
-        return view('categories.sub1.edit',compact('sections','categories'));
+        return view('categories.sub1.edit',compact('sectionss','categories'));
     }
 
    
@@ -139,7 +139,7 @@ class SubcategoryController1 extends Controller
 
             if($request->image){
                 $folder_name='first';
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="categories");
                 $category->image= $photo_name;
            }

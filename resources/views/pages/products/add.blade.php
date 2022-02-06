@@ -1,67 +1,39 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
-المنتجات
-@stop
-@endsection
-@section('page-header')
+@section('content')
+<div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> {{$title}}</h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
-
-
-
-        <div class="modal-header">
-            <h5 class="modal-title">اضافه منتج</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{$title}}</h3>
+              </div>
+ <!--#############################################################-->
         <div class="modal-body">
             
             <form method="POST" action="{{route('products.store')}}" enctype="multipart/form-data">
-            
-                @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
+             @csrf
 
-                   <!----------------------------------------------------->
-                <div class="form-group">
+   <!----------------------------------------------------->
+   <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
                     <select class="form-control" name="main_cate_id" style="height: 50px;">
                         <option value="0" selected disable>اختر التصنيف الرئيسي</option>
@@ -74,7 +46,7 @@
                 </div>
                  
             <!----------------------------------------------------->
-            
+
               
             <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
 
@@ -340,20 +312,21 @@
                         <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger"  > الغاء</button></a>
 
                 </div>
-                </form>
+             
+            </form>
         </div>
-      
-        </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
+</section>
 </div>
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
-
-//  $("#all").css('display', 'none'); 
-        //---------------for show seelct option of sub2------------------------//
-        $(document).ready(function () {
+$(document).ready(function () {
             $('select[name="main_cate_id"]').on('change', function () {
                // alert('ssss');
                 var main_cate_id = $(this).val();
@@ -458,7 +431,4 @@
                 }
             });
         });
-
-       
-    </script>
-@endsection
+</script>

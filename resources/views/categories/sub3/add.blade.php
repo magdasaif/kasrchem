@@ -1,37 +1,29 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
-التصنيفات الفرعية
-@stop
-@endsection
-@section('page-header')
+@section('content')
+<template>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">اضافه نوع</h5>
-         
-        </div>
-        <div class="modal-body">
-       
-                     <br><br>
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">اضافه نوع</h3>
+              </div>
+ <!--#############################################################-->
+            <div class="modal-body">
             <form method="POST" action="{{route('categories3.store')}}" enctype="multipart/form-data">
             
                 @csrf
@@ -89,11 +81,14 @@
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
                 </form>
-        </div>
+             </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+</template>
 @endsection
-@section('js')
 
-@endsection

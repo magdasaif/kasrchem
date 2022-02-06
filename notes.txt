@@ -1,0 +1,137 @@
+//to replace space with _
+$photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
+
+//to upload image 
+ ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
+
+{{method_field('PATCH')}}
+
+  @csrf
+  or 
+ <input name="_token" value="{{csrf_token()}}">
+
+//-----------------to handel show
+@extends('layouts.master')
+@section('content')
+<template>
+  <section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+        <div class="col-12">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> التصنيفات الرئيسيه</h3>
+
+                <div class="card-tools">
+
+                   <button type="button" class="btn btn-sm btn-success">
+                        <a href="{{URL('categories/create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافة تصنيف </span></li></a>
+                        </button>
+                        
+
+                </div>
+              </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+            <!--#############################################################-->
+
+
+            <!--#############################################################-->
+
+		</table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                  <pagination :data="products" @pagination-change-page="getResults"></pagination>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        </div>
+  </section>
+</template>
+@endsection
+
+//------------------- to handel active or no 
+<td><?php if($section->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+
+
+//-------------------------to handel edit icon 
+<td> <a href="{{route('site_section.edit',$section->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a></td>
+
+
+
+<center> <img data-v-20a423fa="" style="width: 60%; height: 90px;" src="<?php echo asset("storage/categories/third/".$sub3->image)?>" class="uploaded-img"></center>
+
+
+//---------------------- to handel add ,update forms
+@extends('layouts.master')
+
+@section('content')
+<template>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">تعديل تصنيف</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
+
+
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
+        </div>
+    </div>
+</section>
+</template>
+@endsection
+
+
+
+
+  @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
+ @livewireStyles
+@livewireScripts

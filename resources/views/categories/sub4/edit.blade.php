@@ -1,35 +1,29 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
-تعديل التصنيفات الفرعية
+@section('content')
+<template>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" style="color: #2569b1;">تعديل نوع فرعى</h5> 
-        </div>
-        <div class="modal-body">
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">تعديل نوع فرعي</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
             
             <form method="POST" action="{{route('categories4.update',$sub4->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH')}}
@@ -58,6 +52,7 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="exampleInputEmail1">الحالة</label>
                     <select class="form-control" name="status">
                             <option value="1" <?php if($sub4->status==1){echo'selected';}?> >مُفعل</option>
                             <option value="0" <?php if($sub4->status==0){echo'selected';}?> >غير مُفعل</option>
@@ -68,11 +63,13 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
-@endsection
-@section('js')
-
+</section>
+</template>
 @endsection

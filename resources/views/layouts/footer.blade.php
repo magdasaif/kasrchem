@@ -4,7 +4,7 @@
       <b>Version</b> 3.0.0
     </div>
     {{-- Default to the left --}}
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022-2023 <a href="https://murabba.com/">Murabba</a>.</strong> All rights reserved.
   </footer>
 </div>
 {{-- ./wrapper --}}
@@ -15,5 +15,6 @@
 </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
+
 </body>
 </html>

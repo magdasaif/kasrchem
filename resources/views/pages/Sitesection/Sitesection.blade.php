@@ -1,36 +1,32 @@
 @extends('layouts.master')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
 @section('content')
 <template>
   <section class="content">
     <div class="container-fluid">
         <div class="row">
 
-          <div class="col-12">
+        <div class="col-12">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          
         
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Product List</h3>
+                <h3 class="card-title">أقسام الموقع</h3>
 
                 <div class="card-tools">
 
-                   <button type="button" class="btn btn-sm btn-primary">
-                        <a href="{{URL('site_section/create')}}" target="_blank" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span>اضافة قسم جديد</span></li></a>
+                   <button type="button" class="btn btn-sm btn-success">
+                        <a href="{{URL('site_section/create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span>اضافة قسم جديد</span></li></a>
                         </button>
                         
 
@@ -68,7 +64,7 @@
 
 
                             <td> 
-                                <a href="{{route('site_section.edit',$section->id)}}"  target="_blank" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{route('site_section.edit',$section->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                              </td>
 
                             </tr>
@@ -81,7 +77,6 @@
               <div class="card-footer">
                   <pagination :data="products" @pagination-change-page="getResults"></pagination>
               </div>
-            </div>
             <!-- /.card -->
           </div>
         </div>

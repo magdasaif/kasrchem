@@ -29,11 +29,10 @@ class ProductController extends Controller
 
     public function create()
     {
-        //this is uncomplete old page before using livewire package
-
         // $categories = Main_Category::get();
          $title='اضافه منتج';
          $categories= Main_Category::withcount('sub_cate2')->get();
+        // return $categories;
         return view('pages.products.add',compact('categories','title'));
     }
 
@@ -58,7 +57,7 @@ class ProductController extends Controller
                 }
                 $folder_name='product_no_'. $new_id;
                 // dd($last_id->id,$folder_name);
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
            }else{
                $photo_name='';
@@ -110,7 +109,7 @@ class ProductController extends Controller
 
                     $folder_name0='product_no_'. $new_id;
                     // dd($last_id->id,$folder_name);
-                     $photo_name0= ($photo)->getClientOriginalName();
+                     $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
                     ($photo)->storeAs($folder_name0,$photo_name0,$disk="products");
 
                     Product_attachment::create([
@@ -126,7 +125,7 @@ class ProductController extends Controller
 
                     $folder_name0='product_no_'. $new_id;
                     // dd($last_id->id,$folder_name);
-                     $file_name0= ($file)->getClientOriginalName();
+                     $file_name0= str_replace(' ', '_',($file)->getClientOriginalName());
                     ($file)->storeAs($folder_name0,$file_name0,$disk="products");
 
                     Product_attachment::create([
@@ -188,7 +187,7 @@ class ProductController extends Controller
                   //  dd($photo);
                     $folder_name0='product_no_'. $request->product_id;
                     // dd($last_id->id,$folder_name);
-                    $photo_name0= ($photo)->getClientOriginalName();
+                    $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
                     ($photo)->storeAs($folder_name0,$photo_name0,$disk="products");
 
                     Product_attachment::create([
@@ -244,7 +243,7 @@ class ProductController extends Controller
                      //  dd($ff,($ff)->getClientOriginalName());
 
                        $folder_name='product_no_'. $request->product_id;
-                       $file_name= ($ff)->getClientOriginalName();
+                       $file_name= str_replace(' ', '_',($ff)->getClientOriginalName());
                        ($ff)->storeAs($folder_name,$file_name,$disk="products");
 
                     //    Storage::putFileAs(
@@ -308,10 +307,8 @@ class ProductController extends Controller
                 $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
 
                     $folder_name='product_no_'. $request->id;
-$photo_name= ($request->image)->getClientOriginalName();
+                    $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                     ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
-
-
                     $product->image= $photo_name;
             }
 
@@ -352,7 +349,7 @@ $photo_name= ($request->image)->getClientOriginalName();
                     $product->security_permit=0;
                 }
 
-$product->save();
+                $product->save();
 
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){

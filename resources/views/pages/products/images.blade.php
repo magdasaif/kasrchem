@@ -1,57 +1,35 @@
 @extends('layouts.master')
-@section('css')
 
-@livewireStyles
-
-@section('title')
-    {{$title}}
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> {{$title}}</h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb -->
-@endsection
 @section('content')
-<!-- row -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
+<template>
+<section class="content">
+    <div class="container-fluid">
+        <div class="">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+               <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                  </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{$title}}</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
+            
             <form method="POST" action="{{url('add_product_images',$product_id)}}" enctype="multipart/form-data">
 
                 {{method_field('POST')}}
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
+                
                 <div class="form-group">
                     <label for="exampleInputEmail1">صور المنتج </label>
 
@@ -112,16 +90,15 @@
             <!--#############################################################-->
             @endforeach
             </div>
-            </div>
-
             <br><center><a href="{{route('products.index')}}"><button type="button" class="btn btn-success" > قائمه المنتجات</button></a></center><br>
 
-            
+            </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
-<!-- row closed -->
-@endsection
-@section('js')
-
+</section>
+</template>
 @endsection
