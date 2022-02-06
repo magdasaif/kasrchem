@@ -52,6 +52,8 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  direction: rtl;
+  text-align: right;
 }
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
@@ -65,7 +67,9 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  text-align: left;
+  /* text-align: left; */
+  direction: rtl;
+  text-align: right!important;
   background-color: #fff;
 }
 
@@ -11730,8 +11734,10 @@ body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-m
   body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
   body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
   body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
-    transition: margin-left 0.3s ease-in-out;
-    margin-left: 250px;
+    /* transition: margin-left 0.3s ease-in-out;
+    margin-left: 250px; */
+    transition: margin-right 0.3s ease-in-out!important;
+    margin-right: 250px!important;
   }
 }
 
@@ -11940,6 +11946,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   border-top: 1px solid #dee2e6;
   color: #869099;
   padding: 1rem;
+  text-align: center!important;
 }
 
 .text-sm .main-footer, .main-footer.text-sm {
@@ -28748,7 +28755,8 @@ html.maximized-card {
 }
 
 .card-header > .card-tools {
-  float: right;
+  /* float: right; */
+  float: left;
   margin-right: -0.625rem;
 }
 
@@ -28764,7 +28772,8 @@ html.maximized-card {
 }
 
 .card-title {
-  float: left;
+  /* float: left; */
+  float: right;
   font-size: 1.1rem;
   font-weight: 400;
   margin: 0;
@@ -45419,6 +45428,7 @@ blockquote.quote-gray-dark h6 {
     transform: translate(0, 0);
     margin-left: 0 !important;
     min-height: 0 !important;
+  
   }
   .layout-fixed .content-wrapper {
     padding-top: 0 !important;
@@ -56311,7 +56321,8 @@ input[type=button].btn-block {
 .nav {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 0;
+  /* padding-left: 0; */
+  padding-right: 0;
   margin-bottom: 0;
   list-style: none;
 }
@@ -70645,4 +70656,11 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 .cyan {
   color: #6cb2eb;
 }
-
+.card-header
+{
+  background-color: rgb(96, 211, 145);
+}
+#all
+{
+  background-color:rgb(247 247 247);
+}

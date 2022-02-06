@@ -10,6 +10,7 @@
       </li>
 
       @can('isAdmin')
+      <!-------------------------------------------------------------------------->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-sitemap green"></i>
@@ -30,7 +31,7 @@
           </li>
          </ul>
       </li>
-
+<!-------------------------------------------------------------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -55,7 +56,7 @@
           </li>
         </ul>
       </li>
-
+<!-------------------------------------------------------------------------->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fab fa-product-hunt green"></i>
@@ -83,7 +84,92 @@
 
          </ul>
       </li>
+<!-------------------------------------slider----------------------->
+<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-image green"></i>
+          <p>الصور المتحركة<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('slider.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة صورة </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('slider.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-image orange"></i>
+                  <p> قائمة الصور </p>
+              </a>
+          </li>
+         </ul>
+      </li>
+<!---------------------------------article----------------------------------------->
+<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-newspaper green"></i>
+          <p> المقالات<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('article.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة مقال </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('article.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa fa-newspaper orange"></i>
+                  <p> قائمة المقالات </p>
+              </a>
+          </li>
+         </ul>
+      </li>
 
+<!---------------------------------pages----------------------------------------->
+<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-code green"></i>
+          <p> الصفحات<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('page.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة صفحة </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('page.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa fa-code orange"></i>
+                  <p>  قائمةالصفحات </p>
+              </a>
+          </li>
+         </ul>
+      </li>
+<!-------------------------------gallary------------------------------------------->
+<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-camera green"></i>
+          <p> المعارض<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('photo_gallery.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة معرض </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('photo_gallery.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa fa-camera orange"></i>
+                  <p>  قائمةالمعارض </p>
+              </a>
+          </li>
+         </ul>
+      </li>
+<!-------------------------------------------------------------------------->
       @endcan
       
       

@@ -1,58 +1,43 @@
 @extends('layouts.master')
-@section('css')
-
-@section('title')
-معارض الصور
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> معارض الصور </h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسية</a></li>
-                <li class="breadcrumb-item active">معارض الصور</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb -->
-@endsection
 @section('content')
-<!-- row -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
+<template>
+  <section class="content">
+    <div class="container-fluid">
+        <div class="row">
 
+        <div class="col-12">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          
+        
+            <div class="card">
+              <div class="card-header" >
+              <h3 class="card-title"> المعارض</h3>
+
+                <div class="card-tools">
+
+                 <button type="button" class="btn btn-sm " style=" background-color: #343a40;">
+                        <a href="{{route('photo_gallery.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
+                    </button>
+                        
+
+                </div>
+              </div> 
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover " >
             <!--#############################################################-->
-                    <div class="table-responsive">
-                    <button type="button"   class="btn btn-success"><a href="{{route('photo_gallery.create')}}"   target="_blank"> اضافة معرض</a>
-                        </button>
-                     <br><br>
-                    <table id="datatable" class="table table-striped table-bordered p-0">
-                    <thead>
-                        <tr  style="color: #17899b;" >
+                  <thead>
+                        <tr >
                         <th>#</th>
                         <th>الصورة</th>
                         <th>الاسم</th>
@@ -73,8 +58,11 @@
 
                             <button type="button" class="btn btn-info" ><a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  target="_blank"> تعديل</a></button>
                            <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"><button type="button" class="btn btn-warning" > الصور</button></a>
-                           <button class="btn btn-danger" data-catid={{$Photo_Gallery->id}} data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}">حذف</button>
-                            </td>
+                           <button class="btn btn-danger" data-catid={{$Photo_Gallery->id}} data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}">حذف</button> 
+                        
+                             
+                         
+                        </td>
                             </tr>
                         <!--############################ model for delete #################################-->
           
@@ -109,15 +97,19 @@
                         @endforeach
 
                     </tbody>
-                </table>
-            </div>
-            
-            </div>
-        </div>
-    </div>
-</div>
-<!-- row closed -->
-@endsection
-@section('js')
+							
+			 <!--#############################################################-->
 
+		</table>
+            </div>
+            <!-- /.card-body -->
+            <!-- <div class="card-footer">
+                  <pagination :data="products" @pagination-change-page="getResults"></pagination>
+            </div> -->
+            <!-- /.card -->
+          </div>
+        </div>
+        </div>
+  </section>
+</template>
 @endsection

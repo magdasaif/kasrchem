@@ -1,38 +1,30 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
+@section('content')
+<template>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-اضافة صورة
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title"  style="color: #2569b1;"> اضافة صورة</h5>
-            
-        </div>
-        <div class="modal-body">
-
-            <form method="POST" action="{{route('slider.store')}}" enctype="multipart/form-data">
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header" style="background-color: rgb(96 211 145);">
+                <h3 class="card-title">اضافة صورة</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body" style=" width: 68%; margin-right: 128px;">
+   <form method="POST" action="{{route('slider.store')}}" enctype="multipart/form-data">
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -67,14 +59,17 @@
                 </div>
 
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">اضافه</button>
+                        <button type="submit" class="btn btn-primary">اضافة</button>
                 </div>
                 </form>
-        </div>
+
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
-@endsection
-@section('js')
-
+</section>
+</template>
 @endsection
