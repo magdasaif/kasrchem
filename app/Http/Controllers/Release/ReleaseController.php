@@ -44,14 +44,14 @@ class ReleaseController extends Controller
            {
 
             $folder_name='release_'. $last_id;
-              $photo_name= ($request->image)->getClientOriginalName();
+              $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                ($request->image)->storeAs($folder_name,$photo_name,$disk="release");
 
            }
           if($request->file)
            {
              $folder_name='release_'. $last_id;
-              $file_name= ($request->file)->getClientOriginalName();
+              $file_name= str_replace(' ', '_',($request->file)->getClientOriginalName());
                ($request->file)->storeAs($folder_name,$file_name,$disk="release");
 
            }
@@ -107,14 +107,14 @@ class ReleaseController extends Controller
 
              if($request->image)
              {
-              $validator = $request->validate(['image' => 'required|image|mimes:jpg,png,PNG,jpeg,gif,svg|max:2048',]);
-              if ($validator->fails()) {
-                   return redirect()->back()->with($validator->errorrs());
-                }
+            //   $validator = $request->validate(['image' => 'required|image|mimes:jpg,png,PNG,jpeg,gif,svg|max:2048',]);
+            //   if ($validator->fails()) {
+            //        return redirect()->back()->with($validator->errorrs());
+            //     }
 
 
            $folder_name='release_'.$id;
-             $photo_name= ($request->image)->getClientOriginalName();
+             $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
              ($request->image)->storeAs($folder_name,$photo_name,$disk="release");
 
              $rel->image = $photo_name;
@@ -129,7 +129,7 @@ class ReleaseController extends Controller
                 return redirect()->back()->with($validator->errorrs());
             }
              $folder_name='release_'.$id;
-             $file_name= ($request->filee)->getClientOriginalName();
+             $file_name= str_replace(' ', '_',($request->filee)->getClientOriginalName());
              ($request->filee)->storeAs($folder_name,$file_name,$disk="release");
 
              $rel->file = $file_name;

@@ -1,60 +1,45 @@
 @extends('layouts.master')
-@section('css')
-
-@section('title')
-{{$title}}
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> {{$title}}</h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb -->
-@endsection
 @section('content')
-<!-- row -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
+  <section class="content">
+    <div class="container-fluid">
+        <div class="row">
 
-            <a href="{{route('social.create')}}"><button type="button" class="btn btn-info" > اضافه</button></a>
-<br>
+        <div class="col-12">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          
+        
+            <div class="card">
+              <div class="card-header" >
+                <h3 class="card-title">  {{$title}}</h3>
+
+                <div class="card-tools">
+
+                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
+                        <a href="{{route('social.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافة  </span></li></a>
+                        </button>
+                        
+
+                </div>
+              </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
             <!--#############################################################-->
-                    <div class="table-responsive">
-
-                    <table id="datatable" class="table table-striped table-bordered p-0">
                     <thead>
-                        <tr>
+                        <tr >
                             <th>#</th>
                             <th>اسم الرابط</th>
+                            <th> الايقون</th>
                             <th>الحاله</th>
                             <th>الاجراءات</th>
                         </tr>
@@ -66,11 +51,16 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$social->name}}</td>
-                            <td><?php if($social->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
+                            <td><li class="{{$social->icon}}"></li></td>
+
+                            <td><?php if($social->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+                            
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{url('social/'.$social ->id.'/edit/')}}" target="_blank"> تعديل</a></button>
-                                <button class="btn btn-danger" data-catid="{{$social->id}}" data-toggle="modal" data-target="#delete{{$social->id}}">حذف</button>
+                                <a href="{{url('social/'.$social ->id.'/edit/')}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                /
+                                <a href="#"  title="حذف" data-catid="{{$social->id}}" data-toggle="modal" data-target="#delete{{$social->id}}"> <i class="fa fa-trash red"></i></a>
                             </td>
+                            
                         </tr>
 
                          <!--############################ model for delete #################################-->     
@@ -102,16 +92,13 @@
                         @endforeach
                     
                     </tbody>              
-                </table>
-            </div>
-            <!--#############################################################-->
+               <!--#############################################################-->
 
+		</table>
             </div>
+            
+          </div>
         </div>
-    </div>
-</div>
-<!-- row closed -->
-@endsection
-@section('js')
-
+        </div>
+  </section>
 @endsection

@@ -1,44 +1,36 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
-{{$title}}
-@stop
-@endsection
-@section('page-header')
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-12">
+          @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">{{$title}}</h5>
-           
-        </div>
-        <div class="modal-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> {{$title}}</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
             
             <form method="POST" action="{{route('branches.update',$branch->id)}}" enctype="multipart/form-data">
             {{method_field('PATCH ')}}
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالعربيه</label>
@@ -106,7 +98,7 @@
 
                 <div class="form-group">
                                       
-					<div id="map_canvas" style="height: 350px;width:450px;margin: 0.6em;"></div>
+					<center><div id="map_canvas" style="height: 350px;width:70%;margin: 0.6em;"></div></center>
 			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" value="{{$branch->longitude}}" readonly>
                     <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" value="{{$branch->latitude}}" readonly>
                         
@@ -127,12 +119,18 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+</template>
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
 <script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
 
 <script>
@@ -225,4 +223,3 @@
             }
         });
 </script>
-@endsection

@@ -1,7 +1,4 @@
- //---------------for show seelct option of sub2------------------------//
-
- alert('dddd');
- $(document).ready(function () {
+$(document).ready(function () {
             $('select[name="main_cate_id"]').on('change', function () {
                // alert('ssss');
                 var main_cate_id = $(this).val();

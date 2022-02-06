@@ -28,7 +28,7 @@
                 <!-- livewire add form
                 <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
 
-                   <button type="button" class="btn btn-sm btn-success">
+                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
                         <a href="{{route('products.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                         </button>
                         
@@ -82,16 +82,11 @@
                         @endforeach
                     
                     </tbody>              
-                </table>
            <!--#############################################################-->
 
 		</table>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                  <pagination :data="products" @pagination-change-page="getResults"></pagination>
-            </div>
-            <!-- /.card -->
+         
           </div>
         </div>
         </div>

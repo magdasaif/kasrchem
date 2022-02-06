@@ -87,7 +87,9 @@ $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @if(Session::has('success'))
+          
+          <div class="col-12">
+          @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
@@ -98,8 +100,6 @@ $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                     {{Session::get('error')}}
                 </div>
             @endif
-          <div class="col-12">
-        
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">تعديل تصنيف</h3>
@@ -120,6 +120,12 @@ $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
 @endsection
 
 
+
+ <td>
+  <a href="{{route('video.edit',$video->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+   /
+  <a href="#"  title="حذف" data-catid="{{$video->id}}" data-toggle="modal" data-target="#delete{{$video->id}}"> <i class="fa fa-trash red"></i></a>
+</td>
 
 
   @if ($errors->any())

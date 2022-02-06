@@ -18,7 +18,7 @@
         <ul class="nav nav-treeview">
           <li>
               <a href="{{route('site_section.create')}}" class="nav-link">
-                  <i class="nav-icon fas fa-sitemap orange"></i>
+                  <i class="nav-icon fas fa-plus orange"></i>
                   <p> اضافه قسم </p>
               </a>
           </li>
@@ -43,7 +43,7 @@
         <ul class="nav nav-treeview">
           <li>
               <a href="{{route('categories.create')}}" class="nav-link">
-                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <i class="nav-icon fas fa-plus orange"></i>
                   <p> اضافه تصنيف</p>
               </a>
           </li>
@@ -56,6 +56,9 @@
         </ul>
       </li>
 
+
+
+
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fab fa-product-hunt green"></i>
@@ -64,7 +67,7 @@
         <ul class="nav nav-treeview">
           <li>
               <a href="{{route('products.create')}}" class="nav-link">
-                  <i class="nav-icon fas fab fa-product-hunt orange"></i>
+                  <i class="nav-icon fas fa-plus orange"></i>
                   <p> اضافه منتج </p>
               </a>
           </li>
@@ -74,18 +77,132 @@
                   <p>قائمه المنتجات </p>
               </a>
           </li>
-          <!-- <li>
-              <a href="{{url('add_product')}}">
-                <i class="nav-icon fas fab fa-product-hunt orange"></i>
-                <p>اضافه منتج-livewire</p>
+         </ul>
+      </li>
+
+
+
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-video green"></i>
+          <p> الفيديوهات<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('video.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه فيديو </p>
               </a>
-          </li> -->
+          </li>
+          <li>
+              <a href="{{route('video.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-video orange"></i>
+                  <p>قائمه الفيديوهات </p>
+              </a>
+          </li>
 
          </ul>
       </li>
 
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-handshake green"></i>
+          <p> الشركاء<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('partner.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه شريك </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('partner.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-handshake orange"></i>
+                  <p>قائمه الشركاء </p>
+              </a>
+          </li>
+
+         </ul>
+      </li>
+
+
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-file-pdf green"></i>
+          <p> النشرات<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('release.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه نشره </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('release.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-file-pdf orange"></i>
+                  <p>قائمه النشرات </p>
+              </a>
+          </li>
+
+         </ul>
+      </li>
+
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-building green"></i>
+          <p> عناوين الفروع<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('branches.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه فرع </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('branches.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-building orange"></i>
+                  <p>قائمه الفروع </p>
+              </a>
+          </li>
+
+         </ul>
+      </li>
+
+      
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-link green"></i>
+          <p> وسائل التواصل<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('social.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه رابط </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('social.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-link orange"></i>
+                  <p>قائمه الروابط </p>
+              </a>
+          </li>
+
+         </ul>
+      </li>
+      
       @endcan
       
+
+
+
       
 
       <li class="nav-item">

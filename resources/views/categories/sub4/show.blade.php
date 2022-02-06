@@ -58,17 +58,11 @@
                         </tr>
 
                         @endforeach
-                    
-                    </tbody>              
-               <!--#############################################################-->
+             <!--#############################################################-->
 
 		</table>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                  <pagination :data="products" @pagination-change-page="getResults"></pagination>
-            </div>
-            <!-- /.card -->
+         
           </div>
         </div>
         </div>

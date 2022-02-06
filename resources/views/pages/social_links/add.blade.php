@@ -1,46 +1,43 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
-{{$title}}
-@stop
-@endsection
-@section('page-header')
+<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+<!-- Bootstrap-Iconpicker -->
+<link rel="stylesheet" href="{{ URL::asset('dist/css/bootstrap-iconpicker.min.css')}}"/>
 
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">{{$title}}</h5>
-           
-        </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{$title}}</h3>
+              </div>
+ <!--#############################################################-->
         <div class="modal-body">
             
             <form method="POST" action="{{route('social.store')}}" enctype="multipart/form-data">
             
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
-
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم رابط التواصل</label>
@@ -83,18 +80,22 @@
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
                 </form>
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
-@section('js')
+
 <script>
-    var field = document.getElementsByClassName("form-control search-control");
-field.setAttribute("name", "icon");
+  //  var field = document.getElementsByClassName("form-control search-control");
+//field.setAttribute("name", "icon");
+
+
 //   var x=  document.getElementsByClassName('search-control').value;
 //     alert(x);
 //     $('.search-control').attr('name', 'other_amount');
 </script>
-
-@endsection

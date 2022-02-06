@@ -53,7 +53,7 @@
 
                         <div class="form-group">
                             <label for="image">صورة القسم</label>
-                            <center><img  style="width: 60%; height: 90px;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></center>
+                            <center><img  style="width: 30%;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></center>
                                 <br>
                             <input type="file" class="form-control" name="image" >
                             @error('image')

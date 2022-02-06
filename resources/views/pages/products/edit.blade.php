@@ -1,67 +1,37 @@
 @extends('layouts.master')
-@section('css')
-@toastr_css
-@section('title')
-المنتجات
-@stop
-@endsection
-@section('page-header')
 
+@section('content')
+<div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+           
+          <div class="col-12">
+            @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{Session::get('success')}}
+                    </div>
+                @endif
 
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> {{$title}}</h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-
-
-<!-- breadcrumb -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
-
-
-
-        <div class="modal-header">
-            <h5 class="modal-title">{{$title}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{$title}}</h3>
+              </div>
+ <!--#############################################################-->
         <div class="modal-body">
             
             <form method="POST" action="{{route('products.update',$product->id)}}" enctype="multipart/form-data">
             {{method_field('PATCH ')}}
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
@@ -205,7 +175,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صورة المنتج الاساسية</label>
-                         <img data-v-20a423fa="" width="20%" src="<?php echo asset("storage/products/product_no_$product->id/$product->image")?>" class="uploaded-img"> 
+                    <center> <img data-v-20a423fa="" style="width: 30%;" src="<?php echo asset("storage/products/product_no_$product->id/$product->image")?>" class="uploaded-img"> </center>
 
                     <input type="file" class="form-control" name="image" accept="image/*">
 
@@ -278,93 +248,90 @@
                 </div>
 
                  <!-------------------------------------------------------------------------->
-                 <label for="exampleInputEmail1">اضافه خصائص المنتج</label>
-                <div class="card-body">
-                        <div class="repeater">
-                            <div data-repeater-list="List_Classes">
+                 <div class="form repeater-default">
+                    <label for="exampleInputEmail1">اضافه خصائص المنتج</label>
+                    
+                        <div data-repeater-list="List_Classes">
                             @if($feature_count>0)
                                 @foreach($features as $key=>$list)
                                 <div data-repeater-item>
-                                    <div class="row">
+                                   <div class="row justify-content-between">
 
-                                        <div class="col">
+                                        <div class="col-md-2 col-sm-12 form-group">
                                             <input class="form-control" type="text" name="weight_ar"  placeholder="الخاصيه مثال : الوزن" value="{{ $list['weight_ar']}}"/>
                                             @error('weight_ar') <span class="text-danger error">{{ $message }}</span>@enderror
                                         </div>
 
-                                        <div class="col">
+                                        <div class="col-md-2 col-sm-12 form-group">
                                             <input class="form-control" type="text" name="value_ar" placeholder="القيمة (مثال : 10كجم)" value="{{ $list['value_ar']}}"/>
                                             @error('value_ar') <span class="text-danger error">{{ $message }}</span>@enderror
                                         </div>
 
-                                        <div class="col">
+                                        <div class="col-md-2 col-sm-12 form-group">
                                             <input class="form-control" type="text" name="weight_en" placeholder="الخاصية بالانجليزية (مثال : weight)" value="{{ $list['weight_en']}}"/>
                                             @error('weight_en') <span class="text-danger error">{{ $message }}</span>@enderror
                                         </div>
 
-                                        <div class="col">
+                                        <div class="col-md-2 col-sm-12 form-group">
                                             <input class="form-control" type="text" name="value_en" placeholder="القيمة بالانجليزيه (مثال : 10كجم)" value="{{ $list['value_en']}}"/>
                                             @error('value_en') <span class="text-danger error">{{ $message }}</span>@enderror
                                         </div>
 
 
-                                        <div class="col">
-                                           
-                                            <input class="btn btn-danger btn-block" data-repeater-delete
-                                                type="button" value="حذف" />
+                                        <div class="col-md-2 col-sm-12 form-group d-flex align-items-center pt-2">
+                                            <button class="btn btn-danger" data-repeater-delete type="button"> <i class="bx bx-x"></i>
+                                                حذف
+                                            </button>
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <br>
-
-
-
-                                
-            
                                 @endforeach
                             @else
                             <div data-repeater-item>
-                                    <div class="row">
-
-                                        <div class="col">
-                                            <input class="form-control" type="text" name="weight_ar"  placeholder="الخاصيه مثال : الوزن" />
-                                            @error('weight_ar') <span class="text-danger error">{{ $message }}</span>@enderror
-                                        </div>
-
-                                        <div class="col">
-                                            <input class="form-control" type="text" name="value_ar" placeholder="القيمة (مثال : 10كجم)" />
-                                            @error('value_ar') <span class="text-danger error">{{ $message }}</span>@enderror
-                                        </div>
-
-                                        <div class="col">
-                                            <input class="form-control" type="text" name="weight_en" placeholder="الخاصية بالانجليزية (مثال : weight)" />
-                                            @error('weight_en') <span class="text-danger error">{{ $message }}</span>@enderror
-                                        </div>
-
-                                        <div class="col">
-                                            <input class="form-control" type="text" name="value_en" placeholder="القيمة بالانجليزيه (مثال : 10كجم)" />
-                                            @error('value_en') <span class="text-danger error">{{ $message }}</span>@enderror
-                                        </div>
-
-
-                                        <div class="col">
-                                           
-                                            <input class="btn btn-danger btn-block" data-repeater-delete
-                                                type="button" value="حذف" />
-                                        </div>
+                                <div class="row justify-content-between">
+                                    
+                                    <div class="col-md-2 col-sm-12 form-group">
+                                        <input class="form-control" type="text" name="weight_ar"  placeholder="الخاصيه مثال : الوزن" value="{{old('weight_ar')}}"/>
+                                        @error('weight_ar') <span class="text-danger error">{{ $message }}</span>@enderror
                                     </div>
-                                </div>
+
+                                    <div class="col-md-2 col-sm-12 form-group">
+                                        <input class="form-control" type="text" name="value_ar" placeholder="القيمة (مثال : 10كجم)" value="{{old('value_ar')}}"/>
+                                        @error('value_ar') <span class="text-danger error">{{ $message }}</span>@enderror
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-12 form-group">
+                                        <input class="form-control" type="text" name="weight_en" placeholder="الخاصية بالانجليزية (مثال : weight)" value="{{old('weight_en')}}"/>
+                                        @error('weight_en') <span class="text-danger error">{{ $message }}</span>@enderror
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-12 form-group">
+                                        <input class="form-control" type="text" name="value_en" placeholder="القيمة بالانجليزيه (مثال : 10كجم)" value="{{old('value_en')}}"/>
+                                        @error('value_en') <span class="text-danger error">{{ $message }}</span>@enderror
+                                    </div>      
+                                
+                                    <div class="col-md-2 col-sm-12 form-group d-flex align-items-center pt-2">
+                                        <button class="btn btn-danger" data-repeater-delete type="button">
+                                            <i class="bx bx-x"></i>
+                                            حذف
+                                        </button>
+                                    </div>
+                            </div>
+                            <hr>
+                            </div>
                             @endif
                                 
                             </div>
-                            <div class="row mt-20">
-                                <div class="col-12">
-                                    <input class="button" data-repeater-create type="button" value="اضافه"/>
+                            <div class="form-group">
+                                <div class="col p-0">
+                                <center><button class="btn btn-success" data-repeater-create type="button"><i class="bx bx-plus"></i>
+                                    اضافه خاصيه
+                                </button></center>
                                 </div>
-
                             </div>
 
-                        </div>
                     </div>
                 <!-------------------------------------------------------------------------->
                 
@@ -373,22 +340,20 @@
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                         <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger"  > الغاء</button></a>
+                 </div>
 
-                </div>
                 </form>
-        </div>
-      
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
+</section>
 </div>
 @endsection
-@section('js')
-@toastr_js
-@toastr_render
 <script>
-
-//  $("#all").css('display', 'none'); 
         //---------------for show seelct option of sub2------------------------//
         $(document).ready(function () {
             $('select[name="main_cate_id"]').on('change', function () {
@@ -497,7 +462,4 @@
                 }
             });
         });
-
-       
-    </script>
-@endsection
+</script>

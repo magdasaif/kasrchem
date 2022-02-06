@@ -59,7 +59,7 @@
                         
                         <div class="form-group">
                             <label for="exampleInputEmail1">صوره</label><br>
-                            <center><img data-v-20a423fa=""style="width: 60%; height: 90px;" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> </center>
+                            <center><img data-v-20a423fa=""style="width: 30%;" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> </center>
 
                             <input type="file" class="form-control" name="image" accept="image/*">
 

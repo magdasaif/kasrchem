@@ -292,7 +292,7 @@ class ProductController extends Controller
     //ProductRequest
     public function update(ProductRequest $request)
     {
-        //dd($request->add_as_new);
+      //  dd($request->all);
         if(($request->add_as_new)=='on'){
             return $this->store($request);
         }else{
@@ -364,7 +364,7 @@ class ProductController extends Controller
                         ]);
                     }
                 }
-                toastr()->success('تمت التعديل بنجاح');
+               // toastr()->success('تمت التعديل بنجاح');
                  return redirect()->route('products.index')->with(['success'=>'تمت التعديل بنجاح']);
             }catch(\Exception $e){
                // dd($e->getMessage());

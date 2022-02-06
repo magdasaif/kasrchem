@@ -1,45 +1,28 @@
 @extends('layouts.master')
-@section('css')
 
-@section('title')
-تعديل النشرة
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-
-@if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-12">
+          @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
                 </div>
             @endif
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل النشرة</h5>
-           
-        </div>
-        <div class="modal-body">
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">تعديل النشرات</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
             
             <form method="POST"  action="{{route('release.update',$release->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
@@ -163,8 +146,9 @@
                
                <div class="form-group">
                     <label for="image">صورة النشرة</label>
-                    <input type="file" class="form-control" name="image" >
-                    <img  style="width: 200px;height: 200px;" accept="image/*" src=<?php echo asset("storage/release/release_$release->id/{$release->image}")?> alt="" >
+                    <center><img  style="width: 30%;"src=<?php echo asset("storage/release/release_$release->id/{$release->image}")?> alt="" ></center>
+
+                    <input type="file" class="form-control" name="image" accept="image/*">
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -172,8 +156,9 @@
               <!----------------------------------------------------->
               <div class="form-group">
                     <label for="image">ملف النشرة</label>
+                   <center> <embed src="<?php echo asset("storage/release/release_$release->id/{$release->file}")?>" width="30%"  accept="application/pdf,application/vnd.ms-excel"/></center>
+
                     <input type="file" class="form-control" name="filee"  >
-                    <embed src="<?php echo asset("storage/release/release_$release->id/{$release->file}")?>" width="200px" height="200px"  accept="application/pdf,application/vnd.ms-excel"/>
                     @error('file')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -191,12 +176,17 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
 <script>
    
     //---------------for show seelct option of sub2------------------------//
@@ -307,5 +297,3 @@
         });
         //--------------------------------------------------------------------------//
     </script>
-
-@endsection
