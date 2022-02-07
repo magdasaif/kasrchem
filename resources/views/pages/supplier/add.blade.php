@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title> لوحة التحكم :اضافة مورد/title>
+<title> لوحة التحكم :اضافة مورد</title>
 @endsection
 @section('content')
 <section class="content">
