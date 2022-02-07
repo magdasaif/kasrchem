@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
 <!-- Font Awesome CDN -->

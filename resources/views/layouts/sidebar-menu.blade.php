@@ -10,6 +10,14 @@
       </li>
 
       @can('isAdmin')
+
+      <li class="nav-item">
+        <a href="{{route('about_us.edit',1)}}" class="nav-link">
+          <i class="nav-icon fas fa-info green"></i>
+          <p>من نحن</p>
+        </a>
+      </li>
+      
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-sitemap green"></i>

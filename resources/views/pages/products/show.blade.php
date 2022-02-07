@@ -1,4 +1,9 @@
 @extends('layouts.master')
+
+@section('title')
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
+ 
 @section('content')
 <template>
   <section class="content">
@@ -28,16 +33,16 @@
                 <!-- livewire add form
                 <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
 
-                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
-                        <a href="{{route('products.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
-                        </button>
+                   <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('products.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
+                    </button>
                         
 
                 </div>
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr>
@@ -75,7 +80,7 @@
 
 
                             <td>
-                                <a href="{{route('products.edit',$product->id)}}" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{route('products.edit',$product->id)}}" title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
                             </td>
                         </tr>
 

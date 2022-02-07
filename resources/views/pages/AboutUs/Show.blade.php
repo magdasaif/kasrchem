@@ -1,46 +1,39 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-تعديل  عن الموقع
-@stop
-@endsection
-@section('page-header')
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-12">
+          @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-  @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-<div>
-    <div class="modal-dialog" role="document" style="max-width: 900px;">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل عن الموقع</h5>
-
-        </div>
-
-        <div class="modal-body">
-        @foreach($About as $AboutUs)
-        <form method="POST"  action="{{route('about_us.update',$AboutUs->id)}}" enctype="multipart/form-data">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> {{$title}}</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
+        
+        <form method="POST"  action="{{route('about_us.update',1)}}" enctype="multipart/form-data">
                 {{method_field('PATCH')}}
 
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
               <!----------------------------------------------------->
               <div class="form-group">
                     <label for="title_ar" style="font-weight: bold;color: black"> من نحن</label>
@@ -116,8 +109,9 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="image">الصورة</label>
+                   <center><img  style="width: 30%;"  src=<?php echo asset("storage/about_us/$AboutUs->image")?> alt="" ></center>
+                      <br>
                     <input type="file" class="form-control" name="image" accept="image/*" >
-                   <br> <center><img  style="width: 270px;height: 200px;"  src=<?php echo asset("storage/about_us/$AboutUs->image")?> alt="" ></center>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -129,13 +123,15 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-                @endforeach
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
-@section('js')
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script>
     tinymce.init({
@@ -173,7 +169,4 @@
 
 
     });
-
-
     </script>
-@endsection

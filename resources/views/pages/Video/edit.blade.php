@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>لوحة التحكم : تعديل فيديو</title>
+ @endsection
 @section('content')
 <div>
 <section class="content">

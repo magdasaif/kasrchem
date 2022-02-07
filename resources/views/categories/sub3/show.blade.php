@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم : الانواع الرئيسيه</title>
+ @endsection
 @section('content')
 <template>
   <section class="content">
@@ -25,8 +28,8 @@
 
                 <div class="card-tools">
 
-                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
-                        <a href="{{URL('categories3_add/'.$sub2_id)}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافة تصنيف </span></li></a>
+                   <button type="button" class="btn btn-sm bbtn">
+                        <a href="{{URL('categories3_add/'.$sub2_id)}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافة تصنيف </span></li></a>
                         </button>
                         
 
@@ -34,7 +37,7 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr>
@@ -63,7 +66,7 @@
                              <td>{{$sub_3->Sub_Category3->subname2_ar}}</td>  
 
                              <td><a href="{{url('categories4/'.$sub_3->id)}}"><label class="btn btn-success">{{$sub_3->relation_sub3_with_sub4_count}}</label></a></td>
-                             <td> <a href="{{route('categories3.edit',$sub_3->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a></td>
+                             <td> <a href="{{route('categories3.edit',$sub_3->id)}}" style="font-weight: bold;font-size: 17px;"  title="تعديل"><i class="fa fa-edit blue"></i></a></td>
                         
                         </tr>
 

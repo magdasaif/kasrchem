@@ -138,6 +138,7 @@ $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
         </div>
     @endif
 
+<button type="button" class="btn btn-sm " style=" background-color: #343a40;">
 
  @livewireStyles
 @livewireScripts

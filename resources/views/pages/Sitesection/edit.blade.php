@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>لوحة التحكم : تعديل قسم</title>
+ @endsection
 @section('content')
 <template>
 <section class="content">

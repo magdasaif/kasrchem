@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم : التصنيفات الفرعيه</title>
+ @endsection
 @section('content')
 <template>
   <section class="content">
@@ -25,8 +28,8 @@
 
                 <div class="card-tools">
 
-                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
-                        <a href="{{url('categories2/add/'.$id)}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافة تصنيف </span></li></a>
+                   <button type="button" class="btn btn-sm bbtn">
+                        <a href="{{url('categories2/add/'.$id)}}"class="aa"> <li class="fa fa-plus-square" ><span> اضافة تصنيف </span></li></a>
                         </button>
                         
 
@@ -34,7 +37,7 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover styled-table">
 
             <!--#############################################################-->
                     <thead>
@@ -60,7 +63,7 @@
                             <td><?php if($category->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>                            <td>{{$category->relation_sub2_with_main->subname_ar}}</td>
                             <td><a href="{{url('categories3/'.$category ->id)}}"><label class="btn btn-success">{{$category->sub_cate3_count}}</label></a></td> 
                            
-                            <td> <a href="{{url('categories2/'.$category ->id.'/edit/')}}"  title="تعديل"><i class="fa fa-edit blue"></i></a></td>
+                            <td> <a href="{{url('categories2/'.$category ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a></td>
                         </tr>
 
                         @endforeach

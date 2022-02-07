@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>لوحة التحكم : اضافه نوع فرعى</title>
+ @endsection
 @section('content')
 <template>
 <section class="content">

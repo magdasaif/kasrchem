@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
 @section('content')
 <template>
   <section class="content">
@@ -28,8 +31,8 @@
                 <!-- livewire add form
                 <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
 
-                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
-                        <a href="{{route('partner.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
+                   <button type="button" class="btn btn-sm bbtn">
+                        <a href="{{route('partner.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                         </button>
                         
 
@@ -62,9 +65,9 @@
                            
 
                             <td>
-                                <a href="{{url('partner/'.$partner ->id.'/edit/')}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{url('partner/'.$partner ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                 /
-                                <a href="#"  title="حذف" data-catid="{{$partner->id}}" data-toggle="modal" data-target="#delete{{$partner->id}}"> <i class="fa fa-trash red"></i></a>
+                                <a href="#"  style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$partner->id}}" data-toggle="modal" data-target="#delete{{$partner->id}}"> <i class="fa fa-trash red"></i></a>
 							</td>
                             
                         </tr>

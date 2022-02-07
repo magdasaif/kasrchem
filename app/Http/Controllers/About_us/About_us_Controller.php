@@ -9,23 +9,32 @@ use App\Models\AboutUs;
 class About_us_Controller extends Controller
 {
 
-    public function index()
-    {
-        //$AboutUs=AboutUs::all();
-        $About=AboutUs:: orderBy('id')->take(1)->get();
-        return view('pages.AboutUs.Show',compact('About'));
-    }
+    // public function index()
+    // {
+    //     //$AboutUs=AboutUs::all();
+    //     $About=AboutUs:: orderBy('id')->take(1)->get();
+    //     return view('pages.AboutUs.Show',compact('About'));
+    // }
 
 
-     public function show()
+    //  public function show()
+    //  {
+
+    //  //$AboutUs=AboutUs::all();
+    //  $About=AboutUs:: orderBy('id')->take(1)->get();
+    //  return view('pages.AboutUs.Show',compact('About'));
+    //  }
+
+    //------------------------------------------------------
+     public function edit($id)
      {
-
-     //$AboutUs=AboutUs::all();
-     $About=AboutUs:: orderBy('id')->take(1)->get();
-     return view('pages.AboutUs.Show',compact('About'));
+       $title='بيانات الموقع';
+       $AboutUs=AboutUs::select('*')->first();
+     
+       return view('pages.AboutUs.Show',compact('AboutUs','title'));
      }
 //------------------------------------------------------//
-    public function update(About_us_Request $request,$id)
+    public function update(About_us_Request $request)
     {
        // dd($request->all());
        try
@@ -45,16 +54,15 @@ class About_us_Controller extends Controller
            if($request->image)
            {
                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
-           /*  if($request->deleted_image!=null)
+            if($request->deleted_image!=null)
             {
-             $image_path=storage_path().'/app/public/about_us/'.$request->deleted_image;
-             unlink($image_path);
-             $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+              $image_path=storage_path().'/app/public/about_us/'.$request->deleted_image;
+              unlink($image_path);
 
-           }*/
+             }
             //----------------- //----------------- //-----------------
             $folder_name='';
-            $photo_name= ($request->image)->getClientOriginalName();
+            $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
             ($request->image)->storeAs($folder_name,$photo_name,$disk="about_us");
              $AboutUs->image = $photo_name;
            }

@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
 @section('content')
   <section class="content">
     <div class="container-fluid">
@@ -24,8 +27,8 @@
 
                 <div class="card-tools">
 
-                   <button type="button" class="btn btn-sm" style=" background-color: #343a40;">
-                        <a href="{{route('social.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافة  </span></li></a>
+                   <button type="button" class="btn btn-sm bbtn">
+                        <a href="{{route('social.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافة  </span></li></a>
                         </button>
                         
 
@@ -33,7 +36,7 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr >
@@ -56,9 +59,9 @@
                             <td><?php if($social->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                             
                             <td>
-                                <a href="{{url('social/'.$social ->id.'/edit/')}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{url('social/'.$social ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                 /
-                                <a href="#"  title="حذف" data-catid="{{$social->id}}" data-toggle="modal" data-target="#delete{{$social->id}}"> <i class="fa fa-trash red"></i></a>
+                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$social->id}}" data-toggle="modal" data-target="#delete{{$social->id}}"> <i class="fa fa-trash red"></i></a>
                             </td>
                             
                         </tr>
