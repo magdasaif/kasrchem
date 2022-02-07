@@ -1,67 +1,55 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-أقسام الموقع
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> أقسام الموقع</h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسية</a></li>
-                <li class="breadcrumb-item active">اقسام الموقع</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb -->
-@endsection
+<title>لوحة التحكم : أقسام الموقع</title>
+ @endsection
 @section('content')
-<!-- row -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
+<template>
+  <section class="content">
+    <div class="container-fluid">
+        <div class="row">
 
-            <!--#############################################################-->
-                    <div class="table-responsive">
-                    <button type="button"   class="btn btn-success"><a href="{{URL('site_section/create')}}" target="_blank"> اضافة قسم جديد</a>
+        <div class="col-12">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">أقسام الموقع</h3>
+
+                <div class="card-tools">
+
+                   <button type="button" class="btn btn-sm bbtn">
+                        <a href="{{URL('site_section/create')}}" class="aa"> <li class="fa fa-plus-square" ><span>اضافة قسم جديد</span></li></a>
                         </button>
-                     <br><br>
-                    <table id="datatable" class="table table-striped table-bordered p-0">
-                    <thead>
-                        <tr  style="color: #17899b;" >
-                        <th>#</th>
+                        
+
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover styled-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
                         <th>اسم القسم</th>
                         <th>الصورة</th>
                         <th>الأولوية</th>
                         <th>الحالة</th>
                         <th>الاجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    </tr>
+                  </thead>
+                  
+                   <tbody>
                          <?php $i = 0; $statues=1?>
 
                         @foreach($site_section as $section)
@@ -70,16 +58,16 @@
                             <td>{{ $i }}</td>
                             <td>{{$section->site_name_ar}}</td>
 
-
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></td>
                             <td>{{$section->priority}}</td>
 
                            
 
-                            <td><?php if($section->statues==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
+                            <td><?php if($section->statues==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
 
 
-                            <td> <button type="button" class="btn btn-info" ><a href="{{route('site_section.edit',$section->id)}}"  target="_blank"> تعديل</a></button>
+                            <td> 
+                                <a href="{{route('site_section.edit',$section->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                              </td>
 
                             </tr>
@@ -87,15 +75,12 @@
 
                     </tbody>
                 </table>
-            </div>
-            <!--#############################################################-->
-
-            </div>
+              </div>
+            
+          </div>
         </div>
-    </div>
-</div>
-<!-- row closed -->
+        </div>
+  </section>
+</template>
 @endsection
-@section('js')
 
-@endsection

@@ -44,6 +44,10 @@ class Product extends Model
         return $this->belongsTo('App\Models\Sub_Category4', 'sub4_id');
     }
 
+    public function suppliers(){
+        return $this->belongsToMany('App\Models\Supplier','products_suppliers');
+    }
+    
    /* public function images()
     {
         return $this->hasMany(Product_attachment::class,'product_id')->where('type', 'image');

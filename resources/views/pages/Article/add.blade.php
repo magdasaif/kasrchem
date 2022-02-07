@@ -1,39 +1,31 @@
 @extends('layouts.master')
-
-@section('css')
-
 @section('title')
+<title>لوحة التحكم :ااضافةمقال</title>
+ @endsection
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-اضافة صورة
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title"  style="color: #2569b1;"> اضافة مقال</h5>
-            
-        </div>
-        <div class="modal-body">
-
-            <form method="POST" action="{{route('article.store')}}" enctype="multipart/form-data">
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header" >
+                <h3 class="card-title"  >اضافة مقال </h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body" >
+   <form method="POST" action="{{route('article.store')}}" enctype="multipart/form-data">
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -55,7 +47,7 @@
                  </select> </div>
 
             <!----------------------------------------------------->
-        <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
+        <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
             <div class="form-group"  id="sub2_div"  style="display: none";>    
                     <label>   التصنيف الفرعي </label>
                     <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
@@ -138,12 +130,17 @@
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
                 </form>
-        </div>
+
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script>
@@ -289,4 +286,4 @@
         //--------------------------------------------------------------------------//
     </script>
 
-@endsection
+

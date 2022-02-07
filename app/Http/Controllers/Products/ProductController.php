@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Main_Category;
 use App\Models\Product_attachment;
 use App\Models\Product_Feature;
+use App\Models\Supplier;
 
 use App\Http\Requests\ProductRequest;
 
@@ -29,17 +30,18 @@ class ProductController extends Controller
 
     public function create()
     {
-        //this is uncomplete old page before using livewire package
-
         // $categories = Main_Category::get();
          $title='اضافه منتج';
          $categories= Main_Category::withcount('sub_cate2')->get();
-        return view('pages.products.add',compact('categories','title'));
+         $suppliers= Supplier::get();
+        // return $categories;
+        return view('pages.products.add',compact('categories','suppliers','title'));
     }
 
 
     public function store(ProductRequest $request)
     {
+        //dd();
         //to handel multiple insertion
         DB::beginTransaction();
         
@@ -58,7 +60,7 @@ class ProductController extends Controller
                 }
                 $folder_name='product_no_'. $new_id;
                 // dd($last_id->id,$folder_name);
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
            }else{
                $photo_name='';
@@ -105,12 +107,16 @@ class ProductController extends Controller
             
             $product->save();
 
+            //attach products with supplier
+             $product->suppliers()->attach($request->supplier_id);
+
+            
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
 
                     $folder_name0='product_no_'. $new_id;
                     // dd($last_id->id,$folder_name);
-                     $photo_name0= ($photo)->getClientOriginalName();
+                     $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
                     ($photo)->storeAs($folder_name0,$photo_name0,$disk="products");
 
                     Product_attachment::create([
@@ -126,7 +132,7 @@ class ProductController extends Controller
 
                     $folder_name0='product_no_'. $new_id;
                     // dd($last_id->id,$folder_name);
-                     $file_name0= ($file)->getClientOriginalName();
+                     $file_name0= str_replace(' ', '_',($file)->getClientOriginalName());
                     ($file)->storeAs($folder_name0,$file_name0,$disk="products");
 
                     Product_attachment::create([
@@ -188,7 +194,7 @@ class ProductController extends Controller
                   //  dd($photo);
                     $folder_name0='product_no_'. $request->product_id;
                     // dd($last_id->id,$folder_name);
-                    $photo_name0= ($photo)->getClientOriginalName();
+                    $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
                     ($photo)->storeAs($folder_name0,$photo_name0,$disk="products");
 
                     Product_attachment::create([
@@ -244,7 +250,7 @@ class ProductController extends Controller
                      //  dd($ff,($ff)->getClientOriginalName());
 
                        $folder_name='product_no_'. $request->product_id;
-                       $file_name= ($ff)->getClientOriginalName();
+                       $file_name= str_replace(' ', '_',($ff)->getClientOriginalName());
                        ($ff)->storeAs($folder_name,$file_name,$disk="products");
 
                     //    Storage::putFileAs(
@@ -286,14 +292,17 @@ class ProductController extends Controller
          $features = Product_Feature::where('product_id','=',$id)->get();
 
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
+
+         $suppliers= Supplier::get();
+         
          //dd($product);
-        return view('pages.products.edit',compact('product','categories','title','features','feature_count'));
+        return view('pages.products.edit',compact('product','categories','title','features','feature_count','suppliers'));
     }
 
     //ProductRequest
     public function update(ProductRequest $request)
     {
-        //dd($request->add_as_new);
+      //  dd($request->all);
         if(($request->add_as_new)=='on'){
             return $this->store($request);
         }else{
@@ -308,10 +317,8 @@ class ProductController extends Controller
                 $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
 
                     $folder_name='product_no_'. $request->id;
-$photo_name= ($request->image)->getClientOriginalName();
+                    $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                     ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
-
-
                     $product->image= $photo_name;
             }
 
@@ -352,8 +359,14 @@ $photo_name= ($request->image)->getClientOriginalName();
                     $product->security_permit=0;
                 }
 
-$product->save();
+                $product->save();
 
+                //attach products with supplier
+                if(isset($request->supplier_id)){
+                      $product->suppliers()->sync($request->supplier_id);
+                }else{
+                    $product->suppliers()->sync();
+                }
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){
                     Product_Feature::where('product_id',$request->id) ->delete();
@@ -367,7 +380,7 @@ $product->save();
                         ]);
                     }
                 }
-                toastr()->success('تمت التعديل بنجاح');
+               // toastr()->success('تمت التعديل بنجاح');
                  return redirect()->route('products.index')->with(['success'=>'تمت التعديل بنجاح']);
             }catch(\Exception $e){
                // dd($e->getMessage());

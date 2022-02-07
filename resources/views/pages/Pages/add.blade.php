@@ -1,39 +1,31 @@
 @extends('layouts.master')
-
-@section('css')
-
 @section('title')
-   
-اضافة صفحة
-@stop
-@endsection
-@section('page-header')
+<title>لوحة التحكم :اضافة صفحة</title>
+ @endsection
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title"  style="color: #2569b1;"> اضافة صفحة</h5>
-            
-        </div>
-        <div class="modal-body">
-
-            <form method="POST" action="{{route('page.store')}}" >
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"  > اضافة صفحة </h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
+   <form method="POST" action="{{route('page.store')}}" >
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -97,15 +89,20 @@
                 </div>
           <!----------------------------------------------------->
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">اضافه</button>
+                        <button type="submit" class="btn btn-primary" >اضافه</button>
                 </div>
                 </form>
-        </div>
+
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
-@section('js')
+
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script>
@@ -143,7 +140,7 @@
   
   
     });
-    //--------------------------------------------------------------------------//
+    
     </script>
 
-@endsection
+

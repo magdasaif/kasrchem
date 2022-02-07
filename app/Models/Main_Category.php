@@ -14,7 +14,7 @@ class Main_Category extends Model
     public $fillable=['id','subname_ar','subname_en','image','section_id','status'];
     public $timestamps = true;
 
-    public function Sections()
+    public function relation_with_section()
     {
         return $this->belongsTo('App\Models\Sitesection', 'section_id');
     }

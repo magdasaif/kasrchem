@@ -1,37 +1,32 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-تعديل صفحة
-@stop
-@endsection
-@section('page-header')
+<title>لوحة التحكم :تعديل صورة</title>
+ @endsection
+@section('content')
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل صفحة</h5>
-           
-        </div>
-        <div class="modal-body">
-            
-            <form method="POST"  action="{{route('page.update',$page->id)}}" >
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header" >
+                <h3 class="card-title">تعديل صفحة</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body" >
+   <form method="POST"  action="{{route('page.update',$page->id)}}" >
                 {{method_field('PATCH ')}}
 
                 @csrf
@@ -107,15 +102,21 @@
                 <input type="hidden" name="id" value="{{$page->id}}">
                
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">تعديل</button>
+                        <button type="submit" class="btn btn-primary" >تعديل</button>
                 </div>
                 </form>
-        </div>
+
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script>
     tinymce.init({
@@ -155,5 +156,3 @@
     
    
     </script>
-
-@endsection

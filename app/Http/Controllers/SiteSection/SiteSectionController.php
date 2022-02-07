@@ -39,7 +39,7 @@ class SiteSectionController extends Controller
 
            if($request->image){
                $folder_name='site_section_image';
-                $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                  ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
                // ($request->image)->storeAs($folder_name,$photo_name);
            }else{
@@ -71,20 +71,13 @@ class SiteSectionController extends Controller
     public function edit($id)
     {
         $section = Sitesection::findOrfail($id);
-
-
         if(!$section)
              return redirect()->back();
-
-
-
         return view('pages.Sitesection.edit',compact('section'));
     }
 
     public function update(SiteSectionRequest $request,$id)
     {
-
-        //dd($request->all());
        try {
 
           $validated = $request->validated();
@@ -108,8 +101,8 @@ class SiteSectionController extends Controller
 ///----------------------------///----------------------------
       if($request->image){
               $folder_name='site_section_image';
-            $photo_name= ($request->image)->getClientOriginalName();
-             ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
+              $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
+              ($request->image)->storeAs($folder_name,$photo_name,$disk="site_sections");
              $Sitesections->image = $photo_name;
         }
            ///------------------------------
@@ -138,14 +131,6 @@ class SiteSectionController extends Controller
         //
     }
 
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

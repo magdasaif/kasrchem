@@ -1,42 +1,36 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-تعديل فيديو
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
+<title>لوحة التحكم : تعديل فيديو</title>
+ @endsection
+@section('content')
 <div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل فيديو</h5>
-           
-        </div>
-        <div class="modal-body">
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-12">
+          @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> تعديل فيديو</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
             
             <form method="POST"  action="{{route('video.update',$video->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
 
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
                  <!--'video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'------------------------------------->
               
                  <div class="form-group">
@@ -171,12 +165,18 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+            </div>
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
 <script>
    
     //---------------for show seelct option of sub2------------------------//
@@ -286,5 +286,3 @@
         });
         //--------------------------------------------------------------------------//
     </script>
-
-@endsection

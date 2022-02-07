@@ -1,35 +1,31 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-تعديل التصنيفات الفرعية
+<title>لوحة التحكم : تعديل نوع</title>
+ @endsection
+@section('content')
+<template>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" style="color: #2569b1;">تعديل نوع</h5>
-        </div>
-        <div class="modal-body">
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">تعديل نوع</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body">
             
             <form method="POST" action="{{route('categories3.update',$sub3->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH')}}
@@ -56,13 +52,11 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-
-
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label><br>
-                    <img data-v-20a423fa="" width="50%" src="<?php echo asset("storage/categories/thired/$sub3->image")?>" class="uploaded-img"> 
+                    
+                   <center> <img data-v-20a423fa="" style="width: 30%;" src="<?php echo asset("storage/categories/third/".$sub3->image)?>" class="uploaded-img"></center>
 
                     <input type="file" class="form-control" name="image" accept="image/*">
 
@@ -73,6 +67,7 @@
 
 
                 <div class="form-group">
+                   <label for="exampleInputEmail1">الحالة</label>
                     <select class="form-control" name="status">
                             <option value="1" <?php if($sub3->status==1){echo'selected';}?> >مُفعل</option>
                             <option value="0" <?php if($sub3->status==0){echo'selected';}?> >غير مُفعل</option>
@@ -83,11 +78,13 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-        </div>
+                </div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
-@endsection
-@section('js')
-
+</section>
+</template>
 @endsection

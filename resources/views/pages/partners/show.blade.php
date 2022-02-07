@@ -1,56 +1,48 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-{{$title}}
-@stop
-@endsection
-@section('page-header')
-
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 class="mb-0"> {{$title}}</h4>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">الرئيسيه</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb -->
-@endsection
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
 @section('content')
-<!-- row -->
-<div class="row">
-    <div class="col-md-12 mb-30">
-        <div class="card card-statistics h-100">
-            <div class="card-body">
-            <a href="{{route('partner.create')}}"><button type="button" class="btn btn-info" > اضافه</button></a>
-<br>
-            <!--#############################################################-->
-                    <div class="table-responsive">
+<template>
+  <section class="content">
+    <div class="container-fluid">
+        <div class="">
 
-                    <table id="datatable" class="table table-striped table-bordered p-0">
-                    <thead>
+        <div class="col-12">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                {{Session::get('error')}}
+                </div>
+            @endif
+          
+        
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> {{$title}}</h3>
+
+                <div class="card-tools">
+
+                <!-- livewire add form
+                <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
+
+                   <button type="button" class="btn btn-sm bbtn">
+                        <a href="{{route('partner.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
+                        </button>
+                        
+
+                </div>
+              </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+   <!--#############################################################-->
+                  <thead>
                         <tr>
                             <th>#</th>
                             <th>صوره الشريك</th>
@@ -69,11 +61,15 @@
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/$partner->image")?>"></td>
 
                             <td>{{$partner->name_ar}}</td>
-                            <td><?php if($partner->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
+                            <td><?php if($partner->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+                           
+
                             <td>
-                                <button type="button" class="btn btn-info" ><a href="{{url('partner/'.$partner ->id.'/edit/')}}" target="_blank"> تعديل</a></button>
-                                <button class="btn btn-danger" data-catid="{{$partner->id}}" data-toggle="modal" data-target="#delete{{$partner->id}}">حذف</button>
-                            </td>
+                                <a href="{{url('partner/'.$partner ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                /
+                                <a href="#"  style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$partner->id}}" data-toggle="modal" data-target="#delete{{$partner->id}}"> <i class="fa fa-trash red"></i></a>
+							</td>
+                            
                         </tr>
 
                          <!--############################ model for delete #################################-->     
@@ -105,16 +101,14 @@
                         @endforeach
                     
                     </tbody>              
-                </table>
-            </div>
-            <!--#############################################################-->
+                <!--#############################################################-->
 
+		</table>
             </div>
+          
+          </div>
         </div>
-    </div>
-</div>
-<!-- row closed -->
-@endsection
-@section('js')
-
+        </div>
+  </section>
+</template>
 @endsection

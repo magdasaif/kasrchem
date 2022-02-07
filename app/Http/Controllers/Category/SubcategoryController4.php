@@ -30,13 +30,13 @@ class SubcategoryController4 extends Controller
 //-----------------------store to db-----------------------------------------------
     public function store(SubCategory4Request $request)
     {
-        if(  Sub_Category4::where('subname_ar',$request->subname_ar)
-        ->orWhere('subname_en',$request->subname_en)
-        ->exists()
-        )
-        {
-            return redirect()->back()->with(['error'=>'هذا النوع مُضاف بالفعل من قبل ']);
-        }
+        // if(  Sub_Category4::where('subname_ar',$request->subname_ar)
+        // ->orWhere('subname_en',$request->subname_en)
+        // ->exists()
+        // )
+        // {
+        //     return redirect()->back()->with(['error'=>'هذا النوع مُضاف بالفعل من قبل ']);
+        // }
 
         try{
             //vaildation
