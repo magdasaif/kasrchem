@@ -100,7 +100,7 @@ staging:
   #    - php artisan deploy auth.drones.murabba.dev -s upload
   environment:
     name: dev
-    url: https://backend.training.murabba.dev
+    url: https://backend.eradunited.training.murabba.dev
   only:
     - dev
 production:
@@ -114,7 +114,7 @@ production:
   #    - php artisan deploy droners.com -s upload
   environment:
     name: production
-    url: https://eradonline.com
+    url: https://eradunited.com
   when: manual
   only:
     - master

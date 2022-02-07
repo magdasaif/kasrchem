@@ -1,13 +1,13 @@
 @servers(['local' => '127.0.0.1', 'dev' => 'root@66.7.221.45 -p 1157', 'production' => 'root@stillunknownserver -p 1157'])
 
 @setup
-    $repo = 'ssh://s3/training/eradco/backend';
+    $repo = 'ssh://s3/training/eradco/dashboard';
     $branch = 'dev';
 
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
 
-    $appDir = '/home/viewmurabba/public_html/training';
+    $appDir = '/home/viewmurabba/public_html/training/eradunited';
 
     $buildsDir = $appDir . '/backendreleases';
 
