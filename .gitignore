@@ -12,4 +12,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 reports/
-.idea
+.ideastorage/logs/laravel.log
