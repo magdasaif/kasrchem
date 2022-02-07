@@ -137,7 +137,7 @@
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="title_en">اسم المعرض بالعربية</label>
+                    <label for="title_en">اسم المعرض بالانجليزية</label>
                     <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم المعرض بالانجليزية" name="title_en"  value="{{$photo_gallery->title_en}}" required>
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>

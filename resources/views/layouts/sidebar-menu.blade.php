@@ -156,7 +156,7 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-handshake green"></i>
-          <p  class="ttitle"> الشركاء</p><i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+          <p  class="ttitle"> الشركاء</p><i class="left fas fa-angle-right" style="margin-right: 43%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
@@ -181,7 +181,7 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-file-pdf green"></i>
-          <p  class="ttitle"> النشرات</p><i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+          <p  class="ttitle"> النشرات</p><i class="left fas fa-angle-right" style="margin-right: 43%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
@@ -205,7 +205,7 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-building green"></i>
-          <p  class="ttitle"> عناوين الفروع</p><i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+          <p  class="ttitle"> عناوين الفروع</p><i class="left fas fa-angle-right" style="margin-right: 25%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
@@ -229,7 +229,7 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-link green"></i>
-          <p  class="ttitle"> وسائل التواصل</p><i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+          <p  class="ttitle"> وسائل التواصل</p><i class="left fas fa-angle-right" style="margin-right: 25%;"></i>
         </a>
         
         <ul class="nav nav-treeview">
@@ -289,6 +289,29 @@
               <a href="{{route('photo_gallery.index')}}" class="nav-link">
                   <i class="nav-icon fas fa fa-camera orange"></i>
                   <p>  قائمةالمعارض </p>
+              </a>
+          </li>
+         </ul>
+      </li>
+      <!-------------------------------supplier------------------------------------------->
+<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-users  green"></i>
+          <p  class="ttitle"> الموردين</p> 
+          <i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('supplier.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة مورد </p>
+              </a>
+          </li>
+         
+          <li>
+              <a href="{{route('supplier.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users orange"></i>
+                  <p>  قائمةالموردين</p>
               </a>
           </li>
          </ul>

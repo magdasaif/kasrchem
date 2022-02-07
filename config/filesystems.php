@@ -86,7 +86,15 @@ return [
             'root' => storage_path('app/public/about_us'),
         ],
 
+        'supplier' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/supplier'),
+        ],
 
+        'supplier_images'=> [
+            'driver' => 'local',
+            'root' => storage_path('app/public/supplier_images'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
