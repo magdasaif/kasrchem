@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Main_Category;
 use App\Models\Product_attachment;
 use App\Models\Product_Feature;
+use App\Models\Supplier;
 
 use App\Http\Requests\ProductRequest;
 
@@ -32,13 +33,15 @@ class ProductController extends Controller
         // $categories = Main_Category::get();
          $title='اضافه منتج';
          $categories= Main_Category::withcount('sub_cate2')->get();
+         $suppliers= Supplier::get();
         // return $categories;
-        return view('pages.products.add',compact('categories','title'));
+        return view('pages.products.add',compact('categories','suppliers','title'));
     }
 
 
     public function store(ProductRequest $request)
     {
+        //dd();
         //to handel multiple insertion
         DB::beginTransaction();
         
@@ -104,6 +107,10 @@ class ProductController extends Controller
             
             $product->save();
 
+            //attach products with supplier
+             $product->suppliers()->attach($request->supplier_id);
+
+            
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
 
@@ -285,8 +292,11 @@ class ProductController extends Controller
          $features = Product_Feature::where('product_id','=',$id)->get();
 
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
+
+         $suppliers= Supplier::get();
+         
          //dd($product);
-        return view('pages.products.edit',compact('product','categories','title','features','feature_count'));
+        return view('pages.products.edit',compact('product','categories','title','features','feature_count','suppliers'));
     }
 
     //ProductRequest
@@ -351,6 +361,12 @@ class ProductController extends Controller
 
                 $product->save();
 
+                //attach products with supplier
+                if(isset($request->supplier_id)){
+                      $product->suppliers()->sync($request->supplier_id);
+                }else{
+                    $product->suppliers()->sync();
+                }
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){
                     Product_Feature::where('product_id',$request->id) ->delete();

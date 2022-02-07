@@ -44,18 +44,17 @@
                     <input type="hidden" value="{{$product_id}}" name="product_id">
                 </div>
 
-                <div class="modal-footer">
                        <center> <button type="submit" class="btn btn-success">حفظ الملفات</button></center>
-                </div>
                 
+                <br>
             </form>
 
             <div class="row">
             @foreach($Product_files as $file)            
                  <div class="col">
-                 <figure class="is-4by3"><img style="width: 150px; height: 150px;"  src="<?php echo asset("storage/products/pdf.png")?>"></figure>
+                   <embed src="<?php echo asset("storage/products/product_no_$product_id/$file->path")?>"  accept="application/pdf,application/vnd.ms-excel"/>
                     <!-- <br><center><button type="button" class="btn btn-danger" ><a href="{{url('delete_products_files/'.$file->id)}}"> حذف</a></button></center> -->
-                    <br><center><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$file->id}}" > حذف</button></center>
+                    <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$file->id}}" style="margin-right: 55px;" > حذف</button>
                 </div>
                  <!--############################ model for delete #################################-->
           

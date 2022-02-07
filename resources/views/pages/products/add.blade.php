@@ -35,9 +35,9 @@
              @csrf
 
    <!----------------------------------------------------->
-   <div class="form-group">
+                <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" name="main_cate_id" style="height: 50px;">
+                    <select class="form-control" name="main_cate_id" >
                         <option value="0" selected disable>اختر التصنيف الرئيسي</option>
                         @foreach ($categories as $category)
                             @if($category->sub_cate2_count>0)
@@ -54,7 +54,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  style="height: 50px;" required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  required>
                     </select> 
               </div>
 
@@ -62,14 +62,14 @@
              
              <div class="form-group"  id="sub3_div" style="display: none";>
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3"  style="height: 50px;" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
                  </select> 
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"  style="display: none";> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4"  style="height: 50px;" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
 
                         
                     </select>
@@ -121,6 +121,15 @@
                 </div>
 
                 <hr>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الموردين</label> <small> [ قم بتحديد الموردين ] </small>
+                    <select class="form-control" name="supplier_id[]"  multiple required>
+                        @foreach ($suppliers as $supplier)
+                             <option value="{{ $supplier->id }}">{{ $supplier->name_ar }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <hr>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">سعر المنتج</label>
@@ -132,7 +141,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الضريبه %</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="tax" value="{{ old('tax') }}">
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="tax" value="0">
                     @error('tax')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

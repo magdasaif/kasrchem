@@ -43,10 +43,8 @@
 
                     <input type="hidden" value="{{$product_id}}" name="product_id">
                 </div>
-
-                <div class="modal-footer">
-                       <center> <button type="submit" class="btn btn-success">حفظ الصور</button></center>
-                </div>
+                <center> <button type="submit" class="btn btn-success">حفظ الصور</button></center>
+                <br>
                 
             </form>
 
@@ -55,7 +53,8 @@
                  <div class="col">
                     <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/products/product_no_$product_id/$image->path")?>">
                     <!-- <br><center><button type="button" class="btn btn-danger" data-catid={{$image->id}} data-toggle="modal" data-target="#delete" ><a href="{{url('delete_product_images/'.$image->id)}}"> حذف</a></button></center> -->
-                    <br><center><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$image->id}}" > حذف</button></center>
+                    <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$image->id}}" style="margin-right: 55px;"> حذف</button>
+
                 </div>
                 
                  <!--############################ model for delete #################################-->

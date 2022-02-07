@@ -124,6 +124,20 @@
                 </div>
 
                 <hr>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الموردين</label> <small> [ قم بتحديد الموردين ] </small>
+                    <select class="form-control" name="supplier_id[]"  multiple required>
+
+                        @foreach ($product->suppliers as $supplier_select)
+                             <option selected value="{{ $supplier_select->id }}">{{ $supplier_select->name_ar }}</option>
+                        @endforeach
+                        
+                        @foreach ($suppliers as $supplier)
+                             <option value="{{ $supplier->id }}">{{ $supplier->name_ar }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <hr>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">سعر المنتج</label>

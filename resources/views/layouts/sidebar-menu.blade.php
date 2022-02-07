@@ -1,12 +1,12 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
-        <router-link to="/dashboard" class="nav-link">
+        <a href="{{route('dashboard')}}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt green"></i>
           <p class="ttitle">
             الرئيسيه
           </p>
-        </router-link>
+        </a>
       </li>
 
       @can('isAdmin')
@@ -18,7 +18,7 @@
         </a>
       </li>
       
-      <!-------------------------------------------------------------------------->
+      <!------------------------------اقسام الموقع-------------------------------------------->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-sitemap green"></i>
@@ -39,7 +39,7 @@
           </li>
          </ul>
       </li>
-<!-------------------------------------------------------------------------->
+<!---------------------------تصنيفات----------------------------------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -63,7 +63,7 @@
           </li>
         </ul>
       </li>
-<!-------------------------------------------------------------------------->
+<!----------------------------products---------------------------------------------->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fab fa-product-hunt green"></i>
@@ -86,8 +86,7 @@
       </li>
 
 
-
-
+<!-------------------------------------video----------------------->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-video green"></i>
@@ -152,6 +151,7 @@
          </ul>
       </li>
 
+<!-------------------------------------شركاء----------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -176,6 +176,7 @@
       </li>
 
 
+<!-------------------------------------نشرات----------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -199,6 +200,7 @@
          </ul>
       </li>
 
+<!-------------------------------------فروع----------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -222,7 +224,8 @@
          </ul>
       </li>
 
-      
+      <!-------------------------------------وسائل التواصل----------------------->
+
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-link green"></i>

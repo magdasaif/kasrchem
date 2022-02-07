@@ -10,8 +10,17 @@ $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
   or 
  <input name="_token" value="{{csrf_token()}}">
 
+bbtn
+class="aa"
+styled-table
+style="font-weight: bold;font-size: 17px;"
+
+
 //-----------------to handel show
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم : {{$title}}</title>
+ @endsection
 @section('content')
 <template>
   <section class="content">

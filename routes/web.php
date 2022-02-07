@@ -152,6 +152,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
+    Route::GET('dashboard','HomeController@dashboard')->name('dashboard');
 });
 //--------------------------------------------------------------------------------------//
 Route::get('/docs', function () {
