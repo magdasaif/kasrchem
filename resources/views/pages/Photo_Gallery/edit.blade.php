@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title> لوحة التحكم :تعديل المعرض</title>
+@endsection
 @section('content')
 
 <section class="content">
@@ -19,11 +21,11 @@
           <div class="col-12">
         
             <div class="card">
-              <div class="card-header" style="background-color: rgb(96 211 145);">
+              <div class="card-header" >
                 <h3 class="card-title">تعديل المعرض</h3>
               </div>
  <!--#############################################################-->
- <div class="modal-body"  style=" width: 68%; margin-right: 128px;">
+ <div class="modal-body"  >
    <form method="POST"  action="{{route('photo_gallery.update',$photo_gallery->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
 

@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>لوحة التحكم :اضافة صفحة</title>
+ @endsection
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -18,11 +20,11 @@
           <div class="col-12">
         
             <div class="card">
-              <div class="card-header" style="background-color: rgb(96 211 145);">
+              <div class="card-header">
                 <h3 class="card-title"  > اضافة صفحة </h3>
               </div>
  <!--#############################################################-->
- <div class="modal-body" style=" width: 68%; margin-right: 128px;">
+ <div class="modal-body">
    <form method="POST" action="{{route('page.store')}}" >
 
                 @csrf
@@ -87,7 +89,7 @@
                 </div>
           <!----------------------------------------------------->
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">اضافه</button>
+                        <button type="submit" class="btn btn-primary" >اضافه</button>
                 </div>
                 </form>
 

@@ -3,7 +3,7 @@
       <li class="nav-item">
         <router-link to="/dashboard" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt green"></i>
-          <p>
+          <p class="ttitle">
             الرئيسيه
           </p>
         </router-link>
@@ -14,13 +14,13 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-sitemap green"></i>
-          <p>اقسام الموقع<i class="right fas fa-angle-left"></i></p>
+          <p  class="ttitle">اقسام الموقع</p> <i class="left fas fa-angle-right" style="margin-right: 33%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
               <a href="{{route('site_section.create')}}" class="nav-link">
-                  <i class="nav-icon fas fa-sitemap orange"></i>
-                  <p> اضافه قسم </p>
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p  class="ttitle"> اضافه قسم </p>
               </a>
           </li>
           <li>
@@ -36,15 +36,14 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-cubes green"></i>
-          <p>
+          <p  class="ttitle">
              التصنيفات الرئيسيه
-            <i class="right fas fa-angle-left"></i>
-          </p>
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
               <a href="{{route('categories.create')}}" class="nav-link">
-                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <i class="nav-icon fas fa-plus orange"></i>
                   <p> اضافه تصنيف</p>
               </a>
           </li>
@@ -60,12 +59,12 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fab fa-product-hunt green"></i>
-          <p> المنتجات<i class="right fas fa-angle-left"></i></p>
+          <p  class="ttitle"> المنتجات</p> <i class="left fas fa-angle-right" style="margin-right: 40%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
               <a href="{{route('products.create')}}" class="nav-link">
-                  <i class="nav-icon fas fab fa-product-hunt orange"></i>
+                  <i class="nav-icon fas  fa-plus orange"></i>
                   <p> اضافه منتج </p>
               </a>
           </li>
@@ -88,7 +87,7 @@
 <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-image green"></i>
-          <p>الصور المتحركة<i class="right fas fa-angle-left"></i></p>
+          <p  class="ttitle">الصور المتحركة</p> <i class="left fas fa-angle-right" style="margin-right: 22%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
@@ -109,7 +108,7 @@
 <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-newspaper green"></i>
-          <p> المقالات<i class="right fas fa-angle-left"></i></p>
+          <p  class="ttitle"> المقالات</p> <i class="left fas fa-angle-right" style="margin-right: 40%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
@@ -131,7 +130,7 @@
 <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-code green"></i>
-          <p> الصفحات<i class="right fas fa-angle-left"></i></p>
+          <p  class="ttitle"> الصفحات</p> <i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>
@@ -152,7 +151,9 @@
 <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-camera green"></i>
-          <p> المعارض<i class="right fas fa-angle-left"></i></p>
+          <!-- <p> المعارض<i class="right fas fa-angle-left"></i></p> -->
+          <p  class="ttitle"> المعارض</p> 
+          <i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
         </a>
         <ul class="nav nav-treeview">
           <li>

@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>لوحة التحكم :تعديل الصور المتحركة/title>
+ @endsection
 @section('content')
 <template>
 <section class="content">
@@ -19,11 +21,11 @@
           <div class="col-12">
         
             <div class="card">
-              <div class="card-header"  style="background-color: rgb(96 211 145);">
+              <div class="card-header"  >
                 <h3 class="card-title">تعديل صورة</h3>
               </div>
  <!--#############################################################-->
- <div class="modal-body" style=" width: 68%; margin-right: 128px;">
+ <div class="modal-body" >
    <form method="POST"  action="{{route('slider.update',$Slider->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
 
@@ -58,7 +60,7 @@
                 </div>
                 <input type="hidden" name="id" value="{{$Slider->id}}">
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">تعديل</button>
+                        <button type="submit" class="btn btn-primary" >تعديل</button>
                 </div>
                 </form>
 

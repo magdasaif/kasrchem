@@ -3,7 +3,7 @@
     <router-link to="/dashboard" class="brand-link">
       <img src="{{ asset('/images/logo.jpg') }}" alt="The Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ config('app.name', 'Eradco') }}</span>
+      <span class="brand-text font-weight-light">Eradco</span>
     </router-link>
 
     <!-- Sidebar -->

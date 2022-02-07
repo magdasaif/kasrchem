@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم :المعارض</title>
+ @endsection
 @section('content')
 <template>
   <section class="content">
@@ -25,8 +28,8 @@
 
                 <div class="card-tools">
 
-                 <button type="button" class="btn btn-sm " style=" background-color: #343a40;">
-                        <a href="{{route('photo_gallery.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
+                 <button type="button" class="btn btn-sm bbtn" >
+                        <a  class="aa"  href="{{route('photo_gallery.create')}}" > <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
                         
 
@@ -34,7 +37,7 @@
               </div> 
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover " >
+                <table class="table table-hover  styled-table" >
             <!--#############################################################-->
                   <thead>
                         <tr >
@@ -53,12 +56,17 @@
                             <td>{{ $i }}</td>
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$Photo_Gallery->image}")?> alt="" ></td>
                             <td>{{$Photo_Gallery->title_ar}}</td>
-                            <td><?php if($Photo_Gallery->status==1){echo'<label class="btn btn-success">مُفعل</label>';}else{echo'<label class="btn btn-danger">غير مُفعل</label>';}?></td>
-                            <td> 
+                            <td><?php if($Photo_Gallery->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+                            <td style="font-weight: bold;font-size: 17px;"> 
+                             <a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+                             /
+                             <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"  title="الصور"><i class="fa fa-camera yellow"></i></a>
 
-                            <button type="button" class="btn btn-info" ><a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  target="_blank"> تعديل</a></button>
-                           <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"><button type="button" class="btn btn-warning" > الصور</button></a>
-                           <button class="btn btn-danger" data-catid={{$Photo_Gallery->id}} data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}">حذف</button> 
+                              /
+                              <a  title="حذف" data-catid="{{$Photo_Gallery->id}}" data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}"> <i class="fa fa-trash red"></i></a>
+                            <!-- <button type="button" class="btn btn-info" ><a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  target="_blank"> تعديل</a></button> -->
+                           <!-- <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"><button type="button" class="btn btn-warning" > الصور</button></a>
+                           <button class="btn btn-danger" data-catid={{$Photo_Gallery->id}} data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}">حذف</button>  -->
                         
                              
                          

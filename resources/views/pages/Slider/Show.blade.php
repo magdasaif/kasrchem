@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+<title>لوحة التحكم :الصور المتحركة</title>
+ @endsection
 @section('content')
 <template>
   <section class="content">
@@ -20,18 +23,18 @@
           
         
             <div class="card">
-              <div class="card-header" style="background-color: rgb(96 211 145);">
+              <div class="card-header" >
                 <h3 class="card-title" > الصور المتحركة</h3>
                 <div class="card-tools">
                  <!-- livewire add form-->
-                    <button type="button" class="btn btn-sm " style=" background-color: #343a40;">
-                        <a href="{{route('slider.create')}}" style="color: #fff; !important"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('slider.create')}}"  class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
                 </div>
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover styled-table ">
             <!--#############################################################-->
                   <thead>
                         <tr >
@@ -51,9 +54,9 @@
                             <td>{{ $i }}</td>
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/slider/{$slider->image}")?> alt="" ></td>
                             <td>{{$slider->priority}}</td>
-							<td><?php if($slider->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+							<td style="font-weight: bold;font-size: 17px;"><?php if($slider->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                              
-							<td>
+							<td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('slider.edit',$slider->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                             /
 
@@ -80,7 +83,7 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-                                            <input type="hidden" name="slider_id" id="$slider->id" value="$slider->id">
+                                            <input type="hidden" name="slider_id"  value="{{$slider->id}}">
 
                                     </div>
                                     <input type="hidden" name="deleted_image" value="{{$slider->image}}">

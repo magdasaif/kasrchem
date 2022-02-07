@@ -58,7 +58,8 @@ class ArticleController extends Controller
            if($request->image)
            {
             $folder_name='';
-              $photo_name= ($request->image)->getClientOriginalName();
+              //$photo_name= ($request->image)->getClientOriginalName();
+              $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                ($request->image)->storeAs($folder_name,$photo_name,$disk="article");
                
            }
@@ -122,7 +123,8 @@ class ArticleController extends Controller
             {
             $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
             $folder_name='';
-            $photo_name= ($request->image)->getClientOriginalName();
+            //$photo_name= ($request->image)->getClientOriginalName();
+            $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
             ($request->image)->storeAs($folder_name,$photo_name,$disk="article");
             
             $Article->image = $photo_name;
