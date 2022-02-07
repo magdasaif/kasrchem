@@ -138,19 +138,28 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('social', 'SocialController');
 
     });
-    //----------------------------------About_us--------------------------------------------//
 
     //----------------------------Users-------------------------------------------------
     Route::group(['namespace'=>'User'],function(){
         Route::resource('user_type', 'UserTypeController');
 
     });
+    //----------------------------------About_us--------------------------------------------//
 
     Route::group(['namespace'=>'About_us'],function(){
         Route::resource('about_us', 'About_us_Controller');
         Route::POST('edit_about/{id}', 'About_us_Controller@edit_about')->name('editt');
 
     });
+    //------------------------------- ------------------------------------------------//
+    Route::group(['namespace'=>'Supplier'],function(){
+        Route::resource('supplier', 'SupplierController');
+    });
+    //===========show_supplier_image=========//
+    Route::get('show_supplier_images/{id}','Supplier\SupplierController@show_supplier_image');
+    Route::post('add_supplier_images/{id}','Supplier\SupplierController@add_supplier_images');
+    Route::get('delete_supplier_images/{id}','Supplier\SupplierController@delete_supplier_images');
+    //-------------------------------------------------------------------------------//
 
 });
 //--------------------------------------------------------------------------------------//
