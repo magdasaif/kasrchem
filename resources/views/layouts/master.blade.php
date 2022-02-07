@@ -6,8 +6,8 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
   @yield('title')
+  <!-- <title>eradco</title> -->
   
 
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">

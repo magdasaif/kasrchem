@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم : {{$title}}</title>
+<title>لوحة التحكم : النشرات</title>
  @endsection
 @section('content')
 <template>

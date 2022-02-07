@@ -50,7 +50,7 @@
             <!----------------------------------------------------->
             
               
-            <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px">    
+            <div id="all" >    
 
             <div class="form-group"  id="sub2_div" name="sub2_div">    
                     <label>   التصنيف الفرعي </label>
@@ -355,6 +355,7 @@
 </section>
 </div>
 @endsection
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
         //---------------for show seelct option of sub2------------------------//
         $(document).ready(function () {

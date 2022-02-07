@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             <label for="priority">الأولوية</label>
-                            <input type="text" class="form-control" id="priority" aria-describedby="priority" placeholder="Enter priority" name="priority"  value="{{ $section->priority}}" required>
+                            <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="Enter priority" name="priority"  value="{{ $section->priority}}" required>
                             @error('priority')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror

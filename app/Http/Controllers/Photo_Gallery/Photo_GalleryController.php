@@ -34,7 +34,8 @@ class Photo_GalleryController extends Controller
               if($request->image)
               {
                  $folder_name='';
-                 $photo_name= ($request->image)->getClientOriginalName();
+                //  $photo_name= ($request->image)->getClientOriginalName();
+                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                   ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
                   
               }
@@ -89,7 +90,8 @@ class Photo_GalleryController extends Controller
         {
         $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
         $folder_name='';
-        $photo_name= ($request->image)->getClientOriginalName();
+        // $photo_name= ($request->image)->getClientOriginalName();
+        $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
         ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
         
         $Photo_Gallery->image = $photo_name;
@@ -137,7 +139,8 @@ class Photo_GalleryController extends Controller
                  foreach($request->image as $imagee){
                    //  dd($photo);
                   $folder_namee='gallery_photo_images_no_'. $id;
-                     $photo_namee= ($imagee)->getClientOriginalName();
+                     //$photo_namee= ($imagee)->getClientOriginalName();
+                     $photo_namee= str_replace(' ', '_',($imagee)->getClientOriginalName());
                     // dd($photo_namee);
                      ($imagee)->storeAs($folder_namee,$photo_namee,$disk="photo_gallery");
                         Gallery_Photo_Image::create([

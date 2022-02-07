@@ -1,37 +1,32 @@
 @extends('layouts.master')
-@section('css')
-
 @section('title')
-تعديل المعرض
-@stop
+<title> لوحة التحكم :تعديل المعرض</title>
 @endsection
-@section('page-header')
+@section('content')
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" style="color: #2569b1;">تعديل المعرض</h5>
-           
-        </div>
-        <div class="modal-body">
-        <!-- 'photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4' -->
-            <form method="POST"  action="{{route('photo_gallery.update',$photo_gallery->id)}}" enctype="multipart/form-data">
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header" >
+                <h3 class="card-title">تعديل المعرض</h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body"  >
+   <form method="POST"  action="{{route('photo_gallery.update',$photo_gallery->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
 
                 @csrf
@@ -57,7 +52,7 @@
 
             
              <!----------------------------------------------------->
-        <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;">    
+        <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;">    
             <div class="form-group"  id="sub2_div" >    
                     <label>   التصنيف الفرعي </label>
 
@@ -151,17 +146,14 @@
                
               
               <!----------------------------------------------------->
-               
-                <div class="form-group">
+            <div class="form-group">
                     <label for="image">الصورة</label>
+                   <center> <img data-v-20a423fa="" style="width:30%;" src="<?php echo asset("storage/photo_gallery/{$photo_gallery->image}")?>" class="uploaded-img"></center>
                     <input type="file" class="form-control" name="image" >
-                    <img  style="width: 200px;height: 200px;" accept="image/*" src=<?php echo asset("storage/photo_gallery/{$photo_gallery->image}")?> alt="" required>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-               
 
                 <div class="form-group">
                     <label for="image">الحالة</label>
@@ -176,12 +168,17 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-        </div>
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
 @endsection
-@section('js')
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
    
     //---------------for show seelct option of sub2------------------------//
@@ -292,5 +289,3 @@
         });
         //--------------------------------------------------------------------------//
     </script>
-
-@endsection

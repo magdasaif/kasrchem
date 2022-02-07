@@ -4294,6 +4294,7 @@ input[type="button"].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -70667,10 +70668,10 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
     font-weight: bold;
    
 }
-#all
+/* #all
 {
   background-color:rgb(247 247 247);
-}
+} */
 .styled-table {
   
   font-size: 0.9em;
@@ -70710,4 +70711,23 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 .aa
 {
   color: #009879; 
+}
+.btn-primary
+{
+background-color: #009879;
+color: #ffffff;
+font-weight: bold;
+}
+.modal-body
+{
+  width: 68%;
+   margin-right: 128px;
+}
+.ttitle
+{
+ color: white;
+}
+#all
+{
+  background-color: rgb(247, 247, 247); border-radius: 23px; width: 95%; margin: auto; padding: 20px;
 }

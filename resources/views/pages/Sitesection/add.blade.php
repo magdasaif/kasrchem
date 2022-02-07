@@ -52,7 +52,7 @@
 
                                 <div class="form-group">
                                     <label for="priority">الأولوية</label>
-                                    <input type="text" class="form-control" id="priority" aria-describedby="priority" placeholder="ادخل الأولوية" name="priority" required>
+                                    <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="ادخل الأولوية" name="priority" required>
                                     @error('priority')
                                     <small class="form-text text-danger">{{$message}}</small>
                                     @enderror

@@ -1,38 +1,31 @@
 @extends('layouts.master')
-
-@section('css')
-
 @section('title')
-اضافة معرض
-@stop
+<title> لوحة التحكم :اضافةمعرض</title>
 @endsection
-@section('page-header')
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
-
-@if(Session::has('success'))
-
-    <div class="alert alert-success">
-           {{Session::get('success')}}
-    </div>
-    @endif
-
-
-@if(Session::has('error'))
-     <div class="alert alert-danger">
-         {{Session::get('error')}}
-     </div>
-@endif
-
-<div>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title"  style="color: #2569b1;"> اضافة معرض</h5>
-            
-        </div>
-        <div class="modal-body">
-
-            <form method="POST" action="{{route('photo_gallery.store')}}" enctype="multipart/form-data">
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+          <div class="col-12">
+        
+            <div class="card">
+              <div class="card-header" >
+                <h3 class="card-title"  > اضافة معرض </h3>
+              </div>
+ <!--#############################################################-->
+ <div class="modal-body" >
+  <form method="POST" action="{{route('photo_gallery.store')}}" enctype="multipart/form-data">
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -54,7 +47,7 @@
                  </select> </div>
 
             <!----------------------------------------------------->
-        <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
+        <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
             <div class="form-group"  id="sub2_div"  style="display: none";>    
                     <label>   التصنيف الفرعي </label>
                     <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
@@ -118,27 +111,66 @@
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
                 </form>
-        </div>
+
+</div>
+ <!--#############################################################-->
+
+ 		</div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
-@section('js')
-  
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<!-- tinymce -->
+<script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script>
+    tinymce.init({
+        selector: 'textarea.tinymce-editor',
+        height: 300,
+        theme: 'modern',
+        plugins: [
+        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+    ],
+
+    toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+    toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+    toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+    menubar: false,
+    toolbar_items_size: 'small',
+
+    style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Example 1', inline: 'span', classes: 'example1'},
+        {title: 'Example 2', inline: 'span', classes: 'example2'},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+    ],
+
+    templates: [
+        {title: 'Test template 1', content: 'Test 1'},
+        {title: 'Test template 2', content: 'Test 2'}
+    ],
+  
+  
+    });
     
+ 
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
             $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
-               // alert(main_category_id);
-              
-               if (main_category_id ) {
-                 // alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
+               if (main_category_id) {
+                //   alert("{{ URL::to('sub2_article')}}/" + main_category_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('fetch_sub2')}}/" + main_category_id,
+                        url: "{{ URL::to('sub2_article')}}/" + main_category_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -163,19 +195,18 @@
                     alert('AJAX load did not work');
                 }
             });
-            
         });
          //---------------for show seelct option of sub3------------------------//
          $(document).ready(function () {
             $('select[name="sub2"]').on('change', function () {
                 var sub2_id = $(this).val();
-                 // alert (sub2_id);
+               // alert (sub2_id);
                if (sub2_id) {
-                  // alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
+                  // alert("{{ URL::to('sub3_article')}}/" + sub2_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
+                        url: "{{ URL::to('sub3_article')}}/" + sub2_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -205,11 +236,11 @@
                 var sub3_id = $(this).val();
                 //alert (sub3_id);
                if (sub3_id) {
-                  // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
+                  // alert("{{ URL::to('sub4_article')}}/" + sub3_id);
                    
                     $.ajax({
                         type: "GET",
-                        url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
+                        url: "{{ URL::to('sub4_article')}}/" + sub3_id,
                         dataType: "json",
                       
                         success: function (data) 
@@ -236,4 +267,7 @@
         //--------------------------------------------------------------------------//
     </script>
 
-@endsection
+
+
+
+

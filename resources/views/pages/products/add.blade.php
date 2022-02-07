@@ -50,7 +50,7 @@
             <!----------------------------------------------------->
 
               
-            <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
+            <div id="all" style="display: none">    
 
             <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
                     <label>   التصنيف الفرعي </label>
@@ -329,7 +329,7 @@
 </section>
 </div>
 @endsection
-
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
 $(document).ready(function () {
             $('select[name="main_cate_id"]').on('change', function () {
