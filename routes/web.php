@@ -162,6 +162,9 @@ Route::group(['middleware' => 'auth'], function () {
     //-------------------------------------------------------------------------------//
 
     Route::GET('dashboard','HomeController@dashboard')->name('dashboard');
+
+    Route::GET('settings/edit', 'SettingController@edit')->name('settings/edit');
+    Route::POST('settings/update', 'SettingController@update')->name('settings/update');
 });
 //--------------------------------------------------------------------------------------//
 Route::get('/docs', function () {
