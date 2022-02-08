@@ -6,7 +6,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-          
+
           <div class="col-12">
           @if(Session::has('success'))
                 <div class="alert alert-success">
@@ -29,8 +29,8 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body">
-        
-        <form method="POST"  action="{{route('about_us.update',1)}}" enctype="multipart/form-data">
+
+        <form method="POST"  action="{{route('about_us.show',1)}}" enctype="multipart/form-data">
                 {{method_field('PATCH')}}
 
                 @csrf

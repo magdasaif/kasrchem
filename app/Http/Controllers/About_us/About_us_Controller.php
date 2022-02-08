@@ -34,9 +34,9 @@ class About_us_Controller extends Controller
        return view('pages.AboutUs.Show',compact('AboutUs','title'));
      }
 //------------------------------------------------------//
-    public function update(About_us_Request $request)
+    public function show(About_us_Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
        try
        {
            $validated = $request->validated();
