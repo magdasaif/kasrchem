@@ -148,7 +148,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['namespace'=>'About_us'],function(){
         Route::resource('about_us', 'About_us_Controller');
-        Route::POST('edit_about/{id}', 'About_us_Controller@edit_about')->name('editt');
+       // Route::POST('edit_about/{id}', 'About_us_Controller@edit_about')->name('editt');
 
     });
     //------------------------------- ------------------------------------------------//
