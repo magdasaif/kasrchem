@@ -95,6 +95,12 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/supplier_images'),
         ],
+
+        'site_logo'=> [
+            'driver' => 'local',
+            'root' => public_path('images'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
