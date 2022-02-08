@@ -31,7 +31,7 @@
  <div class="modal-body">
 
         <form method="POST"  action="{{route('update_about_us',1)}}" enctype="multipart/form-data">
-                {{method_field('PATCH')}}
+                {{method_field('POST')}}
 
                 @csrf
               <!----------------------------------------------------->
