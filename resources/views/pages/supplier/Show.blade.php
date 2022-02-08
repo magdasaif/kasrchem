@@ -60,8 +60,8 @@
                              /
                              <a href="{{ url('show_supplier_images/'.$Supp->id) }}"  title="صور المورد"><i class="fa fa-camera yellow"></i></a>
 
-                              /
-                              <a  title="حذف" data-catid="{{$Supp->id}}" data-toggle="modal" data-target="#delete{{$Supp->id}}"> <i class="fa fa-trash red"></i></a>
+                              <!-- /
+                              <a  title="حذف" data-catid="{{$Supp->id}}" data-toggle="modal" data-target="#delete{{$Supp->id}}"> <i class="fa fa-trash red"></i></a> -->
                                </td>
                             </tr>
                         <!--############################ model for delete #################################-->

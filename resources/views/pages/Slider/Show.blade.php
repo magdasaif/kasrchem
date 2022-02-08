@@ -58,9 +58,9 @@
                              
 							<td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('slider.edit',$slider->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
-                            /
+                            <!-- /
 
-                            <a  title="حذف" data-catid="{{$slider->id}}" data-toggle="modal" data-target="#delete{{$slider->id}}"> <i class="fa fa-trash red"></i></a>
+                            <a  title="حذف" data-catid="{{$slider->id}}" data-toggle="modal" data-target="#delete{{$slider->id}}"> <i class="fa fa-trash red"></i></a> -->
                             <!-- <button class="btn btn-danger" data-catid={{$slider->id}} data-toggle="modal" data-target="#delete{{$slider->id}}">حذف</button> -->
 
 

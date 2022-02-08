@@ -58,8 +58,8 @@
  
 							<td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('page.edit',$Pagee->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
-							/
-					        <a  title="حذف" data-catid="{{$Pagee->id}}" data-toggle="modal" data-target="#delete{{$Pagee->id}}"> <i class="fa fa-trash red"></i></a>
+							<!-- /
+					        <a  title="حذف" data-catid="{{$Pagee->id}}" data-toggle="modal" data-target="#delete{{$Pagee->id}}"> <i class="fa fa-trash red"></i></a> -->
 
                              <!-- <button class="btn btn-danger" data-catid={{$Pagee->id}} data-toggle="modal" data-target="#delete{{$Pagee->id}}">حذف</button> -->
 							 

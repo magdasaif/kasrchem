@@ -58,8 +58,8 @@
 
                             <td>
                                 <a href="{{route('video.edit',$video->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
-                                /
-                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$video->id}}" data-toggle="modal" data-target="#delete{{$video->id}}"> <i class="fa fa-trash red"></i></a>
+                                <!-- /
+                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$video->id}}" data-toggle="modal" data-target="#delete{{$video->id}}"> <i class="fa fa-trash red"></i></a> -->
 							</td>
                             
                             </tr>

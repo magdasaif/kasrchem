@@ -66,8 +66,8 @@
                         
                             <td>
                                 <a href="{{url('branches/'.$branche ->id.'/edit/')}}"  title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
-                                /
-                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$branche->id}}" data-toggle="modal" data-target="#delete{{$branche->id}}"> <i class="fa fa-trash red"></i></a>
+                                <!-- /
+                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$branche->id}}" data-toggle="modal" data-target="#delete{{$branche->id}}"> <i class="fa fa-trash red"></i></a> -->
 							</td>
                         </tr>
 

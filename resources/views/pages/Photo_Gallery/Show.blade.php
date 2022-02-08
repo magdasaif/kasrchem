@@ -62,8 +62,8 @@
                              /
                              <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"  title="الصور"><i class="fa fa-camera yellow"></i></a>
 
-                              /
-                              <a  title="حذف" data-catid="{{$Photo_Gallery->id}}" data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}"> <i class="fa fa-trash red"></i></a>
+                              <!-- /
+                              <a  title="حذف" data-catid="{{$Photo_Gallery->id}}" data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}"> <i class="fa fa-trash red"></i></a> -->
                             <!-- <button type="button" class="btn btn-info" ><a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  target="_blank"> تعديل</a></button> -->
                            <!-- <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"><button type="button" class="btn btn-warning" > الصور</button></a>
                            <button class="btn btn-danger" data-catid={{$Photo_Gallery->id}} data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}">حذف</button>  -->

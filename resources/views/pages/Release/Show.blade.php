@@ -60,8 +60,8 @@
                         
                             <td>
                                 <a href="{{route('release.edit',$release->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
-                                /
-                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$release->id}}" data-toggle="modal" data-target="#delete{{$release->id}}"> <i class="fa fa-trash red"></i></a>
+                                <!-- /
+                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$release->id}}" data-toggle="modal" data-target="#delete{{$release->id}}"> <i class="fa fa-trash red"></i></a> -->
 							</td>
                             </tr>
                         <!--############################ model for delete #################################-->

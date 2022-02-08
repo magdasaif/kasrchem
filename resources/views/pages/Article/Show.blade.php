@@ -63,9 +63,9 @@
                             </td> -->
                             <td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('article.edit',$article->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
-                            /
+                            
 
-                            <a  title="حذف" data-catid="{{$article->id}}" data-toggle="modal" data-target="#delete{{$article->id}}"> <i class="fa fa-trash red"></i></a>
+                            <!--/ <a  title="حذف" data-catid="{{$article->id}}" data-toggle="modal" data-target="#delete{{$article->id}}"> <i class="fa fa-trash red"></i></a> -->
                             <!--  <button class="btn btn-danger" data-catid={{$article->id}} data-toggle="modal" data-target="#delete{{$article->id}}">حذف</button>-->
 
 
