@@ -15,7 +15,7 @@ class About_us_Controller extends Controller
         $AboutUs=AboutUs::first();
         //return $info;
         
-      return view('pages.AboutUs.Show',compact('AboutUs','title'));
+      return view('pages.about_us',compact('AboutUs','title'));
     }
 
 //------------------------------------------------------//
