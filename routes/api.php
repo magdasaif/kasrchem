@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\GalleryController;
 
 use App\Http\Controllers\Api\RelatedProductController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -87,4 +88,6 @@ Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
 //---------------------related products with suplier ------------------------
 Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
 
-///-------------------------------------
+
+//--------------------------supplier------------------------------------------------------
+//------------------------------------------------------------------------------------------

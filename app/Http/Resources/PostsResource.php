@@ -10,7 +10,6 @@ class PostsResource extends JsonResource
     public function toArray($request)
     {
         $path=storage_path().'/app/public/article/'.$this->image;
-
         $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
     if($type=='second'){
 
