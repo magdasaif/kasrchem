@@ -147,9 +147,11 @@ Route::group(['middleware' => 'auth'], function () {
     //----------------------------------About_us--------------------------------------------//
 
     Route::group(['namespace'=>'About_us'],function(){
-        Route::resource('about_us', 'About_us_Controller');
-        Route::POST('update_about_us', 'About_us_Controller@update_about_us')->name('update_about_us');
+        // Route::resource('about_us', 'About_us_Controller');
+        // Route::POST('update_about_us', 'About_us_Controller@update_about_us')->name('update_about_us');
 
+        Route::GET('about/edit', 'About_us_Controller@edit')->name('about/edit');
+        Route::POST('about/update', 'About_us_Controller@update')->name('about/update');
     });
     //------------------------------- ------------------------------------------------//
     Route::group(['namespace'=>'Supplier'],function(){

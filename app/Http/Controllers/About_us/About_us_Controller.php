@@ -9,41 +9,25 @@ use App\Models\AboutUs;
 class About_us_Controller extends Controller
 {
 
-    // public function index()
-    // {
-    //     //$AboutUs=AboutUs::all();
-    //     $About=AboutUs:: orderBy('id')->take(1)->get();
-    //     return view('pages.AboutUs.Show',compact('About'));
-    // }
+    public function edit()
+    {
+        $title='بيانات الموقع';
+        $AboutUs=AboutUs::first();
+        //return $info;
+        
+      return view('pages.AboutUs.Show',compact('AboutUs','title'));
+    }
 
-
-    //  public function show()
-    //  {
-
-    //  //$AboutUs=AboutUs::all();
-    //  $About=AboutUs:: orderBy('id')->take(1)->get();
-    //  return view('pages.AboutUs.Show',compact('About'));
-    //  }
-
-    //------------------------------------------------------
-     public function edit($id)
-     {
-       $title='بيانات الموقع';
-       $AboutUs=AboutUs::select('*')->first();
-
-       return view('pages.AboutUs.Show',compact('AboutUs','title'));
-     }
 //------------------------------------------------------//
 //About_us_Request
-    public function update_about_us(Request $request)
+    public function update(Request $request)
     {
         //dd($request->all());
        try
        {
           // $validated = $request->validated();
 
-           $AboutUs = AboutUs::findOrFail($id);
-          //  $AboutUs = AboutUs::first();
+          $AboutUs = AboutUs::first();
 
            $AboutUs-> title_ar= $request->title_ar;
            $AboutUs->title_en = $request->title_en;
@@ -65,18 +49,19 @@ class About_us_Controller extends Controller
              }
             //----------------- //----------------- //-----------------
             $folder_name='';
-            $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
+           // $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
+            $photo_name='about_us.jpg';
             ($request->image)->storeAs($folder_name,$photo_name,$disk="about_us");
              $AboutUs->image = $photo_name;
            }
            $AboutUs->save();
 
-            return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
+            return redirect()->route('about/edit')->with(['success'=>'تم التعديل بنجاح']);
        }
        catch
        (\Exception $e)
        {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->route('about/edit')->withErrors(['error' => $e->getMessage()]);
        }
     }
 }
