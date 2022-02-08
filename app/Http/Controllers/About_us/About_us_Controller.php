@@ -37,7 +37,7 @@ class About_us_Controller extends Controller
 //About_us_Request
     public function show(Request $request,$id)
     {
-        //dd($request->all());
+        dd($request->all());
        try
        {
           // $validated = $request->validated();
