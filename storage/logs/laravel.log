@@ -32305,6 +32305,7 @@ ew templet\\laravel-vue-crud-starter\\server.php(21): require_once('C:\\\\wamp64
 #58 {main}
 "} 
 >>>>>>> supplier_api
+<<<<<<< HEAD
 >>>>>>> e8ebaa1d304bc7c90889df1260e14e47409d95ce
 [2022-02-08 11:04:31] local.ERROR: Route [update_about_us] not defined. (View: C:\wamp64\www\eradco_new_templet\dashboard\resources\views\pages\AboutUs\Show.blade.php) {"view":{"view":"C:\\wamp64\\www\\eradco_new_templet\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php","data":[]},"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Route [update_about_us] not defined. (View: C:\\wamp64\\www\\eradco_new_templet\\dashboard\esources\\views\\pages\\AboutUs\\Show.blade.php) at C:\\wamp64\\www\\eradco_new_templet\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:444)
 [stacktrace]
@@ -32431,4 +32432,75 @@ ew templet\\laravel-vue-crud-starter\\server.php(21): require_once('C:\\\\wamp64
 #57 C:\\wamp64\\www\\eradco_new_templet\\dashboard\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #58 C:\\wamp64\\www\\eradco_new_templet\\dashboard\\server.php(21): require_once('C:\\\\wamp64\\\\www\\\\e...')
 #59 {main}
+=======
+[2022-02-08 11:36:25] local.ERROR: Class 'Database\Seeders\DB' not found {"exception":"[object] (Error(code: 0): Class 'Database\\Seeders\\DB' not found at C:\\wamp64\\www\\eradco_template\\dashboard\\database\\seeders\\UserSeeder.php:11)
+[stacktrace]
+#0 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Database\\Seeders\\UserSeeder->run()
+#1 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#2 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#3 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#4 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#5 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Seeder.php(149): Illuminate\\Container\\Container->call(Array, Array)
+#6 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Seeder.php(49): Illuminate\\Database\\Seeder->__invoke(Array)
+#7 C:\\wamp64\\www\\eradco_template\\dashboard\\database\\seeders\\DatabaseSeeder.php(20): Illuminate\\Database\\Seeder->call('Database\\\\Seeder...')
+#8 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Database\\Seeders\\DatabaseSeeder->run()
+#9 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#10 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#11 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#12 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#13 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Seeder.php(149): Illuminate\\Container\\Container->call(Array, Array)
+#14 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Seeds\\SeedCommand.php(66): Illuminate\\Database\\Seeder->__invoke()
+#15 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Concerns\\GuardsAttributes.php(157): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#16 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Seeds\\SeedCommand.php(67): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#17 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#18 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#20 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#21 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#22 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(136): Illuminate\\Container\\Container->call(Array)
+#23 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Command\\Command.php(298): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#25 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Application.php(1015): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Application.php(299): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Seeds\\SeedCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 C:\\wamp64\\www\\eradco_template\\dashboard\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#31 {main}
+"} 
+[2022-02-08 11:37:29] local.ERROR: Class 'Database\Seeders\DB' not found {"exception":"[object] (Error(code: 0): Class 'Database\\Seeders\\DB' not found at C:\\wamp64\\www\\eradco_template\\dashboard\\database\\seeders\\UserSeeder.php:11)
+[stacktrace]
+#0 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Database\\Seeders\\UserSeeder->run()
+#1 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#2 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#3 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#4 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#5 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Seeder.php(149): Illuminate\\Container\\Container->call(Array, Array)
+#6 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Seeder.php(49): Illuminate\\Database\\Seeder->__invoke(Array)
+#7 C:\\wamp64\\www\\eradco_template\\dashboard\\database\\seeders\\DatabaseSeeder.php(20): Illuminate\\Database\\Seeder->call('Database\\\\Seeder...')
+#8 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Database\\Seeders\\DatabaseSeeder->run()
+#9 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#10 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#11 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#12 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#13 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Seeder.php(149): Illuminate\\Container\\Container->call(Array, Array)
+#14 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Seeds\\SeedCommand.php(66): Illuminate\\Database\\Seeder->__invoke()
+#15 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Concerns\\GuardsAttributes.php(157): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#16 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Seeds\\SeedCommand.php(67): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#17 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#18 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#20 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#21 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#22 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(136): Illuminate\\Container\\Container->call(Array)
+#23 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Command\\Command.php(298): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#25 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Application.php(1015): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Application.php(299): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Seeds\\SeedCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 C:\\wamp64\\www\\eradco_template\\dashboard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 C:\\wamp64\\www\\eradco_template\\dashboard\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#31 {main}
+>>>>>>> 217434d32231af4b9d456cd9411c5ecb1f303413
 "} 
