@@ -30,18 +30,21 @@ class About_us_Controller extends Controller
      {
        $title='بيانات الموقع';
        $AboutUs=AboutUs::select('*')->first();
-     
+
        return view('pages.AboutUs.Show',compact('AboutUs','title'));
      }
 //------------------------------------------------------//
-    public function update(About_us_Request $request)
+//About_us_Request
+    public function update_about_us(Request $request)
     {
-       // dd($request->all());
+        //dd($request->all());
        try
        {
-           $validated = $request->validated();
-         //  $AboutUs = AboutUs::findOrFail($id);
-            $AboutUs = AboutUs::first();
+          // $validated = $request->validated();
+
+           $AboutUs = AboutUs::findOrFail($id);
+          //  $AboutUs = AboutUs::first();
+
            $AboutUs-> title_ar= $request->title_ar;
            $AboutUs->title_en = $request->title_en;
            $AboutUs-> mission_ar= $request->mission_ar;

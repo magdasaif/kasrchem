@@ -9,12 +9,23 @@ class sectionResource extends JsonResource
    
     public function toArray($request)
     {
+        
+        $lang = $this->when( property_exists($this,'lang'), function() { return $this->lang; } );
+        if($lang=='ar')
+        {
+             $section_name= $this->site_name_en;
+        }
+       else
+        {
+            $section_name= $this->site_name_ar;
+        }
+        $path=storage_path().'/app/public/site_sections/site_section_image/';
         return [
-          
-            'site_name_ar' =>$this->site_name_ar,
-            'site_name_en' =>$this->site_name_en,
-            'statues' => $this->statues,
-              'image' => $this->image,
+            'id'=>$this->id,
+            'name' =>$section_name,
+            'image' => $path.$this->image,
+             
         ];
     }
+
 }
