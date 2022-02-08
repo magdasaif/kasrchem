@@ -34,12 +34,13 @@ class About_us_Controller extends Controller
        return view('pages.AboutUs.Show',compact('AboutUs','title'));
      }
 //------------------------------------------------------//
-    public function show(About_us_Request $request)
+//About_us_Request
+    public function show(Request $request)
     {
         //dd($request->all());
        try
        {
-           $validated = $request->validated();
+          // $validated = $request->validated();
          //  $AboutUs = AboutUs::findOrFail($id);
             $AboutUs = AboutUs::first();
            $AboutUs-> title_ar= $request->title_ar;
