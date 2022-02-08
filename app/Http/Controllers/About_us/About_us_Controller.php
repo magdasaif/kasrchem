@@ -30,13 +30,13 @@ class About_us_Controller extends Controller
      {
        $title='بيانات الموقع';
        $AboutUs=AboutUs::select('*')->first();
-     
+
        return view('pages.AboutUs.Show',compact('AboutUs','title'));
      }
 //------------------------------------------------------//
     public function update(About_us_Request $request)
     {
-       // dd($request->all());
+        dd($request->all());
        try
        {
            $validated = $request->validated();
