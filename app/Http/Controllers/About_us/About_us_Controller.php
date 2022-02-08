@@ -35,7 +35,7 @@ class About_us_Controller extends Controller
      }
 //------------------------------------------------------//
 //About_us_Request
-    public function update_about_us(Request $request,$id)
+    public function update_about_us(Request $request)
     {
         dd($request->all());
        try
