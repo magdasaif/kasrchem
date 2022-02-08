@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\GalleryController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -85,4 +86,5 @@ Route::apiResource('/photos_galleries', 'GalleryController', array("as" => "api"
 //---------------------photos_galleries------------------------
 Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
 
-///-------------------------------------
+//--------------------------supplier------------------------------------------------------
+//------------------------------------------------------------------------------------------
