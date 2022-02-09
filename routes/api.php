@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\RelatedProductController;
+use App\Http\Controllers\Api\AboutUsController;
 
 
 /*
@@ -91,4 +92,10 @@ Route::get('/suppliers',[SupplierController::class,'index']);
 
 //---------------------related products with suplier ------------------------
  Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
+
+ ///------------------------------about us------------------------------------
+ Route::get('/about_us',[AboutUsController::class,'about_us']);
+ 
+ Route::get('/setting',[AboutUsController::class,'setting']);
+ 
 
