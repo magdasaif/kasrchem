@@ -26,17 +26,18 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body">
-
+ <div style="    text-align: center;color: red;font-size: x-large;">تاكد من ادخال (تصنيف فرعى ونوع رئيسى ونوع فرعى ) للتصنيف الرئيسى المراد اختياره </div>
+             <hr>
             <form method="POST" action="{{route('video.store')}}" enctype="multipart/form-data">
 
                 @csrf
-                  <!----------------------------------------------------->
               
+
                   <div class="form-group">
                  <label>التصنيف الرئيسى</label>
-                <select   class="form-control main_category" id="main_category_id" name="main_category" required>
+                 <select class="form-control " name="main_category" id="main_category_id" required >
                     
-                    <option value="0" disabled="true" selected="true">اختر التصنيف الرئيسى</option>
+                <option value="" disabled="true" selected="true">اختر التصنيف الرئيسي</option>
                    <?php 
                    foreach($Main_Cat as $Main_Category)
                     { if ($Main_Category->sub_cate2_count>0) 
@@ -52,10 +53,10 @@
                 </div>
 
             <!----------------------------------------------------->
-        <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
+        <div id="all" style="display: none">    
             <div class="form-group"  id="sub2_div"  style="display: none";>    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required >
                      </select> 
               </div>
 
@@ -63,14 +64,14 @@
              
              <div class="form-group"  id="sub3_div"  style="display: none";>
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required  >
                  </select> 
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"  style="display: none";> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required  >
 
                         
                     </select>
@@ -80,7 +81,8 @@
               
                <div class="form-group">
                     <label for="title_ar">عنوان الفيديو </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar"     
+                value="{{old('title_ar')}}"   required>
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -89,7 +91,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">عنوان الفيديو بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en"  value="{{old('title_en')}}" required>
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -97,7 +99,7 @@
                  <!----------------------------------------------------->
                 <div class="form-group">
                 <label for="content_ar">رابط الفيديو </label>
-                    <input type="text" class="form-control" name="link" required>
+                    <input type="text" class="form-control" name="link" value="{{old('link')}}"  required>
                     @error('link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -107,8 +109,8 @@
                 <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status"  required>
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                      <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
           <!----------------------------------------------------->
@@ -152,7 +154,7 @@
                              $("#all").show();
                             $("#sub2_div").show();
                              $('select[name="sub2"]').empty();
-                             $('select[name="sub2"]').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                               $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
                              });
@@ -187,7 +189,7 @@
                              //alert("true");
                             $("#sub3_div").show();
                              $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
+                             $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
                              });
@@ -221,7 +223,7 @@
                              //alert("true");
                             $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                             $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
                              });
