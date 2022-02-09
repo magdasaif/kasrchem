@@ -59,7 +59,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  required oninvalid="this.setCustomValidity('قم ياختيار التصنيف الفرعى اولا')">
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  required >
                     </select> 
               </div>
 
@@ -67,14 +67,14 @@
              
              <div class="form-group"  id="sub3_div" style="display: none";>
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required oninvalid="this.setCustomValidity('قم ياختيار النوع الرئيسى اولا')">
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required >
                  </select> 
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"  style="display: none";> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required oninvalid="this.setCustomValidity('قم ياختيار النوع الفرعى اولا')">
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required >
 
                         
                     </select>

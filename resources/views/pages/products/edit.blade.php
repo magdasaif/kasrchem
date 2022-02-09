@@ -39,7 +39,7 @@
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" name="main_cate_id" style="height: 50px;">
+                    <select class="form-control" name="main_cate_id"  required>
                         <option value="{{$product->relation_with_main_category->id}}" selected>{{$product->relation_with_main_category->subname_ar}}</option>
                         @foreach ($categories as $category)
                             @if($category->sub_cate2_count>0 && $product->relation_with_main_category->id != $category->id)
@@ -56,7 +56,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div">    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" style="height: 50px;" required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
                         <option value="{{ $product->relation_with_sub2_category->id }}" selected >{{ $product->relation_with_sub2_category->subname2_ar }}</option>
                     </select> 
               </div>
@@ -65,7 +65,7 @@
              
              <div class="form-group"  id="sub3_div">
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" style="height: 50px;" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3"  required>
                      <option value="{{$product->relation_with_sub3_category->id}}" selected>{{$product->relation_with_sub3_category->subname_ar}}</option>
                  </select> 
                 </div>
@@ -73,7 +73,7 @@
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" style="height: 50px;" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4"  required>
                          <option value="{{$product->relation_with_sub4_category->id}}" selected>{{$product->relation_with_sub4_category->subname_ar}}</option>
 
                         
@@ -395,7 +395,7 @@
                              $("#sub4_div").css('display', 'none');
                           //  $("#sub2_div").show();
                              $('#sub2_id').empty();
-                             $('#sub2_id').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $('#sub2_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                                  //alert('<option value="' + key + '">' + value + '</option>');
                               $('#sub2_id').append('<option value="' + key + '">' + value + '</option>');
@@ -431,7 +431,7 @@
                             $("#sub3_div").show();
                             $("#sub4_div").css('display', 'none');
                              $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
+                             $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
                              });
@@ -465,7 +465,7 @@
                              //alert("true");
                             $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                             $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
                              });
