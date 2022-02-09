@@ -31,7 +31,7 @@ class AboutResource extends JsonResource
                 'site_phone' =>$this->site_phone,
                 'site_fax' =>$this->site_fax,
                 'site_whatsapp' =>$this->site_whatsapp,
-                'site_logo' => $path.$this->image,
+                'site_logo' => $path.$this->site_logo,
                 
             ];
         }
