@@ -12,7 +12,7 @@ class SiteSectionController extends Controller
     public function index()
     {
        // return "Sitesection";
-       $site_section=Sitesection::orderBy('priority','desc')->get();
+       $site_section=Sitesection::orderBy('priority','asc')->get();
 
       return view('pages.Sitesection.Sitesection',compact('site_section'));
     }
