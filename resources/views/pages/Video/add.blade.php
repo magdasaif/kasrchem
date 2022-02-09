@@ -81,7 +81,8 @@
               
                <div class="form-group">
                     <label for="title_ar">عنوان الفيديو </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar"     
+                value="{{old('title_ar')}}"   required>
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -90,7 +91,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">عنوان الفيديو بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en"  value="{{old('title_en')}}" required>
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -98,7 +99,7 @@
                  <!----------------------------------------------------->
                 <div class="form-group">
                 <label for="content_ar">رابط الفيديو </label>
-                    <input type="text" class="form-control" name="link" required>
+                    <input type="text" class="form-control" name="link" value="{{old('link')}}"  required>
                     @error('link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -108,8 +109,8 @@
                 <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status"  required>
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                      <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
           <!----------------------------------------------------->
