@@ -7,7 +7,9 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @if(Session::has('success'))
+          
+          <div class="col-12">
+          @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
@@ -22,8 +24,6 @@
                     </ul>
                 </div>
             @endif
-          <div class="col-12">
-        
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>
@@ -34,19 +34,24 @@
             <form method="POST" action="{{route('products.store')}}" enctype="multipart/form-data">
              @csrf
 
+             <div style="    text-align: center;color: red;font-size: x-large;">تاكد من ادخال (تصنيف فرعى ونوع رئيسى ونوع فرعى ) للتصنيف الرئيسى المراد اختياره </div>
+             <hr>
    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" name="main_cate_id" >
-                        <option value="0" selected disable>اختر التصنيف الرئيسي</option>
+                    <select class="form-control" name="main_cate_id" required oninvalid="this.setCustomValidity('قم ياختيار التصنيف الرئيسى اولا')">
+                        <option value="" selected disable>اختر التصنيف الرئيسي</option>
                         @foreach ($categories as $category)
                             @if($category->sub_cate2_count>0)
                                 <option value="{{ $category->id }}">{{ $category->subname_ar }}</option>
                             @endif
                         @endforeach
                     </select>
+                    @error('main_cate_id')
+                      <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
                 </div>
-                 
+               
             <!----------------------------------------------------->
 
               
@@ -54,7 +59,7 @@
 
             <div class="form-group"  id="sub2_div" name="sub2_div" style="display: none";>    
                     <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  required>
+                    <select  class="form-control sub2"  id="sub2_id" name="sub2"  required oninvalid="this.setCustomValidity('قم ياختيار التصنيف الفرعى اولا')">
                     </select> 
               </div>
 
@@ -62,14 +67,14 @@
              
              <div class="form-group"  id="sub3_div" style="display: none";>
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required oninvalid="this.setCustomValidity('قم ياختيار النوع الرئيسى اولا')">
                  </select> 
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div"  style="display: none";> 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required oninvalid="this.setCustomValidity('قم ياختيار النوع الفرعى اولا')">
 
                         
                     </select>
@@ -122,7 +127,7 @@
 
                 <hr>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">الموردين</label> <small> [ قم بتحديد الموردين ] </small>
+                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
                     <select class="form-control" name="supplier_id[]"  multiple required>
                         @foreach ($suppliers as $supplier)
                              <option value="{{ $supplier->id }}">{{ $supplier->name_ar }}</option>
@@ -194,7 +199,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">صور المنتج الفرعيه</label>
 
-                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple required>
+                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple>
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -204,7 +209,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">ملفات المنتج</label>
 
-                    <input type="file" class="form-control" name="product_files[]" accept=".pdf" multiple required>
+                    <input type="file" class="form-control" name="product_files[]" accept=".pdf" multiple >
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -232,7 +237,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الوزن القائم عند الشحن بالكيلو جرام</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="shipped_weight" value="{{old('shipped_weight')}}" required>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="shipped_weight" value="0" required>
                     @error('shipped_weight')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -360,7 +365,7 @@ $(document).ready(function () {
                              $("#all").css('display', 'block');
                             $("#sub2_div").show();
                              $('#sub2_id').empty();
-                             $('#sub2_id').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $('#sub2_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                                  //alert('<option value="' + key + '">' + value + '</option>');
                               $('#sub2_id').append('<option value="' + key + '">' + value + '</option>');
@@ -395,7 +400,7 @@ $(document).ready(function () {
                              //alert("true");
                             $("#sub3_div").show();
                              $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
+                             $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
                              });
@@ -429,7 +434,7 @@ $(document).ready(function () {
                              //alert("true");
                             $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                             $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
                              });

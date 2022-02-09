@@ -24,7 +24,9 @@ class ProductController extends Controller
     public function index()
     {
          $title='المنتجات';
-        $products = Product::all();
+      //  $products = Product::orderBy('sort','asc')->get();
+        $products=Product::orderBy('sort','asc')->get();
+        
         return view('pages.products.show',compact('products','title'));
     }
 
@@ -42,6 +44,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         //dd();
+
+       
         //to handel multiple insertion
         DB::beginTransaction();
         
@@ -92,8 +96,11 @@ class ProductController extends Controller
             $product->shipped_weight= $request->shipped_weight;
             $product->sort= $request->sort;
 
-            $product->video_link= $request->video_link;
-
+            if(isset($request->video_link)){
+                 $product->video_link= $request->video_link;
+            }else{
+                $product->video_link='';
+            }
             $product->availabe_or_no= $request->availabe_or_no;
             $product->status= $request->status;
 
@@ -142,17 +149,26 @@ class ProductController extends Controller
                     ]);
                 }
             }
-            $List_Classes=$request->List_Classes;
-            foreach ($List_Classes as $list) {
-                Product_Feature::create([
-                    'weight_ar' => $list['weight_ar'],
-                    'weight_en' => $list['weight_en'],
-                    'value_ar' => $list['value_ar'],
-                    'value_en' => $list['value_en'],
-                    'product_id'=>Product::latest()->first()->id
-                ]);
-            }
 
+         
+        //    $array2=$request->List_Classes;
+        //    $count = count($array2[0]);
+        //    dd($count);
+
+           
+                $List_Classes=$request->List_Classes;
+                foreach ($List_Classes as $list) {
+                    if($list['weight_ar']==null){}else{
+                        Product_Feature::create([
+                            'weight_ar' => $list['weight_ar'],
+                            'weight_en' => $list['weight_en'],
+                            'value_ar' => $list['value_ar'],
+                            'value_en' => $list['value_en'],
+                            'product_id'=>Product::latest()->first()->id
+                        ]);
+                    }
+                }
+            
             DB::commit();
             //toastr()->success('تمت الاضافه بنجاح');
 
@@ -348,7 +364,9 @@ class ProductController extends Controller
                 $product->shipped_weight= $request->shipped_weight;
                 $product->sort= $request->sort;
 
-                $product->video_link= $request->video_link;
+                if(isset($request->video_link)){
+                    $product->video_link= $request->video_link;
+                }
 
                 $product->availabe_or_no= $request->availabe_or_no;
                 $product->status= $request->status;
@@ -367,17 +385,21 @@ class ProductController extends Controller
                 }else{
                     $product->suppliers()->sync();
                 }
+                
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){
                     Product_Feature::where('product_id',$request->id) ->delete();
+
                     foreach ($List_Classes as $list) {
-                        Product_Feature::create([
-                            'weight_ar' => $list['weight_ar'],
-                            'weight_en' => $list['weight_en'],
-                            'value_ar' => $list['value_ar'],
-                            'value_en' => $list['value_en'],
-                            'product_id'=>$request->id
-                        ]);
+                        if($list['weight_ar']==null){}else{
+                            Product_Feature::create([
+                                'weight_ar' => $list['weight_ar'],
+                                'weight_en' => $list['weight_en'],
+                                'value_ar' => $list['value_ar'],
+                                'value_en' => $list['value_en'],
+                                'product_id'=>$request->id
+                            ]);
+                        }
                     }
                 }
                // toastr()->success('تمت التعديل بنجاح');

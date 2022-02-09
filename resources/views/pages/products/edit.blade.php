@@ -34,6 +34,8 @@
             <form method="POST" action="{{route('products.update',$product->id)}}" enctype="multipart/form-data">
             {{method_field('PATCH ')}}
                 @csrf
+                <div style="    text-align: center;color: red;font-size: x-large;">تاكد من ادخال (تصنيف فرعى ونوع رئيسى ونوع فرعى ) للتصنيف الرئيسى المراد اختياره </div>
+                <hr>
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
@@ -125,7 +127,7 @@
 
                 <hr>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">الموردين</label> <small> [ قم بتحديد الموردين ] </small>
+                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
                     <select class="form-control" name="supplier_id[]"  multiple required>
 
                         @foreach ($product->suppliers as $supplier_select)

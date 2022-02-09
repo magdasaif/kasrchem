@@ -26,6 +26,7 @@ class ProductRequest extends FormRequest
         return [
            
             //exists:main_categories,id
+            //|not_in:0
             'main_cate_id' => 'required',
             'sub2' => 'required',
             'sub3' => 'required',
@@ -50,19 +51,23 @@ class ProductRequest extends FormRequest
             //'image'=>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'shipped_weight'=>'required',
 
-            'List_Classes.*.weight_ar' => 'required',
-            'List_Classes.*.value_ar' => 'required',
-            'List_Classes.*.weight_en' => 'required',
-            'List_Classes.*.value_en' => 'required',
+            // 'List_Classes.*.weight_ar' => 'required',
+            // 'List_Classes.*.value_ar' => 'required',
+            // 'List_Classes.*.weight_en' => 'required',
+            // 'List_Classes.*.value_en' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'List_Classes.*.weight_ar.required' => 'تاكد من ادخال خاصيه المنتج بالعربيه',
-            'List_Classes.*.value_ar.required' => 'تاكد من ادخال قيمه المنتج بالعربيه',
-            'List_Classes.*.weight_en.required' => 'تاكد من ادخال خاصيه المنتج بالانجليزيه',
-            'List_Classes.*.value_en.required' => 'تاكد من ادخال قيمه المنتج بالانجليزيه',
+            // 'List_Classes.*.weight_ar.required' => 'تاكد من ادخال خاصيه المنتج بالعربيه',
+            // 'List_Classes.*.value_ar.required' => 'تاكد من ادخال قيمه المنتج بالعربيه',
+            // 'List_Classes.*.weight_en.required' => 'تاكد من ادخال خاصيه المنتج بالانجليزيه',
+            // 'List_Classes.*.value_en.required' => 'تاكد من ادخال قيمه المنتج بالانجليزيه',
+            'main_cate_id.required'=>'تاكد من اختيار تصنيف رئيسى',
+            'sub2.required'=>'تاكد من اختيار تصنيف فرعى',
+            'sub3.required'=>'تاكد من اختيار نوع رئيسى',
+            'sub4.required'=>'تاكد من اختيار نوع فرعى',
         ];
     }
 }
