@@ -75,7 +75,7 @@ class RelatedProductController extends Controller
              $selected="name_en as name";
         }
 
-       $pp= Product::select('*',$selected)->Supplier()->get();
+       $pp= Product::select('*',$selected)->get();
        return $pp;
        // $products = ProductResource::collection(Product::select('*',$selected)->suppliers()->('id',$id)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
         //$products->map(function($i) { $i->type = 'first_fun'; });

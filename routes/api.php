@@ -16,11 +16,7 @@ use App\Http\Controllers\Api\LatestProductController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\SupplierController;
-
-
-
-
-
+use App\Http\Controllers\Api\RelatedProductController;
 
 
 /*
@@ -94,5 +90,6 @@ Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
 Route::get('/suppliers',[SupplierController::class,'index']);
 
 //---------------------related products with suplier ------------------------
+ Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
 
 ?>
