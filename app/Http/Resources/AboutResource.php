@@ -9,8 +9,9 @@ class AboutResource extends JsonResource
    
     public function toArray($request)
     {
-        $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
-        if($type=='about_us'){
+      //  $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
+
+        if(isset($this->image)){
             $path=storage_path().'/app/public/about_us/';
             return [
                 'title'=>$this->title,
@@ -20,7 +21,8 @@ class AboutResource extends JsonResource
                 'image' => $path.$this->image,
                 
             ];
-        }else if($type=='setting'){
+        }
+        else{
             $path=public_path().'/images/';
             return [
                 'site_name'=>$this->site_name,

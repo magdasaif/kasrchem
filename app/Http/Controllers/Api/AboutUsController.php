@@ -11,7 +11,8 @@ use App\Models\SiteInfo;
 
 class AboutUsController extends Controller
 {
-      /**
+
+    /**
      * @OA\Get (
      *      path="/about_us",
      *      operationId="Get about us information",
@@ -69,12 +70,13 @@ class AboutUsController extends Controller
              $selected3="vision_en as vision";
              $selected4="goal_en as goal";
         }
-        $about= AboutResource::collection(AboutUs::select('image',$selected,$selected2,$selected3,$selected4)->get());
-        $about->map(function($i) { $i->type = 'about_us'; });
+        $about= new AboutResource(AboutUs::select('image',$selected,$selected2,$selected3,$selected4)->first());
+      //  $about->map(function($i) { $i->type = 'about_us'; });
         return response($about,200,['OK']);
     }
     
-      /**
+
+    /**
      * @OA\Get (
      *      path="/setting",
      *      operationId="Get site setting information",
@@ -128,8 +130,8 @@ class AboutUsController extends Controller
              $selected="site_name_en as site_name";
              $selected2="site_desc_en as site_description";
         }
-        $setting= AboutResource::collection(SiteInfo::select('*',$selected,$selected2)->get());
-        $setting->map(function($i) { $i->type = 'setting'; });
+        $setting=new AboutResource(SiteInfo::select('*',$selected,$selected2)->first());
+       // $setting->map(function($i) { $i->type = 'setting'; });
         return response($setting,200,['OK']);
     }
    
