@@ -10,12 +10,57 @@
     },
     "servers": [
         {
-            
             "url": "https://backend.eradunited.training.murabba.dev/api",
             "description": "API Server"
         }
     ],
     "paths": {
+        "/branches": {
+            "get": {
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "Get list of Branches",
+                "description": "Returns  list of Branches",
+                "operationId": "Get list of Branches",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
         "/photos_galleries": {
             "get": {
                 "tags": [
@@ -144,6 +189,98 @@
                 ],
                 "summary": "Get list of Latest Products",
                 "operationId": "Get list of Latest Products",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/pages": {
+            "get": {
+                "tags": [
+                    "pages"
+                ],
+                "summary": "Get list of Pages",
+                "description": "Returns list of Pages",
+                "operationId": "Get list of Pages",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/partners": {
+            "get": {
+                "tags": [
+                    "Partners"
+                ],
+                "summary": "Get list of Partners",
+                "description": "Returns list of Partners",
+                "operationId": "Get list of Partners",
                 "parameters": [
                     {
                         "name": "locale",
@@ -424,6 +561,61 @@
                 }
             }
         },
+        "/related_products/{id}": {
+            "get": {
+                "tags": [
+                    "Web APIs"
+                ],
+                "summary": "Get list of Related Products",
+                "operationId": "Get list of Related Products",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
         "/releases": {
             "get": {
                 "tags": [
@@ -536,6 +728,276 @@
                 }
             }
         },
+        "/sections/{id}": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "summary": "Get Section Category",
+                "description": "Returns Section Category",
+                "operationId": "getsectioncategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "section ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/categories/{id}/subs": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "summary": "Get Category Sub Categories",
+                "description": "Returns Category Sub Categories",
+                "operationId": "Get Category Sub Categories",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/sub_categories/{id}/types": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "summary": "Get Sub Category Types",
+                "description": "Returns Sub Category Types",
+                "operationId": "Get Sub Category Types",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Sub Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/types/{id}/sub_types": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "summary": "Get Type Sub Types",
+                "description": "Returns  Type Sub Types",
+                "operationId": "Get Type Sub Types",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Type ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/suppliers": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "summary": "Get list of suppliers",
+                "description": "Returns list of suppliers",
+                "operationId": "getsuppliersList",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
         "/videos": {
             "get": {
                 "tags": [
@@ -580,6 +1042,66 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/sliders": {
+            "get": {
+                "tags": [
+                    "sliders"
+                ],
+                "summary": "Get list of sliders",
+                "description": "Returns list of sliders",
+                "operationId": "getslidersList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/social_links": {
+            "get": {
+                "tags": [
+                    "Social Links"
+                ],
+                "summary": "Get Social Links",
+                "description": "Returns  Social Links",
+                "operationId": "Get Social Links",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
