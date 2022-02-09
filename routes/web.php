@@ -147,9 +147,11 @@ Route::group(['middleware' => 'auth'], function () {
     //----------------------------------About_us--------------------------------------------//
 
     Route::group(['namespace'=>'About_us'],function(){
-        Route::resource('about_us', 'About_us_Controller');
-        Route::POST('update_about_us', 'About_us_Controller@update_about_us')->name('update_about_us');
+        // Route::resource('about_us', 'About_us_Controller');
+        // Route::POST('update_about_us', 'About_us_Controller@update_about_us')->name('update_about_us');
 
+        Route::GET('about/edit', 'About_us_Controller@edit')->name('about/edit');
+        Route::POST('about/update', 'About_us_Controller@update')->name('about/update');
     });
     //------------------------------- ------------------------------------------------//
     Route::group(['namespace'=>'Supplier'],function(){
@@ -162,6 +164,9 @@ Route::group(['middleware' => 'auth'], function () {
     //-------------------------------------------------------------------------------//
 
     Route::GET('dashboard','HomeController@dashboard')->name('dashboard');
+
+    Route::GET('settings/edit', 'SettingController@edit')->name('settings/edit');
+    Route::POST('settings/update', 'SettingController@update')->name('settings/update');
 });
 //--------------------------------------------------------------------------------------//
 Route::get('/docs', function () {
