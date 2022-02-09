@@ -51,6 +51,7 @@
                             <th>اسم المنتج</th>
                             <th>سعر المنتج</th>
                             <th>الصوره الاساسيه</th>
+                            <th>الترتيب</th>
                             <th>الحاله</th>
                             <th>التوافر</th>
                             <th>الميديا</th>
@@ -68,6 +69,7 @@
                             <td>{{$product->name_ar}}</td>
                             <td>{{$product->price}}</td>
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_$product->id/$product->image")?>"></td>
+                            <td>{{$product->sort}}</td>
                             <td><?php if($product->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
 
                             <td><?php if($product->availabe_or_no==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>

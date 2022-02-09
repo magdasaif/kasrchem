@@ -34,6 +34,7 @@
             <form method="POST" action="{{route('products.update',$product->id)}}" enctype="multipart/form-data">
             {{method_field('PATCH ')}}
                 @csrf
+                
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
@@ -125,7 +126,7 @@
 
                 <hr>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">الموردين</label> <small> [ قم بتحديد الموردين ] </small>
+                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
                     <select class="form-control" name="supplier_id[]"  multiple required>
 
                         @foreach ($product->suppliers as $supplier_select)
