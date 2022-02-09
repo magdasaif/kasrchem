@@ -34,7 +34,8 @@
             <form method="POST" action="{{route('products.update',$product->id)}}" enctype="multipart/form-data">
             {{method_field('PATCH ')}}
                 @csrf
-                
+                <div style="    text-align: center;color: red;font-size: x-large;">تاكد من ادخال (تصنيف فرعى ونوع رئيسى ونوع فرعى ) للتصنيف الرئيسى المراد اختياره </div>
+                <hr>
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
