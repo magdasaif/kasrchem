@@ -91,7 +91,7 @@ Route::apiResource('/photos_galleries', 'GalleryController', array("as" => "api"
 Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
 
 ///------------------------------Supplier-------------------------------------
-Route::get('/suppliers',[SupplierController::class,'index'])
+Route::get('/suppliers',[SupplierController::class,'index']);
 
 //---------------------related products with suplier ------------------------
 // Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
