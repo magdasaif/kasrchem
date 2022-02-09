@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\Product_supplier;
 
 class RelatedProductController extends Controller
 {
@@ -74,23 +75,10 @@ class RelatedProductController extends Controller
         }else{
              $selected="name_en as name";
         }
-
-       $pp= Product::select('*',$selected)->get();
-       return $pp;
-       // $products = ProductResource::collection(Product::select('*',$selected)->suppliers()->('id',$id)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
-        //$products->map(function($i) { $i->type = 'first_fun'; });
+        $products_ids= Product_supplier::select('product_id')->where('supplier_id','=',$id)->get();
+        $products = ProductResource::collection(Product::select('*',$selected)->whereIn('id',$products_ids)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
+        $products->map(function($i) { $i->type = 'first_fun'; });
         return response($products,200,['OK']);
     }
    
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-  
-    public function destroy($id)
-    {
-        //
-    }
 }
