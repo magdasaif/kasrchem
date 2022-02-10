@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Sub_Category3; 
+use App\Models\Sitesection; 
+use App\Models\Main_Category;
 use App\Models\Sub_Category2;
+use App\Models\Sub_Category3; 
+
 use App\Http\Requests\SubCatergory3Request;
 
 
@@ -28,18 +31,23 @@ class SubcategoryController3 extends Controller
     //----------------------------------------------
     public function show($sub2_id)
     {
-       
+        $from_side_or_no='no';
+        $sections = Sitesection::get();
         //dd( sub_Category3::where('sub2_id',$sub2_id)->get());
         $sub_Category3 = Sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->get();
-        return view('categories.sub3.show',compact('sub_Category3','sub2_id'));
+        return view('categories.sub3.show',compact('sub_Category3','sub2_id','sections','from_side_or_no'));
     }
     //----------------------------------------------
 
     public function create($sub2_id)
     {
-        $Sub_Category2 = Sub_Category2::where('id',$sub2_id)->get();
-
-        return view('categories.sub3.add',compact('Sub_Category2','sub2_id'));
+        $from_side_or_no='no';
+        $sections = Sitesection::get();
+        $sub1_categories = Main_Category::get();
+        $Sub_Category2 = Sub_Category2::find($sub2_id);
+        //dd($Sub_Category2);
+        return view('categories.sub3.add',compact('Sub_Category2','sub2_id','sections','sub1_categories','from_side_or_no'));
+        
     }
 //----------------------------------------------
   
@@ -75,7 +83,11 @@ class SubcategoryController3 extends Controller
             $sub_Category3->image= $photo_name;
             $sub_Category3->save();
 
-        return redirect()->route('categories3.show',$request->sub2_id)->with(['success'=>'تمت الاضافه بنجاح']);
+            if($request->change_redirect=='yes'){
+                return redirect()->route('categories3_new.index',$request->sub2_id)->with(['success'=>'تمت الاضافه بنجاح']);
+            }else{
+                return redirect()->route('categories3.show',$request->sub2_id)->with(['success'=>'تمت الاضافه بنجاح']);
+            }
         }catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }

@@ -39,7 +39,7 @@
           </li>
          </ul>
       </li>
-<!---------------------------تصنيفات----------------------------------------------->
+<!---------------------------التصنيفات الرئيسيه----------------------------------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -59,6 +59,78 @@
               <a href="{{route('categories.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-cubes orange"></i>
                   <p> قائمه التصنيفات</p>
+              </a>
+          </li>
+        </ul>
+      </li>
+<!---------------------------التصنيفات الفرعيه----------------------------------------------->
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-cubes green"></i>
+          <p  class="ttitle">
+             التصنيفات الفرعيه
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('categories2_new.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه تصنيف</p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('categories2_new.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <p> قائمه التصنيفات</p>
+              </a>
+          </li>
+        </ul>
+      </li>
+<!--------------------------- الانواع الرئيسيه----------------------------------------------->
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-cubes green"></i>
+          <p  class="ttitle">
+             الانواع الرئيسيه
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('categories3_new.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه نوع</p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('categories3_new.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <p> قائمه الانواع</p>
+              </a>
+          </li>
+        </ul>
+      </li>
+<!---------------------------الانواع الفرعيه----------------------------------------------->
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-cubes green"></i>
+          <p  class="ttitle">
+          الانواع الفرعيه
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('categories4_new.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه نوع</p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('categories4_new.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <p> قائمه الانواع</p>
               </a>
           </li>
         </ul>
