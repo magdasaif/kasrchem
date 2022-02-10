@@ -46,7 +46,7 @@ class SubcategoryController3 extends Controller
     public function store(SubCatergory3Request $request)
     {
       
-        //dd($request->all());
+      // dd($request->all());
         //this for check if this name stored before in sub_Category3 table or no 
        if(  sub_Category3::where('subname_ar',$request->subname_ar)
         ->orWhere('subname_en',$request->subname_en)
