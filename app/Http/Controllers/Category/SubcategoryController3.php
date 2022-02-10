@@ -46,7 +46,7 @@ class SubcategoryController3 extends Controller
     public function store(SubCatergory3Request $request)
     {
       
-      // dd($request->all());
+       //dd($request->all());
         //this for check if this name stored before in sub_Category3 table or no 
        if(  sub_Category3::where('subname_ar',$request->subname_ar)
         ->orWhere('subname_en',$request->subname_en)
@@ -74,9 +74,24 @@ class SubcategoryController3 extends Controller
             $sub_Category3->status= $request->status;
             $sub_Category3->image= $photo_name;
             $sub_Category3->save();
+            if ($request->model2==1)
+            {
+                return redirect()->back()->with(['success'=>'تمت اضافة النوع الرئيسى بنجاح']);
 
-        return redirect()->route('categories3.show',$request->sub2_id)->with(['success'=>'تمت الاضافه بنجاح']);
-        }catch(\Exception $e){
+              
+            }
+            if($request->model2_edit==1) 
+            {
+               
+               return redirect()->back()->with(['success'=>'تمت اضافة النوع الرئيسى بنجاح']);
+             
+            }
+            else
+            {
+        return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
+       
+              }
+}catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }

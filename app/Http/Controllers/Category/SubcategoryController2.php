@@ -80,8 +80,22 @@ class SubcategoryController2 extends Controller
 
 
             //toastr()->success('تمت الاضافه بنجاح');
+             if ($request->model1==1)
+             {
+                //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+                return redirect()->back()->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+               
+             }
+             if($request->model1_edit==1) 
+             {
+                
+                return redirect()->back()->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+             }
+             else
+             {
+                return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت الاضافه بنجاح']);
 
-            return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت الاضافه بنجاح']);
+             }
         }catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }

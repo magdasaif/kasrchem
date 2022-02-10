@@ -26,8 +26,8 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body">
- <div style="text-align: center;color: red;font-size: x-large;">تاكد من ادخال (تصنيف فرعى ونوع رئيسى ونوع فرعى ) للتصنيف الرئيسى المراد اختياره </div>
-             <hr>
+ <!-- <div style="text-align: center;color: red;font-size: x-large;">تاكد من ادخال (تصنيف فرعى ونوع رئيسى ونوع فرعى ) للتصنيف الرئيسى المراد اختياره </div> -->
+             <!-- <hr> -->
             
             <form method="POST"  action="{{route('video.update',$video->id)}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
@@ -35,30 +35,37 @@
                 @csrf
                  <!--'video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'------------------------------------->
               
-                 <div class="form-group">
+      
+                <!--========================================================-->
+                <div class="form-group">
                  <label>التصنيف الرئيسى</label>
                 <select   class="form-control main_category" id="main_category_id" name="main_category" required>
                  <option value="" disabled="true" >اختر التصنيف الرئيسى</option> 
                     <option value="{{$video->relation_with_main_category->id}}" selected="true">{{$video->relation_with_main_category->subname_ar}}</option>
                    <?php 
                     foreach($Main_Cat as $Main_Category)
-                        { if (($Main_Category->id!=$video->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  ) 
-                            {  
+                        { 
+                            //if (($Main_Category->id!=$video->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  ) 
+                            if (($Main_Category->id!=$video->relation_with_main_category->id))
+                             {  
                     ?>
                               <option value="{{$Main_Category->id}}">{{$Main_Category->subname_ar}}</option>
                    <?php 
                             }
                         }
                     ?>
-                 </select> </div>
+                 </select> 
+                 <div  id="main_error" style="color: red;display: none;">قم بادخال التصنيف الرئيسي</div>
+
+                </div>
 
             
              <!----------------------------------------------------->
-        <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;">    
+             <input type="hidden" value="" id="selected_main">
             <div class="form-group"  id="sub2_div" >    
                     <label>   التصنيف الفرعي </label>
 
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
+                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" required>
                     <option value="" disabled="true" >اختر التصنيف الفرعي</option>
                     <option value="{{$video->relation_with_sub2_category->id}}" selected="true">{{$video->relation_with_sub2_category->subname2_ar}}</option>
                     <?php 
@@ -76,13 +83,18 @@
                         }
                     ?>
                 </select> 
-              </div>
+                <div class="form-control" id="sub2_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
+                    
+                     <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal" style="margin-right: 23px;font-weight: bold;"></i>
+                      </div>
+                 </div>
+           
 
              <!----------------------------------------------------- -->
              
              <div class="form-group"  id="sub3_div" >
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_sel" name="sub3" required>
 
                  <option value="" disabled="true" >اختر النوع </option>
                     <option value="{{$video->relation_with_sub3_category->id}}" selected="true">{{$video->relation_with_sub3_category->subname_ar}}</option>
@@ -101,6 +113,11 @@
                         }
                     ?>  
                  </select> 
+                 </select> 
+                 <div class="form-control" id="sub3_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع رئيسي للتصنيف الفرعى المختار من فضلك قم باضافته اولا</span>
+                    
+                    <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal3" style="margin-right: 23px;font-weight: bold;"></i>
+                </div>
                 </div>
 
                 <!----------------------------------------------------- -->
@@ -125,9 +142,14 @@
                         }
                     ?>  
                     </select>
+                    <div class="form-control" id="sub4_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعى للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
+                    
+                    <i  class="nav-icon fas fa-plus green" type="button"  data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
                     </div>
-            </div>
+                    </div>
+           
                <!----------------------------------------------------->
+              <!--========================================================-->
               
                <div class="form-group">
                     <label for="title_ar">عنوان الفيديو </label>
@@ -167,8 +189,11 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-                </div>
+                <!-- </div> -->
  <!--#############################################################-->
+ <!--========================================================-->
+ @include('categories.Category_models.categories_model_editing')
+    <!--========================================================-->  
 
  		</div>
             </div>
@@ -199,14 +224,37 @@
                              
                            //  $("#all").show();
                            // $("#sub2_div").show();
-                             $("#sub3_div").hide();
-                             $("#sub4_div").hide();
+                            // $("#sub3_div").hide();
+                           //  $("#sub4_div").hide();
                              $('select[name="sub2"]').empty();
-                             $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $('select[name="sub3"]').empty();
+                             $('select[name="sub4"]').empty();
+
+                               //--------------------------------------------//
+                               if(data!='')
+                            {
+                                $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                               $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
                              });
                          
+                            }
+                            else
+                            {
+                               // alert("لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا");
+                                $('select[name="sub2"]').hide();//hide select 
+                                 $("#sub2_requi").show();//show div if sub2not founded
+                                    //-------------get name of main_category--------------//
+                                       document.getElementById("cate_id").value=main_category_id; 
+                                       //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
+                                        document.getElementById("test").value=$("#main_category_id option:selected" ).text(); 
+                                    //----------------------------//
+                            
+                            
+                           
+                            }
+                         //--------------------------------------------//
+                          
                         },
                         error:function()
                         { alert("false"); }
@@ -234,12 +282,31 @@
                         success: function (data) 
                         {
                              //alert("true");
-                             $("#sub3_div").show();
+                            /// $("#sub3_div").show();
                              $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
+                             $('select[name="sub4"]').empty();
+                               //--------------------------------------------//
+                               if(data!='')
+                            {
+                                $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
                              });
+                            }
+                            else
+                            {
+                                $('select[name="sub3"]').hide();//hide select 
+                                 $("#sub3_requi").show();//show div if sub2not founded
+                                    //-------------get name of sub2--------------//
+                                   // alert(sub2_id);
+                                       document.getElementById("sub2_id").value=sub2_id; 
+                                     //  alert($( "#sub2_sel option:selected" ).text());
+                                        document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text(); 
+                                    //----------------------------------------------------//
+                            }
+                             //--------------------------------------------//
+                            
+                            
                          
                         },
                         error:function()
@@ -268,13 +335,26 @@
                         success: function (data) 
                         {
                              //alert("true");
-                            $("#sub4_div").show();
+                          //  $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                                //--------------------------------------------//
+                                if(data!='')
+                            {
+                                $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
                              });
                          
+                            }
+                            else
+                            {
+                                $('select[name="sub4"]').hide();//hide select 
+                                 $("#sub4_requi").show();//show div if sub2not founded
+                                    //-------------get name of sub2--------------//
+                                       document.getElementById("sub3_id").value=sub3_id; 
+                                        document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
+                                    //----------------------------------------------------//
+                            }
                         },
                         error:function()
                         { alert("false"); }

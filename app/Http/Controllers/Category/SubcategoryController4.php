@@ -48,8 +48,23 @@ class SubcategoryController4 extends Controller
             $Sub_Category4->status= $request->status;
             $Sub_Category4->save();
 
-        return redirect()->route('categories4.show',$request->sub3_id)->with(['success'=>'تمت الاضافه بنجاح']);
-        }catch(\Exception $e){
+            if ($request->model3==1)
+             {
+                return redirect()->back()->with(['success'=>'تمت اضافة النوع الفرعى بنجاح']);
+
+               
+             }
+             if($request->model3_edit==1) 
+             {
+                
+                return redirect()->back()->with(['success'=>'تمت اضافة النوع الفرعى بنجاح']);
+             }
+             else
+             {
+
+        return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
+      
+    }}catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
