@@ -75,11 +75,11 @@
     <!-------------------------------------------------->
     @auth
 
-       <div class="flex-center position-ref full-height" style="    height: 65vh;">
-       <div class="links" style="position: absolute;top: 18px;"> <a style="font-size: 20px;font-weight: bold;color: green;" href="{{ url('/home') }}" >ابدأ مشروعك</a></div>
+       <div class="flex-center position-ref full-height">
+       <div class="links" style="position: absolute;top: 60px;"> <a style="font-size: 20px;font-weight: bold;color: green;" href="{{ url('/home') }}" >ابدأ مشروعك</a></div>
              <div class="content">
-                 
-               <img    style=" border-radius: 50%;  display: block;margin-left: auto;margin-right: auto;width:111%;" src=<?php echo asset("images/logo.jpg")?> alt="" > 
+             <img    style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src=<?php echo asset("images/logo.jpg")?> alt="" > 
+
             </div>
         </div>
     @else
@@ -89,7 +89,7 @@
    <!-------------------------------------------------->
        
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <!-- <div class="card-header">{{ __('Login') }}</div> -->
                 <div class="card-header">تسجيل الدخول</div>
