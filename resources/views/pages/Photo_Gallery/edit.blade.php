@@ -36,11 +36,13 @@
                  <div class="form-group">
                  <label>التصنيف الرئيسى</label>
                 <select   class="form-control main_category" id="main_category_id" name="main_category" required>
-                 <option value="0" disabled="true" >اختر التصنيف الرئيسى</option> 
+                 <option value="" disabled="true" >اختر التصنيف الرئيسى</option> 
                     <option value="{{$photo_gallery->relation_with_main_category->id}}" selected="true">{{$photo_gallery->relation_with_main_category->subname_ar}}</option>
                    <?php 
                     foreach($Main_Cat as $Main_Category)
-                        { if (($Main_Category->id!=$photo_gallery->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  ) 
+                        { 
+                            //if (($Main_Category->id!=$photo_gallery->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  )
+                            if (($Main_Category->id!=$photo_gallery->relation_with_main_category->id)  )  
                             {  
                     ?>
                               <option value="{{$Main_Category->id}}">{{$Main_Category->subname_ar}}</option>
@@ -48,16 +50,18 @@
                             }
                         }
                     ?>
-                 </select> </div>
+                 </select> 
+                 <div  id="main_error" style="color: red;display: none;">قم بادخال التصنيف الرئيسي</div>
+
+</div>
 
             
              <!----------------------------------------------------->
-        <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;">    
             <div class="form-group"  id="sub2_div" >    
                     <label>   التصنيف الفرعي </label>
 
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
-                    <option value="0" disabled="true" >اختر التصنيف الفرعي</option>
+                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" required>
+                    <option value="" disabled="true" >اختر التصنيف الفرعي</option>
                     <option value="{{$photo_gallery->relation_with_sub2_category->id}}" selected="true">{{$photo_gallery->relation_with_sub2_category->subname2_ar}}</option>
                     <?php 
                     foreach($Sub_Category2 as $Sub_cat2)
@@ -74,15 +78,19 @@
                         }
                     ?>
                 </select> 
+                <div class="form-control" id="sub2_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
+                    
+                    <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal" style="margin-right: 23px;font-weight: bold;"></i>
+                     </div>
               </div>
 
              <!----------------------------------------------------- -->
              
              <div class="form-group"  id="sub3_div" >
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_sel" name="sub3" required>
 
-                 <option value="0" disabled="true" >اختر النوع </option>
+                 <option value="" disabled="true" >اختر النوع </option>
                     <option value="{{$photo_gallery->relation_with_sub3_category->id}}" selected="true">{{$photo_gallery->relation_with_sub3_category->subname_ar}}</option>
                     <?php 
                     foreach($Sub_Category3 as $Sub_cat3)
@@ -99,14 +107,18 @@
                         }
                     ?>  
                  </select> 
+                 <div class="form-control" id="sub3_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع رئيسي للتصنيف الفرعى المختار من فضلك قم باضافته اولا</span>
+                    
+                    <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal3" style="margin-right: 23px;font-weight: bold;"></i>
+                </div>
                 </div>
 
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div" > 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_sel" name="sub4" required>
 
-                    <option value="0" disabled="true" >اختر النوع الفرعى</option>
+                    <option value="" disabled="true" >اختر النوع الفرعى</option>
                     <option value="{{$photo_gallery->relation_with_sub4_category->id}}" selected="true">{{$photo_gallery->relation_with_sub4_category->subname_ar}}</option>
                     <?php 
                     foreach($Sub_Category4 as $Sub_cat4)
@@ -123,8 +135,12 @@
                         }
                     ?>  
                     </select>
+                    <div class="form-control" id="sub4_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعى للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
+                    
+                    <i  class="nav-icon fas fa-plus green" type="button"  data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
                     </div>
-            </div>
+                    </div>
+          
                <!----------------------------------------------------->
               
                <div class="form-group">
@@ -170,7 +186,9 @@
                 </form>
 </div>
  <!--#############################################################-->
-
+ <!--========================================================-->
+ @include('categories.Category_models.categories_model_editing')
+    <!--========================================================--> 
  		</div>
             </div>
         </div>
@@ -179,6 +197,7 @@
 
 @endsection
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
 <script>
    
     //---------------for show seelct option of sub2------------------------//
@@ -186,7 +205,7 @@
     $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
                if (main_category_id) {
-             //  alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
+                //   alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
                    
                     $.ajax({
                         type: "GET",
@@ -195,19 +214,41 @@
                       
                         success: function (data) 
                         {
-                           //  alert("true");
+                             //alert("true");
                              
                            //  $("#all").show();
                            // $("#sub2_div").show();
-                             $("#sub3_div").hide();
-                             $("#sub4_div").hide();
+                            // $("#sub3_div").hide();
+                           //  $("#sub4_div").hide();
                              $('select[name="sub2"]').empty();
-                             
-                             $('select[name="sub2"]').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $('select[name="sub3"]').empty();
+                             $('select[name="sub4"]').empty();
+
+                               //--------------------------------------------//
+                               if(data!='')
+                            {
+                                $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                               $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
                              });
                          
+                            }
+                            else
+                            {
+                               // alert("لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا");
+                                $('select[name="sub2"]').hide();//hide select 
+                                 $("#sub2_requi").show();//show div if sub2not founded
+                                    //-------------get name of main_category--------------//
+                                       document.getElementById("cate_id").value=main_category_id; 
+                                       //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
+                                        document.getElementById("test").value=$("#main_category_id option:selected" ).text(); 
+                                    //----------------------------//
+                            
+                            
+                           
+                            }
+                         //--------------------------------------------//
+                          
                         },
                         error:function()
                         { alert("false"); }
@@ -235,12 +276,31 @@
                         success: function (data) 
                         {
                              //alert("true");
-                           $("#sub3_div").show();
+                            /// $("#sub3_div").show();
                              $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
+                             $('select[name="sub4"]').empty();
+                               //--------------------------------------------//
+                               if(data!='')
+                            {
+                                $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
                              });
+                            }
+                            else
+                            {
+                                $('select[name="sub3"]').hide();//hide select 
+                                 $("#sub3_requi").show();//show div if sub2not founded
+                                    //-------------get name of sub2--------------//
+                                   // alert(sub2_id);
+                                       document.getElementById("sub2_id").value=sub2_id; 
+                                     //  alert($( "#sub2_sel option:selected" ).text());
+                                        document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text(); 
+                                    //----------------------------------------------------//
+                            }
+                             //--------------------------------------------//
+                            
+                            
                          
                         },
                         error:function()
@@ -269,13 +329,26 @@
                         success: function (data) 
                         {
                              //alert("true");
-                          $("#sub4_div").show();
+                          //  $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                                //--------------------------------------------//
+                                if(data!='')
+                            {
+                                $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
                              });
                          
+                            }
+                            else
+                            {
+                                $('select[name="sub4"]').hide();//hide select 
+                                 $("#sub4_requi").show();//show div if sub2not founded
+                                    //-------------get name of sub2--------------//
+                                       document.getElementById("sub3_id").value=sub3_id; 
+                                        document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
+                                    //----------------------------------------------------//
+                            }
                         },
                         error:function()
                         { alert("false"); }

@@ -30,47 +30,9 @@
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
                   <!----------------------------------------------------->
-              
-                  <div class="form-group">
-                 <label>التصنيف الرئيسى</label>
-                <select   class="form-control main_category" id="main_category_id" name="main_category" required>
-                    
-                    <option value="0" disabled="true" selected="true">اختر التصنيف الرئيسى</option>
-                   <?php 
-                   foreach($Main_Cat as $Main_Category)
-                    { if ($Main_Category->sub_cate2_count>0) 
-                        {  ?>
-                              <option value="{{$Main_Category->id}}">{{$Main_Category->subname_ar}}</option>
-                   <?php }
-                }
-                      ?>
-                 </select> </div>
-
-            <!----------------------------------------------------->
-        <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;display: none">    
-            <div class="form-group"  id="sub2_div"  style="display: none";>    
-                    <label>   التصنيف الفرعي </label>
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
-                     </select> 
-              </div>
-
-             <!----------------------------------------------------- -->
-             
-             <div class="form-group"  id="sub3_div"  style="display: none";>
-                <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
-                 </select> 
-                </div>
-
-                <!----------------------------------------------------- -->
-                <div class="form-group"  id="sub4_div"  style="display: none";> 
-                <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
-
-                        
-                    </select>
-                    </div>
-            </div>
+               <!--========================================================-->
+               @include('categories.Category_models.select_category_adding')
+              <!--========================================================-->
                <!----------------------------------------------------->
               
                <div class="form-group">
@@ -114,7 +76,9 @@
 
 </div>
  <!--#############################################################-->
-
+ <!--========================================================-->
+ @include('categories.Category_models.categories_model_adding')
+    <!--========================================================-->   
  		</div>
             </div>
         </div>
@@ -160,114 +124,177 @@
   
     });
     
+
  
-    //---------------for show seelct option of sub2------------------------//
+ //---------------for show seelct option of sub2------------------------//
+  $(document).ready(function () {
+         $('select[name="main_category"]').on('change', function () {
+             var main_category_id = $(this).val();
+         // alert(main_category_id);
+          // alert($( "#main_category_id option:selected" ).text());
+           if (main_category_id=='')
+          {
+             $("#main_error").show();
+             
+          }else
+          {
+            if (main_category_id ) {
+              // alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
+                
+                 $.ajax({
+                     type: "GET",
+                     url: "{{ URL::to('fetch_sub2')}}/" + main_category_id,
+                     dataType: "json",
+                   
+                     success: function (data) 
+                     {
+                         //alert("true");
+                         // $("#all").show();
+                         // $("#sub2_div").show();
+                       
+                        // alert("data="+data) ;
+                        // alert(main_category_id);
+                         $('select[name="sub2"]').empty();
+                          //--------------------------------------------//
+                          if(data!='')
+                         {
+                             $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                             $.each(data, function (key, value)  
+                             {
+                                $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
+                             });
+
+                         }
+                         else
+                         {
+                            // alert("لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا");
+                             $('select[name="sub2"]').hide();//hide select 
+                              $("#sub2_requi").show();//show div if sub2not founded
+                                 //-------------get name of main_category--------------//
+                                    document.getElementById("cate_id").value=main_category_id; 
+                                    //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
+                                     document.getElementById("test").value=$("#main_category_id option:selected" ).text(); 
+                                 //----------------------------//
+                         
+                         
+                        
+                         }
+                      //--------------------------------------------//
+                     },
+                     error:function()
+                     { alert("false"); }
+                 });
+                
+             }
+             else {
+                 alert('AJAX load did not work');
+             }
+
+         }
+         });
+         
+     });
+      //---------------for show seelct option of sub3------------------------//
+      $(document).ready(function () {
+         $('select[name="sub2"]').on('change', function () {
+             var sub2_id = $(this).val();
+            // alert(sub2_id);
+            if (sub2_id) {
+                
+                 $.ajax({
+                     type: "GET",
+                     url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
+                     dataType: "json",
+                   
+                     success: function (data) 
+                     {
+                          //alert("true");
+                       // $("#sub3_div").show();
+                          $('select[name="sub3"]').empty();
+                          //--------------------------------------------//
+                          if(data!='')
+                         {
+                             $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
+                            $.each(data, function (key, value) {
+                           $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
+                          });
+
+                         }
+                         else
+                         {
+                             $('select[name="sub3"]').hide();//hide select 
+                              $("#sub3_requi").show();//show div if sub2not founded
+                                 //-------------get name of sub2--------------//
+                                // alert(sub2_id);
+                                    document.getElementById("sub2_id").value=sub2_id; 
+                                  //  alert($( "#sub2_sel option:selected" ).text());
+                                     document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text(); 
+                                 //----------------------------------------------------//
+                         }
+                          //--------------------------------------------//
+                         
+                      
+                     },
+                     error:function()
+                     { alert("false"); }
+                 });
+                
+             }
+             else {
+                 alert('AJAX load did not work');
+             }
+         });
+     });
+     //---------------for show seelct option of sub4------------------------//
      $(document).ready(function () {
-            $('select[name="main_category"]').on('change', function () {
-                var main_category_id = $(this).val();
-               if (main_category_id) {
-                //   alert("{{ URL::to('sub2_article')}}/" + main_category_id);
+         $('select[name="sub3"]').on('change', function () {
+             var sub3_id = $(this).val();
+             //alert (sub3_id);
+            if (sub3_id) {
+               // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
+                
+                 $.ajax({
+                     type: "GET",
+                     url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
+                     dataType: "json",
                    
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ URL::to('sub2_article')}}/" + main_category_id,
-                        dataType: "json",
-                      
-                        success: function (data) 
-                        {
-                             //alert("true");
-                             
-                             $("#all").show();
-                            $("#sub2_div").show();
-                             $('select[name="sub2"]').empty();
-                             $('select[name="sub2"]').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
-                             $.each(data, function (key, value) {
-                              $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
-                             });
+                     success: function (data) 
+                     {
+                          //alert("true");
+                        // $("#sub4_div").show();
+                          $('select[name="sub4"]').empty();
+                           //--------------------------------------------//
+                           if(data!='')
+                         {
+                             $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                            $.each(data, function (key, value) {
+                           $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
+                          });
+
+                         }
+                         else
+                         {
+                             $('select[name="sub4"]').hide();//hide select 
+                              $("#sub4_requi").show();//show div if sub2not founded
+                                 //-------------get name of sub2--------------//
+                                    document.getElementById("sub3_id").value=sub3_id; 
+                                     document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
+                                 //----------------------------------------------------//
+                         }
+                          //--------------------------------------------//
                          
-                        },
-                        error:function()
-                        { alert("false"); }
-                    });
-                   
-                }
-                else {
-                    alert('AJAX load did not work');
-                }
-            });
-        });
-         //---------------for show seelct option of sub3------------------------//
-         $(document).ready(function () {
-            $('select[name="sub2"]').on('change', function () {
-                var sub2_id = $(this).val();
-               // alert (sub2_id);
-               if (sub2_id) {
-                  // alert("{{ URL::to('sub3_article')}}/" + sub2_id);
-                   
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ URL::to('sub3_article')}}/" + sub2_id,
-                        dataType: "json",
                       
-                        success: function (data) 
-                        {
-                             //alert("true");
-                            $("#sub3_div").show();
-                             $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
-                               $.each(data, function (key, value) {
-                              $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
-                             });
-                         
-                        },
-                        error:function()
-                        { alert("false"); }
-                    });
-                   
-                }
-                else {
-                    alert('AJAX load did not work');
-                }
-            });
-        });
-        //---------------for show seelct option of sub4------------------------//
-        $(document).ready(function () {
-            $('select[name="sub3"]').on('change', function () {
-                var sub3_id = $(this).val();
-                //alert (sub3_id);
-               if (sub3_id) {
-                  // alert("{{ URL::to('sub4_article')}}/" + sub3_id);
-                   
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ URL::to('sub4_article')}}/" + sub3_id,
-                        dataType: "json",
-                      
-                        success: function (data) 
-                        {
-                             //alert("true");
-                            $("#sub4_div").show();
-                             $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
-                               $.each(data, function (key, value) {
-                              $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
-                             });
-                         
-                        },
-                        error:function()
-                        { alert("false"); }
-                    });
-                   
-                }
-                else {
-                    alert('AJAX load did not work');
-                }
-            });
-        });
-        //--------------------------------------------------------------------------//
-    </script>
-
-
-
-
+                     },
+                     error:function()
+                     { alert("false"); }
+                 });
+                
+             }
+             else {
+                 alert('AJAX load did not work');
+             }
+         });
+     });
+     //--------------------------------------------------------------------------//
+ </script>
 
