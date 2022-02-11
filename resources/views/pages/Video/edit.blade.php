@@ -39,7 +39,7 @@
                 <!--========================================================-->
                 <div class="form-group">
                  <label>التصنيف الرئيسى</label>
-                <select   class="form-control main_category" id="main_category_id" name="main_category" required>
+                <select   class="form-control main_category" id="main_category_id" name="main_category"required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الرئيسي')"  oninput="this.setCustomValidity('')">
                  <option value="" disabled="true" >اختر التصنيف الرئيسى</option> 
                     <option value="{{$video->relation_with_main_category->id}}" selected="true">{{$video->relation_with_main_category->subname_ar}}</option>
                    <?php 
@@ -65,7 +65,7 @@
             <div class="form-group"  id="sub2_div" >    
                     <label>   التصنيف الفرعي </label>
 
-                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" required>
+                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الفرعى')"  oninput="this.setCustomValidity('')">
                     <option value="" disabled="true" >اختر التصنيف الفرعي</option>
                     <option value="{{$video->relation_with_sub2_category->id}}" selected="true">{{$video->relation_with_sub2_category->subname2_ar}}</option>
                     <?php 
@@ -94,7 +94,7 @@
              
              <div class="form-group"  id="sub3_div" >
                 <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_sel" name="sub3" required>
+                 <select  class="form-control sub3"  id="sub3_sel" name="sub3" required  oninvalid="this.setCustomValidity('قم بادخال النوع الرئيسي')"  oninput="this.setCustomValidity('')">
 
                  <option value="" disabled="true" >اختر النوع </option>
                     <option value="{{$video->relation_with_sub3_category->id}}" selected="true">{{$video->relation_with_sub3_category->subname_ar}}</option>
@@ -123,7 +123,7 @@
                 <!----------------------------------------------------- -->
                 <div class="form-group"  id="sub4_div" > 
                 <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
+                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required  oninvalid="this.setCustomValidity('قم بادخال النوع الفرعى')"  oninput="this.setCustomValidity('')">
 
                     <option value="" disabled="true" >اختر النوع الفرعى</option>
                     <option value="{{$video->relation_with_sub4_category->id}}" selected="true">{{$video->relation_with_sub4_category->subname_ar}}</option>
