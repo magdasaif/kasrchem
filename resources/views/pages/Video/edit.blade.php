@@ -39,7 +39,7 @@
                 <!--========================================================-->
                 <div class="form-group">
                  <label>التصنيف الرئيسى</label>
-                <select   class="form-control main_category" id="main_category_id" name="main_category"required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الرئيسي')"  oninput="this.setCustomValidity('')">
+                <select   class="form-control main_category" id="main_category_id" name="main_category" required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الرئيسي')"  oninput="this.setCustomValidity('')">
                  <option value="" disabled="true" >اختر التصنيف الرئيسى</option> 
                     <option value="{{$video->relation_with_main_category->id}}" selected="true">{{$video->relation_with_main_category->subname_ar}}</option>
                    <?php 

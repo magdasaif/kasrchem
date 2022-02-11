@@ -34,10 +34,12 @@ class ProductController extends Controller
     {
         // $categories = Main_Category::get();
          $title='اضافه منتج';
-         $categories= Main_Category::withcount('sub_cate2')->get();
+         //$categories= Main_Category::withcount('sub_cate2')->get();
+          $Main_Cat= Main_Category::get();
          $suppliers= Supplier::get();
         // return $categories;
-        return view('pages.products.add',compact('categories','suppliers','title'));
+       // return view('pages.products.add',compact('categories','suppliers','title'));
+       return view('pages.products.add',compact('Main_Cat','suppliers','title'));
     }
 
 
@@ -71,7 +73,8 @@ class ProductController extends Controller
            }
             $product =new Product();
 
-            $product->main_cate_id=$request->main_cate_id;
+           // $product->main_cate_id=$request->main_cate_id;
+           $product->main_cate_id=$request->main_category;
             $product->sub2_id=$request->sub2;
             $product->sub3_id=$request->sub3;
             $product->sub4_id=$request->sub4;

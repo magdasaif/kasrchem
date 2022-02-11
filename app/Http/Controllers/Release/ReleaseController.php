@@ -20,7 +20,8 @@ class ReleaseController extends Controller
 //--------------------------------------------
  public function create()
     {
-        $Main_Cat = Main_Category::withCount('sub_cate2')->get();
+        //$Main_Cat = Main_Category::withCount('sub_cate2')->get();
+        $Main_Cat = Main_Category::get();
         return view('pages.Release.add',compact('Main_Cat'));
     }
     //--------------------------------------------

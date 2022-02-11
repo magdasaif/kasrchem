@@ -27,10 +27,10 @@ class ProductRequest extends FormRequest
            
             //exists:main_categories,id
             //|not_in:0
-            'main_cate_id' => 'required',
-            'sub2' => 'required',
-            'sub3' => 'required',
-            'sub4' => 'required',
+            // 'main_cate_id' => 'required',
+            // 'sub2' => 'required',
+            // 'sub3' => 'required',
+            // 'sub4' => 'required',
 
             'code'=>'required|unique:products,code,'.$this->id,
             'name_ar'=>'required|unique:products,name_ar,'.$this->id,
@@ -64,10 +64,10 @@ class ProductRequest extends FormRequest
             // 'List_Classes.*.value_ar.required' => 'تاكد من ادخال قيمه المنتج بالعربيه',
             // 'List_Classes.*.weight_en.required' => 'تاكد من ادخال خاصيه المنتج بالانجليزيه',
             // 'List_Classes.*.value_en.required' => 'تاكد من ادخال قيمه المنتج بالانجليزيه',
-            'main_cate_id.required'=>'تاكد من اختيار تصنيف رئيسى',
-            'sub2.required'=>'تاكد من اختيار تصنيف فرعى',
-            'sub3.required'=>'تاكد من اختيار نوع رئيسى',
-            'sub4.required'=>'تاكد من اختيار نوع فرعى',
+            // 'main_cate_id.required'=>'تاكد من اختيار تصنيف رئيسى',
+            // 'sub2.required'=>'تاكد من اختيار تصنيف فرعى',
+            // 'sub3.required'=>'تاكد من اختيار نوع رئيسى',
+            // 'sub4.required'=>'تاكد من اختيار نوع فرعى',
         ];
     }
 }

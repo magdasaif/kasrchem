@@ -20,7 +20,8 @@ class ArticleController extends Controller
 //--------------------------------------------
  public function create()
     {
-        $Main_Cat = Main_Category::withCount('sub_cate2')->get();
+        //$Main_Cat = Main_Category::withCount('sub_cate2')->get();
+        $Main_Cat = Main_Category::get();
         return view('pages.Article.add',compact('Main_Cat'));
     }
 //--------------------------------------------
