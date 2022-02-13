@@ -54,7 +54,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="content_ar">وصف الصفحة </label>
-                    <textarea  class="form-control " name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة "  style="border-radius: 6px;">{!!$page->description_ar!!}</textarea>
+                    <textarea  class="form-control tinymce-editor" name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة "  style="border-radius: 6px;">{!!$page->description_ar!!}</textarea>
                     
                     @error('description_ars')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
@@ -65,7 +65,7 @@
                <div class="form-group">
                     <label for="content_en">وصف الصفحة  بالانجليزية</label>
                     
-                    <textarea  class="form-control " name="description_en" id="description_en" placeholder="ادخل وصف الصفحة بالانجليزية "  style="border-radius: 6px;"> {!!$page->description_en!!}</textarea>
+                    <textarea  class="form-control tinymce-editor " name="description_en" id="description_en" placeholder="ادخل وصف الصفحة بالانجليزية "  style="border-radius: 6px;"> {!!$page->description_en!!}</textarea>
 
                     @error('description_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>

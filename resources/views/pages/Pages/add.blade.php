@@ -32,7 +32,7 @@
             <!----------------------------------------------------->
                  <div class="form-group">
                     <label for="title_ar">اسم الصفحة  </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar"  value="{{ old('title_ar') }}" required>
                     @error('title_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -40,7 +40,7 @@
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم الصفحة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required>
                     @error('title_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -48,7 +48,7 @@
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="description_ar">وصف الصفحة </label>
-                    <textarea  class="form-control " name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة " style="border-radius: 6px;" ></textarea>
+                    <textarea  class="form-control  tinymce-editor" name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة " style="border-radius: 6px;" > {!! old('description_ar')!!}"</textarea>
                     @error('description_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -57,7 +57,7 @@
                <div class="form-group">
                     <label for="description_en"> وصف الصفحة بالانجليزية</label>
                     
-                    <textarea  class="form-control " name="description_en" id="description_en" placeholder="ادخل وصف الصفحة بالانجليزية"  style="border-radius: 6px;"></textarea>
+                    <textarea  class="form-control  tinymce-editor" name="description_en" id="description_en" placeholder="ادخل وصف الصفحة بالانجليزية"  style="border-radius: 6px;">{!! old('description_en')!!}</textarea>
 
                     @error('description_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
@@ -66,7 +66,7 @@
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="content_ar">المحتوى</label>
-                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى الصفحة "  ></textarea>
+                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى الصفحة "  >{!! old('content_ar')!!}</textarea>
                     @error('content_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -74,7 +74,7 @@
             <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="content_en"> المحتوى بالانجليزية </label>
-                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى الصفحة بالانجليزية "  ></textarea>
+                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى الصفحة بالانجليزية "  >{!! old('content_en')!!}</textarea>
                     @error('content_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -83,8 +83,9 @@
                <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status"  required>
-                            <option value="1">مُفعلة</option>
-                            <option value="0">غير مُفعلة</option>
+                            <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                            <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
+                  
                     </select>
                 </div>
           <!----------------------------------------------------->
