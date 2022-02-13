@@ -37,7 +37,7 @@
               
                <div class="form-group">
                     <label for="title_ar">اسم النشرة</label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم النشرة" name="title_ar" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم النشرة" name="title_ar"  value="{{ old('title_ar') }}"required>
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -46,7 +46,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم النشرة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required>
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -54,7 +54,7 @@
                  <!----------------------------------------------------->
                  <div class="form-group">
                     <label for="image">صورة النشرة</label>
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                    <input type="file" class="form-control" name="image" accept="image/*"   value="{{ old('image') }}" required>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -62,7 +62,7 @@
              <!----------------------------------------------------->
              <div class="form-group">
                     <label for="image">ملف النشرة</label>
-                    <input type="file" class="form-control" name="file"  accept="application/pdf,application/vnd.ms-excel" required>
+                    <input type="file" class="form-control" name="file"  accept="application/pdf,application/vnd.ms-excel"  value="{{ old('file') }}" required>
                     @error('file')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -72,8 +72,8 @@
                 <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status"  required>
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                     <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
      
