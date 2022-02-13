@@ -31,7 +31,25 @@
                 {{method_field('PATCH')}}
 
                 @csrf
-                   <div class="form-group">
+                
+                <div class="form-group">
+                     <label for="exampleInputEmail1">  اقسام الموقع*</label>
+                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                </div>
+                
+                <div class="form-group">
+                     <label for="exampleInputEmail1"> التصنيف الرئيسى*</label>
+                    <input type="test" class="form-control"  value="{{ $sub_categories->relation_sub2_with_main->subname_ar }}" disabled>
+                    <input type="hidden" class="form-control" name="cate_id" value="{{ $sub_categories->relation_sub2_with_main->id }}">
+                </div>
+                
+                <div class="form-group">
+                   <label   for="exampleInputEmail1">اسم التصنيف الفرعي</label>
+                   <input type="text" class="form-control" name="sub_id2" id="sub_id2" value="{{ $sub3->sub2_id}}" hidden>
+                   <input type="text" class="form-control" name="sub2_name" id="sub2_name" value="{{ $sub3->Sub_Category3->subname2_ar}}" disabled="disabled" >
+                </div>
+                
+                <div class="form-group">
                    <label   for="exampleInputEmail1">اسم النوع الرئيسى</label>
                    <input type="text" class="form-control" name="sub3_id" id="sub3_id" value="{{ $sub4->sub3_id}}" hidden>
                    <input type="text" class="form-control" name="sub3_name" id="sub3_name" value="{{ $sub4->Sub_Category4->subname_ar}}" disabled="disabled" >

@@ -11,6 +11,18 @@ use App\Models\Sub_Category4;
 class FetchCategoriesController extends Controller
 {
     //--------------------------------------------
+    public function findsub1($id)
+    {
+        if($id==0){
+            $data= Main_Category::pluck("subname_ar", "id");
+        }else{
+            $data= Main_Category::where('section_id',$id)->pluck("subname_ar", "id");
+        }
+         //dd($data);
+        return response()->json($data); //then sent this data to ajax success
+        return $data;
+    }
+    //--------------------------------------------
     public function findsub2($id)
     {
 

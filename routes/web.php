@@ -41,12 +41,18 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('categories2', 'SubcategoryController2');
         Route::GET('categories2/add/{id}', 'SubcategoryController2@show_add_form');
+        
+        Route::resource('categories2_new', 'SubcategoryController2_new');
 
         Route::resource('categories3', 'SubcategoryController3');
         Route::get('categories3_add/{id}', 'SubcategoryController3@create');
 
+        Route::resource('categories3_new', 'SubcategoryController3_new');
+
         Route::resource('categories4', 'SubcategoryController4');
         Route::get('categories4_add/{id}', 'SubcategoryController4@create');
+
+        Route::resource('categories4_new', 'SubcategoryController4_new');
 
     });
     //------------------site_section------------------------------------------------------
@@ -81,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('add_product','livewire.show');
 
     //-------------------get sub2,sub3,sub4 when change on any select-------------------
+    Route::GET('/fetch_sub1/{section_id}','FetchCategoriesController@findsub1');
     Route::GET('/fetch_sub2/{main_category_id}','FetchCategoriesController@findsub2');
     Route::GET('/fetch_sub3/{sub2_id}','FetchCategoriesController@findsub3');
     Route::GET('/fetch_sub4/{sub3_id}','FetchCategoriesController@findsub4');
