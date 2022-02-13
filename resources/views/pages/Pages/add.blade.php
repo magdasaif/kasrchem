@@ -48,7 +48,7 @@
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="description_ar">وصف الصفحة </label>
-                    <textarea  class="form-control  tinymce-editor" name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة " style="border-radius: 6px;" > {!! old('description_ar')!!}"</textarea>
+                    <textarea  class="form-control  tinymce-editor" name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة " style="border-radius: 6px;" > {!! old('description_ar')!!}</textarea>
                     @error('description_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
