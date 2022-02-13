@@ -32,22 +32,32 @@
 
                 <div class="form-group">    
                     <label>  اقسام الموقع </label>
+                    @if($from_side_or_no=='yes')
                     <select  class="form-control sub2"  id="section_id" name="section_id" >
                         <option value="0">جميع الاقسام</option>
                          @foreach ($sections as $sec)
                             <option value="{{ $sec->id }}">{{ $sec->site_name_ar }}</option>
                          @endforeach
-                    </select> 
+                    </select>
+                    @else
+                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                    @endif 
                 </div>
                 
                 <div class="form-group">
                      <label for="exampleInputEmail1"> التصنيف الرئيسى</label>
-                     <select class="form-control" id="cate_id" name="cate_id" required >
-                        <option value="0" selected disable>كل التصنيفات</option>
-                        @foreach ($sub1_categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->subname_ar }}</option>
-                        @endforeach
-                    </select>
+                     
+                         @if($from_side_or_no=='yes')
+                        <select class="form-control" id="cate_id" name="cate_id" required >
+                            <option value="" selected disable>كل التصنيفات</option>
+                            @foreach ($sub1_categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->subname_ar }}</option>
+                            @endforeach
+                        </select>
+                         <!----------------------------------------------------->
+                         @else
+                            <input type="test" class="form-control"  value="{{ $sub1_categories->subname_ar }}" disabled>
+                        @endif
                 </div>
                 
                 <div class="form-group">

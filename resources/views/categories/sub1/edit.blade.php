@@ -31,6 +31,7 @@
 
                         @csrf
                         <div class="form-group">
+                        <label for="exampleInputEmail1">اقسام الموقع</label>
                             <select class="form-control" name="section_id">
                                 <option value="{{ $categories->relation_with_section->id }}">{{ $categories->relation_with_section->site_name_ar }}</option>
 
@@ -60,7 +61,7 @@
 
                         
                         <div class="form-group">
-                            <label for="exampleInputEmail1">صوره</label><br>
+                            <label for="exampleInputEmail1">صوره*</label><br>
                             <center><img data-v-20a423fa=""style="width: 30%;" src="<?php echo asset("storage/categories/first/$categories->image")?>" class="uploaded-img"> </center>
 
                             <input type="file" class="form-control" name="image" accept="image/*">

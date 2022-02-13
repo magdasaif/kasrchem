@@ -30,9 +30,11 @@ class SubcategoryController2 extends Controller
     public function show_add_form($cate_id)
     {
         $from_side_or_no='no';
-        $sections = Sitesection::get();
         $sub1_categories = Main_Category::find($cate_id);
-       
+        $sections = Sitesection::where('id',$sub1_categories->section_id)->first();
+
+        //dd($sections);
+
         return view('categories.sub2.add',compact('sub1_categories','from_side_or_no','sections'));
     }
 

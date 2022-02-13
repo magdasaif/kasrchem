@@ -33,12 +33,16 @@
 
                 <div class="form-group">    
                     <label>  اقسام الموقع </label>
+                    @if($from_side_or_no=='yes')
                     <select  class="form-control sub2"  id="section_id" name="section_id" >
                         <option value="0">جميع الاقسام</option>
                          @foreach ($sections as $sec)
                             <option value="{{ $sec->id }}">{{ $sec->site_name_ar }}</option>
                          @endforeach
-                    </select> 
+                    </select>
+                    @else
+                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                    @endif
                 </div>
                 
                 <div class="form-group">

@@ -31,14 +31,26 @@
                 {{method_field('PATCH')}}
 
                 @csrf
-                   <div class="form-group">
+
+                <div class="form-group">
+                     <label for="exampleInputEmail1">  اقسام الموقع*</label>
+                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                </div>
+                
+                <div class="form-group">
+                     <label for="exampleInputEmail1"> التصنيف الرئيسى*</label>
+                    <input type="test" class="form-control"  value="{{ $sub_categories->relation_sub2_with_main->subname_ar }}" disabled>
+                    <input type="hidden" class="form-control" name="cate_id" value="{{ $sub_categories->relation_sub2_with_main->id }}">
+                </div>
+                
+                <div class="form-group">
                    <label   for="exampleInputEmail1">اسم التصنيف الفرعي</label>
                    <input type="text" class="form-control" name="sub_id2" id="sub_id2" value="{{ $sub3->sub2_id}}" hidden>
                    <input type="text" class="form-control" name="sub2_name" id="sub2_name" value="{{ $sub3->Sub_Category3->subname2_ar}}" disabled="disabled" >
                 </div>
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
+                    <label for="exampleInputEmail1">اسم النوع بالعربيه</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$sub3->subname_ar}}" required>
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -46,7 +58,7 @@
                 </div>
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
+                    <label for="exampleInputEmail1">اسم النوع بالانجليزيه</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$sub3->subname_en}}" required>
                     @error('subname_en')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -54,7 +66,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label><br>
+                    <label for="exampleInputEmail1">صوره*</label><br>
                     
                    <center> <img data-v-20a423fa="" style="width: 30%;" src="<?php echo asset("storage/categories/third/".$sub3->image)?>" class="uploaded-img"></center>
 
