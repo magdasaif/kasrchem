@@ -1,5 +1,78 @@
 <div class="container">
  
+  <!-------------------------------- [ Modal #0 ]------------------------------------------------------- -->
+  <div class="modal fade" id="exampleModal0" tabindex="-1">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
+      <div class="card-header">
+        <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModal0Label">
+        اضافة تصنيف رئيسي
+               </h5>
+      </div>
+      <div class="modal-body" style="margin-right: 1px;width: 100%;">
+        <!--==========================================================-->
+		  <form method="POST" action="{{route('categories.store')}}" enctype="multipart/form-data">
+            
+            @csrf
+                 <input type="hidden" name="model0" value="1">
+                <div class="form-group">
+                     <label> القسم </label>
+                     <input type="text" class="form-control" name="test" id="test" value="" disabled>
+                    <input type="hidden" class="form-control" name="section_id" id="section_id2" value="">
+                </div>
+
+            
+            <div class="form-group">
+                <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" required>
+                @error('subname_ar')
+                <small class="form-text text-danger">{{$message}}</small>
+                @enderror
+            </div>
+        
+            <div class="form-group">
+                <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" required>
+                @error('subname_en')
+                <small class="form-text text-danger">{{$message}}</small>
+                @enderror
+            </div>
+
+            
+            <div class="form-group">
+                <label for="exampleInputEmail1">صوره</label>
+
+                <input type="file" class="form-control" name="image" accept="image/*" required>
+
+                @error('image')
+                <small class="form-text text-danger">{{$message}}</small>
+                @enderror
+            </div>
+
+
+            <div class="form-group">
+                <select class="form-control" name="status">
+                        <option value="1">مُفعل</option>
+                        <option value="0">غير مُفعل</option>
+                </select>
+            </div>
+            
+            <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">اضافه</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">الغاء</button>
+                </div>
+            </form>
+		
+		
+		<!--==========================================================-->
+		
+		
+      </div>
+     
+     </div>
+    </div>
+  </div>
   <!-------------------------------- [ Modal #1 ]------------------------------------------------------- -->
   <div class="modal fade" id="exampleModal" tabindex="-1">
     <div class="modal-dialog">
@@ -43,9 +116,9 @@
 
                 
                 <div class="form-group">
-                    <label >صوره</label>
+                    <label >صوره *</label>
 
-                    <input type="file" class="form-control" name="image" accept="image/*">
+                    <input type="file" class="form-control" name="image" accept="image/*" required>
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -54,6 +127,7 @@
 
 
                 <div class="form-group">
+                <label >الحاله</label>
                     <select class="form-control" name="status">
                             <option value="1">مُفعل</option>
                             <option value="0">غير مُفعل</option>
@@ -76,7 +150,7 @@
     </div>
   </div>
 
-  <!------------------------------------------------ [ Modal #2 ]--------------------------------------------------------->
+  <!------------------------------------------------ [ Modal #3 ]--------------------------------------------------------->
   <div class="modal fade" id="exampleModal3" tabindex="-1">
     <div class="modal-dialog">
      <div class="modal-content">
@@ -156,7 +230,7 @@
     </div>
   </div>
 
-  <!--------------------------------------------- [ Modal #3 ]--------------------------------- -->
+  <!--------------------------------------------- [ Modal #4 ]--------------------------------- -->
   <div class="modal fade" id="exampleModal4" tabindex="-1">
     <div class="modal-dialog">
      <div class="modal-content">

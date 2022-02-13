@@ -32,6 +32,7 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
+                    <label >الاقسام</label>
                     <select class="form-control" name="section_id">
                         @foreach ($sections as $section)
                             <option value="{{ $section->id }}">{{ $section->site_name_ar }}</option>
