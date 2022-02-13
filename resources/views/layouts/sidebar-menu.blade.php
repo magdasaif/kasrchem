@@ -10,13 +10,13 @@
       </li>
 
       @can('isAdmin')
-
+<!-- 
        <li class="nav-item">
         <a href="{{route('about/edit',1)}}" class="nav-link">
           <i class="nav-icon fas fa-info green"></i>
           <p  class="ttitle">من نحن</p>
         </a>
-      </li> 
+      </li>  -->
       
       <!------------------------------اقسام الموقع-------------------------------------------->
       <li class="nav-item has-treeview">
