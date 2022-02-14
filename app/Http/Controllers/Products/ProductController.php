@@ -5,10 +5,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
-use App\Models\Main_Category;
 use App\Models\Product_attachment;
 use App\Models\Product_Feature;
 use App\Models\Supplier;
+
+use App\Models\Sitesection;
+use App\Models\Main_Category;
+use App\Models\Sub_Category2;
+use App\Models\Sub_Category3;
+use App\Models\Sub_Category4;
 
 use App\Http\Requests\ProductRequest;
 
@@ -35,11 +40,15 @@ class ProductController extends Controller
         // $categories = Main_Category::get();
          $title='اضافه منتج';
          //$categories= Main_Category::withcount('sub_cate2')->get();
-          $Main_Cat= Main_Category::get();
+         $sub_Category4      = Sub_Category4::get(); 
+         $sub_Category3      = Sub_Category3::get(); 
+         $Sub_Category2      = Sub_Category2::get();
+         $Main_Cat	         = Main_Category::get();
+         $sections           = Sitesection::get();
          $suppliers= Supplier::get();
         // return $categories;
        // return view('pages.products.add',compact('categories','suppliers','title'));
-       return view('pages.products.add',compact('Main_Cat','suppliers','title'));
+       return view('pages.products.add',compact('Main_Cat','suppliers','title','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
 
 

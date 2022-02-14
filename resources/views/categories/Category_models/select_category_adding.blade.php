@@ -1,15 +1,13 @@
             <div class="form-group">    
                 <label>  اقسام الموقع </label>
-                @if($from_side_or_no=='yes')
+                
                 <select  class="form-control sub2"  id="section_id2" name="section_id" >
                     <option value="0">جميع الاقسام</option>
                         @foreach ($sections as $sec)
                         <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}?>>{{ $sec->site_name_ar }}</option>
                         @endforeach
                 </select>
-                @else
-                <input type="text" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
-                @endif 
+                 
             </div>
                 
             <div class="form-group">
@@ -28,7 +26,12 @@
                             // }
                        }
                     ?>
-                 </select> 
+                 </select>
+                    <!-----------------add new cate if no category found for this section------------------------------------>
+                  <div class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>
+                            <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal0" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                        <!----------------------------------------------------->
                  <div  id="main_error" style="color: red;display: none;">قم بادخال التصنيف الرئيسي</div>
                  @error('main_category')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -84,15 +87,27 @@
                     </div>
                     <!----------------------------------------------------->
                 @endif
+            </div>
                 <!----------------------------------------------------- -->
-                <div class="form-group"  id="sub4_div" > 
+            <div class="form-group"  id="sub4_div" > 
                 <label>النوع الفرعى</label>
+                    @if(Session::get('cate_id') && Session::get('sub2_id') && Session::get('sub3_id') && !Session::get('sub4_id'))
+                        <!-----------------add new cate if no category found for this section------------------------------------>
+                    <div class="form-control" id="sub3_requi"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعي للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                    <!----------------------------------------------------->
+                    @else
                     <select  class="form-control sub4"  id="sub4_sel" name="sub4" required  oninvalid="this.setCustomValidity('قم بادخال النوع الفرعى')"  oninput="this.setCustomValidity('')"  >
-     
+                    <option value="" selected disable>كل الانواع الفرعيه</option>
+                    @foreach ($sub_Category4 as $sub4)
+                            <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}?>>{{ $sub4->subname_ar }}</option>
+                        @endforeach
                     </select>
                     <div class="form-control" id="sub4_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعى للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
-                    
-                    <i  class="nav-icon fas fa-plus green" type="button"  data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
+                        <i  class="nav-icon fas fa-plus green" type="button"  data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
                     </div>
+                     <!----------------------------------------------------->
+                @endif
             </div>
                
