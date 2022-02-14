@@ -32,9 +32,9 @@ class SubcategoryController3 extends Controller
     public function show($sub2_id)
     {
         $from_side_or_no='no';
-        $sections = Sitesection::get();
+        $sections = Sitesection::orderBy('id','desc')->get();
         //dd( sub_Category3::where('sub2_id',$sub2_id)->get());
-        $sub_Category3 = Sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->get();
+        $sub_Category3 = Sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->orderBy('id','desc')->get();
         return view('categories.sub3.show',compact('sub_Category3','sub2_id','sections','from_side_or_no'));
     }
     //----------------------------------------------
@@ -83,12 +83,24 @@ class SubcategoryController3 extends Controller
             $sub_Category3->status= $request->status;
             $sub_Category3->image= $photo_name;
             $sub_Category3->save();
+        
+
             if ($request->model2==1)
             {
-                return redirect()->back()->with(['success'=>'تمت اضافة النوع الرئيسى بنجاح']);
-
+               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+               return redirect()->back()->with(
+                   [
+                       'success'=>'تمت اضافة التصنيف الفرعى بنجاح',
+                       'section_id'=>$request->section_id,
+                      'cate_id'=>$request->cate_id,
+                      'sub2_id' => $request->sub2_id,
+                      'sub3_id' => $sub_Category3->id,
+                   ]
+               );
               
             }
+
+            
             if($request->model2_edit==1) 
             {
                

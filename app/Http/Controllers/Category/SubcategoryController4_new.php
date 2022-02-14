@@ -18,7 +18,7 @@ class SubcategoryController4_new extends Controller
     public function index()
     {
         $from_side_or_no='yes';
-        $sub_category4=Sub_Category4::get();
+        $sub_category4=Sub_Category4::orderBy('id','desc')->get();
 
         return view('categories.sub4.show',compact('sub_category4','from_side_or_no'));
     }

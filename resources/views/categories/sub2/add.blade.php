@@ -35,14 +35,14 @@
                 <div class="form-group">    
                     <label>  اقسام الموقع </label>
                     @if($from_side_or_no=='yes')
-                    <select  class="form-control sub2"  id="section_id" name="section_id" >
+                    <select  class="form-control sub2"  id="section_id2" name="section_id" >
                         <option value="0">جميع الاقسام</option>
                          @foreach ($sections as $sec)
                             <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}?>>{{ $sec->site_name_ar }}</option>
                          @endforeach
                     </select>
                     @else
-                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                    <input type="text" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
                     @endif
                 </div>
                 
@@ -50,7 +50,7 @@
                      <label for="exampleInputEmail1"> التصنيف الرئيسى</label>
                         @if($from_side_or_no=='yes')
 
-                        <select class="form-control" id="cate_id" name="cate_id" required >
+                        <select class="form-control" id="cate_id2" name="cate_id" required >
                             <option value="" selected disable>اختر التصنيف الرئيسي</option>
                             @foreach ($sub1_categories as $category)
                                 <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}?>>{{ $category->subname_ar }}</option>
@@ -63,7 +63,7 @@
                          <!----------------------------------------------------->
 
                          @else
-                            <input type="test" class="form-control"  value="{{ $sub1_categories->subname_ar }}" disabled>
+                            <input type="text" class="form-control"  value="{{ $sub1_categories->subname_ar }}" disabled>
                             <input type="hidden" class="form-control" name="cate_id" value="{{ $sub1_categories->id }}">
                         @endif
                 </div>
@@ -140,15 +140,18 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) 
                 {
-                    //  alert(data);
-                    $('#cate_id').empty();
+                     // alert(data);
+                    
                     if(data!='')
                     {
-                              //لو فى تصنيف رئيسى للقسم هيعرضه  
-                        $('#cate_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
+                        //لو فى تصنيف رئيسى للقسم هيعرضه  
+                        $("#sub1_requi").hide();
+                        $('select[name="cate_id"]').show();
+                        $('#cate_id2').empty();
+                        $('#cate_id2').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                         $.each(data, function (key, value) {
                             //alert('<option value="' + key + '">' + value + '</option>');
-                        $('#cate_id').append('<option value="' + key + '">' + value + '</option>');
+                        $('#cate_id2').append('<option value="' + key + '">' + value + '</option>');
                         });
                     }
                     else
@@ -157,9 +160,9 @@ $(document).ready(function () {
                         $('select[name="cate_id"]').hide();//hide select 
                             $("#sub1_requi").show();//show div if sub1not founded
                             //-------------get name of section--------------//
-                                document.getElementById("section_id2").value=section_id; 
+                                document.getElementById("section_id1").value=section_id; 
                                 //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
-                                document.getElementById("test").value=$("#section_id option:selected" ).text(); 
+                                document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
                             //----------------------------//
                     }
                     

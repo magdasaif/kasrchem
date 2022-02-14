@@ -33,14 +33,14 @@
                 <div class="form-group">    
                     <label>  اقسام الموقع </label>
                     @if($from_side_or_no=='yes')
-                    <select  class="form-control sub2"  id="section_id" name="section_id" >
+                    <select  class="form-control sub2"  id="section_id2" name="section_id" >
                         <option value="0">جميع الاقسام</option>
                          @foreach ($sections as $sec)
                             <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}?>>{{ $sec->site_name_ar }}</option>
                          @endforeach
                     </select>
                     @else
-                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                    <input type="text" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
                     @endif 
                 </div>
                 
@@ -60,7 +60,7 @@
                         </div>
                          <!----------------------------------------------------->
                          @else
-                            <input type="test" class="form-control"  value="{{ $sub1_categories->subname_ar }}" disabled>
+                            <input type="text" class="form-control"  value="{{ $sub1_categories->subname_ar }}" disabled>
                         @endif
                 </div>
                 
@@ -68,7 +68,7 @@
                    
                     <label for="exampleInputEmail1">اسم التصنيف الفرعي</label>
                         @if($from_side_or_no=='yes')
-                            @if(Session::get('cate_id'))
+                            @if(Session::get('cate_id') && !Session::get('sub2_id'))
                              <!-----------------add new cate if no category found for this section------------------------------------>
                             <div class="form-control" id="sub2_requi"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
                                 <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal" style="margin-right: 23px;font-weight: bold;"></i>
@@ -153,10 +153,27 @@
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
 $(document).ready(function () {
+
+     //---------------------to get value if not making change in select------------------------
+    //save section id value to return back with it
+    var section_id = $('select[name="section_id"]').val();
+    document.getElementById("section_id1").value=section_id;
+   // alert(section_id);
+
+    //save main category id value to return back with it
+    var cate_id = $('select[name="cate_id"]').val();
+    document.getElementById("cate_id").value=cate_id;
+   // alert(cate_id);
+    
+    //read value of selected sub category
+    document.getElementById("test").value=$("#cate_id2 option:selected" ).text();
+    //-----------------------------------------------------------------
     
     $('select[name="section_id"]').on('change', function () {
         // alert('ssss');
         var section_id = $(this).val();
+        var cate_id = $('select[name="cate_id"]').val();
+
             // alert(section_id);
             // alert("{{ URL::to('fetch_sub1')}}/" + section_id);
             
@@ -168,11 +185,14 @@ $(document).ready(function () {
                 {
                     if(data!='')
                     {
+                        $("#sub1_requi").hide();
+                        $('select[name="cate_id"]').show();
+                        $('#cate_id2').empty();
                               //لو فى تصنيف رئيسى للقسم هيعرضه  
-                        $('#cate_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
+                        $('#cate_id2').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                         $.each(data, function (key, value) {
                             //alert('<option value="' + key + '">' + value + '</option>');
-                        $('#cate_id').append('<option value="' + key + '">' + value + '</option>');
+                        $('#cate_id2').append('<option value="' + key + '">' + value + '</option>');
                         });
                     }
                     else
@@ -181,9 +201,10 @@ $(document).ready(function () {
                         $('select[name="cate_id"]').hide();//hide select 
                             $("#sub1_requi").show();//show div if sub1not founded
                             //-------------get name of section--------------//
-                                document.getElementById("section_id2").value=section_id; 
+                                document.getElementById("section_id1").value=section_id;
+                                 document.getElementById("cate_id").value=cate_id;
                                 //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
-                                document.getElementById("test").value=$("#section_id option:selected" ).text(); 
+                                 document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
                             //----------------------------//
                     }
                     
@@ -193,20 +214,6 @@ $(document).ready(function () {
             });
     });
 
-    //-----------------------------------------------------------------
-    
-    //---------------------to get value if not making change in select------------------------
-   var section_id = $('select[name="section_id"]').val();
-    document.getElementById("section_id2").value=section_id;
-
-    //alert(section_id);
-
-    var cate_id = $('select[name="cate_id"]').val();
-    document.getElementById("cate_id").value=cate_id;
-
-   // alert(cate_id);
-
-    document.getElementById("test").value=$("#sub2_id option:selected" ).text();
     //-----------------------------------------------------------------
 
     $('select[name="cate_id"]').on('change', function () {
@@ -225,23 +232,27 @@ $(document).ready(function () {
                     //  alert(data);
                     if(data!='')
                     {
-                        $('#sub2_id').empty();
-                        $('#sub2_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعى</option>');
+                        $("#sub2_requi").hide();
+                        $('select[name="sub2_id"]').show();
+                        $('#sub2_id2').empty();
+                        $('#sub2_id2').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعى</option>');
                         $.each(data, function (key, value) {
                             //alert('<option value="' + key + '">' + value + '</option>');
-                        $('#sub2_id').append('<option value="' + key + '">' + value + '</option>');
+                        $('#sub2_id2').append('<option value="' + key + '">' + value + '</option>');
                         });
                     }else{
                          // alert("لا يوجـد تصنيف فرعى للتصنيف الرئيسى المختار من فضلك قم باضافته اولا");
                          $('select[name="sub2_id"]').hide();//hide select 
                             $("#sub2_requi").show();//show div if sub1not founded
                             //-------------get name of section--------------//
-                                document.getElementById("section_id2").value=section_id;
+                                document.getElementById("section_id1").value=section_id;
                                 document.getElementById("cate_id").value=cate_id;
+                                
+                               //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
 
-                                //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
-                                document.getElementById("test").value=$("#sub2_id option:selected" ).text(); 
-                            //----------------------------//
+                               document.getElementById("test").value=$("#cate_id2 option:selected" ).text(); 
+                                
+                           //----------------------------//
                     }
                 },
                 error:function()

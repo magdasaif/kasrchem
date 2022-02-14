@@ -18,8 +18,8 @@
                  <input type="hidden" name="model0" value="1">
                 <div class="form-group">
                      <label> القسم </label>
-                     <input type="text" class="form-control" name="test" id="test" value="" disabled>
-                    <input type="hidden" class="form-control" name="section_id" id="section_id2" value="">
+                     <input type="text" class="form-control" name="new_main_name" id="new_main_name" value="" disabled>
+                    <input type="hidden" class="form-control" name="section_id" id="section_id" value="">
                 </div>
 
             
@@ -41,7 +41,7 @@
 
             
             <div class="form-group">
-                <label for="exampleInputEmail1">صوره</label>
+                <label for="exampleInputEmail1">صوره *</label>
 
                 <input type="file" class="form-control" name="image" accept="image/*" required>
 
@@ -52,6 +52,7 @@
 
 
             <div class="form-group">
+                <label>الحاله</label>
                 <select class="form-control" name="status">
                         <option value="1">مُفعل</option>
                         <option value="0">غير مُفعل</option>
@@ -94,7 +95,8 @@
                 <div class="form-group">
                      <label> التصنيف الرئيسى</label>
                      <input type="text" class="form-control" name="test" id="test" value="" disabled>
-                    <input type="hidden" class="form-control" name="cate_id" id="cate_id" value="">
+                     <input type="hidden" class="form-control" name="section_id" id="section_id1" value="">
+                     <input type="hidden" class="form-control" name="cate_id" id="cate_id" value="">
                 </div>
 
                 
@@ -171,7 +173,11 @@
                
                 <label for="exampleInputEmail1">اسم التصنيف الفرعي</label>
                 <input type="text" class="form-control" name="sub2_name" id="sub2_name" value="" disabled>
+                
+                <input type="hidden" class="form-control" name="section_id" id="section_id2" value="">
+                <input type="hidden" class="form-control" name="cate_id" id="cate_id2" value="">
                 <input type="hidden" class="form-control" name="sub2_id" id="sub2_id" value="">
+
                
             </div>
            
