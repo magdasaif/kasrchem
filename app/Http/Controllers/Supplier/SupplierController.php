@@ -98,7 +98,9 @@ class SupplierController extends Controller
      public function destroy(Request $request ,$id)
     {
          // dd($id);
+
          $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
+        // dd($id); 
          unlink($image_path);
          try 
          {

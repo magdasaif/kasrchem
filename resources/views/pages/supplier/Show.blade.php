@@ -60,39 +60,42 @@
                              /
                              <a href="{{ url('show_supplier_images/'.$Supp->id) }}"  title="صور المورد"><i class="fa fa-camera yellow"></i></a>
 
-                              <!-- /
-                              <a  title="حذف" data-catid="{{$Supp->id}}" data-toggle="modal" data-target="#delete{{$Supp->id}}"> <i class="fa fa-trash red"></i></a> -->
-                               </td>
-                            </tr>
-                        <!--############################ model for delete #################################-->
+                             &nbsp; / &nbsp;
+                                <a  title="حذف" data-catid="{{$Supp->id}}" data-toggle="modal" data-target="#delete{{$Supp->id}}"> <i class="fa fa-trash red del"></i></a> 
+
+                                 <!--############################ model for delete #################################-->
           
                             <div class="modal modal-danger fade" id="delete{{$Supp->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                <div class="modal-header" style="direction: ltr;">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <div class="card-header" style="direction: ltr;">
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('supplier.destroy',$Supp->id)}}"  method="post">
-                                        {{method_field('delete')}}
-                                        {{csrf_field()}}
-                                    <div class="modal-body">
+                                <form class="delete" action="{{ route('supplier.destroy',$Supp->id) }}" method="POST">
+                                <div class="modal-body">
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-                                            <input type="hidden" name="Supplier_id" id="$Supp->id" value="{{$Supp->id}}">
-
-                                    </div>
-                                    <input type="hidden" name="deleted_image" value="{{$Supp->image}}">
+                                       </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <button type="submit" class="btn btn-success">حذف</button>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                      
+                                       <input type="hidden" name="deleted_image" value="{{ $Supp->logo}}" />
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                      <input type="submit" value="حذف"  class="btn btn-primary">
                                     </div>
+                                   
+
                                 </form>
                                 </div>
                             </div>
                             </div>
             <!--#############################################################-->
+                   </td>
+                               </td>
+                            </tr>
+                        
 
                         @endforeach
 
