@@ -10,7 +10,7 @@ class SliderController extends Controller
 {
      public function index()
     {
-        $Slider=Slider::all();
+        $Slider=Slider::orderBy('priority','asc')->get();
         return view('pages.Slider.Show',compact('Slider'));
     }
 //-----------------------------------------

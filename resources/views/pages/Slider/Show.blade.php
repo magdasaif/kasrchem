@@ -58,44 +58,43 @@
                              
 							<td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('slider.edit',$slider->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
-                            <!-- /
+                           
+                             / &nbsp;
+                                <a  title="حذف" data-catid="{{$slider->id}}" data-toggle="modal" data-target="#delete{{$slider->id}}"> <i class="fa fa-trash red del"></i></a> 
 
-                            <a  title="حذف" data-catid="{{$slider->id}}" data-toggle="modal" data-target="#delete{{$slider->id}}"> <i class="fa fa-trash red"></i></a> -->
-                            <!-- <button class="btn btn-danger" data-catid={{$slider->id}} data-toggle="modal" data-target="#delete{{$slider->id}}">حذف</button> -->
-
-
-                        </td>
-                            
-                            </tr>
-                        <!--############################ model for delete #################################-->
+ <!--############################ model for delete #################################-->
           
-                            <div class="modal modal-danger fade" id="delete{{$slider->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                         <div class="modal modal-danger fade" id="delete{{$slider->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="direction: ltr;">
                                 <div class="modal-header" >
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('slider.destroy',$slider->id)}}"  method="post">
-                                        {{method_field('delete')}}
-                                        {{csrf_field()}}
+                                <form class="delete" action="{{route('slider.destroy',$slider->id)}}" method="POST">
+                                   
                                     <div class="modal-body">
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-                                            <input type="hidden" name="slider_id"  value="{{$slider->id}}">
 
                                     </div>
                                     <input type="hidden" name="deleted_image" value="{{$slider->image}}">
                                     <div class="modal-footer">
+                                   
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <button type="submit" class="btn btn-success">حذف</button>
+                                        <input type="submit" value="حذف"  class="btn btn-primary">
                                     </div>
                                 </form>
                                 </div>
                             </div>
                             </div>
             <!--#############################################################-->
+                        </td>
+                            
+                            </tr>
+                       
 
                         @endforeach
 
