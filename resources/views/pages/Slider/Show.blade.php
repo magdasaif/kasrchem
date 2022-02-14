@@ -67,7 +67,7 @@
                          <div class="modal modal-danger fade" id="delete{{$slider->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="direction: ltr;">
-                                <div class="modal-header" >
+                                <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
                                 <form class="delete" action="{{route('slider.destroy',$slider->id)}}" method="POST">
