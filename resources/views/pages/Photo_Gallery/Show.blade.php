@@ -77,7 +77,7 @@
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">
-                                            <h3 >
+                                            <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                             <input type="hidden" name="galary_id" id="$Photo_Gallery->id" value="{{$Photo_Gallery->id}}">
