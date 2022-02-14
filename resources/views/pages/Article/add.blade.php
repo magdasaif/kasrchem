@@ -146,6 +146,47 @@
     
   //---------------for show seelct option of sub2------------------------//
   $(document).ready(function () {
+    $('select[name="section_id"]').on('change', function () {
+        // alert('ssss');
+        var section_id = $(this).val();
+            // alert(section_id);
+            // alert("{{ URL::to('fetch_sub1')}}/" + section_id);
+            
+            $.ajax({
+                type: "GET",
+                url: "{{ URL::to('fetch_sub1')}}/" + section_id,
+                dataType: "json",
+                success: function (data) 
+                {
+                    if(data!='')
+                    {
+                        $("#sub1_requi").hide();
+                        $('select[name="cate_id"]').show();
+                        $('#cate_id2').empty();
+                              //لو فى تصنيف رئيسى للقسم هيعرضه  
+                        $('#cate_id2').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
+                        $.each(data, function (key, value) {
+                            //alert('<option value="' + key + '">' + value + '</option>');
+                        $('#cate_id2').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                    else
+                    {
+                        // alert("لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا");
+                        $('select[name="cate_id"]').hide();//hide select 
+                            $("#sub1_requi").show();//show div if sub1not founded
+                            //-------------get name of section--------------//
+                                document.getElementById("section_id2").value=section_id; 
+                                //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
+                                 document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+                            //----------------------------//
+                    }
+                    
+                },
+                error:function()
+                { alert("false"); }
+            });
+    });
             $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
             // alert(main_category_id);

@@ -4,18 +4,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
-use App\Models\Main_Category; 
+
+use App\Models\Sitesection;
+use App\Models\Main_Category;
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
-use App\Models\Sub_Category4;
+use App\Models\Sub_Category4; 
 
 class ArticleController extends Controller
 {
   
     public function index()
     {
+        $sub_Category3      = Sub_Category3::get(); 
+        $Sub_Category2      = Sub_Category2::get();
+        $sub1_categories    = Main_Category::get();
+        $sections           = Sitesection::get();
         $Art=Article::all();
-         return view('pages.Article.Show',compact('Art'));
+         return view('pages.Article.Show',compact('Art','sub_Category3','Sub_Category2','sections','sub1_categories'));
     }
 //--------------------------------------------
  public function create()
