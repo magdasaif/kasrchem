@@ -67,8 +67,7 @@
                             <div class="modal modal-danger fade" id="delete{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                <div class="modal-header" style="direction: ltr;">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <div class="card-header" style="direction: ltr;">
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
                                 <form class="delete" action="{{ route('video.destroy',$video->id) }}" method="POST">
