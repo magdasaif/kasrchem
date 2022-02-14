@@ -77,11 +77,11 @@
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">
-                                            <h3 class="text-center">
+                                            <h3 >
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                             <input type="hidden" name="galary_id" id="$Photo_Gallery->id" value="{{$Photo_Gallery->id}}">
-
+                                            <img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$Photo_Gallery->image}")?> alt="" >
                                     </div>
                                     <input type="hidden" name="deleted_image" value="{{$Photo_Gallery->image}}">
                                     <div class="modal-footer">

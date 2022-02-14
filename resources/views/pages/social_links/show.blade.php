@@ -76,6 +76,7 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
+                                             <div   style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$social->name}}</div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>

@@ -80,7 +80,7 @@
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                             <input type="hidden" name="Article_id" id="$article->id" value="{{$article->id}}">
-
+                                            <div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$article->title_ar}}</div>
                                     </div>
                                     <input type="hidden" name="deleted_image" value="{{$article->image}}">
 

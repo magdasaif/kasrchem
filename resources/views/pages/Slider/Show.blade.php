@@ -73,10 +73,10 @@
                                 <form class="delete" action="{{route('slider.destroy',$slider->id)}}" method="POST">
                                    
                                     <div class="modal-body">
-                                            <h3 class="text-center">
+                                            <h3 >
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-
+                                             <img  style="width: 90px;" src=<?php echo asset("storage/slider/{$slider->image}")?> alt="" >
                                     </div>
                                     <input type="hidden" name="deleted_image" value="{{$slider->image}}">
                                     <div class="modal-footer">

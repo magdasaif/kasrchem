@@ -76,6 +76,8 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
+                                             <div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$Supp->name_ar}}</div>
+
                                        </div>
                                     <div class="modal-footer">
                                         <input type="hidden" name="_method" value="DELETE">

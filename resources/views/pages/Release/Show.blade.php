@@ -77,6 +77,7 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
+                                             <div   style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$release->title_ar}}</div>
                                             <input type="hidden" name="release_id" id="$release->id" value="$release->id">
 
                                     </div>
