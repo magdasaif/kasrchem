@@ -202,7 +202,8 @@ $(document).ready(function () {
                         $('select[name="cate_id"]').hide();//hide select 
                             $("#sub1_requi").show();//show div if sub1not founded
                             //-------------get name of section--------------//
-                                document.getElementById("section_id2").value=section_id; 
+                             //  document.getElementById("section_id2").value=section_id; 
+                                document.getElementById("section_id1").value=section_id; 
                                 //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
                                  document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
                             //----------------------------//
