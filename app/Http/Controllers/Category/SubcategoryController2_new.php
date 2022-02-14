@@ -23,7 +23,7 @@ class SubcategoryController2_new extends Controller
     public function index()
     {
         $from_side_or_no='yes';
-        $categories = Sub_Category2::withcount('sub_cate3')->get();
+        $categories = Sub_Category2::withcount('sub_cate3')->orderBy('id','desc')->get();
       // $categories = Sub_Category2 ::withCount('cate_id')->get();
         
         return view('categories.sub2.category',compact('categories','from_side_or_no'));

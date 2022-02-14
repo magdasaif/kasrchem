@@ -21,7 +21,7 @@ class SubcategoryController2 extends Controller
      */
     public function index()
     {
-        $categories = Sub_Category2::all();
+        $categories = Sub_Category2::orderBy('id','desc')->all();
       // $categories = Sub_Category2 ::withCount('cate_id')->get();
         
         return view('categories.sub2.category',compact('categories'));
@@ -90,7 +90,14 @@ class SubcategoryController2 extends Controller
              if ($request->model1==1)
              {
                 //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
-                return redirect()->back()->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+                return redirect()->back()->with(
+                    [
+                        'success'=>'تمت اضافة التصنيف الفرعى بنجاح',
+                        'section_id'=>$request->section_id,
+                       'cate_id'=>$request->cate_id,
+                       'sub2_id' => $category->id,
+                    ]
+                );
                
              }
              if($request->model1_edit==1) 

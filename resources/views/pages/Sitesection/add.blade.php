@@ -59,8 +59,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image">صوره</label>
-                                    <input type="file" class="form-control" name="image">
+                                    <label for="image">صوره*</label>
+                                    <input type="file" class="form-control" name="image" accept="image/*" required>
                                     @error('image')
                                     <small class="form-text text-danger">{{$message}}</small>
                                     @enderror

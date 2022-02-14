@@ -37,7 +37,7 @@
              <!----------------------------------------------------- -->
              
              <div class="form-group"  id="sub3_div" >
-                <label>النوع</label>
+                <label>النوع الرئيسى</label>
                  <select  class="form-control sub3"  id="sub3_sel" name="sub3" required  oninvalid="this.setCustomValidity('قم بادخال النوع الرئيسي')"  oninput="this.setCustomValidity('')">
                  </select> 
                  <div class="form-control" id="sub3_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع رئيسي للتصنيف الفرعى المختار من فضلك قم باضافته اولا</span>

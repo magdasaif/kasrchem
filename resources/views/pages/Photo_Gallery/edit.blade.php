@@ -227,6 +227,9 @@
                                //--------------------------------------------//
                                if(data!='')
                             {
+                                $('select[name="sub2"]').show();
+                            $("#sub2_requi").hide();
+                            
                                 $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                              $.each(data, function (key, value) {
                               $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
@@ -282,6 +285,9 @@
                                //--------------------------------------------//
                                if(data!='')
                             {
+                                $('select[name="sub3"]').show();
+                                 $("#sub3_requi").hide();
+
                                 $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
@@ -332,8 +338,11 @@
                           //  $("#sub4_div").show();
                              $('select[name="sub4"]').empty();
                                 //--------------------------------------------//
-                                if(data!='')
+                             if(data!='')
                             {
+                                $('select[name="sub4"]').show();
+                                $("#sub4_requi").hide();
+ 
                                 $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
