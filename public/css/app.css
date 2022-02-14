@@ -70738,3 +70738,10 @@ font-weight: bold;
     border-color: #009879;
     border-radius: 26px;
 }
+.del
+{
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: white;
+}

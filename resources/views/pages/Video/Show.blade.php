@@ -56,43 +56,44 @@
                             <td><?php if($video->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                            
 
-                            <td>
+                            <td style="display: inline-flex;">
                                 <a href="{{route('video.edit',$video->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
-                                <!-- /
-                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$video->id}}" data-toggle="modal" data-target="#delete{{$video->id}}"> <i class="fa fa-trash red"></i></a> -->
-							</td>
-                            
-                            </tr>
-                        <!--############################ model for delete #################################-->
-                        <div class="modal modal-danger fade" id="delete{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                 
+                                &nbsp; / &nbsp;
+                                <a  title="حذف" data-catid="{$video->id}}" data-toggle="modal" data-target="#delete{{$video->id}}"> <i class="fa fa-trash red del"></i></a> 
+
+                                 <!--############################ model for delete #################################-->
+          
+                            <div class="modal modal-danger fade" id="delete{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header" style="direction: ltr;">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('video.destroy',$video->id)}}"  method="post">
-                                        {{method_field('delete')}}
-                                        {{csrf_field()}}
-                                    <div class="modal-body">
+                                <form class="delete" action="{{ route('video.destroy',$video->id) }}" method="POST">
+                                <div class="modal-body">
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-                                            <input type="hidden" name="Video_id" id="$video->id" value="$video->id">
-
-                                    </div>
+                                       </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <button type="submit" class="btn btn-success">حذف</button>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                      <input type="submit" value="حذف"  class="btn btn-primary">
                                     </div>
+                                   
+
                                 </form>
                                 </div>
                             </div>
-                        </div>
+                            </div>
             <!--#############################################################-->
-           
-            <!--#############################################################-->
-
+                   </td>
+                            
+                            </tr>
+                        
                         @endforeach
 
                     </tbody>
@@ -107,3 +108,15 @@
         </div>
   </section>
 @endsection
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script >
+    // $(".delete").on("submit", function(){
+
+
+    //     if(!confirm(" هل تريد الحذف بالفعل؟"))
+    //     event.preventDefault();
+    //     return confirm(" هل تريد الحذف بالفعل؟");
+    // });
+
+ 
+</script>
