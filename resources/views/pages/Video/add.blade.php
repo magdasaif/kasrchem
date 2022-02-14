@@ -37,7 +37,7 @@
                <div class="form-group">
                     <label for="title_ar">عنوان الفيديو </label>
                     <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar"     
-                value="{{old('title_ar')}}"   required>
+                value="{{old('title_ar')}}"   required  oninvalid="this.setCustomValidity('قم بادخال عنوان الفيديو بالعربية')"  oninput="this.setCustomValidity('')"> 
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -46,7 +46,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">عنوان الفيديو بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en"  value="{{old('title_en')}}" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان الفيديو بالانجليزية" name="title_en"  value="{{old('title_en')}}" required  oninvalid="this.setCustomValidity('قم عنوان الفيديو بالانجليزية')"  oninput="this.setCustomValidity('')">
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -54,7 +54,7 @@
                  <!----------------------------------------------------->
                 <div class="form-group">
                 <label for="content_ar">رابط الفيديو </label>
-                    <input type="text" class="form-control" name="link" value="{{old('link')}}"  required>
+                    <input type="text" class="form-control" name="link" value="{{old('link')}}"  required  oninvalid="this.setCustomValidity('قم بادخال رابط الفيديو')"  oninput="this.setCustomValidity('')">
                     @error('link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
