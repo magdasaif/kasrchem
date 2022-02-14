@@ -14,7 +14,7 @@ class ArticleController extends Controller
   
     public function index()
     {
-        $Art=Article::all();
+        $Art=Article::orderBy('id','desc')->get();
          return view('pages.Article.Show',compact('Art'));
     }
 //--------------------------------------------

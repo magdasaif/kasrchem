@@ -32,7 +32,7 @@
             <!----------------------------------------------------->
                  <div class="form-group">
                     <label for="title_ar">اسم الصفحة  </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar"  value="{{ old('title_ar') }}" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar"  value="{{ old('title_ar') }}" required oninvalid="this.setCustomValidity('قم بادخال اسم الصفحة بالعربية')"  oninput="this.setCustomValidity('')">
                     @error('title_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -40,7 +40,7 @@
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم الصفحة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required oninvalid="this.setCustomValidity('قم بادخال اسم الصفحة بالانجليزية')"  oninput="this.setCustomValidity('')">
                     @error('title_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror

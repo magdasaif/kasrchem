@@ -17,7 +17,7 @@ class BrancheController extends Controller
     public function index()
     {
         $title='قائمه الفروع';
-        $branches=Branche::all();
+        $branches=Branche::orderBy('id','desc')->get();;
         return view('pages.branches.show',compact('branches','title'));
         
     }

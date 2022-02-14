@@ -45,7 +45,7 @@ class BranchRequest extends FormRequest
         'map_long.required' =>'قم بتحديد الموقع ع الخريطه',
         'map_lat.required' =>'قم بتحديد الموقع ع الخريطه',
         'email.required' => 'البريد الالكترونى مطلوب',
-        'email.email' => 'تاكد من ادخال بريد الكترونى',
+        'email.email' => 'تاكد من ادخال بريد الكترونى بالشكل المناسب',
         'phone.numeric' =>'تاكد من ان الهاتف رقم',
         'fax.numeric' =>'تاكد من ان الفاكس رقم',
         ];

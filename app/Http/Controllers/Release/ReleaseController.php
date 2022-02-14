@@ -14,7 +14,7 @@ class ReleaseController extends Controller
 {
     public function index()
     {
-        $Rel=Release::all();
+        $Rel=Release::orderBy('id','desc')->get();
          return view('pages.Release.Show',compact('Rel'));
     }
 //--------------------------------------------

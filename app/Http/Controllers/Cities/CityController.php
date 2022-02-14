@@ -10,7 +10,7 @@ class CityController extends Controller
    
     public function index()
     {
-         $cities=City::all();
+         $cities=City::orderBy('id','desc')->get();
          return view('pages.City.Show',compact('cities'));
     }
  //---------------------------------------//

@@ -34,7 +34,9 @@
                
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الشريك بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" 
+                    value="{{ old('name_ar') }}" required  oninvalid="this.setCustomValidity('قم بادخال اسم الشريك بالعربية')"  oninput="this.setCustomValidity('')"
+                    >
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -43,7 +45,9 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الشريك بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" 
+                    value="{{ old('name_en') }}" required  oninvalid="this.setCustomValidity('قم بادخال اسم الشريك بالانجليزية')"  oninput="this.setCustomValidity('')"
+                    >
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -53,7 +57,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
 
-                    <input type="file" class="form-control" name="image" accept="image/*">
+                    <input type="file" class="form-control" name="image" accept="image/*"  required  oninvalid="this.setCustomValidity('قم بادخال  الصورة')"  oninput="this.setCustomValidity('')">
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -62,7 +66,8 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">لينك خارجى</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" name="external_link">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" name="external_link"
+                    value="{{ old('external_link') }}" required  oninvalid="this.setCustomValidity('قم بادخال اللينك الخارجى')"  oninput="this.setCustomValidity('')">
                     @error('external_link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -71,8 +76,8 @@
                 <div class="form-group">
                 <label for="exampleInputEmail1"> الحاله</label>
                     <select class="form-control" name="status">
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                        <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                        <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
                 

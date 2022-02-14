@@ -37,7 +37,7 @@
               
                <div class="form-group">
                     <label for="title_ar">عنوان المقال </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar"  value="{{ old('title_ar') }}" required oninvalid="this.setCustomValidity('قم بادخال عنوان المقال بالعربية')"  oninput="this.setCustomValidity('')">
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -46,7 +46,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">عنوان المقال بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان المقال بالانجليزية" name="title_en" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان المقال بالانجليزية" name="title_en"  value="{{ old('title_en') }}"required oninvalid="this.setCustomValidity('قم بادخال عنوان المقال بالانجليزية')"  oninput="this.setCustomValidity('')">
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -54,7 +54,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="content_ar">محتوى المقال </label>
-                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال "  ></textarea>
+                    <textarea  class="form-control tinymce-editor" name="content_ar" id="content_ar" placeholder="ادخل محتوى المقال "  >{!! old('content_ar')!!}</textarea>
                     @error('content_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -64,7 +64,7 @@
                <div class="form-group">
                     <label for="content_en"> محتوى المقال بالانجليزية </label>
                     
-                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية "  ></textarea>
+                    <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية "  >{!! old('content_en')!!}</textarea>
 
                     @error('content_en')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -73,7 +73,7 @@
               <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="image">صوره</label>
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                    <input type="file" class="form-control" name="image" accept="image/*" required oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -83,8 +83,8 @@
                 <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status"  required>
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                     <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
           <!----------------------------------------------------->

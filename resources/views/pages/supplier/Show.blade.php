@@ -68,7 +68,7 @@
                             <div class="modal modal-danger fade" id="delete{{$Supp->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                <div class="card-header" style="direction: ltr;">
+                                <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
                                 <form class="delete" action="{{ route('supplier.destroy',$Supp->id) }}" method="POST">
@@ -76,6 +76,8 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
+                                             <div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$Supp->name_ar}}</div>
+
                                        </div>
                                     <div class="modal-footer">
                                         <input type="hidden" name="_method" value="DELETE">
