@@ -15,7 +15,7 @@ class Photo_GalleryController extends Controller
     
     public function index()
     {
-        $Photo_Gal=Photo_Gallery::all();
+        $Photo_Gal=Photo_Gallery::orderBy('id','desc')->get();
         return view('pages.Photo_Gallery.Show',compact('Photo_Gal'));
     }
 //-------------------------------------------------------------//

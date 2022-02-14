@@ -15,7 +15,7 @@ class VideoController extends Controller
 
     public function index()
     {
-        $Vid=Video::all();
+        $Vid=Video::orderBy('id','desc')->get();
 
          return view('pages.Video.Show',compact('Vid'));
     }
