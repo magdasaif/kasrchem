@@ -58,41 +58,40 @@
  
 							<td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('page.edit',$Pagee->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
-							<!-- /
-					        <a  title="حذف" data-catid="{{$Pagee->id}}" data-toggle="modal" data-target="#delete{{$Pagee->id}}"> <i class="fa fa-trash red"></i></a> -->
-
+							/
+					        <a  title="حذف" data-catid="{{$Pagee->id}}" data-toggle="modal" data-target="#delete{{$Pagee->id}}"> <i class="fa fa-trash red"></i></a>
+                            <!--############################ model for delete #################################-->
+                                
+                            <div class="modal modal-danger fade" id="delete{{$Pagee->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="card-header" >
+                                                            <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
+                                                        </div>
+                                                        <form action="{{route('page.destroy',$Pagee->id)}}"  method="post">
+                                                                {{method_field('delete')}}
+                                                                {{csrf_field()}}
+                                                            <div class="modal-body">
+                                                                    <h3 class="text-center">
+                                                                        هل تريد الحذف بالفعل؟
+                                                                    </h3>
+                                                                    <input type="hidden" name="Page_id" id="$Pagee->id" value="{{$Pagee->id}}">
+                                                                    <div  name="Page_title_ar" style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$Pagee->title_ar}}</div>
+                                                        </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                                                <button type="submit" class="btn btn-success">حذف</button>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                    <!--#############################################################-->
                              <!-- <button class="btn btn-danger" data-catid={{$Pagee->id}} data-toggle="modal" data-target="#delete{{$Pagee->id}}">حذف</button> -->
 							 
                             </td>
                             </tr>
-                        <!--############################ model for delete #################################-->
-          
-                            <div class="modal modal-danger fade" id="delete{{$Pagee->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header" style="direction: ltr;">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
-                                </div>
-                                <form action="{{route('page.destroy',$Pagee->id)}}"  method="post">
-                                        {{method_field('delete')}}
-                                        {{csrf_field()}}
-                                    <div class="modal-body">
-                                            <h3 class="text-center">
-                                                هل تريد الحذف بالفعل؟
-                                             </h3>
-                                            <input type="hidden" name="Page_id" id="$Pagee->id" value="{{$Pagee->id}}">
-                                            <div  name="Page_title_ar" style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$Pagee->title_ar}}</div>
-                                   </div>
-                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <button type="submit" class="btn btn-success">حذف</button>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
-                            </div>
-            <!--#############################################################-->
+                     
 
                         @endforeach
 
