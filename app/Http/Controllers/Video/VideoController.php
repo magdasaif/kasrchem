@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\VideoRequest;
 use App\Models\Video;
+
+use App\Models\Sitesection;
 use App\Models\Main_Category;
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
+
 class VideoController extends Controller
 {
 
@@ -23,8 +26,13 @@ class VideoController extends Controller
  public function create()
     {
       //  $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-      $Main_Cat = Main_Category::get();
-        return view('pages.Video.add',compact('Main_Cat'));
+
+        $sub_Category4      = Sub_Category4::get(); 
+        $sub_Category3      = Sub_Category3::get(); 
+        $Sub_Category2      = Sub_Category2::get();
+        $Main_Cat	    = Main_Category::get();
+        $sections           = Sitesection::get();
+        return view('pages.Video.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
    //--------------------------------------------
     public function store(VideoRequest $request)

@@ -60,11 +60,20 @@ class SubcategoryController4 extends Controller
             $Sub_Category4->save();
 
             if ($request->model3==1)
-             {
-                return redirect()->back()->with(['success'=>'تمت اضافة النوع الفرعى بنجاح']);
-
-               
-             }
+            {
+               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+               return redirect()->back()->with(
+                   [
+                      'success'=>'تمت اضافة التصنيف الفرعى بنجاح',
+                      'section_id'=>$request->section_id,
+                      'cate_id'=>$request->cate_id,
+                      'sub2_id' => $request->sub2_id,
+                      'sub3_id' => $request->sub3_id,
+                      'sub4_id' => $Sub_Category4->id,
+                   ]
+               );
+              
+            }
              if($request->model3_edit==1) 
              {
                 

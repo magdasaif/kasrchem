@@ -90,8 +90,89 @@
  
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
+
+
+ $('select[name="section_id"]').on('change', function () {
+        // alert('ssss');
+        var section_id = $(this).val();
+            // alert(section_id);
+            // alert("{{ URL::to('fetch_sub1')}}/" + section_id);
+            
+            $.ajax({
+                type: "GET",
+                url: "{{ URL::to('fetch_sub1')}}/" + section_id,
+                dataType: "json",
+                success: function (data) 
+                {
+                    if(data!='')
+                    {
+                        $("#sub1_requi").hide();
+                        $('select[name="main_category"]').show();
+                        $('#main_category_id').empty();
+                              //لو فى تصنيف رئيسى للقسم هيعرضه  
+                        $('#main_category_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
+                        $.each(data, function (key, value) {
+                            //alert('<option value="' + key + '">' + value + '</option>');
+                        $('#main_category_id').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                    else
+                    {
+                        // alert("لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا");
+                        $('select[name="main_category"]').hide();//hide select 
+                            $("#sub1_requi").show();//show div if sub1not founded
+                            //-------------get name of section--------------//
+                                document.getElementById("section_id").value=section_id; 
+                                //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
+                                 document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+                            //----------------------------//
+                    }
+                    
+                },
+                error:function()
+                { alert("false"); }
+            });
+    });
+    //---------------------to get value if not making change in select------------------------
+    //save section id value to return back with it
+    var section_id = $('select[name="section_id"]').val();
+    document.getElementById("section_id").value=section_id;
+    document.getElementById("section_id1").value=section_id;
+    document.getElementById("section_id2").value=section_id;
+    document.getElementById("section_id22").value=section_id;
+    //alert(section_id);
+
+    //save main category id value to return back with it
+    var cate_id = $('select[name="main_category"]').val();
+    document.getElementById("cate_id").value=cate_id;
+    document.getElementById("cate_id2").value=cate_id;
+    document.getElementById("cate_id22").value=cate_id;
+   // alert(cate_id);
+
+
+   var sub2_id = $('select[name="sub2"]').val();
+   document.getElementById("sub2_id").value=sub2_id;
+   document.getElementById("sub2_id2").value=sub2_id;
+
+
+
+   var sub3_id = $('select[name="sub3"]').val();
+   document.getElementById("sub3_id").value=sub3_id;
+   
+    //read value of selected sub category
+    document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+    document.getElementById("test").value=$("#main_category_id option:selected" ).text();
+    document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text();
+    document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
+
+
+    
+    //-----------------------------------------------------------------
+    
             $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
+                var section_id = $('select[name="section_id"]').val();
+
             // alert(main_category_id);
              // alert($( "#main_category_id option:selected" ).text());
               if (main_category_id=='')
@@ -136,6 +217,7 @@
                                 $('select[name="sub2"]').hide();//hide select 
                                  $("#sub2_requi").show();//show div if sub2not founded
                                     //-------------get name of main_category--------------//
+                                      document.getElementById("section_id1").value=section_id;
                                        document.getElementById("cate_id").value=main_category_id; 
                                        //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
                                         document.getElementById("test").value=$("#main_category_id option:selected" ).text(); 
@@ -158,11 +240,14 @@
             }
             });
             
-        });
+ 
          //---------------for show seelct option of sub3------------------------//
-         $(document).ready(function () {
+       
             $('select[name="sub2"]').on('change', function () {
                 var sub2_id = $(this).val();
+                var section_id = $('select[name="section_id"]').val();
+                var cate_id = $('select[name="main_category"]').val();
+
                // alert(sub2_id);
                if (sub2_id) {
                    
@@ -194,6 +279,9 @@
                                  $("#sub3_requi").show();//show div if sub2not founded
                                     //-------------get name of sub2--------------//
                                    // alert(sub2_id);
+
+                                        document.getElementById("section_id2").value=section_id;
+                                        document.getElementById("cate_id2").value=cate_id;
                                        document.getElementById("sub2_id").value=sub2_id; 
                                      //  alert($( "#sub2_sel option:selected" ).text());
                                         document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text(); 
@@ -212,11 +300,17 @@
                     alert('AJAX load did not work');
                 }
             });
-        });
+  
         //---------------for show seelct option of sub4------------------------//
-        $(document).ready(function () {
+      
             $('select[name="sub3"]').on('change', function () {
                 var sub3_id = $(this).val();
+
+                var section_id = $('select[name="section_id"]').val();
+                var cate_id = $('select[name="main_category"]').val();
+                var sub2_id = $('select[name="sub2"]').val();
+
+
                 //alert (sub3_id);
                if (sub3_id) {
                   // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
@@ -247,7 +341,11 @@
                                 $('select[name="sub4"]').hide();//hide select 
                                  $("#sub4_requi").show();//show div if sub2not founded
                                     //-------------get name of sub2--------------//
-                                       document.getElementById("sub3_id").value=sub3_id; 
+                                    
+                                        document.getElementById("sub2_id2").value=sub2_id; 
+                                        document.getElementById("section_id22").value=section_id;
+                                        document.getElementById("cate_id22").value=cate_id;
+                                        document.getElementById("sub3_id").value=sub3_id; 
                                         document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
                                     //----------------------------------------------------//
                             }

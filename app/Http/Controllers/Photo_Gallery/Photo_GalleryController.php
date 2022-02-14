@@ -5,10 +5,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Photo_Gallery_Request;
 use App\Models\Photo_Gallery;
-use App\Models\Main_Category; 
+
+use App\Models\Sitesection;
+use App\Models\Main_Category;
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
+
 use App\Models\Gallery_Photo_Image;
 class Photo_GalleryController extends Controller
 {
@@ -22,8 +25,12 @@ class Photo_GalleryController extends Controller
     public function create()
     {
        // $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       $Main_Cat = Main_Category::get();
-        return view('pages.Photo_Gallery.add',compact('Main_Cat'));
+       $sub_Category4      = Sub_Category4::get(); 
+        $sub_Category3      = Sub_Category3::get(); 
+        $Sub_Category2      = Sub_Category2::get();
+        $sections           = Sitesection::get();
+       $Main_Cat            = Main_Category::get();
+        return view('pages.Photo_Gallery.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
 //-------------------------------------------------------------//
     public function store(Photo_Gallery_Request $request)

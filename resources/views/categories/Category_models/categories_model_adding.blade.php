@@ -256,9 +256,15 @@
             <input type="hidden" name="model3" value="1">
             <div class="form-group">
             <label for="exampleInputEmail1">اسم النوع الرئيسى</label>
-            <input type="text" class="form-control" name="sub3_name" id="sub3_name" value="" disabled="disabled" >
+
+                <input type="text" class="form-control" name="sub3_name" id="sub3_name" value="" disabled="disabled" >
+
+                <input type="hidden" class="form-control" name="section_id" id="section_id22" value="">
+                <input type="hidden" class="form-control" name="cate_id" id="cate_id22" value="">
+                <input type="hidden" class="form-control" name="sub2_id" id="sub2_id2" value="">
 
                 <input type="text" class="form-control" name="sub3_id" id="sub3_id" value="" hidden>
+
             </div>
            
             
