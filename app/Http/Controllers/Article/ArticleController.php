@@ -16,12 +16,8 @@ class ArticleController extends Controller
   
     public function index()
     {
-        $sub_Category3      = Sub_Category3::get(); 
-        $Sub_Category2      = Sub_Category2::get();
-        $sub1_categories    = Main_Category::get();
-        $sections           = Sitesection::get();
-        $Art=Article::all();
-         return view('pages.Article.Show',compact('Art','sub_Category3','Sub_Category2','sections','sub1_categories'));
+        $Art=Article::orderBy('id','desc')->get();
+         return view('pages.Article.Show',compact('Art'));
     }
 //--------------------------------------------
  public function create()

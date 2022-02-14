@@ -145,7 +145,7 @@
               
                <div class="form-group">
                     <label for="title_ar">اسم المعرض  بالعربية </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم المعرض بالعربية" name="title_ar" value="{{$photo_gallery->title_ar}}" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم المعرض بالعربية" name="title_ar" value="{{$photo_gallery->title_ar}}" required   oninvalid="this.setCustomValidity('قم بادخال اسم المعرض بالعربية')"  oninput="this.setCustomValidity('')">
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -154,7 +154,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم المعرض بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم المعرض بالانجليزية" name="title_en"  value="{{$photo_gallery->title_en}}" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم المعرض بالانجليزية" name="title_en"  value="{{$photo_gallery->title_en}}" required oninvalid="this.setCustomValidity('قم بادخال اسم المعرض بالانجليزية')"  oninput="this.setCustomValidity('')">
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

@@ -34,7 +34,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الشريك بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" value="{{$partner->name_ar}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" value="{{$partner->name_ar}}"   required  oninvalid="this.setCustomValidity('قم بادخال اسم الشريك بالعربية')"  oninput="this.setCustomValidity('')">
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -43,7 +43,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الشريك بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" value="{{$partner->name_en}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" value="{{$partner->name_en}}" required oninvalid="this.setCustomValidity('قم بادخال اسم الشريك بالانجليزية')"  oninput="this.setCustomValidity('')">
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -62,7 +62,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">لينك خارجى</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" value="{{$partner->external_link}}" name="external_link">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" value="{{$partner->external_link}}" name="external_link" required oninvalid="this.setCustomValidity('قم بادخال اللينك الخارجى')"  oninput="this.setCustomValidity('')">
                     @error('external_link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

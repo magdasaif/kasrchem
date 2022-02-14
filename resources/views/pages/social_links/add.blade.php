@@ -43,7 +43,8 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم رابط التواصل</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name" value="{{old('name')}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name" value="{{old('name')}}" 
+                   required  oninvalid="this.setCustomValidity('قم بادخال  اسم رابط التواصل')"  oninput="this.setCustomValidity('')">
                     @error('name')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -52,7 +53,8 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> رابط التواصل</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" name="link" value="{{old('link')}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" name="link" value="{{old('link')}}" required
+                   oninvalid="this.setCustomValidity('قم بادخال رابط التواصل')"  oninput="this.setCustomValidity('')">
                     @error('link')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -70,7 +72,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">  الايقون</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="type icon class" name="icon" value="{{old('icon')}}" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="type icon class" name="icon" value="{{old('icon')}}" required value="{{ old('title_en') }}" required  oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')">
 
                     <!-- Button tag -->
                     <!-- <button class="btn btn-secondary" role="iconpicker"></button> -->

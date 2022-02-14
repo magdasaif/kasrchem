@@ -17,7 +17,7 @@ class SocialController extends Controller
     public function index()
     {
         $title='وسائل التواصل';
-        $socialLinks=Social::all();
+        $socialLinks=Social::orderBy('id','desc')->get();
         return view('pages.social_links.show',compact('title','socialLinks'));
 
     }

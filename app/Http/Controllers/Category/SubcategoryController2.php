@@ -21,7 +21,7 @@ class SubcategoryController2 extends Controller
      */
     public function index()
     {
-        $categories = Sub_Category2::orderBy('id','desc')->all();
+        $categories = Sub_Category2::orderBy('id','desc')->get();
       // $categories = Sub_Category2 ::withCount('cate_id')->get();
         
         return view('categories.sub2.category',compact('categories'));

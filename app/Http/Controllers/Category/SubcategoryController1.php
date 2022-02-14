@@ -25,7 +25,7 @@ class SubcategoryController1 extends Controller
 
       //  $categories = Main_Category::all();
 
-        $categories = Main_Category::withCount('sub_cate2')->orderBy('id','desc')->get();
+        $categories = Main_Category::withCount('sub_cate2')->orderBy('id','desc')->get();;
 
        //dd($categories);
       

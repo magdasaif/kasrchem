@@ -10,7 +10,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $Page=Page::all();
+        $Page=Page::orderBy('id','desc')->get();
          return view('pages.Pages.Show',compact('Page'));
     }
 //--------------------------------------------

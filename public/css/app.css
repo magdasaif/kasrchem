@@ -70722,7 +70722,8 @@ font-weight: bold;
 .modal-body
 {
   width: 68%;
-   margin-right: 128px;
+   /* margin-right: 128px; */
+  margin-right: 95px;
 }
 .ttitle
 {
