@@ -41,14 +41,15 @@
             @include('categories.Category_models.select_category_adding')
               <!--========================================================-->
                <!----------------------------------------------------->
-               
                 <div class="form-group">
-                    <label for="exampleInputEmail1">كود المنتج</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter code" name="code" value="{{ old('code') }}" required>
-                    @error('code')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
+                    <select class="form-control" name="supplier_id[]"  multiple required>
+                        @foreach ($suppliers as $supplier)
+                             <option value="{{ $supplier->id }}" {{ (collect(old('supplier_id'))->contains($supplier->id)) ? 'selected':'' }}>{{ $supplier->name_ar }}</option>
+                        @endforeach
+                    </select>
                 </div>
+                <hr>
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
@@ -85,65 +86,6 @@
 
                 </div>
 
-                <hr>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
-                    <select class="form-control" name="supplier_id[]"  multiple required>
-                        @foreach ($suppliers as $supplier)
-                             <option value="{{ $supplier->id }}">{{ $supplier->name_ar }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <hr>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">سعر المنتج</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="price" value="{{ old('price') }}" required>
-                    @error('price')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">الضريبه %</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="tax" value="0">
-                    @error('tax')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">سعر العرض ان وُجد</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="offer_price" value="0">
-                    @error('offer_price')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">الكمية المتاحة</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="amount" value="1" required>
-                    @error('amount')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">الحد الادني</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="min_amount" value="1" required>
-                    @error('min_amount')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">الحد الاقصي</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="max_amount" value="1" required>
-                    @error('max_amount')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                
                 <hr>
                 
                 <div class="form-group">
@@ -185,27 +127,10 @@
                 </div>
                 
                 <hr>
-                
-                <div class="form-group">
-                    <label for="exampleInputEmail1">البيع من خلال</label>
-                    <select class="form-control" name="sell_through"  style="height: 50px;">
-                            <option value="1" {{ old('sell_through') == '1' ? "selected" : "" }}>الموقع والفروع</option>
-                            <option value="2" {{ old('sell_through') == '2' ? "selected" : "" }}>الموقع فقط</option>
-                            <option value="3" {{ old('sell_through') == '3' ? "selected" : "" }}>الفروع فقط</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="exampleInputEmail1">الوزن القائم عند الشحن بالكيلو جرام</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="shipped_weight" value="0" required>
-                    @error('shipped_weight')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-               
+
                 <div class="form-group">
                     <label for="exampleInputEmail1">ترتيب المنتج</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="0">
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
                     @error('sort')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -219,6 +144,85 @@
                             <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
+<!----------------------------------------------------------------------------->
+<div style="display:none">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">كود المنتج</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter code" name="code" value="<?php if(old('code')){echo old('code');}else{echo'0';}?>" >
+                    @error('code')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">سعر المنتج</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="price" value="<?php if(old('price')){echo old('price');}else{echo'0';}?>">
+                    @error('price')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الضريبه %</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="tax" value="<?php if(old('tax')){echo old('tax');}else{echo'0';}?>">
+                    @error('tax')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">سعر العرض ان وُجد</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="offer_price" value="<?php if(old('offer_price')){echo old('offer_price');}else{echo'0';}?>">
+                    @error('offer_price')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الكمية المتاحة</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="amount" value="1" >
+                    @error('amount')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الحد الادني</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="min_amount" value="1" >
+                    @error('min_amount')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الحد الاقصي</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="max_amount" value="1" >
+                    @error('max_amount')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+               
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">البيع من خلال</label>
+                    <select class="form-control" name="sell_through"  style="height: 50px;">
+                            <option value="1" {{ old('sell_through') == '1' ? "selected" : "" }}>الموقع والفروع</option>
+                            <option value="2" {{ old('sell_through') == '2' ? "selected" : "" }}>الموقع فقط</option>
+                            <option value="3" {{ old('sell_through') == '3' ? "selected" : "" }}>الفروع فقط</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الوزن القائم عند الشحن بالكيلو جرام</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="shipped_weight" value="0" >
+                    @error('shipped_weight')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+
+                
+
 
                 <div class="form-group">
                 <label for="exampleInputEmail1">الاتاحة</label>
@@ -233,6 +237,7 @@
                       <input type="checkbox" class="form-control" id="exampleInputEmail1"  name="security_permit" style="width: 100px;height: 20px;margin-right: 100px;" {{ old('security_permit') == 'on' ? "checked" : "" }}>
                 </div>
                 
+                <!--------------------------------------------------------------------------->
                  <!-------------------------------------------------------------------------->
         <div class="form repeater-default">
             <label for="exampleInputEmail1">اضافه خصائص المنتج</label>
@@ -278,18 +283,18 @@
                     </button></center>
                     </div>
                 </div>
+        </div>
+        
 </div>
-
                 <!-------------------------------------------------------------------------->
-                
-            
-                
+                <!--------------------------------------------------------------------------->
+
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">اضافه</button>
                         <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger"  > الغاء</button></a>
 
                 </div>
-             
+
             </form>
 
            
@@ -311,21 +316,22 @@
 <script>
     tinymce.init({
         selector: 'textarea.tinymce-editor',
+        
         height: 300,
         theme: 'modern',
         plugins: [
-        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+        "advlist autolink autosave link image code lists charmap print preview hr anchor pagebreak spellchecker",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
         "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
     ],
-
+//---------------------------دى الحااجات اللى بتظهر---------------------------- //
     toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
     toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
     toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-
-    menubar: false,
+    toolbar4: 'undo redo ',
+    menubar: true,
     toolbar_items_size: 'small',
-
+//---------------------------------------------------------------------------------------
     style_formats: [
         {title: 'Bold text', inline: 'b'},
         {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
@@ -333,17 +339,64 @@
         {title: 'Example 1', inline: 'span', classes: 'example1'},
         {title: 'Example 2', inline: 'span', classes: 'example2'},
         {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'},
+        
     ],
 
+//---------------------------------------------------------------------------------------
     templates: [
         {title: 'Test template 1', content: 'Test 1'},
         {title: 'Test template 2', content: 'Test 2'}
     ],
-  
-  
-    });
     
+  //------------------to add class to image-------------------------
+image_class_list: [
+    {title: 'None', value: ''},
+    {title: 'image_class', value: 'photo'},
+    {title: 'Lightbox', value: 'lightbox'}
+  ],
+//-------------------------------for upload image------------------
+  
+  /* enable title field in the Image dialog*/
+  image_title: true,
+  /* enable automatic uploads of images represented by blob or data URIs*/
+  automatic_uploads: true,
+ 
+   file_picker_types: 'file image media',
+  /* and here's our custom image picker*/
+  file_picker_callback: function (cb, value, meta) {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+
+    
+    input.onchange = function () {
+      var file = this.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        /*
+          Note: Now we need to register the blob in TinyMCEs image blob
+          registry. In the next release this part hopefully won't be
+          necessary, as we are looking to handle it internally.
+        */
+        var id = 'blobid' + (new Date()).getTime();
+        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+        var base64 = reader.result.split(',')[1];
+        var blobInfo = blobCache.create(id, file, base64);
+        blobCache.add(blobInfo);
+
+        /* call the callback and populate the Title field with the file name */
+        cb(blobInfo.blobUri(), { title: file.name });
+      };
+      reader.readAsDataURL(file);
+    };
+
+    input.click();
+  },
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+
+    });
    
     //---------------for show seelct option of sub2------------------------//
      $(document).ready(function () {
@@ -361,11 +414,23 @@
                 success: function (data) 
                 {
                     if(data!='')
-                    {
+                    { //لو فى تصنيف رئيسى للقسم هيعرضه 
+
+                        //هيخفى ويفضى اى حاجه تحته
                         $("#sub1_requi").hide();
-                        $('select[name="main_category"]').show();
                         $('#main_category_id').empty();
-                              //لو فى تصنيف رئيسى للقسم هيعرضه  
+                        
+                        $('select[name="main_category"]').show();
+                        
+                        $("#sub2_requi").hide();
+                        $('#sub2_sel').empty();
+                        
+                        $("#sub3_requi").hide();
+                        $('#sub3_sel').empty();
+                        
+                        $("#sub4_requi").hide();
+                        $('#sub4_sel').empty();
+                        
                         $('#main_category_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                         $.each(data, function (key, value) {
                             //alert('<option value="' + key + '">' + value + '</option>');
@@ -375,8 +440,22 @@
                     else
                     {
                         // alert("لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا");
+
+
                         $('select[name="main_category"]').hide();//hide select 
-                            $("#sub1_requi").show();//show div if sub1not founded
+                        $("#sub1_requi").show();//show div if sub1not founded
+                        
+                        $("#sub2_requi").hide();
+                        $('#sub2_sel').empty();
+                        
+                        $("#sub3_requi").hide();
+                        $('#sub3_sel').empty();
+                        
+                        $("#sub4_requi").hide();
+                        $('#sub4_sel').empty();
+
+                        
+                       
                             //-------------get name of section--------------//
                                 document.getElementById("section_id").value=section_id; 
                                 //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
@@ -421,7 +500,30 @@
     document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text();
     document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
 
+    if($("#sub1_requi").css('display')=='block'){
 
+        $("#sub2_requi").hide();
+        $('#sub2_sel').empty();
+        
+        $("#sub3_requi").hide();
+        $('#sub3_sel').empty();
+        
+        $("#sub4_requi").hide();
+        $('#sub4_sel').empty();
+    }
+
+    if($("#sub2_requi").css('display')=='block'){
+        $("#sub3_requi").hide();
+        $('#sub3_sel').empty();
+        
+        $("#sub4_requi").hide();
+        $('#sub4_sel').empty();
+    }
+
+    if($("#sub3_requi").css('display')=='block'){
+        $("#sub4_requi").hide();
+        $('#sub4_sel').empty();
+    }
 
     
     //-----------------------------------------------------------------
@@ -459,7 +561,15 @@
                             {
                                 $('select[name="sub2"]').show();
                                 $("#sub2_requi").hide();
+
+                                //هيخفى ويفضى اى حاجه تحته
+                                                                
+                                $("#sub3_requi").hide();
+                                $('#sub3_sel').empty();
                                 
+                                $("#sub4_requi").hide();
+                                $('#sub4_sel').empty();
+                        
                                 $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                                 $.each(data, function (key, value)  
                                 {
@@ -472,6 +582,15 @@
                                // alert("لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا");
                                 $('select[name="sub2"]').hide();//hide select 
                                  $("#sub2_requi").show();//show div if sub2not founded
+
+                                //هيخفى ويفضى اى حاجه تحته
+                                                                                                
+                                $("#sub3_requi").hide();
+                                $('#sub3_sel').empty();
+                                
+                                $("#sub4_requi").hide();
+                                $('#sub4_sel').empty();
+                                 
                                     //-------------get name of main_category--------------//
                                        document.getElementById("section_id1").value=section_id;
                                        document.getElementById("cate_id").value=main_category_id; 
@@ -524,6 +643,10 @@
                                 $('select[name="sub3"]').show();
                                 $("#sub3_requi").hide();
 
+                                //هيخفى ويفضى اى حاجه تحته
+                                $("#sub4_requi").hide();
+                                $('#sub4_sel').empty();
+                                
                                 $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
@@ -534,6 +657,11 @@
                             {
                                 $('select[name="sub3"]').hide();//hide select 
                                  $("#sub3_requi").show();//show div if sub2not founded
+
+                                  //هيخفى ويفضى اى حاجه تحته
+                                $("#sub4_requi").hide();
+                                $('#sub4_sel').empty();
+                                
                                     //-------------get name of sub2--------------//
                                    // alert(sub2_id);
                                     document.getElementById("section_id2").value=section_id;

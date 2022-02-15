@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم : اضافه تصنيف</title>
+<title>لوحة التحكم : اضافه تصنيف </title>
  @endsection
 @section('content')
 <template>
