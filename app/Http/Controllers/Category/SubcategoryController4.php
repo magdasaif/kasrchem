@@ -74,11 +74,6 @@ class SubcategoryController4 extends Controller
                );
               
             }
-             if($request->model3_edit==1) 
-             {
-                
-                return redirect()->back()->with(['success'=>'تمت اضافة النوع الفرعى بنجاح']);
-             }
              else
              {
 

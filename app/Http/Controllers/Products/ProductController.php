@@ -318,6 +318,12 @@ class ProductController extends Controller
     {
          $title='تعديل المنتج';
 
+         $sub_Category4      = Sub_Category4::get(); 
+         $sub_Category3      = Sub_Category3::get(); 
+         $Sub_Category2      = Sub_Category2::get();
+        // $Main_Cat	     = Main_Category::get();
+         $sections           = Sitesection::get();
+
          $product = Product::findOrfail($id);
          $categories= Main_Category::withcount('sub_cate2')->get();
          $features = Product_Feature::where('product_id','=',$id)->get();
@@ -325,9 +331,13 @@ class ProductController extends Controller
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
 
          $suppliers= Supplier::get();
+
+         //to retrive value of section
+         $main_categories = Main_Category::findOrfail($product->main_cate_id);
+         $s = Sitesection::findOrfail($main_categories->section_id);
          
          //dd($product);
-        return view('pages.products.edit',compact('product','categories','title','features','feature_count','suppliers'));
+        return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
 
     //ProductRequest

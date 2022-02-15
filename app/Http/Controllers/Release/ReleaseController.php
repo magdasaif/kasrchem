@@ -89,11 +89,18 @@ class ReleaseController extends Controller
     {
         $release = Release::findOrfail($id);
         if(!$release) return redirect()->back();
-       $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       $Sub_Category4 = Sub_Category4::get();
-       $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
-       $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-        return view('pages.Release.edit',compact('release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+        
+       $Main_Cat        = Main_Category::withCount('sub_cate2')->get();
+       $Sub_Category4   = Sub_Category4::get();
+       $Sub_Category3   = Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
+       $Sub_Category2   = Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
+       $sections        = Sitesection::get();
+
+        //to retrive value of section
+        $main_categories = Main_Category::findOrfail($release->main_cate_id);
+        $s = Sitesection::findOrfail($main_categories->section_id);
+        
+        return view('pages.Release.edit',compact('s','sections','release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
     }
 //--------------------------------------------
     public function update(ReleaseRequest $request, $id)

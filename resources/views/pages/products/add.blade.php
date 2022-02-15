@@ -423,13 +423,16 @@ image_class_list: [
                         $('select[name="main_category"]').show();
                         
                         $("#sub2_requi").hide();
-                        $('#sub2_sel').empty();
-                        
-                        $("#sub3_requi").hide();
-                        $('#sub3_sel').empty();
-                        
-                        $("#sub4_requi").hide();
-                        $('#sub4_sel').empty();
+                            $('#sub2_sel').empty();
+                            $('#sub2_sel').show();
+                            
+                            $("#sub3_requi").hide();
+                            $('#sub3_sel').empty();
+                            $('#sub3_sel').show();
+                            
+                            $("#sub4_requi").hide();
+                            $('#sub4_sel').empty();
+                            $('#sub4_sel').show();
                         
                         $('#main_category_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                         $.each(data, function (key, value) {
@@ -446,13 +449,16 @@ image_class_list: [
                         $("#sub1_requi").show();//show div if sub1not founded
                         
                         $("#sub2_requi").hide();
-                        $('#sub2_sel').empty();
-                        
-                        $("#sub3_requi").hide();
-                        $('#sub3_sel').empty();
-                        
-                        $("#sub4_requi").hide();
-                        $('#sub4_sel').empty();
+                            $('#sub2_sel').empty();
+                            $('#sub2_sel').show();
+                            
+                            $("#sub3_requi").hide();
+                            $('#sub3_sel').empty();
+                            $('#sub3_sel').show();
+                            
+                            $("#sub4_requi").hide();
+                            $('#sub4_sel').empty();
+                            $('#sub4_sel').show();
 
                         
                        
@@ -502,28 +508,34 @@ image_class_list: [
 
     if($("#sub1_requi").css('display')=='block'){
 
-        $("#sub2_requi").hide();
-        $('#sub2_sel').empty();
-        
-        $("#sub3_requi").hide();
-        $('#sub3_sel').empty();
-        
-        $("#sub4_requi").hide();
-        $('#sub4_sel').empty();
-    }
+$("#sub2_requi").hide();
+$('#sub2_sel').empty();
+$('#sub2_sel').show();
 
-    if($("#sub2_requi").css('display')=='block'){
-        $("#sub3_requi").hide();
-        $('#sub3_sel').empty();
-        
-        $("#sub4_requi").hide();
-        $('#sub4_sel').empty();
-    }
+$("#sub3_requi").hide();
+$('#sub3_sel').empty();
+$('#sub3_sel').show();
 
-    if($("#sub3_requi").css('display')=='block'){
-        $("#sub4_requi").hide();
-        $('#sub4_sel').empty();
-    }
+$("#sub4_requi").hide();
+$('#sub4_sel').empty();
+$('#sub4_sel').show();
+}
+
+if($("#sub2_requi").css('display')=='block'){
+$("#sub3_requi").hide();
+$('#sub3_sel').empty();
+$('#sub3_sel').show();
+
+$("#sub4_requi").hide();
+$('#sub4_sel').empty();
+$('#sub4_sel').show();
+}
+
+if($("#sub3_requi").css('display')=='block'){
+$("#sub4_requi").hide();
+$('#sub4_sel').empty();
+$('#sub4_sel').show();
+}
 
     
     //-----------------------------------------------------------------
@@ -566,9 +578,11 @@ image_class_list: [
                                                                 
                                 $("#sub3_requi").hide();
                                 $('#sub3_sel').empty();
+                                $('#sub3_sel').show();
                                 
                                 $("#sub4_requi").hide();
                                 $('#sub4_sel').empty();
+                                $('#sub4_sel').show();
                         
                                 $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
                                 $.each(data, function (key, value)  
@@ -587,9 +601,11 @@ image_class_list: [
                                                                                                 
                                 $("#sub3_requi").hide();
                                 $('#sub3_sel').empty();
+                                $('#sub3_sel').show();
                                 
                                 $("#sub4_requi").hide();
                                 $('#sub4_sel').empty();
+                                $('#sub4_sel').show();
                                  
                                     //-------------get name of main_category--------------//
                                        document.getElementById("section_id1").value=section_id;
@@ -646,6 +662,7 @@ image_class_list: [
                                 //هيخفى ويفضى اى حاجه تحته
                                 $("#sub4_requi").hide();
                                 $('#sub4_sel').empty();
+                                $('#sub4_sel').show();
                                 
                                 $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
