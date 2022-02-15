@@ -32,24 +32,26 @@ class ProductRequest extends FormRequest
             // 'sub3' => 'required',
             // 'sub4' => 'required',
 
-            'code'=>'required|unique:products,code,'.$this->id,
+           
             'name_ar'=>'required|unique:products,name_ar,'.$this->id,
             'name_en'=>'required|unique:products,name_en,'.$this->id,
-            
+            'desc_ar'=>'required',
+            'desc_en'=>'required',
+            'sort'=>'integer',
+
             // 'code'=>'required|unique:products',
             // 'name_ar'=>'required|unique:products',
             // 'name_en'=>'required|unique:products',
-            
-            'price'=>'required',
-            'desc_ar'=>'required',
-            'desc_en'=>'required',
-            'amount'=>'required',
-            'amount'=>'required|integer',
-            'min_amount'=>'required|integer',
-            'max_amount'=>'required|integer',
-            'sort'=>'integer',
             //'image'=>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'shipped_weight'=>'required',
+
+            
+            //'code'=>'required|unique:products,code,'.$this->id,
+            //`price'=>'required',
+            //'amount'=>'required',
+            //'amount'=>'required|integer',
+            //'min_amount'=>'required|integer',
+            //'max_amount'=>'required|integer',
+            //'shipped_weight'=>'required',
 
             // 'List_Classes.*.weight_ar' => 'required',
             // 'List_Classes.*.value_ar' => 'required',

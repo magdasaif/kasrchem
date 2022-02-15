@@ -96,9 +96,13 @@ class ProductController extends Controller
             $product->desc_ar=$request->desc_ar;
             $product->desc_en=$request->desc_en;
 
-            $product->price= $request->price;
-            $product->tax= $request->tax;
-            $product->offer_price= $request->offer_price;
+            $product->sort= $request->sort;
+
+            $product->status= $request->status;
+
+           $product->price= $request->price;
+           $product->tax= $request->tax;
+           $product->offer_price= $request->offer_price;
 
             $product->amount= $request->amount;
             $product->min_amount= $request->min_amount;
@@ -106,7 +110,7 @@ class ProductController extends Controller
 
             $product->sell_through= $request->sell_through;
             $product->shipped_weight= $request->shipped_weight;
-            $product->sort= $request->sort;
+           
 
             if(isset($request->video_link)){
                  $product->video_link= $request->video_link;
@@ -114,7 +118,6 @@ class ProductController extends Controller
                 $product->video_link='';
             }
             $product->availabe_or_no= $request->availabe_or_no;
-            $product->status= $request->status;
 
             $product->image= $photo_name;
 
