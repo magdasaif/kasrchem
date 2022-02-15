@@ -54,7 +54,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
 
         //to handel multiple insertion
