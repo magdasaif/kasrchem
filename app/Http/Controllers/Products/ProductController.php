@@ -31,7 +31,7 @@ class ProductController extends Controller
          $title='المنتجات';
       //  $products = Product::orderBy('sort','asc')->get();
         $products=Product::orderBy('sort','asc')->get();
-        
+
         return view('pages.products.show',compact('products','title'));
     }
 
@@ -40,8 +40,8 @@ class ProductController extends Controller
         // $categories = Main_Category::get();
          $title='اضافه منتج';
          //$categories= Main_Category::withcount('sub_cate2')->get();
-         $sub_Category4      = Sub_Category4::get(); 
-         $sub_Category3      = Sub_Category3::get(); 
+         $sub_Category4      = Sub_Category4::get();
+         $sub_Category3      = Sub_Category3::get();
          $Sub_Category2      = Sub_Category2::get();
          $Main_Cat	         = Main_Category::get();
          $sections           = Sitesection::get();
@@ -56,10 +56,10 @@ class ProductController extends Controller
     {
         dd('all request'.$request->all());
 
-       
+
         //to handel multiple insertion
         DB::beginTransaction();
-        
+
        // dd('add');
         try{
             //vaildation
@@ -110,7 +110,7 @@ class ProductController extends Controller
 
             $product->sell_through= $request->sell_through;
             $product->shipped_weight= $request->shipped_weight;
-           
+
 
             if(isset($request->video_link)){
                  $product->video_link= $request->video_link;
@@ -126,13 +126,13 @@ class ProductController extends Controller
             }else{
                 $product->security_permit=0;
             }
-            
+
             $product->save();
 
             //attach products with supplier
              $product->suppliers()->attach($request->supplier_id);
 
-            
+
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
 
@@ -165,12 +165,12 @@ class ProductController extends Controller
                 }
             }
 
-         
+
         //    $array2=$request->List_Classes;
         //    $count = count($array2[0]);
         //    dd($count);
 
-           
+
                 $List_Classes=$request->List_Classes;
                 foreach ($List_Classes as $list) {
                     if($list['weight_ar']==null){}else{
@@ -183,13 +183,13 @@ class ProductController extends Controller
                         ]);
                     }
                 }
-            
+
             DB::commit();
             //toastr()->success('تمت الاضافه بنجاح');
 
             return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            
+
             DB::rollback();
          //   dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -313,13 +313,13 @@ class ProductController extends Controller
            return redirect()->back()->with(['success'=>'تم الحذف']);
        }
        // --------------end products files funcrion -----------------------
-       
+
     public function edit($id)
     {
          $title='تعديل المنتج';
 
-         $sub_Category4      = Sub_Category4::get(); 
-         $sub_Category3      = Sub_Category3::get(); 
+         $sub_Category4      = Sub_Category4::get();
+         $sub_Category3      = Sub_Category3::get();
          $Sub_Category2      = Sub_Category2::get();
         // $Main_Cat	     = Main_Category::get();
          $sections           = Sitesection::get();
@@ -335,7 +335,7 @@ class ProductController extends Controller
          //to retrive value of section
          $main_categories = Main_Category::findOrfail($product->main_cate_id);
          $s = Sitesection::findOrfail($main_categories->section_id);
-         
+
          //dd($product);
         return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
@@ -410,7 +410,7 @@ class ProductController extends Controller
                 }else{
                     $product->suppliers()->sync();
                 }
-                
+
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){
                     Product_Feature::where('product_id',$request->id) ->delete();
