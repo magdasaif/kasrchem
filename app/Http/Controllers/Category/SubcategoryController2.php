@@ -100,11 +100,6 @@ class SubcategoryController2 extends Controller
                 );
                
              }
-             if($request->model1_edit==1) 
-             {
-                
-                return redirect()->back()->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
-             }
              else
              {
                 if($request->change_redirect=='yes'){

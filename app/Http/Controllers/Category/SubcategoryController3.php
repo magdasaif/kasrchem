@@ -99,14 +99,6 @@ class SubcategoryController3 extends Controller
                );
               
             }
-
-            
-            if($request->model2_edit==1) 
-            {
-               
-               return redirect()->back()->with(['success'=>'تمت اضافة النوع الرئيسى بنجاح']);
-             
-            }
             else
             {
                 if($request->change_redirect=='yes'){

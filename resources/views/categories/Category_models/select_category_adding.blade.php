@@ -1,7 +1,7 @@
             <div class="form-group">    
                 <label>  اقسام الموقع </label>
                 
-                <select  class="form-control sub2"  id="section_id2" name="section_id" >
+                <select  class="form-control sub2"  id="section_sel" name="section_id" >
                     <option value="0">جميع الاقسام</option>
                         @foreach ($sections as $sec)
                         <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
@@ -100,7 +100,7 @@
                     @else
                     <select  class="form-control sub4"  id="sub4_sel" name="sub4" required  oninvalid="this.setCustomValidity('قم بادخال النوع الفرعى')"  oninput="this.setCustomValidity('')"  >
                     <option value="" selected disable>كل الانواع الفرعيه</option>
-                    @foreach ($sub_Category4 as $sub4)
+                        @foreach ($sub_Category4 as $sub4)
                             <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}}?>>{{ $sub4->subname_ar }}</option>
                         @endforeach
                     </select>
