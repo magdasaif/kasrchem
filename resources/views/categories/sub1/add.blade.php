@@ -43,7 +43,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" required  oninvalid="this.setCustomValidity('قم بادخال التصنيف بالعربية بالشكل المطلوب')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"  required  oninvalid="this.setCustomValidity('قم بادخال التصنيف بالعربية بالشكل المطلوب')"  oninput="this.setCustomValidity('')">
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
