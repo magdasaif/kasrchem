@@ -343,7 +343,7 @@ class ProductController extends Controller
     //ProductRequest
     public function update(ProductRequest $request)
     {
-      //  dd($request->all);
+        dd($request->all);
         if(($request->add_as_new)=='on'){
             return $this->store($request);
         }else{
@@ -369,7 +369,7 @@ class ProductController extends Controller
                 $product->sub3_id=$request->sub3;
                 $product->sub4_id=$request->sub4;
 
-                $product->code=$request->code;
+             //   $product->code=$request->code;
 
                 $product->name_ar=$request->name_ar;
                 $product->name_en=$request->name_en;
@@ -377,30 +377,30 @@ class ProductController extends Controller
                 $product->desc_ar=$request->desc_ar;
                 $product->desc_en=$request->desc_en;
 
-                $product->price= $request->price;
-                $product->tax= $request->tax;
-                $product->offer_price= $request->offer_price;
+                // $product->price= $request->price;
+                // $product->tax= $request->tax;
+                // $product->offer_price= $request->offer_price;
 
-                $product->amount= $request->amount;
-                $product->min_amount= $request->min_amount;
-                $product->max_amount= $request->max_amount;
+                // $product->amount= $request->amount;
+                // $product->min_amount= $request->min_amount;
+                // $product->max_amount= $request->max_amount;
 
-                $product->sell_through= $request->sell_through;
-                $product->shipped_weight= $request->shipped_weight;
+                // $product->sell_through= $request->sell_through;
+                // $product->shipped_weight= $request->shipped_weight;
                 $product->sort= $request->sort;
 
                 if(isset($request->video_link)){
                     $product->video_link= $request->video_link;
                 }
 
-                $product->availabe_or_no= $request->availabe_or_no;
+                // $product->availabe_or_no= $request->availabe_or_no;
                 $product->status= $request->status;
 
-                if($request->security_permit=='on'){
-                    $product->security_permit=1;
-                }else{
-                    $product->security_permit=0;
-                }
+                // if($request->security_permit=='on'){
+                //     $product->security_permit=1;
+                // }else{
+                //     $product->security_permit=0;
+                // }
 
                 $product->save();
 

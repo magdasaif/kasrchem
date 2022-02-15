@@ -26,7 +26,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"> {{$title}}-Products</h3>
+                <h3 class="card-title"> {{$title}}</h3>
 
                 <div class="card-tools">
 
