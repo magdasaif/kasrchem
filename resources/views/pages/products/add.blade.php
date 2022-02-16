@@ -145,7 +145,7 @@
                     </select>
                 </div>
 <!----------------------------------------------------------------------------->
-<div style="display:none">
+<div style="display:block">
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">كود المنتج</label>
@@ -346,10 +346,10 @@
         {title: 'Test template 1', content: 'Test 1'},
         {title: 'Test template 2', content: 'Test 2'}
     ],
-  
-  
+
+
     });
-    
+
     </script>
 <script>
    //---------------for show seelct option of sub2------------------------//
