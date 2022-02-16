@@ -322,7 +322,7 @@ $(document).ready(function () {
         height: 300,
         theme: 'modern',
         plugins: [
-        "advlist autolink autosave link image code lists charmap print preview hr anchor pagebreak spellchecker",
+        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
         "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
     ],
@@ -352,51 +352,51 @@ $(document).ready(function () {
     ],
 
   //------------------to add class to image-------------------------
-image_class_list: [
-    {title: 'None', value: ''},
-    {title: 'image_class', value: 'photo'},
-    {title: 'Lightbox', value: 'lightbox'}
-  ],
+// image_class_list: [
+//     {title: 'None', value: ''},
+//     {title: 'image_class', value: 'photo'},
+//     {title: 'Lightbox', value: 'lightbox'}
+//   ],
 //-------------------------------for upload image------------------
 
-  /* enable title field in the Image dialog*/
-  image_title: true,
-  /* enable automatic uploads of images represented by blob or data URIs*/
-  automatic_uploads: true,
+//   /* enable title field in the Image dialog*/
+//   image_title: true,
+//   /* enable automatic uploads of images represented by blob or data URIs*/
+//   automatic_uploads: true,
 
-   file_picker_types: 'file image media',
-  /* and here's our custom image picker*/
-  file_picker_callback: function (cb, value, meta) {
-    var input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
+//    file_picker_types: 'file image media',
+//   /* and here's our custom image picker*/
+//   file_picker_callback: function (cb, value, meta) {
+//     var input = document.createElement('input');
+//     input.setAttribute('type', 'file');
+//     input.setAttribute('accept', 'image/*');
 
 
-    input.onchange = function () {
-      var file = this.files[0];
+//     input.onchange = function () {
+//       var file = this.files[0];
 
-      var reader = new FileReader();
-      reader.onload = function () {
-        /*
-          Note: Now we need to register the blob in TinyMCEs image blob
-          registry. In the next release this part hopefully won't be
-          necessary, as we are looking to handle it internally.
-        */
-        var id = 'blobid' + (new Date()).getTime();
-        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-        var base64 = reader.result.split(',')[1];
-        var blobInfo = blobCache.create(id, file, base64);
-        blobCache.add(blobInfo);
+//       var reader = new FileReader();
+//       reader.onload = function () {
+//         /*
+//           Note: Now we need to register the blob in TinyMCEs image blob
+//           registry. In the next release this part hopefully won't be
+//           necessary, as we are looking to handle it internally.
+//         */
+//         var id = 'blobid' + (new Date()).getTime();
+//         var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+//         var base64 = reader.result.split(',')[1];
+//         var blobInfo = blobCache.create(id, file, base64);
+//         blobCache.add(blobInfo);
 
-        /* call the callback and populate the Title field with the file name */
-        cb(blobInfo.blobUri(), { title: file.name });
-      };
-      reader.readAsDataURL(file);
-    };
+//         /* call the callback and populate the Title field with the file name */
+//         cb(blobInfo.blobUri(), { title: file.name });
+//       };
+//       reader.readAsDataURL(file);
+//     };
 
-    input.click();
-  },
-  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+//     input.click();
+//   },
+//   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
 
     });
 
