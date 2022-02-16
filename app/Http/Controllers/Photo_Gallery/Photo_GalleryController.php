@@ -72,11 +72,19 @@ class Photo_GalleryController extends Controller
        
         $photo_gallery = Photo_Gallery::findOrfail($id);
         if(!$photo_gallery) return redirect()->back();
-       $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       $Sub_Category4 = Sub_Category4::get();
-       $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
-       $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-        return view('pages.Photo_Gallery.edit',compact('photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+         $sections     = Sitesection::get();
+         $Main_Cat = Main_Category::get();
+         $Sub_Category4      = Sub_Category4::get();
+         $Sub_Category3      = Sub_Category3::get();
+         $Sub_Category2      = Sub_Category2::get();
+
+         
+         //to retrive value of section
+         $main_categories = Main_Category::findOrfail($photo_gallery->main_cate_id);
+         $s = Sitesection::findOrfail($main_categories->section_id);
+         
+        return view('pages.Photo_Gallery.edit',compact('s','sections','photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
     }
 //-------------------------------------------------------------//
     public function update(Photo_Gallery_Request $request, $id)
@@ -86,7 +94,8 @@ class Photo_GalleryController extends Controller
 
         $validated = $request->validated();
         $Photo_Gallery = Photo_Gallery::findOrFail($id);
-          $Photo_Gallery->main_cate_id = $request->main_category;
+         // $Photo_Gallery->main_cate_id = $request->main_category;
+          $Photo_Gallery->main_cate_id = $request->main_cate_id;
          $Photo_Gallery->sub1_id =  $request->sub2;
         $Photo_Gallery->sub2_id = $request->sub3;
         $Photo_Gallery->sub3_id=  $request->sub4;

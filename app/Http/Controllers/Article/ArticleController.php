@@ -102,11 +102,18 @@ class ArticleController extends Controller
        
         $article = Article::findOrfail($id);
         if(!$article) return redirect()->back();
-       $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       $Sub_Category4 = Sub_Category4::get();
-       $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
-       $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-        return view('pages.Article.edit',compact('article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+         $sections     = Sitesection::get();
+         $Main_Cat = Main_Category::get();
+         $Sub_Category4      = Sub_Category4::get();
+         $Sub_Category3      = Sub_Category3::get();
+         $Sub_Category2      = Sub_Category2::get();
+
+        //to retrive value of section
+        $main_categories = Main_Category::findOrfail($article->main_cate_id);
+        $s = Sitesection::findOrfail($main_categories->section_id);
+        
+        return view('pages.Article.edit',compact('s','sections','article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
     }
 //--------------------------------------------
     public function update(ArticleRequest $request)
@@ -116,7 +123,8 @@ class ArticleController extends Controller
 
             $validated = $request->validated();
             $Article = Article::findOrFail($request->id);
-              $Article->main_cate_id = $request->main_category;
+            // $Article->main_cate_id = $request->main_category;
+              $Article->main_cate_id = $request->main_cate_id;
              $Article->sub1_id =  $request->sub2;
             $Article->sub2_id = $request->sub3;
             $Article->sub3_id=  $request->sub4;
