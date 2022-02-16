@@ -145,6 +145,19 @@
                         $("#sub1_requi").hide();
                         $('select[name="main_category"]').show();
                         $('#main_category_id').empty();
+
+                        $("#sub2_requi").hide();
+                            $('#sub2_sel').empty();
+                            $('#sub2_sel').show();
+                            
+                            $("#sub3_requi").hide();
+                            $('#sub3_sel').empty();
+                            $('#sub3_sel').show();
+                            
+                            $("#sub4_requi").hide();
+                            $('#sub4_sel').empty();
+                            $('#sub4_sel').show();
+                            
                               //لو فى تصنيف رئيسى للقسم هيعرضه  
                         $('#main_category_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                         $.each(data, function (key, value) {
@@ -157,10 +170,22 @@
                         // alert("لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا");
                         $('select[name="main_category"]').hide();//hide select 
                             $("#sub1_requi").show();//show div if sub1not founded
+
+                            $("#sub2_requi").hide();
+                            $('#sub2_sel').empty();
+                            $('#sub2_sel').show();
+                            
+                            $("#sub3_requi").hide();
+                            $('#sub3_sel').empty();
+                            $('#sub3_sel').show();
+                            
+                            $("#sub4_requi").hide();
+                            $('#sub4_sel').empty();
+                            $('#sub4_sel').show();
                             //-------------get name of section--------------//
                                 document.getElementById("section_id").value=section_id; 
                                 //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
-                                 document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+                                 document.getElementById("new_main_name").value=$("#section_sel option:selected" ).text(); 
                             //----------------------------//
                     }
                     
@@ -196,11 +221,44 @@
    document.getElementById("sub3_id").value=sub3_id;
    
     //read value of selected sub category
-    document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+    document.getElementById("new_main_name").value=$("#section_sel option:selected" ).text(); 
     document.getElementById("test").value=$("#main_category_id option:selected" ).text();
     document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text();
     document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
 
+    if($("#sub1_requi").css('display')=='block'){
+
+$("#sub2_requi").hide();
+$('#sub2_sel').empty();
+$('#sub2_sel').show();
+
+$("#sub3_requi").hide();
+$('#sub3_sel').empty();
+$('#sub3_sel').show();
+
+$("#sub4_requi").hide();
+$('#sub4_sel').empty();
+$('#sub4_sel').show();
+}
+
+if($("#sub2_requi").css('display')=='block'){
+$("#sub3_requi").hide();
+$('#sub3_sel').empty();
+$('#sub3_sel').show();
+
+$("#sub4_requi").hide();
+$('#sub4_sel').empty();
+$('#sub4_sel').show();
+}
+
+if($("#sub3_requi").css('display')=='block'){
+$("#sub4_requi").hide();
+$('#sub4_sel').empty();
+$('#sub4_sel').show();
+}
+
+
+//-----------------------------------------------------------------
 
     
     //-----------------------------------------------------------------
@@ -233,6 +291,14 @@
                             // alert(main_category_id);
                             $('select[name="sub2"]').empty();
                             //--------------------------------------------//
+                                $("#sub3_requi").hide();
+                                $('#sub3_sel').empty();
+                                $('#sub3_sel').show();
+                                
+                                $("#sub4_requi").hide();
+                                $('#sub4_sel').empty();
+                                $('#sub4_sel').show();
+                                
                             if(data!='')
                             {
 
@@ -297,6 +363,11 @@
                        // $("#sub3_div").show();
                           $('select[name="sub3"]').empty();
                           //--------------------------------------------//
+                          //هيخفى ويفضى اى حاجه تحته
+                          $("#sub4_requi").hide();
+                          $('#sub4_sel').empty();
+                          $('#sub4_sel').show();
+                                
                           if(data!='')
                          {
                             $('select[name="sub3"]').show();

@@ -18,7 +18,7 @@
                 </div>
             @endif
           <div class="col-12">
-        
+
             <div class="card">
               <div class="card-header" >
                 <h3 class="card-title"  >اضافة مقال </h3>
@@ -34,7 +34,7 @@
                @include('categories.Category_models.select_category_adding')
               <!--========================================================-->
                <!----------------------------------------------------->
-              
+
                <div class="form-group">
                     <label for="title_ar">عنوان المقال </label>
                     <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar"  value="{{ old('title_ar') }}" required oninvalid="this.setCustomValidity('قم بادخال عنوان المقال بالعربية')"  oninput="this.setCustomValidity('')">
@@ -60,10 +60,10 @@
                     @enderror
                 </div>
               <!----------------------------------------------------->
-               
+
                <div class="form-group">
                     <label for="content_en"> محتوى المقال بالانجليزية </label>
-                    
+
                     <textarea  class="form-control tinymce-editor" name="content_en" id="content_en" placeholder="ادخل محتوى المقال بالانجليزية "  >{!! old('content_en')!!}</textarea>
 
                     @error('content_en')
@@ -97,7 +97,7 @@
  <!--#############################################################-->
  <!--========================================================-->
  @include('categories.Category_models.categories_model_adding')
-    <!--========================================================-->  
+    <!--========================================================-->
 
  		</div>
             </div>
@@ -111,7 +111,7 @@
 <script>
     tinymce.init({
         selector: 'textarea.tinymce-editor',
-        
+
         height: 300,
         theme: 'modern',
         plugins: [
@@ -135,7 +135,7 @@
         {title: 'Example 2', inline: 'span', classes: 'example2'},
         {title: 'Table styles'},
         {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'},
-        
+
     ],
 
 //---------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@
         {title: 'Test template 1', content: 'Test 1'},
         {title: 'Test template 2', content: 'Test 2'}
     ],
-    
+
   //------------------to add class to image-------------------------
 image_class_list: [
     {title: 'None', value: ''},
@@ -151,12 +151,12 @@ image_class_list: [
     {title: 'Lightbox', value: 'lightbox'}
   ],
 //-------------------------------for upload image------------------
-  
+
   /* enable title field in the Image dialog*/
   image_title: true,
   /* enable automatic uploads of images represented by blob or data URIs*/
   automatic_uploads: true,
- 
+
    file_picker_types: 'file image media',
   /* and here's our custom image picker*/
   file_picker_callback: function (cb, value, meta) {
@@ -164,7 +164,7 @@ image_class_list: [
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
 
-    
+
     input.onchange = function () {
       var file = this.files[0];
 
@@ -248,19 +248,36 @@ image_class_list: [
         var section_id = $(this).val();
             // alert(section_id);
             // alert("{{ URL::to('fetch_sub1')}}/" + section_id);
-            
+
             $.ajax({
                 type: "GET",
                 url: "{{ URL::to('fetch_sub1')}}/" + section_id,
                 dataType: "json",
-                success: function (data) 
+                success: function (data)
                 {
+
+
+
                     if(data!='')
                     {
                         $("#sub1_requi").hide();
                         $('select[name="main_category"]').show();
                         $('#main_category_id').empty();
-                              //لو فى تصنيف رئيسى للقسم هيعرضه  
+
+                        //هيخفى ويفضى اى حاجه تحته
+                        $("#sub2_requi").hide();
+                        $('#sub2_sel').empty();
+                        $('#sub2_sel').show();
+
+                        $("#sub3_requi").hide();
+                        $('#sub3_sel').empty();
+                        $('#sub3_sel').show();
+
+                        $("#sub4_requi").hide();
+                        $('#sub4_sel').empty();
+                        $('#sub4_sel').show();
+
+                              //لو فى تصنيف رئيسى للقسم هيعرضه
                         $('#main_category_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                         $.each(data, function (key, value) {
                             //alert('<option value="' + key + '">' + value + '</option>');
@@ -270,15 +287,27 @@ image_class_list: [
                     else
                     {
                         // alert("لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا");
-                        $('select[name="main_category"]').hide();//hide select 
+                        $('select[name="main_category"]').hide();//hide select
                             $("#sub1_requi").show();//show div if sub1not founded
+
+                            $("#sub2_requi").hide();
+                            $('#sub2_sel').empty();
+                            $('#sub2_sel').show();
+
+                            $("#sub3_requi").hide();
+                            $('#sub3_sel').empty();
+                            $('#sub3_sel').show();
+
+                            $("#sub4_requi").hide();
+                            $('#sub4_sel').empty();
+                            $('#sub4_sel').show();
                             //-------------get name of section--------------//
-                                document.getElementById("section_id").value=section_id; 
+                                document.getElementById("section_id").value=section_id;
                                 //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
-                                 document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+                                 document.getElementById("new_main_name").value=$("#section_sel option:selected" ).text();
                             //----------------------------//
                     }
-                    
+
                 },
                 error:function()
                 { alert("false"); }
@@ -309,17 +338,50 @@ image_class_list: [
 
    var sub3_id = $('select[name="sub3"]').val();
    document.getElementById("sub3_id").value=sub3_id;
-   
+
     //read value of selected sub category
-    document.getElementById("new_main_name").value=$("#section_id2 option:selected" ).text(); 
+    document.getElementById("new_main_name").value=$("#section_sel option:selected" ).text();
     document.getElementById("test").value=$("#main_category_id option:selected" ).text();
     document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text();
-    document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
+    document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text();
+
+    if($("#sub1_requi").css('display')=='block'){
+
+    $("#sub2_requi").hide();
+    $('#sub2_sel').empty();
+    $('#sub2_sel').show();
+
+    $("#sub3_requi").hide();
+    $('#sub3_sel').empty();
+    $('#sub3_sel').show();
+
+    $("#sub4_requi").hide();
+    $('#sub4_sel').empty();
+    $('#sub4_sel').show();
+    }
+
+    if($("#sub2_requi").css('display')=='block'){
+    $("#sub3_requi").hide();
+    $('#sub3_sel').empty();
+    $('#sub3_sel').show();
+
+    $("#sub4_requi").hide();
+    $('#sub4_sel').empty();
+    $('#sub4_sel').show();
+    }
+
+    if($("#sub3_requi").css('display')=='block'){
+    $("#sub4_requi").hide();
+    $('#sub4_sel').empty();
+    $('#sub4_sel').show();
+    }
 
 
-    
+//-----------------------------------------------------------------
+
+
     //-----------------------------------------------------------------
-    
+
             $('select[name="main_category"]').on('change', function () {
                 var main_category_id = $(this).val();
                 var section_id = $('select[name="section_id"]').val();
@@ -328,34 +390,45 @@ image_class_list: [
               if (main_category_id=='')
              {
                 $("#main_error").show();
-                
+
              }else
              {
                if (main_category_id ) {
                  // alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
-                   
+
                     $.ajax({
                         type: "GET",
                         url: "{{ URL::to('fetch_sub2')}}/" + main_category_id,
                         dataType: "json",
-                      
-                        success: function (data) 
+
+                        success: function (data)
                         {
                             //alert("true");
                             // $("#all").show();
                             // $("#sub2_div").show();
-                          
+
                            // alert("data="+data) ;
                            // alert(main_category_id);
                             $('select[name="sub2"]').empty();
                              //--------------------------------------------//
+
+                             //هيخفى ويفضى اى حاجه تحته
+
+                            $("#sub3_requi").hide();
+                            $('#sub3_sel').empty();
+                            $('#sub3_sel').show();
+
+                            $("#sub4_requi").hide();
+                            $('#sub4_sel').empty();
+                            $('#sub4_sel').show();
+
                              if(data!='')
                             {
                                 $('select[name="sub2"]').show();
                                 $("#sub2_requi").hide();
-                                
+
                                 $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
-                                $.each(data, function (key, value)  
+                                $.each(data, function (key, value)
                                 {
                                    $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
                                 });
@@ -364,7 +437,7 @@ image_class_list: [
                             else
                             {
                                // alert("لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا");
-                                $('select[name="sub2"]').hide();//hide select 
+                                $('select[name="sub2"]').hide();//hide select
                                  $("#sub2_requi").show();//show div if sub2not founded
                                     //-------------get name of main_category--------------//
 
@@ -373,16 +446,16 @@ image_class_list: [
                                     //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
                                     document.getElementById("test").value=$("#main_category_id option:selected" ).text();
                                 //----------------------------//
-                            
-                            
-                           
+
+
+
                             }
                          //--------------------------------------------//
                         },
                         error:function()
                         { alert("false"); }
                     });
-                   
+
                 }
                 else {
                     alert('AJAX load did not work');
@@ -390,33 +463,39 @@ image_class_list: [
 
             }
             });
-            
-    
+
+
          //---------------for show seelct option of sub3------------------------//
-    
+
             $('select[name="sub2"]').on('change', function () {
                 var sub2_id = $(this).val();
                 var section_id = $('select[name="section_id"]').val();
                 var cate_id = $('select[name="main_category"]').val();
                // alert(sub2_id);
                if (sub2_id) {
-                   
+
                     $.ajax({
                         type: "GET",
                         url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
                         dataType: "json",
-                      
-                        success: function (data) 
+
+                        success: function (data)
                         {
                              //alert("true");
                           // $("#sub3_div").show();
                              $('select[name="sub3"]').empty();
+
+                             //هيخفى ويفضى اى حاجه تحته
+                             $("#sub4_requi").hide();
+                                $('#sub4_sel').empty();
+                                $('#sub4_sel').show();
+
                              //--------------------------------------------//
                              if(data!='')
                             {
                                 $('select[name="sub3"]').show();
                                 $("#sub3_requi").hide();
-                                
+
                                 $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
@@ -425,32 +504,32 @@ image_class_list: [
                             }
                             else
                             {
-                                $('select[name="sub3"]').hide();//hide select 
+                                $('select[name="sub3"]').hide();//hide select
                                  $("#sub3_requi").show();//show div if sub2not founded
                                     //-------------get name of sub2--------------//
                                    // alert(sub2_id);
-                                        document.getElementById("sub2_id").value=sub2_id; 
+                                        document.getElementById("sub2_id").value=sub2_id;
                                         document.getElementById("section_id2").value=section_id;
                                         document.getElementById("cate_id2").value=cate_id;
-                                        document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text(); 
+                                        document.getElementById("sub2_name").value=$("#sub2_sel option:selected" ).text();
                                     //----------------------------------------------------//
                             }
                              //--------------------------------------------//
-                            
-                         
+
+
                         },
                         error:function()
                         { alert("false"); }
                     });
-                   
+
                 }
                 else {
                     alert('AJAX load did not work');
                 }
             });
-       
+
         //---------------for show seelct option of sub4------------------------//
-      
+
             $('select[name="sub3"]').on('change', function () {
                 var sub3_id = $(this).val();
                 var section_id = $('select[name="section_id"]').val();
@@ -459,13 +538,13 @@ image_class_list: [
                 //alert (sub3_id);
                if (sub3_id) {
                   // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
-                   
+
                     $.ajax({
                         type: "GET",
                         url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
                         dataType: "json",
-                      
-                        success: function (data) 
+
+                        success: function (data)
                         {
                              //alert("true");
                            // $("#sub4_div").show();
@@ -475,7 +554,7 @@ image_class_list: [
                             {
                                 $('select[name="sub4"]').show();
                                 $("#sub4_requi").hide();
-                                
+
                                 $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
                                $.each(data, function (key, value) {
                               $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
@@ -484,35 +563,35 @@ image_class_list: [
                             }
                             else
                             {
-                                $('select[name="sub4"]').hide();//hide select 
+                                $('select[name="sub4"]').hide();//hide select
                                  $("#sub4_requi").show();//show div if sub2not founded
                                     //-------------get name of sub2--------------//
-                                       document.getElementById("sub3_id").value=sub3_id; 
+                                       document.getElementById("sub3_id").value=sub3_id;
 
-                                        document.getElementById("sub2_id2").value=sub2_id; 
+                                        document.getElementById("sub2_id2").value=sub2_id;
                                         document.getElementById("section_id22").value=section_id;
                                         document.getElementById("cate_id22").value=cate_id;
-                                        document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text(); 
-                                   
+                                        document.getElementById("sub3_name").value=$("#sub3_sel option:selected" ).text();
+
                                    //----------------------------------------------------//
                             }
                              //--------------------------------------------//
-                            
-                         
+
+
                         },
                         error:function()
                         { alert("false"); }
                     });
-                   
+
                 }
                 else {
                     alert('AJAX load did not work');
                 }
             });
 
-            
+
         });
-        
+
         //--------------------------------------------------------------------------//
     </script>
 

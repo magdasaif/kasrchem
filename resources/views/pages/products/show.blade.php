@@ -3,7 +3,7 @@
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
  @endsection
- 
+
 @section('content')
 <template>
   <section class="content">
@@ -22,8 +22,8 @@
                 {{Session::get('error')}}
                 </div>
             @endif
-          
-        
+
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
@@ -36,7 +36,7 @@
                    <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('products.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
-                        
+
 
                 </div>
               </div>
@@ -76,7 +76,7 @@
 
                             <td>
                                 <a href="{{ url('img/'.$product->id) }}"><button type="button" class="btn btn-sm btn-warning" > الصور</button></a>
-                            
+
                                <a href="{{url('products_files/'.$product->id)}}"> <button type="button" class="btn btn-sm btn-primary" > الملفات</button></a>
                             </td>
 
@@ -87,13 +87,13 @@
                         </tr>
 
                         @endforeach
-                    
-                    </tbody>              
+
+                    </tbody>
            <!--#############################################################-->
 
 		</table>
             </div>
-         
+
           </div>
         </div>
         </div>
