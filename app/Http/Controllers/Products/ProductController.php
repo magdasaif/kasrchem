@@ -82,8 +82,11 @@ class ProductController extends Controller
            }
             $product =new Product();
 
-           // $product->main_cate_id=$request->main_cate_id;
-           $product->main_cate_id=$request->main_category;
+            if($request->main_cate_id){
+                $product->main_cate_id=$request->main_cate_id;
+            }else{
+                $product->main_cate_id=$request->main_category;
+            }
             $product->sub2_id=$request->sub2;
             $product->sub3_id=$request->sub3;
             $product->sub4_id=$request->sub4;

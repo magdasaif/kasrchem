@@ -90,11 +90,11 @@ class ReleaseController extends Controller
         $release = Release::findOrfail($id);
         if(!$release) return redirect()->back();
         
-       $Main_Cat        = Main_Category::withCount('sub_cate2')->get();
-       $Sub_Category4   = Sub_Category4::get();
-       $Sub_Category3   = Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
-       $Sub_Category2   = Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-       $sections        = Sitesection::get();
+         $sections     = Sitesection::get();
+         $Main_Cat = Main_Category::get();
+         $Sub_Category4      = Sub_Category4::get();
+         $Sub_Category3      = Sub_Category3::get();
+         $Sub_Category2      = Sub_Category2::get();
 
         //to retrive value of section
         $main_categories = Main_Category::findOrfail($release->main_cate_id);
@@ -112,7 +112,8 @@ class ReleaseController extends Controller
              $validated = $request->validated();
             // $rel = Release::findOrFail($request->id);
             $rel = Release::findOrFail($id);
-             $rel->main_cate_id = $request->main_category;
+            // $rel->main_cate_id = $request->main_category;
+             $rel->main_cate_id = $request->main_cate_id;
              $rel->sub1_id =  $request->sub2;
              $rel->sub2_id = $request->sub3;
              $rel->sub3_id=  $request->sub4;

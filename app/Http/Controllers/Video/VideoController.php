@@ -66,11 +66,18 @@ public function edit($id)
 {
     $video = Video::findOrfail($id);
     if(!$video) return redirect()->back();
-   $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-   $Sub_Category4 = Sub_Category4::get();
-   $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
-   $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-    return view('pages.Video.edit',compact('video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+    $sections     = Sitesection::get();
+    $Main_Cat = Main_Category::get();
+    $Sub_Category4      = Sub_Category4::get();
+    $Sub_Category3      = Sub_Category3::get();
+    $Sub_Category2      = Sub_Category2::get();
+
+    //to retrive value of section
+    $main_categories = Main_Category::findOrfail($video->main_cate_id);
+    $s = Sitesection::findOrfail($main_categories->section_id);
+   
+    return view('pages.Video.edit',compact('s','sections','video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
 }
 
 //--------------------------------------------
@@ -81,7 +88,8 @@ public function edit($id)
 
             $validated = $request->validated();
             $Video = Video::findOrFail($request->id);
-              $Video->main_cate_id = $request->main_category;
+             // $Video->main_cate_id = $request->main_category;
+              $Video->main_cate_id = $request->main_cate_id;
              $Video->sub1_id =  $request->sub2;
             $Video->sub2_id = $request->sub3;
             $Video->sub3_id=  $request->sub4;
