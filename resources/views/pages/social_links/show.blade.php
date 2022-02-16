@@ -2,6 +2,117 @@
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
  @endsection
+
+<!--------------------------------------------------------------------------------->
+<style>
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+  padding: 5px;padding: 5px;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;padding: 5px;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;padding: 5px;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;padding: 5px;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;padding: 5px;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;padding: 5px;
+}
+
+.fa-pinterest {
+  background: #cb2027;
+  color: white;padding: 5px;
+}
+
+.fa-snapchat-ghost {
+  background: #fffc00;
+  color: white;padding: 5px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.fa-skype {
+  background: #00aff0;
+  color: white;padding: 5px;
+}
+
+.fa-android {
+  background: #a4c639;
+  color: white;padding: 5px;
+}
+
+.fa-dribbble {
+  background: #ea4c89;
+  color: white;padding: 5px;
+}
+
+.fa-vimeo {
+  background: #45bbff;
+  color: white;padding: 5px;
+}
+
+.fa-tumblr {
+  background: #2c4762;
+  color: white;
+}
+
+.fa-vine {
+  background: #00b489;
+  color: white;
+}
+
+.fa-foursquare {
+  background: #45bbff;
+  color: white;
+}
+
+.fa-stumbleupon {
+  background: #eb4924;
+  color: white;
+}
+
+.fa-flickr {
+  background: #f40083;
+  color: white;
+}
+
+.fa-yahoo {
+  background: #430297;
+  color: white;
+}
+
+.fa-soundcloud {
+  background: #ff5500;
+  color: white;
+}
+
+.fa-reddit {
+  background: #ff5700;
+  color: white;
+}
+
+.fa-rss {
+  background: #ff6600;
+  color: white;
+}
+</style>
+<!--------------------------------------------------------------------------------->
 @section('content')
   <section class="content">
     <div class="container-fluid">
@@ -54,7 +165,7 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$social->name}}</td>
-                            <td><li class="{{$social->icon}}"></li></td>
+                            <td ><li class="{{$social->icon}} "></li></td>
 
                             <td><?php if($social->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                             

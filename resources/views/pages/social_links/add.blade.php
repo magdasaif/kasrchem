@@ -2,12 +2,14 @@
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
  @endsection
-<!-- Bootstrap CDN -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
-<!-- Font Awesome CDN -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-<!-- Bootstrap-Iconpicker -->
-<link rel="stylesheet" href="{{ URL::asset('dist/css/bootstrap-iconpicker.min.css')}}"/>
+
+<!--------------------------------------------------------------------------------->
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="{{ URL::asset('assets/fontawesome-icon-browser-picker/fontawesome-browser.css') }}">
+<!--------------------------------------------------------------------------------->
 
 @section('content')
 <section class="content">
@@ -69,16 +71,16 @@
                 </div>
 
                 <hr>
-
                 <div class="form-group">
                     <label for="exampleInputEmail1">  الايقون</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="type icon class" name="icon" value="{{old('icon')}}" required value="{{ old('title_en') }}" required  oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')">
+                    <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="type icon class" name="icon" value="{{old('icon')}}"  required  oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')"> -->
+                    <input type="text" class="form-control" name="icon"  value="{{old('icon')}}" required   oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')" placeholder="Select icon" data-fa-browser />
 
                     <!-- Button tag -->
                     <!-- <button class="btn btn-secondary" role="iconpicker"></button> -->
                     <!-- Div tag -->
-                    <div role="iconpicker"></div>
-                </div>
+                    <!-- <div role="iconpicker"></div>-->
+                </div> 
 
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">اضافه</button>
@@ -94,6 +96,13 @@
 </section>
 @endsection
 
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script src="{{ URL::asset('assets/fontawesome-icon-browser-picker/fontawesome-browser.js') }}"></script>
+<script>
+  $(function($) {
+    $.fabrowser();
+});
+</script>
 <script>
   //  var field = document.getElementsByClassName("form-control search-control");
 //field.setAttribute("name", "icon");
