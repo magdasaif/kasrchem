@@ -145,7 +145,7 @@
                     </select>
                 </div>
 <!----------------------------------------------------------------------------->
-<div style="display:none">
+<div style="display:block">
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">كود المنتج</label>
