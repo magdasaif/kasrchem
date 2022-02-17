@@ -26,7 +26,7 @@ class CreateSubCategorys2Table extends Migration
             $table->integer('status');
 
             $table->string('image2');
-
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }

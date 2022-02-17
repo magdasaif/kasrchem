@@ -27,11 +27,11 @@ class VideoController extends Controller
     {
       //  $Main_Cat = Main_Category::withCount('sub_cate2')->get();
 
-        $sub_Category4      = Sub_Category4::get(); 
-        $sub_Category3      = Sub_Category3::get(); 
-        $Sub_Category2      = Sub_Category2::get();
-        $Main_Cat	    = Main_Category::get();
-        $sections           = Sitesection::get();
+        $sub_Category4   = Sub_Category4::where('visible', '!=' , 0)->get(); 
+        $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
+        $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+        $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
+        $sections  = Sitesection::where('visible', '!=' , 0)->get();
         return view('pages.Video.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
    //--------------------------------------------
@@ -64,6 +64,7 @@ class VideoController extends Controller
 //--------------------------------------------
 public function edit($id)
 {
+   // dd($id);
     $video = Video::findOrfail($id);
     if(!$video) return redirect()->back();
 

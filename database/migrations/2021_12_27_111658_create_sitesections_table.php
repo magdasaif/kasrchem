@@ -15,6 +15,7 @@ class CreateSitesectionsTable extends Migration
              $table->integer('priority');
             $table->integer('statues');
             $table->string('image');
+            $table->boolean('visible')->default(1);
             $table->timestamps();
 
 

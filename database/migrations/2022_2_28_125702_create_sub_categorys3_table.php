@@ -27,7 +27,7 @@ class CreateSubCategorys3Table extends Migration
             $table->integer('status');
 
             $table->string('image');
-
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }

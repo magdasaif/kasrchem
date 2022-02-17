@@ -20,6 +20,7 @@ class CreateSubCategorys4Table extends Migration
             $table->string('subname_ar');
             $table->string('subname_en');
             $table->integer('status');
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }
