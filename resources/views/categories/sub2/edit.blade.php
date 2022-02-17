@@ -69,11 +69,11 @@
 
                         <option value="{{$main_categories->id}}" selected>{{$main_categories->subname_ar}}</option>
                         
-                        @foreach ($all_main_categories as $category)
+                        <!-- @foreach ($all_main_categories as $category)
                             @if($main_categories->id != $category->id)
                                 <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}}?>>{{ $category->subname_ar }}</option>
                             @endif
-                        @endforeach
+                        @endforeach -->
                     </select>
                      <!-----------------add new cate if no category found for this section------------------------------------>
                     <div class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>

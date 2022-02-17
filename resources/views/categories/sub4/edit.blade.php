@@ -52,11 +52,11 @@
 
                         <option value="{{$main_categories->id}}" selected>{{$main_categories->subname_ar}}</option>
                         
-                        @foreach ($all_main_categories as $category)
+                        <!-- @foreach ($all_main_categories as $category)
                             @if($main_categories->id != $category->id)
                                 <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}}?>>{{ $category->subname_ar }}</option>
                             @endif
-                        @endforeach
+                        @endforeach -->
                     </select>
                      <!-----------------add new cate if no category found for this section------------------------------------>
                     <div class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>
@@ -78,11 +78,11 @@
                     @else
                     <select  class="form-control sub2"  id="sub2_sel" name="sub2" required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الفرعى')"  oninput="this.setCustomValidity('')">
                         <option value="{{ $sub_categories->id }}" selected >{{ $sub_categories->subname2_ar }}</option>
-                        @foreach ($all_sub_categories as $sub2)
+                        <!-- @foreach ($all_sub_categories as $sub2)
                             @if($sub_categories->id != $sub2->id)
                                 <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}}?>>{{ $sub2->subname2_ar }}</option>
                             @endif
-                        @endforeach
+                        @endforeach -->
                     </select>
                     <div class="form-control" id="sub2_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
                         <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal" style="margin-right: 23px;font-weight: bold;"></i>
@@ -102,11 +102,11 @@
                 @else
                  <select  class="form-control sub3"  id="sub3_sel" name="sub3" required  oninvalid="this.setCustomValidity('قم بادخال النوع الرئيسي')"  oninput="this.setCustomValidity('')">
                      <option value="{{$sub3_categories->id}}" selected>{{$sub3_categories->subname_ar}}</option>
-                        @foreach ($all_sub3_categories as $type)
+                        <!-- @foreach ($all_sub3_categories as $type)
                             @if($sub3_categories->id != $type->id)
                                 <option value="{{ $type->id }}" <?php if($type->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $type->id){echo "selected";}}?>>{{ $type->subname_ar }}</option>
                             @endif
-                        @endforeach
+                        @endforeach -->
                  </select>
 
                     <!----------------------------------------------------->
