@@ -57,7 +57,7 @@ class SupplierController extends Controller
                      'cate_id'      =>$request->cate_id,
                      'sub2_id'      => $request->sub2_id,
                      'sub3_id'      => $request->sub3_id,
-                     'sub4_id'      => $request->id,
+                     'sub4_id'      => $request->sub4_id,
                      'supplier_id'  => $Supplier->id,
                   ]
               );

@@ -63,11 +63,16 @@
 
 
                         //-------------get name of section--------------//
+                           
                             document.getElementById("section_id").value=section_id;
                             //  alert($( "#main_category_id option:selected" ).text()); //بيجيب قيمة الاوبشن المختارة
                              document.getElementById("new_main_name").value=$("#section_sel option:selected" ).text();
                         //----------------------------//
                 }
+                
+                document.getElementById("section_id222").value=section_id;
+                var sub4_id = $('select[name="sub4"]').val();
+                document.getElementById("sub4_id").value=sub4_id;
 
             },
             error:function()
@@ -229,6 +234,11 @@ $('#sub4_sel').show();
 
 
                         }
+
+                        document.getElementById("section_id222").value=section_id;
+                        document.getElementById("cate_id222").value=main_category_id;
+                        var sub4_id = $('select[name="sub4"]').val();
+                        document.getElementById("sub4_id").value=sub4_id;
                      //--------------------------------------------//
                     },
                     error:function()
@@ -302,7 +312,11 @@ $('#sub4_sel').show();
                                 //----------------------------------------------------//
                         }
                          //--------------------------------------------//
-
+                         document.getElementById("section_id222").value=section_id;
+                         document.getElementById("cate_id222").value=cate_id;
+                         document.getElementById("sub2_id22").value=sub2_id;
+                         var sub4_id = $('select[name="sub4"]').val();
+                         document.getElementById("sub4_id").value=sub4_id;
 
                     },
                     error:function()
@@ -364,8 +378,12 @@ $('#sub4_sel').show();
                                 //----------------------------------------------------//
                         }
                          //--------------------------------------------//
-
-
+                         document.getElementById("section_id222").value=section_id;
+                         document.getElementById("cate_id222").value=cate_id;
+                         document.getElementById("sub2_id22").value=sub2_id;
+                         document.getElementById("sub3_id2").value=sub3_id;
+                         var sub4_id = $('select[name="sub4"]').val();
+                         document.getElementById("sub4_id").value=sub4_id;
                     },
                     error:function()
                     { alert("false"); }

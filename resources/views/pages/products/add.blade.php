@@ -44,10 +44,10 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
                     <br>
-                    <!-- <center>
+                    <center>
                             <span style="color:#d54646;font-weight: bold;"> لاضافه مورد</span>
                             <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#SupplierModel" style="margin-right: 23px;font-weight: bold;"></i>
-                    </center> -->
+                    </center>
                     <select class="form-control" name="supplier_id[]"  multiple required>
                         @foreach ($suppliers as $supplier)
                              <option value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>>{{ $supplier->name_ar }}</option>
