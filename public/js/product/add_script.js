@@ -77,10 +77,13 @@
 //---------------------to get value if not making change in select------------------------
 //save section id value to return back with it
 var section_id = $('select[name="section_id"]').val();
+//alert(section_id);
 document.getElementById("section_id").value=section_id;
 document.getElementById("section_id1").value=section_id;
 document.getElementById("section_id2").value=section_id;
 document.getElementById("section_id22").value=section_id;
+document.getElementById("section_id222").value=section_id;
+//alert(document.getElementById("section_id222").value);
 //alert(section_id);
 
 //save main category id value to return back with it
@@ -88,17 +91,25 @@ var cate_id = $('select[name="main_category"]').val();
 document.getElementById("cate_id").value=cate_id;
 document.getElementById("cate_id2").value=cate_id;
 document.getElementById("cate_id22").value=cate_id;
+document.getElementById("cate_id222").value=cate_id;
 // alert(cate_id);
 
 
 var sub2_id = $('select[name="sub2"]').val();
 document.getElementById("sub2_id").value=sub2_id;
 document.getElementById("sub2_id2").value=sub2_id;
+document.getElementById("sub2_id22").value=sub2_id;
 
 
 
 var sub3_id = $('select[name="sub3"]').val();
 document.getElementById("sub3_id").value=sub3_id;
+document.getElementById("sub3_id2").value=sub3_id;
+
+
+var sub4_id = $('select[name="sub4"]').val();
+document.getElementById("sub4_id").value=sub4_id;
+
 
 //read value of selected sub category
 document.getElementById("new_main_name").value=$("#section_sel option:selected" ).text();
