@@ -38,16 +38,55 @@
                 {{method_field('PATCH')}}
 
                 @csrf
-                <div class="form-group">
+                
+                <!-- <div class="form-group">
                      <label for="exampleInputEmail1">  اقسام الموقع*</label>
-                    <input type="test" class="form-control"  value="{{ $sections->site_name_ar }}" disabled>
+                    <input type="test" class="form-control"  value="{{ $selected_section->site_name_ar }}" disabled>
                 </div>
                 
                 <div class="form-group">
                      <label for="exampleInputEmail1"> التصنيف الرئيسى*</label>
                     <input type="test" class="form-control"  value="{{ $sub_categories->relation_sub2_with_main->subname_ar }}" disabled>
                     <input type="hidden" class="form-control" name="cate_id" value="{{ $sub_categories->relation_sub2_with_main->id }}">
+                </div> -->
+
+ <!----------------------------------------------------->
+                <div class="form-group">
+                        <label>  اقسام الموقع </label>
+                        <select  class="form-control sub2"  id="section_sel" name="section_id" >
+                            <option value="{{ $selected_section->id }}" selected>{{ $selected_section->site_name_ar }}</option>
+                            <option value="0">جميع الاقسام</option>
+                                @foreach ($sections as $sec)
+                                <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
+                                @endforeach
+                        </select>
+
+                    </div>
+                   <!----------------------------------------------------->
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> التصنيف الرئيسي</label>
+                    <select class="form-control" id="main_category_id" name="main_cate_id"  required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الرئيسي')"  oninput="this.setCustomValidity('')">
+
+                        <option value="{{$main_categories->id}}" selected>{{$main_categories->subname_ar}}</option>
+                        
+                        @foreach ($all_main_categories as $category)
+                            @if($main_categories->id != $category->id)
+                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}}?>>{{ $category->subname_ar }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                     <!-----------------add new cate if no category found for this section------------------------------------>
+                    <div class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal0" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                    <!----------------------------------------------------->
+                    <div  id="main_error" style="color: red;display: none;">قم بادخال التصنيف الرئيسي</div>
                 </div>
+
+            <!----------------------------------------------------->
+
+
+
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالعربيه*</label>
@@ -97,11 +136,19 @@
                 </form>
         </div>
        <!--#############################################################-->
-
+ <!--========================================================-->
+ @include('categories.Category_models.categories_model_adding')
+    <!--========================================================-->
  		</div>
             </div>
         </div>
     </div>
 </section>
 </template>
+
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
+<!-- add script for categories and changes on it -->
+<script src="{{ URL::asset('/js/product/edit_script.js') }}"></script>
+
 @endsection

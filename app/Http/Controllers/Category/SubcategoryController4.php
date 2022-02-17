@@ -100,13 +100,20 @@ class SubcategoryController4 extends Controller
       // return view('categories.sub4.edit',compact('sub4'));
 
 
-       $sub4 = sub_Category4::findOrfail($sub4_id);
-       $sub3 = sub_Category3::findOrfail($sub4->sub3_id);;
-       $sub_categories = Sub_Category2::findOrfail($sub3->sub2_id);
-       $main_categories = Main_Category::findOrfail($sub_categories->cate_id);
-       $sections = Sitesection::findOrfail($main_categories->section_id);
-       
-       return view('categories.sub4.edit',compact('sub4','sub_categories','sections','main_categories','sub3'));
+      $data['sub4'] = sub_Category4::findOrfail($sub4_id);
+      $data['sub3_categories'] = sub_Category3::findOrfail($data['sub4']->sub3_id);;
+      $data['sub_categories'] = Sub_Category2::findOrfail($data['sub3_categories']->sub2_id);
+      $data['main_categories'] = Main_Category::findOrfail($data['sub_categories']->cate_id);
+      $data['selected_section'] = Sitesection::findOrfail($data['main_categories']->section_id);
+
+
+      $data['sections'] = Sitesection::get();
+      $data['all_main_categories'] = Main_Category::get();
+      $data['all_sub_categories'] = Sub_Category2::get();
+      $data['all_sub3_categories'] = sub_Category3::get();
+
+     // dd(sub_Category4::findOrfail($sub4_id));
+       return view('categories.sub4.edit',$data);
        
     }
     
@@ -117,7 +124,8 @@ class SubcategoryController4 extends Controller
         try{
                      $validated = $request->validated();
                      $Sub_Category4 = Sub_Category4::findOrfail($request->id);
-                     $Sub_Category4->sub3_id=$request->sub3_id;
+                    // $Sub_Category4->sub3_id=$request->sub3_id;
+                     $Sub_Category4->sub3_id=$request->sub3;
                      $Sub_Category4->subname_ar=$request->subname_ar;
                      $Sub_Category4->subname_en=$request->subname_en;
                      $Sub_Category4->status= $request->status;

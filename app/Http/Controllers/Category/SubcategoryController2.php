@@ -129,15 +129,18 @@ class SubcategoryController2 extends Controller
     {
         $sub_categories = Sub_Category2::findOrfail($id);
         $main_categories = Main_Category::findOrfail($sub_categories->cate_id);
-        $sections = Sitesection::findOrfail($main_categories->section_id);
-       // dd($sections);
+        $selected_section = Sitesection::findOrfail($main_categories->section_id);
+
+        $sections = Sitesection::get();
+        $all_main_categories = Main_Category::get();
+
+       // dd($sub_categories);
 
         
         if(!$sub_categories)
              return redirect()->back();
 
-
-        return view('categories.sub2.edit',compact('sub_categories','sections'));
+        return view('categories.sub2.edit',compact('sub_categories','sections','selected_section','all_main_categories','main_categories'));
     }
 
    
@@ -149,7 +152,8 @@ class SubcategoryController2 extends Controller
 
             $category = Sub_Category2::findOrfail($request->id);
 
-            $category->cate_id=$request->cate_id;
+           // $category->cate_id=$request->cate_id;
+            $category->cate_id=$request->main_cate_id;
             $category->subname2_ar=$request->subname2_ar;
             $category->subname2_en=$request->subname2_en;
             $category->status= $request->status;

@@ -114,13 +114,18 @@ class SubcategoryController3 extends Controller
 //----------------------------------------------
 public function edit($sub3_id)
 {
-    $sub3 = sub_Category3::findOrfail($sub3_id);;
+    $sub3_categories = sub_Category3::findOrfail($sub3_id);;
 
-    $sub_categories = Sub_Category2::findOrfail($sub3->sub2_id);
+    $sub_categories = Sub_Category2::findOrfail($sub3_categories->sub2_id);
     $main_categories = Main_Category::findOrfail($sub_categories->cate_id);
-    $sections = Sitesection::findOrfail($main_categories->section_id);
-    
-    return view('categories.sub3.edit',compact('sub_categories','sections','main_categories','sub3'));
+    $selected_section = Sitesection::findOrfail($main_categories->section_id);
+
+    $sections = Sitesection::get();
+    $all_main_categories = Main_Category::get();
+    $all_sub_categories = Sub_Category2::get();
+
+   // dd($sub_categories);
+    return view('categories.sub3.edit',compact('sub_categories','all_sub_categories','sections','main_categories','sub3_categories','selected_section','all_main_categories'));
 
 }
   //---------------------------------------------- 
@@ -133,7 +138,8 @@ public function edit($sub3_id)
            $validated = $request->validated();
            
             $sub3 = sub_Category3::findOrfail($request->id);
-            $sub3->sub2_id=$request->sub_id2;
+           // $sub3->sub2_id=$request->sub_id2;
+            $sub3->sub2_id=$request->sub2;
             $sub3->subname_ar=$request->subname_ar;
             $sub3->subname_en=$request->subname_en;
            $sub3->status= $request->status;

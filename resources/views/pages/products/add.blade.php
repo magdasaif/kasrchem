@@ -46,7 +46,7 @@
                     <br>
                     <!-- <center>
                             <span style="color:#d54646;font-weight: bold;"> لاضافه مورد</span>
-                            <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#supplierModel" style="margin-right: 23px;font-weight: bold;"></i>
+                            <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#SupplierModel" style="margin-right: 23px;font-weight: bold;"></i>
                     </center> -->
                     <select class="form-control" name="supplier_id[]"  multiple required>
                         @foreach ($suppliers as $supplier)
