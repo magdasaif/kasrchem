@@ -174,6 +174,17 @@ class SubcategoryController1 extends Controller
     
     public function destroy($id)
     {
-        //
+        // dd($id);
+        try
+        {
+        $Main_Category=Main_Category::find($id);
+        $Main_Category->delete();
+        return redirect()->route('categories.index')->with(['success'=>'تم الحذف بنجاح']);
+       }
+       catch
+       (\Exception $e)
+       {
+           return redirect()->back()->with(['error' => $e->getMessage()]);
+       }
     }
 }

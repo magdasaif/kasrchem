@@ -53,6 +53,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('categories4_add/{id}', 'SubcategoryController4@create');
 
         Route::resource('categories4_new', 'SubcategoryController4_new');
+        //==================check if categories related with thing or not=========================//
+        Route::GET('/found_for_delete_sub1/{main_category_id}','deleteCategoriesController@findsub1');
+        Route::GET('/found_for_delete_sub2/{sub2_id}','deletedCategoriesController@findsub2');
+        Route::GET('/found_for_delete_sub3/{sub3_id}','deleteCategoriesController@findsub3');
+        Route::GET('/found_for_delete_sub4/{sub4_id}','deleteCategoriesController@findsub4');
+        //========================================================================================//
 
     });
     //------------------site_section------------------------------------------------------
