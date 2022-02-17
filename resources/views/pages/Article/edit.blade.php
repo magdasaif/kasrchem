@@ -230,7 +230,7 @@
     </div>
 </section>
 
-@endsection
+
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
 
@@ -239,3 +239,5 @@
 
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
+
+@endsection

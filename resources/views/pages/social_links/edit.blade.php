@@ -97,7 +97,7 @@
         </div>
     </div>
 </section>
-@endsection
+
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script src="{{ URL::asset('assets/fontawesome-icon-browser-picker/fontawesome-browser.js') }}"></script>
 <script>
@@ -105,3 +105,5 @@
     $.fabrowser();
 });
 </script>
+
+@endsection

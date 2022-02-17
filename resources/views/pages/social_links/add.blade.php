@@ -94,7 +94,7 @@
         </div>
     </div>
 </section>
-@endsection
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script src="{{ URL::asset('assets/fontawesome-icon-browser-picker/fontawesome-browser.js') }}"></script>
@@ -103,12 +103,5 @@
     $.fabrowser();
 });
 </script>
-<script>
-  //  var field = document.getElementsByClassName("form-control search-control");
-//field.setAttribute("name", "icon");
 
-
-//   var x=  document.getElementsByClassName('search-control').value;
-//     alert(x);
-//     $('.search-control').attr('name', 'other_amount');
-</script>
+@endsection

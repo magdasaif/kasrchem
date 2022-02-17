@@ -83,9 +83,10 @@
     </div>
 </section>
             </div>
-@endsection
+
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
 <!-- add script for categories and changes on it -->
 <script src="{{ URL::asset('/js/product/add_script.js') }}"></script>
+@endsection

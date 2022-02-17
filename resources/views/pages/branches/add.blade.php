@@ -131,7 +131,7 @@
         </div>
     </div>
 </section>
-@endsection
+
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
 <script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
@@ -224,3 +224,4 @@
             }
         });
 </script>
+@endsection

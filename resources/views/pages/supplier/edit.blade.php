@@ -101,7 +101,9 @@
     </div>
 </section>
 
-@endsection
+
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
+
+@endsection
