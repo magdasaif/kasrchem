@@ -66,7 +66,14 @@
                             <td>{{$i}}</td>
 
                             <!-- <td>{{$product->code}}</td> -->
-                            <td>{{$product->name_ar}}</td>
+                            <!-- <td>{{$product->name_ar}}</td> -->
+                            <td>
+                              <?php
+                               $name1= str_replace('&lt;', '<',($product->name_ar));
+                               $name2= str_replace('&gt;', '>',($name1));
+                               echo $name2;
+                              ?>
+                            </td>
                             <!-- <td>{{$product->price}}</td> -->
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_$product->id/$product->image")?>"></td>
                             <td>{{$product->sort}}</td>

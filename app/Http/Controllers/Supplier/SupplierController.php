@@ -46,12 +46,29 @@ class SupplierController extends Controller
                'logo' =>$photo_name,
               ]);
            $Supplier->save();
-   
+
+           if ($request->supplier_model==1)
+           {
+              //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+              return redirect()->back()->with(
+                  [
+                     'success'=>'تمت اضافة التصنيف الفرعى بنجاح',
+                     'section_id'   =>$request->section_id,
+                     'cate_id'      =>$request->cate_id,
+                     'sub2_id'      => $request->sub2_id,
+                     'sub3_id'      => $request->sub3_id,
+                     'sub4_id'      => $request->id,
+                     'supplier_id'  => $Supplier->id,
+                  ]
+              );
+             
+           }else{
                return redirect()->route('supplier.index')->with(['success'=>'تمت الاضافه بنجاح']);
            }
-           catch(\Exception $e){
-               return redirect()->back()->with(['error'=>$e->getMessage()]);
-           }
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
     }
 // //-------------------------------------------------------------//
     public function edit($id)

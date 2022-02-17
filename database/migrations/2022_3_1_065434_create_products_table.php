@@ -26,8 +26,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('sub4_id');
             $table->foreign('sub4_id')->references('id')->on('sub_categorys4')->onDelete('cascade');
             
-            $table->string('name_ar');
-            $table->string('name_en');
+            $table->longText('name_ar');
+            $table->longText('name_en');
 
             $table->string('code');
 
