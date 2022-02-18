@@ -16,8 +16,9 @@ class Sub1Seeder extends Seeder
         DB::table('main_categorys')->delete();
         $main_categorys_data = array(
             array(
+               
                 'section_id' => "1",
-                 'subname_ar' => "اختر التصنيف الرئيسى",
+                 'subname_ar' => "اختر ",
                 'subname_en'=>"choose main_category",
                 'status'=>'1',
                  'image'=>'' ,

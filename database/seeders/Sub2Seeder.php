@@ -11,8 +11,9 @@ class Sub2Seeder extends Seeder
         DB::table('sub_categorys2')->delete();
         $sub_categorys2_data = array(
             array(
+                
                 'cate_id' => "1",
-                 'subname2_ar' => "اختر التصنيف الفرعى",
+                 'subname2_ar' => "اختر ",
                  'subname2_en'=>"choose sub2",
                  'status'=>'1',
                  'image2'=>'' ,

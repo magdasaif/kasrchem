@@ -26,12 +26,13 @@ class VideoController extends Controller
  public function create()
     {
       //  $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-
+         //++++++++++++++++++++new for unrequired++++++++++++++++++++//
         $sub_Category4   = Sub_Category4::where('visible', '!=' , 0)->get(); 
         $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
         $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
         $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
         $sections  = Sitesection::where('visible', '!=' , 0)->get();
+        //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
         return view('pages.Video.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
    //--------------------------------------------
@@ -64,21 +65,52 @@ class VideoController extends Controller
 //--------------------------------------------
 public function edit($id)
 {
-   // dd($id);
+   // dd(Video::findOrfail($id));
     $video = Video::findOrfail($id);
     if(!$video) return redirect()->back();
-
-    $sections     = Sitesection::get();
-    $Main_Cat = Main_Category::get();
-    $Sub_Category4      = Sub_Category4::get();
-    $Sub_Category3      = Sub_Category3::get();
-    $Sub_Category2      = Sub_Category2::get();
-
-    //to retrive value of section
+ //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
+    $sections = Sitesection::where('visible', '!=' , 0)->get();
+    $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+    $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+    $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+    $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+   // dd($video->main_cate_id);
+  //  dd(Main_Category::findOrfail(4));
+  
+  //-----------------------------------//
+  if($video->main_cate_id==1 )
+  {
+   // dd(Main_Category::findOrfail($video->main_cate_id));
+    $main_categories_0 = Main_Category::findOrfail($video->main_cate_id);
+   // dd($main_categories_0);
+    if($main_categories_0->visible==0)
+    {
+         //to retrive value of section-->اختر
+        $main_categories = Main_Category::first(); 
+        // $main_categories = Main_Category::where('visible','=',0)->get();
+        // $s = Sitesection::where('visible','=',0)->get(); 
+         $s = Sitesection::first(); 
+         return view('pages.Video.edit',compact('s','sections','video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+     
+    }
+    else
+    {
+         //to retrive value of section
+        $main_categories = Main_Category::findOrfail($video->main_cate_id);
+       $s = Sitesection::findOrfail($main_categories->section_id);
+      return view('pages.Video.edit',compact('s','sections','video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4')); 
+    }
+  
+  }
+  else
+  {
+       //to retrive value of section
     $main_categories = Main_Category::findOrfail($video->main_cate_id);
     $s = Sitesection::findOrfail($main_categories->section_id);
-   
     return view('pages.Video.edit',compact('s','sections','video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+  }
+    //---+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--// 
 }
 
 //--------------------------------------------
