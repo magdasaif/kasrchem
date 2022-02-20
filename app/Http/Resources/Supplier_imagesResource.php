@@ -13,7 +13,7 @@ class Supplier_imagesResource extends JsonResource
            [
                 'id'=>$this->id,
                 //'image'=>$path.$this->image,
-                'image'=>asset('storage/app/public/supplier/supplier_images_no'.$this->id.'/' . $this->image),
+                'image'=>asset('storage/supplier/supplier_images_no'.$this->id.'/' . $this->image),
                 
            ] ;
     }

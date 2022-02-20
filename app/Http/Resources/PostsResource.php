@@ -11,7 +11,7 @@ class PostsResource extends JsonResource
     {
        // $path=storage_path().'/app/public/article/'.$this->image;
 
-       $path=asset('storage/app/public/article/' . $this->image);
+       $path=asset('storage/article/' . $this->image);
 
        $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
 

@@ -36,7 +36,7 @@ class main_categoryResource extends JsonResource
                'id'=>$this->id,
                'name'=>$subname,
               // 'image'=>$path.$this->image,
-               'image'=>asset('storage/app/public/categories/first/' . $this->image),
+               'image'=>asset('storage/categories/first/' . $this->image),
                'sub_categories'=>   $x,
           ] ;
         }

@@ -16,9 +16,9 @@ class ReleaseResource extends JsonResource
             'id' =>$this->id,
             'title' =>$this->title,
          //   'image' =>$path.$this->image,
-            'image' =>  asset('storage/app/public/release/release_'.$this->id.'/' . $this->image),
+            'image' =>  asset('storage/release/release_'.$this->id.'/' . $this->image),
           //  'attachment' => $path.$this->file,
-            'attachment' =>  asset('storage/app/public/release/release_'.$this->id.'/' . $this->file),
+            'attachment' =>  asset('storage/release/release_'.$this->id.'/' . $this->file),
            
         ];
       //  return parent::toArray($request);

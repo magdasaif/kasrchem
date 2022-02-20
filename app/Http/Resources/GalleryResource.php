@@ -22,7 +22,7 @@ class GalleryResource extends JsonResource
             $selected=[
                 'id'=>$ii->id,
                // 'image'=>$path.$ii->image,
-                'image'=>asset('storage/app/public/photo_gallery/gallery_photo_images_no_'.$this->id.'/' . $ii->image),
+                'image'=>asset('storage/photo_gallery/gallery_photo_images_no_'.$this->id.'/' . $ii->image),
             ];
         array_push($new_images,$selected);
         }
@@ -32,7 +32,7 @@ class GalleryResource extends JsonResource
             'id' =>$this->id,
             'title' =>$this->title,
             //'image' => $path_main.$this->image,
-            'image' => asset('storage/app/public/photo_gallery/' . $this->image),
+            'image' => asset('storage/photo_gallery/' . $this->image),
             'images' => $new_images,
         ];
       //  return parent::toArray($request);

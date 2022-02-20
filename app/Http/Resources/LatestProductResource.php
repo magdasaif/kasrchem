@@ -36,7 +36,7 @@ class LatestProductResource extends JsonResource
                 'stock' =>$this->amount,
                 'security_clearance' =>$this->security_permit,
                // 'image' => $path.$this->image,
-                'image' => asset('storage/app/public/products/product_no_'.$this->id.'/' . $this->image),
+                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
             ];
        
         //  return parent::toArray($request);

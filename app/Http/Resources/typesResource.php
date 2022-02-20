@@ -35,7 +35,7 @@ class typesResource extends JsonResource
            'id'=>$this->id,
            'name'=>$subname,
          //  'image'=>$path.$this->image,
-           'image'=>asset('storage/app/public/categories/third/' . $this->image),
+           'image'=>asset('storage/categories/third/' . $this->image),
            'sub_types'=>  $x,
        ] ;
       

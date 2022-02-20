@@ -19,7 +19,7 @@ class AboutResource extends JsonResource
                 'mission' =>$this->mission,
                 'vision' =>$this->vision,
                 'goal' =>$this->goal,
-                'image' =>asset('storage/app/public/about_us/' . $this->image),
+                'image' =>asset('storage/about_us/' . $this->image),
                 
             ];
         }
