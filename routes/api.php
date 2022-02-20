@@ -103,7 +103,7 @@ Route::get('/latest_releases',[LatestMultiMediaController::class,'latest_release
 ///------------------------------Supplier-------------------------------------
 Route::get('/suppliers',[SupplierController::class,'index']);
 
-//---------------------related products with suplier ------------------------
+//---------------------related products with supplier ------------------------
  Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
 
  ///------------------------------about us------------------------------------
