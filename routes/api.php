@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\LatestProductController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\GalleryController;
+use App\Http\Controllers\Api\LatestMultiMediaController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\RelatedProductController;
 use App\Http\Controllers\Api\AboutUsController;
@@ -78,14 +79,26 @@ Route::get('/latest_products',[LatestProductController::class,'latest_products']
 //---------------------posts/article------------------------
 Route::apiResource('/posts', 'PostsController', array("as" => "api"));
 
+//---------------------latest posts------------------------
+Route::get('/latest_posts',[LatestMultiMediaController::class,'latest_posts']);
+
 //---------------------videos------------------------
 Route::apiResource('/videos', 'VideoController', array("as" => "api"));
+
+//---------------------latest videos------------------------
+Route::get('/latest_videos',[LatestMultiMediaController::class,'latest_videos']);
 
 //---------------------photos_galleries------------------------
 Route::apiResource('/photos_galleries', 'GalleryController', array("as" => "api"));
 
-//---------------------photos_galleries------------------------
+//---------------------latest galleries------------------------
+Route::get('/latest_galleries',[LatestMultiMediaController::class,'latest_galleries']);
+
+//---------------------releases------------------------
 Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
+
+//---------------------latest releases------------------------
+Route::get('/latest_releases',[LatestMultiMediaController::class,'latest_releases']);
 
 ///------------------------------Supplier-------------------------------------
 Route::get('/suppliers',[SupplierController::class,'index']);

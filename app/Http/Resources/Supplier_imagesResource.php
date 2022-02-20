@@ -12,7 +12,8 @@ class Supplier_imagesResource extends JsonResource
            return 
            [
                 'id'=>$this->id,
-                'image'=>$path.$this->image,
+                //'image'=>$path.$this->image,
+                'image'=>asset('storage/supplier/supplier_images_no'.$this->id.'/' . $this->image),
                 
            ] ;
     }

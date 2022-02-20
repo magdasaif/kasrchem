@@ -25,11 +25,7 @@
                 </div>
             @endif
 
-            @if(Session::has('sub4_id'))
-                <div class="alert alert-success">
-                    {{Session::get('sub4_id')}}
-                </div>
-            @endif
+         
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>

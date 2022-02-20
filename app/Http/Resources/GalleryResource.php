@@ -11,8 +11,8 @@ class GalleryResource extends JsonResource
    
     public function toArray($request)
     {
-        $path_main=storage_path().'/app/public/photo_gallery/';
-        $path=storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$this->id.'/';
+        //$path_main=storage_path().'/app/public/photo_gallery/';
+        //$path=storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$this->id.'/';
 
        // $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
    
@@ -21,7 +21,8 @@ class GalleryResource extends JsonResource
         foreach($images as $ii){
             $selected=[
                 'id'=>$ii->id,
-                'image'=>$path.$ii->image,
+               // 'image'=>$path.$ii->image,
+                'image'=>asset('storage/photo_gallery/gallery_photo_images_no_'.$this->id.'/' . $ii->image),
             ];
         array_push($new_images,$selected);
         }
@@ -30,7 +31,8 @@ class GalleryResource extends JsonResource
 
             'id' =>$this->id,
             'title' =>$this->title,
-            'image' =>$path_main.$this->image,
+            //'image' => $path_main.$this->image,
+            'image' => asset('storage/photo_gallery/' . $this->image),
             'images' => $new_images,
         ];
       //  return parent::toArray($request);

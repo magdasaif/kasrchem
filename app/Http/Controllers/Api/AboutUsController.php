@@ -12,49 +12,6 @@ use App\Models\SiteInfo;
 class AboutUsController extends Controller
 {
 
-    /**
-     * @OA\Get (
-     *      path="/about_us",
-     *      operationId="Get about us information",
-     *      tags={"Setting"},
-     *      summary="Get about us information",
-     *      @OA\Parameter(
-     *          name="locale",
-     *          description="App Locale",
-     *          required=true,
-     *          in="header",
-     *          @OA\Schema(
-     *              type="string",
-     *              enum={"ar", "en"},
-     *              default="ar"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\MediaType(
-     *           mediaType="application/json",
-     *      )
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="not found"
-     *      ),
-     *     )
-     */
-
     public function about_us(Request $request){
         //use header to read parameter passed in header 
         $lang=$request->header('locale');

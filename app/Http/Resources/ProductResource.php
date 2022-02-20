@@ -35,7 +35,8 @@ class ProductResource extends JsonResource
                 'max' =>$this->max_amount,
                 'stock' =>$this->amount,
                 'security_clearance' =>$this->security_permit,
-                'image' => $path.$this->image,
+               // 'image' => $path.$this->image,
+                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
             ];
         }else{
         
@@ -84,7 +85,8 @@ class ProductResource extends JsonResource
             foreach($images as $ii){
                 $selected=[
                     'id'=>$ii->id,
-                    'image'=>$path.$ii->path,
+                   // 'image'=>$path.$ii->path,
+                   'image'=> asset('storage/products/product_no_'.$this->id.'/' . $ii->path),
                 ];
             array_push($new_images,$selected);
             }
@@ -94,7 +96,8 @@ class ProductResource extends JsonResource
             foreach($files as $fi){
                 $selected=[
                     'id'=>$fi->id,
-                    'file'=>$path.$fi->path,
+                   // 'file'=>$path.$fi->path,
+                   'file'=> asset('storage/products/product_no_'.$this->id.'/' . $fi->path),
                 ];
             array_push($new_files,$selected);
             }
@@ -115,7 +118,8 @@ class ProductResource extends JsonResource
 
             //   "image": "https://backend.eradco.murabba.dev/storage/products/product1/product1636788975.png",
 
-                'image' => $path.$this->image,
+               // 'image' => $path.$this->image,
+                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
 
                 'description' => $this->desc,
                 

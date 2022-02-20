@@ -28,12 +28,15 @@ class main_categoryResource extends JsonResource
          {
              $x->map(function($i) { $i->lang = 'en'; });
           }
-         $path=storage_path().'/app/public/categories/first/';
+
+          $path=storage_path().'/app/public/categories/first/';
+
           return 
           [
                'id'=>$this->id,
                'name'=>$subname,
-               'image'=>$path.$this->image,
+              // 'image'=>$path.$this->image,
+               'image'=>asset('storage/categories/first/' . $this->image),
                'sub_categories'=>   $x,
           ] ;
         }
