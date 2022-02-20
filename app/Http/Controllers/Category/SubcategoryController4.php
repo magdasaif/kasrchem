@@ -23,7 +23,7 @@ class SubcategoryController4 extends Controller
      public function show($sub3_id)
      {
         $from_side_or_no='no';
-         $sub_category4=Sub_Category4::where('sub3_id',$sub3_id)->orderBy('id','desc')->get();
+         $sub_category4=Sub_Category4::where('visible', '!=' , 0)->where('sub3_id',$sub3_id)->orderBy('id','desc')->get();
          return view('categories.sub4.show',compact('sub_category4','sub3_id','from_side_or_no'));
      }
 //-----------------show add form------------------------------------
