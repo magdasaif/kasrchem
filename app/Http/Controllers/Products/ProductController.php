@@ -100,6 +100,15 @@ class ProductController extends Controller
 
 
             //+++++++++++++++++++ علشان لو ظاهر جزء اضف تصنيف ++++++++++++++++++++++//
+            if(!$request->section_id)
+                {
+                    $product->site_id=1;
+                }
+                else
+                {
+                    $product->site_id=$request->section_id; 
+                }
+
                 if(!$request->main_cate_id && !$request->main_category)
                 {
                     $product->main_cate_id=1;
@@ -408,7 +417,7 @@ class ProductController extends Controller
          $suppliers= Supplier::get();
 
           //-----------------------------------//
-  if($product->main_cate_id==1 )
+  /*if($product->main_cate_id==1 )
   {
  
     $main_categories_0 =Main_Category::findOrfail($product->main_cate_id);
@@ -439,10 +448,11 @@ class ProductController extends Controller
      $s = Sitesection::findOrfail($main_categories->section_id);
 
      //dd($product);
-    return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
+   // return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
 
-  }
+  }*/
 
+  return view('pages.products.edit',compact('product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
 
 
         
@@ -471,6 +481,14 @@ class ProductController extends Controller
                     $product->image= $photo_name;
             }
             //+++++++++++++++++++ علشان لو ظاهر جزء اضف تصنيف يخلى الحاجة ظى قيمتها بصفر ++++++++++++++++++++++//
+            if(!$request->section_id)
+            {
+                $product->site_id=1;
+            }
+            else
+            {
+                $product->site_id=$request->section_id; 
+            }
             if(!$request->main_cate_id)
             {
                 $product->main_cate_id=1;
