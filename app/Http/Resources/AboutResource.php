@@ -19,22 +19,12 @@ class AboutResource extends JsonResource
                 'mission' =>$this->mission,
                 'vision' =>$this->vision,
                 'goal' =>$this->goal,
-<<<<<<< HEAD
-                'image' => $path.$this->image,
-
-            ];
-        }
-        else{
-            $path =  public_path().'/images/';
-
-=======
                 'image' =>asset('storage/app/public/about_us/' . $this->image),
                 
             ];
         }
         else{
            // $path=public_path().'/images/';
->>>>>>> api
             return [
                 'site_name'=>$this->site_name,
                 'site_description' =>$this->site_description,
@@ -43,11 +33,6 @@ class AboutResource extends JsonResource
                 'site_fax' =>$this->site_fax,
                 'site_whatsapp' =>$this->site_whatsapp,
                 'site_logo' => asset('public/images/' . $this->site_logo),
-<<<<<<< HEAD
-
-=======
-                
->>>>>>> api
             ];
         }
     }
