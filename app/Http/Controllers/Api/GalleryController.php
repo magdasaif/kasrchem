@@ -170,4 +170,5 @@ class GalleryController extends Controller
         return response($all_posts,200,['OK']);
     }
 
+
 }
