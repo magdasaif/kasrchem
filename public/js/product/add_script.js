@@ -71,7 +71,7 @@
                 }
                 
                 document.getElementById("section_id222").value=section_id;
-                var sub4_id = $('select[name="sub4"]').val();
+                var sub4_id = document.getElementById("sub4_sel").value;
                 document.getElementById("sub4_id").value=sub4_id;
 
             },
@@ -112,7 +112,7 @@ document.getElementById("sub3_id").value=sub3_id;
 document.getElementById("sub3_id2").value=sub3_id;
 
 
-var sub4_id = $('select[name="sub4"]').val();
+var sub4_id = document.getElementById("sub4_sel").value;
 document.getElementById("sub4_id").value=sub4_id;
 
 
@@ -237,7 +237,7 @@ $('#sub4_sel').show();
 
                         document.getElementById("section_id222").value=section_id;
                         document.getElementById("cate_id222").value=main_category_id;
-                        var sub4_id = $('select[name="sub4"]').val();
+                        var sub4_id = document.getElementById("sub4_sel").value;
                         document.getElementById("sub4_id").value=sub4_id;
                      //--------------------------------------------//
                     },
@@ -315,7 +315,7 @@ $('#sub4_sel').show();
                          document.getElementById("section_id222").value=section_id;
                          document.getElementById("cate_id222").value=cate_id;
                          document.getElementById("sub2_id22").value=sub2_id;
-                         var sub4_id = $('select[name="sub4"]').val();
+                         var sub4_id = document.getElementById("sub4_sel").value;
                          document.getElementById("sub4_id").value=sub4_id;
 
                     },
@@ -381,9 +381,13 @@ $('#sub4_sel').show();
                          document.getElementById("section_id222").value=section_id;
                          document.getElementById("cate_id222").value=cate_id;
                          document.getElementById("sub2_id22").value=sub2_id;
+
                          document.getElementById("sub3_id2").value=sub3_id;
-                         var sub4_id = $('select[name="sub4"]').val();
+
+                         var sub4_id = document.getElementById("sub4_sel").value;
+                        // alert(document.getElementById("sub4_sel").value);
                          document.getElementById("sub4_id").value=sub4_id;
+                         //alert(document.getElementById("sub4_id").value);
                     },
                     error:function()
                     { alert("false"); }
@@ -393,6 +397,23 @@ $('#sub4_sel').show();
             else {
                 alert('AJAX load did not work');
             }
+        });
+//--------------------------------------------------------------------------//
+        $('select[name="sub4"]').on('change', function () {
+            
+            var section_id = $('select[name="section_id"]').val();
+            var cate_id = $('select[name="main_category"]').val();
+            var sub2_id = $('select[name="sub2"]').val();
+            var sub3_id = $('select[name="sub3"]').val();
+            var sub4_id = $(this).val();
+            
+            document.getElementById("section_id222").value=section_id;
+            document.getElementById("cate_id222").value=cate_id;
+            document.getElementById("sub2_id22").value=sub2_id;
+            document.getElementById("sub3_id2").value=sub3_id;
+           // alert(document.getElementById("sub4_id").value);
+            document.getElementById("sub4_id").value=sub4_id;
+
         });
     });
     //--------------------------------------------------------------------------//

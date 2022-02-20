@@ -24,6 +24,12 @@
                     </ul>
                 </div>
             @endif
+
+            @if(Session::has('sub4_id'))
+                <div class="alert alert-success">
+                    {{Session::get('sub4_id')}}
+                </div>
+            @endif
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>
@@ -58,7 +64,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
-                    <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar">{!! old('name_ar')!!}</textarea>
+                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar">{!! old('name_ar')!!}</textarea>
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -66,7 +72,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالانجليزيه</label>
-                    <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en">{!! old('name_en')!!}</textarea>
+                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en">{!! old('name_en')!!}</textarea>
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

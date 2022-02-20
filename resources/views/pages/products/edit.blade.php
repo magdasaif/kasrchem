@@ -166,7 +166,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
-                    <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar">{!! $product->name_ar !!}</textarea>
+                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar">{!! $product->name_ar !!}</textarea>
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -174,7 +174,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالانجليزيه</label>
-                    <textarea  class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en">{!! $product->name_en !!}</textarea>
+                    <textarea  class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en">{!! $product->name_en !!}</textarea>
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

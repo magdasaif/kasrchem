@@ -52,7 +52,7 @@ class SupplierController extends Controller
               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
               return redirect()->back()->with(
                   [
-                     'success'=>'تمت اضافة التصنيف الفرعى بنجاح',
+                     'success'=>'تمت اضافة المورد بنجاح',
                      'section_id'   =>$request->section_id,
                      'cate_id'      =>$request->cate_id,
                      'sub2_id'      => $request->sub2_id,
