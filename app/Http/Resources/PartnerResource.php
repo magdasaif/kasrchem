@@ -22,7 +22,8 @@ class PartnerResource extends JsonResource
         return [
             'id'=>$this->id,
             'name' =>$partner_name,
-            'image' => $path.$this->image,
+           // 'image' => $path.$this->image,
+           'image'=>asset('storage/app/public/partners/' . $this->image),
             'link'=>$this->external_link,
              
         ];
