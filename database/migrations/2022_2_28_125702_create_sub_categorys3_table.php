@@ -16,7 +16,7 @@ class CreateSubCategorys3Table extends Migration
         Schema::create('sub_categorys3', function (Blueprint $table) {
             
           
-            $table->id();
+            $table->id()->start_from(1);
 
             $table->unsignedBigInteger('sub2_id');
             $table->foreign('sub2_id')->references('id')->on('sub_categorys2')->onDelete('cascade');

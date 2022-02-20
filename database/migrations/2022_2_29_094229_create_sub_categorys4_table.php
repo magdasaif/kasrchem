@@ -14,7 +14,7 @@ class CreateSubCategorys4Table extends Migration
     public function up()
     {
         Schema::create('sub_categorys4', function (Blueprint $table) {
-            $table->id();
+            $table->id()->start_from(1);
             $table->unsignedBigInteger('sub3_id');
             $table->foreign('sub3_id')->references('id')->on('sub_categorys3')->onDelete('cascade');
             $table->string('subname_ar');

@@ -35,7 +35,7 @@ class SectionsSeeder extends Seeder
         $site_sections_data = array(
             array(
                 
-                'site_name_ar' => "اختر",
+                'site_name_ar' => "اختر اسم القسم",
                  'site_name_en' => "choose sitsection",
                  'image'=>'' ,
                  'priority'=>'0',

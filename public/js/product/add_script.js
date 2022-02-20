@@ -13,6 +13,7 @@
             dataType: "json",
             success: function (data)
             {
+               // alert(data);
                 if(data!='')
                 { //لو فى تصنيف رئيسى للقسم هيعرضه
 
@@ -23,16 +24,19 @@
                     $('select[name="main_category"]').show();
 
                     $("#sub2_requi").hide();
-                        $('#sub2_sel').empty();
+                       $('#sub2_sel').empty();
+                       $('#sub2_sel').append('<option value="1"  selected="true">اختر التصنيف الفرعى</option>');
                         $('#sub2_sel').show();
 
                         $("#sub3_requi").hide();
-                        $('#sub3_sel').empty();
-                        $('#sub3_sel').show();
+                      $('#sub3_sel').empty();
+                      $('#sub3_sel').append('<option value="1"  selected="true">اختر النوع الرئيسى</option>');
+                      $('#sub3_sel').show();
 
                         $("#sub4_requi").hide();
-                        $('#sub4_sel').empty();
-                        $('#sub4_sel').show();
+                       $('#sub4_sel').empty();
+                       $('#sub4_sel').append('<option value="1"  selected="true">اختر النوع الفرعى</option>');
+                       $('#sub4_sel').show();
 
                     $('#main_category_id').append('<option value="1" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
                     $.each(data, function (key, value) {
@@ -53,12 +57,14 @@
                         $('#sub2_sel').show();
 
                         $("#sub3_requi").hide();
-                        $('#sub3_sel').empty();
+                        $('#sub3_sel').empty(); 
+                         $('#sub3_sel').append('<option value="1"  selected="true"></option>');
                         $('#sub3_sel').show();
 
                         $("#sub4_requi").hide();
                         $('#sub4_sel').empty();
-                        $('#sub4_sel').show();
+                        $('#sub4_sel').append('<option value="1" selected="true"></option>');
+                         $('#sub4_sel').show();
 
 
 
@@ -121,30 +127,36 @@ if($("#sub1_requi").css('display')=='block'){
 
 $("#sub2_requi").hide();
 $('#sub2_sel').empty();
+$('#sub2_sel').append('<option value="1" selected="true"></option>');
 $('#sub2_sel').show();
 
 $("#sub3_requi").hide();
 $('#sub3_sel').empty();
+$('#sub3_sel').append('<option value="1" selected="true"></option>');
 $('#sub3_sel').show();
 
 $("#sub4_requi").hide();
 $('#sub4_sel').empty();
+$('#sub4_sel').append('<option value="1"  selected="true"></option>');
 $('#sub4_sel').show();
 }
 
 if($("#sub2_requi").css('display')=='block'){
 $("#sub3_requi").hide();
 $('#sub3_sel').empty();
+$('#sub3_sel').append('<option value="1"  selected="true"></option>');
 $('#sub3_sel').show();
 
 $("#sub4_requi").hide();
 $('#sub4_sel').empty();
+$('#sub4_sel').append('<option value="1" selected="true"></option>');
 $('#sub4_sel').show();
 }
 
 if($("#sub3_requi").css('display')=='block'){
 $("#sub4_requi").hide();
 $('#sub4_sel').empty();
+$('#sub4_sel').append('<option value="1"  selected="true"></option>');
 $('#sub4_sel').show();
 }
 
@@ -190,10 +202,12 @@ $('#sub4_sel').show();
 
                             $("#sub3_requi").hide();
                             $('#sub3_sel').empty();
+                            $('#sub3_sel').append('<option value="1"  selected="true"></option>');
                             $('#sub3_sel').show();
 
                             $("#sub4_requi").hide();
                             $('#sub4_sel').empty();
+                            $('#sub4_sel').append('<option value="1"  selected="true"></option>');
                             $('#sub4_sel').show();
 
                             $('select[name="sub2"]').append('<option value="1" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
@@ -213,10 +227,12 @@ $('#sub4_sel').show();
 
                             $("#sub3_requi").hide();
                             $('#sub3_sel').empty();
+                            $('#sub3_sel').append('<option value="1"  selected="true"></option>');
                             $('#sub3_sel').show();
 
                             $("#sub4_requi").hide();
                             $('#sub4_sel').empty();
+                            $('#sub4_sel').append('<option value="1"  selected="true"></option>');
                             $('#sub4_sel').show();
 
                                 //-------------get name of main_category--------------//
@@ -275,6 +291,7 @@ $('#sub4_sel').show();
                             //هيخفى ويفضى اى حاجه تحته
                             $("#sub4_requi").hide();
                             $('#sub4_sel').empty();
+                            $('#sub4_sel').append('<option value="1"  selected="true"></option>');
                             $('#sub4_sel').show();
 
                             $('select[name="sub3"]').append('<option value="1" disabled="true" selected="true">اختر النوع</option>');
@@ -290,6 +307,7 @@ $('#sub4_sel').show();
 
                               //هيخفى ويفضى اى حاجه تحته
                             $("#sub4_requi").hide();
+                            $('#sub4_sel').append('<option value="1"  selected="true"></option>');
                             $('#sub4_sel').empty();
 
                                 //-------------get name of sub2--------------//

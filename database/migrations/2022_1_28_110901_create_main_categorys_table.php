@@ -15,7 +15,7 @@ class CreateMainCategorysTable extends Migration
     {
         Schema::create('main_categorys', function (Blueprint $table) {
 
-            $table->id();
+            $table->id()->start_from(1);
 
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('site_sections')->onDelete('cascade');

@@ -15,7 +15,7 @@ class CreateSubCategorys2Table extends Migration
     {
         Schema::create('sub_categorys2', function (Blueprint $table) {
 
-            $table->id();
+            $table->id()->start_from(1);
 
             $table->unsignedBigInteger('cate_id');
             $table->foreign('cate_id')->references('id')->on('main_categorys')->onDelete('cascade');

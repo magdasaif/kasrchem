@@ -38,7 +38,7 @@ class VideoController extends Controller
    //--------------------------------------------
     public function store(VideoRequest $request)
     {
-       //dd($request->all());
+      // dd($request->all());
        try{
          $validated = $request->validated();
              $video= new Video
@@ -116,7 +116,7 @@ public function edit($id)
 //--------------------------------------------
     public function update(VideoRequest $request)
     {
-         //dd( $request->all());
+        //dd( $request->all());
          try {
 
             $validated = $request->validated();

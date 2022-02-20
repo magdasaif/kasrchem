@@ -9,7 +9,7 @@ class CreateSitesectionsTable extends Migration
     public function up()
     {
         Schema::create('site_sections', function (Blueprint $table) {
-            $table->id();
+            $table->id()->start_from(1);            
             $table->string('site_name_ar');
             $table->string('site_name_en');
              $table->integer('priority');
