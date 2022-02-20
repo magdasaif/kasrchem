@@ -15,51 +15,6 @@
         }
     ],
     "paths": {
-        "/about_us": {
-            "get": {
-                "tags": [
-                    "Setting"
-                ],
-                "summary": "Get about us information",
-                "operationId": "Get about us information",
-                "parameters": [
-                    {
-                        "name": "locale",
-                        "in": "header",
-                        "description": "App Locale",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "ar",
-                            "enum": [
-                                "ar",
-                                "en"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    }
-                }
-            }
-        },
         "/setting": {
             "get": {
                 "tags": [

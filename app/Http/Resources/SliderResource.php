@@ -14,7 +14,8 @@ class SliderResource extends JsonResource
         return [
             'id'=>$this->id,
             'priority'=>$this->priority,
-            'image' => $path.$this->image,
+           // 'image' => $path.$this->image,
+            'image' => asset('storage/app/public/slider/' . $this->image),
             
              
         ];

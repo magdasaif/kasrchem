@@ -23,7 +23,8 @@ class sectionResource extends JsonResource
         return [
             'id'=>$this->id,
             'name' =>$section_name,
-            'image' => $path.$this->image,
+           // 'image' => $path.$this->image,
+            'image' => asset('storage/app/public/site_sections/site_section_image/' . $this->image),
              
         ];
     }
