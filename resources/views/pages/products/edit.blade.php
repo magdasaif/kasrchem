@@ -15,6 +15,8 @@
                     </div>
                 @endif
 
+         
+
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -42,7 +44,7 @@
 
                         <select  class="form-control sub2"  id="section_sel" name="section_id" >
                             <option value="{{$s->id}}" selected>{{$s->site_name_ar}}</option>
-                            <option value="0">جميع الاقسام</option>
+                            <option value="1" disabled >جميع الاقسام</option>
                                 @foreach ($sections as $sec)
                                 <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
                                 @endforeach
@@ -52,7 +54,7 @@
                    <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف الرئيسي</label>
-                    <select class="form-control" id="main_category_id" name="main_cate_id"  required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الرئيسي')"  oninput="this.setCustomValidity('')">
+                    <select class="form-control" id="main_category_id" name="main_cate_id" >
 
                         @if(Session::get('cate_id'))
                         @else
@@ -85,7 +87,7 @@
                     </div>
                     <!----------------------------------------------------->
                     @else
-                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" required  oninvalid="this.setCustomValidity('قم بادخال التصنيف الفرعى')"  oninput="this.setCustomValidity('')">
+                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" >
                         <option value="{{ $product->relation_with_sub2_category->id }}" selected >{{ $product->relation_with_sub2_category->subname2_ar }}</option>
                         @foreach ($Sub_Category2 as $sub2)
                             <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}}?>>{{ $sub2->subname2_ar }}</option>
@@ -109,7 +111,7 @@
                 </div>
                 <!----------------------------------------------------->
                 @else
-                 <select  class="form-control sub3"  id="sub3_sel" name="sub3" required  oninvalid="this.setCustomValidity('قم بادخال النوع الرئيسي')"  oninput="this.setCustomValidity('')">
+                 <select  class="form-control sub3"  id="sub3_sel" name="sub3">
                      <option value="{{$product->relation_with_sub3_category->id}}" selected>{{$product->relation_with_sub3_category->subname_ar}}</option>
                      @foreach ($sub_Category3 as $sub3)
                             <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $sub3->id){echo "selected";}}?>>{{ $sub3->subname_ar }}</option>
@@ -134,7 +136,7 @@
                     </div>
                     <!----------------------------------------------------->
                     @else
-                    <select  class="form-control sub4"   id="sub4_sel" name="sub4" required  oninvalid="this.setCustomValidity('قم بادخال النوع الفرعى')"  oninput="this.setCustomValidity('')">
+                    <select  class="form-control sub4"   id="sub4_sel" name="sub4" >
                          <option value="{{$product->relation_with_sub4_category->id}}" selected>{{$product->relation_with_sub4_category->subname_ar}}</option>
                          @foreach ($sub_Category4 as $sub4)
                             <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}}?>>{{ $sub4->subname_ar }}</option>

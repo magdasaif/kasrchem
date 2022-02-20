@@ -39,7 +39,7 @@
                         $('#sub4_sel').append('<option value="1" selected="true"></option>');
                         $('#sub4_sel').show();
 
-                    $('#main_category_id').append('<option value="" disabled="true" selected="true">اختر التصنيف الرئيسى</option>');
+                    $('#main_category_id').append('<option value="1"  selected="true">اختر التصنيف الرئيسى</option>');
                     $.each(data, function (key, value) {
                         //alert('<option value="' + key + '">' + value + '</option>');
                     $('#main_category_id').append('<option value="' + key + '">' + value + '</option>');
@@ -195,7 +195,7 @@ $('select[name="main_cate_id"]').on('change', function () {
                             $('#sub4_sel').append('<option value="1" selected="true"></option>');
                            $('#sub4_sel').show();
 
-                            $('select[name="sub2"]').append('<option value="" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
+                            $('select[name="sub2"]').append('<option value="1"  selected="true">اختر التصنيف الفرعي</option>');
                          $.each(data, function (key, value) {
                           $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
                          });
@@ -275,7 +275,7 @@ $('select[name="main_cate_id"]').on('change', function () {
 
                             $('#sub4_sel').show();
 
-                            $('select[name="sub3"]').append('<option value="" disabled="true" selected="true">اختر النوع</option>');
+                            $('select[name="sub3"]').append('<option value="1"  selected="true">اختر النوع</option>');
                            $.each(data, function (key, value) {
                           $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
                          });
@@ -343,7 +343,7 @@ $('select[name="main_cate_id"]').on('change', function () {
                             $('select[name="sub4"]').show();
                             $("#sub4_requi").hide();
 
-                            $('select[name="sub4"]').append('<option value="" disabled="true" selected="true">اختر النوع الفرعى</option>');
+                            $('select[name="sub4"]').append('<option value="1" selected="true">اختر النوع الفرعى</option>');
                            $.each(data, function (key, value) {
                           $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
                          });
