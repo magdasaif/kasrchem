@@ -71,13 +71,34 @@ class RelatedProductController extends Controller
         if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
          
         if($lang=='ar'){
-            $selected="name_ar as name";
+            $selected="products.name_ar as name";
+            $selected2="products.desc_ar as desc";
+      
+            $selected3="suppliers.name_ar as supplier_name";
+            $selected4="suppliers.description_ar as supplier_desc";
         }else{
-             $selected="name_en as name";
+             $selected="products.name_en as name";
+             $selected2="products.desc_en as desc";
+
+            $selected3="suppliers.name_en as supplier_name";
+            $selected4="suppliers.description_en as supplier_desc";
         }
+        
+        // get products ids related with selected supplier
         $products_ids= Product_supplier::select('product_id')->where('supplier_id','=',$id)->get();
-        $products = ProductResource::collection(Product::select('*',$selected)->whereIn('id',$products_ids)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
-        $products->map(function($i) { $i->type = 'first_fun'; });
+
+        //get data of selected products ids
+        $products = ProductResource::collection(
+            Product::select('*',$selected,$selected2,$selected3,$selected4)
+                    ->join('products_suppliers', 'products_suppliers.product_id', '=', 'products.id')
+                    ->join('suppliers', 'suppliers.id', '=', 'products_suppliers.supplier_id')
+                    ->whereIn('products.id',$products_ids)
+                    ->where('products.status','1')
+                    ->orderBy('products.sort','asc')
+                    ->paginate($perpage)
+                );
+       // dd($products);
+        $products->map(function($i) { $i->type = 'supplier_products'; });
         return response($products,200,['OK']);
     }
    
