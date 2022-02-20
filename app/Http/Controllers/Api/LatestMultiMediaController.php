@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\LatestMultiMediaResource;
 use App\Models\Photo_Gallery;
+use App\Models\Release;
+use App\Models\Article;
+use App\Models\Video;
 
 class LatestMultiMediaController extends Controller
 {

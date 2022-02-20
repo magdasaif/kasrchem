@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Models\Gallery_Photo_Image;
 
-class GalleryResource extends JsonResource
+class LatestMultiMediaResource extends JsonResource
 {
    
     public function toArray($request)
