@@ -24,7 +24,7 @@ class SubcategoryController3_new extends Controller
     {
         $from_side_or_no='yes';
         //dd( sub_Category3::where('sub2_id',$sub2_id)->get());
-        $sub_Category3 = Sub_Category3::withcount('relation_sub3_with_sub4')->orderBy('id','desc')->get();
+        $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->withcount('relation_sub3_with_sub4')->orderBy('id','desc')->get();
         return view('categories.sub3.show',compact('sub_Category3','from_side_or_no'));
     }
     //----------------------------------------------

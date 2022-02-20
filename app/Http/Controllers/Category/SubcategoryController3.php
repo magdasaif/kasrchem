@@ -32,9 +32,9 @@ class SubcategoryController3 extends Controller
     public function show($sub2_id)
     {
         $from_side_or_no='no';
-        $sections = Sitesection::orderBy('id','desc')->get();
+        $sections = Sitesection::where('visible', '!=' , 0)->orderBy('id','desc')->get();
         //dd( sub_Category3::where('sub2_id',$sub2_id)->get());
-        $sub_Category3 = Sub_Category3::withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->orderBy('id','desc')->get();
+        $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->withcount('relation_sub3_with_sub4')->where('sub2_id',$sub2_id)->orderBy('id','desc')->get();
         return view('categories.sub3.show',compact('sub_Category3','sub2_id','sections','from_side_or_no'));
     }
     //----------------------------------------------
