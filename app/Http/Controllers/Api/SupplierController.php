@@ -75,7 +75,7 @@ class SupplierController extends Controller
      *      summary="Get supplier data",
      *      description="Returns supplier data",
      *      @OA\Parameter(
-	 *          in="path",
+	   *          in="path",
      *          name= "id",
      *          description= "supplier ID",
      *          required=true,
