@@ -13,7 +13,7 @@ class SupplierController extends Controller
   
     public function index()
     {
-        $Supplier=Supplier::all();
+        $Supplier=Supplier::orderBy('id','desc')->get();
         return view('pages.supplier.Show',compact('Supplier'));
     }
 // //-------------------------------------------------------------//
@@ -46,12 +46,29 @@ class SupplierController extends Controller
                'logo' =>$photo_name,
               ]);
            $Supplier->save();
-   
+
+           if ($request->supplier_model==1)
+           {
+              //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+              return redirect()->back()->with(
+                  [
+                     'success'=>'تمت اضافة المورد بنجاح',
+                     'section_id'   =>$request->section_id,
+                     'cate_id'      =>$request->cate_id,
+                     'sub2_id'      => $request->sub2_id,
+                     'sub3_id'      => $request->sub3_id,
+                     'sub4_id'      => $request->sub4_id,
+                     'supplier_id'  => $Supplier->id,
+                  ]
+              );
+             
+           }else{
                return redirect()->route('supplier.index')->with(['success'=>'تمت الاضافه بنجاح']);
            }
-           catch(\Exception $e){
-               return redirect()->back()->with(['error'=>$e->getMessage()]);
-           }
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
     }
 // //-------------------------------------------------------------//
     public function edit($id)
@@ -98,7 +115,9 @@ class SupplierController extends Controller
      public function destroy(Request $request ,$id)
     {
          // dd($id);
+
          $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
+        // dd($id); 
          unlink($image_path);
          try 
          {

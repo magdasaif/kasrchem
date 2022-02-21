@@ -62,6 +62,36 @@
                             <td><a href="{{url('categories2/'.$category ->id)}}"><label class="btn btn-success">{{$category->sub_cate2_count}}</label></a></td> 
                             <td>
                                 <a href="{{url('categories/'.$category ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <!-- &nbsp; / &nbsp;
+                                <a   onclick=" theFunction('{{$category->id}}','{{$category->subname_ar}}');" title="حذف" data-catid="{{$category->id}}" data-toggle="modal" data-target="#delete{{$category->id}}"> <i class="fa fa-trash red del"></i></a>  -->
+
+                                 <!--############################ model for delete #################################-->
+          
+                            <div class="modal modal-danger fade" id="delete{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="card-header" >
+                                    <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
+                                </div>
+                               <form class="delete" action="{{ route('categories.destroy',$category->id) }}" method="POST">
+                                <div class="modal-body">
+
+                                    
+                                       </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                      
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                      <input type="submit" value="حذف"  class="btn btn-primary">
+                                    </div>
+                                   
+
+                                </form>
+                                </div>
+                            </div>
+                            </div>
+                     <!--#############################################################-->
                             </td>
                         </tr>
 
@@ -76,3 +106,45 @@
   </section>
 </template>
 @endsection
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script>
+
+
+function theFunction(cate_id,cate_name)
+{
+   // alert("inside onclick");
+  //alert("cate_id="+cate_id);  
+   //alert("{{ URL::to('found_for_delete_sub1')}}/" + cate_id);
+            $.ajax({
+                type: "GET",
+                 url: "{{ URL::to('found_for_delete_sub1')}}/" + cate_id,
+                dataType: "json",
+                success: function (data) 
+                {
+                  // alert ("data="+data) ;
+                    if(data!='')
+                    { 
+                       
+                    $('.modal-body').empty();
+                 //    document.querySelector(".modal-body").innerHtml='<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ cate_name+' </div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هذا التصنيف الرئيسى مرتبط هل تريد الحذف بالفعل؟</h3>';
+
+                 $('.modal-body').append('<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ cate_name+' </div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هذا التصنيف الرئيسى مرتبط هل تريد الحذف بالفعل؟</h3>');
+                
+                    }
+                    else
+                    {
+                       
+                       $('.modal-body').empty();
+                       //  document.querySelector(".modal-body").innerHtml='<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ cate_name+' </div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3>';
+                       $('.modal-body').append('<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ cate_name+'</div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3>');
+                     
+                    }
+                    
+                },
+                error:function()
+                { alert("false"); }
+            });
+// });
+}
+  
+</script>

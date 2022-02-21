@@ -19,118 +19,142 @@
                     {{Session::get('error')}}
                 </div>
             @endif
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">تعديل النشرات</h3>
-              </div>
+               </div>
  <!--#############################################################-->
  <div class="modal-body">
             
             <form method="POST"  action="{{route('release.update',$release->id)}}" enctype="multipart/form-data">
-                {{method_field('PATCH ')}}
-
+                {{method_field('PATCH')}}
                 @csrf
-                {{-- <input name="_token" value="{{csrf_token()}}"> --}}
+                 <!----------------------------------------------------->
+                 <div class="form-group">    
+                        <label>  اقسام الموقع </label>
+                        <select  class="form-control sub2"  id="section_sel" name="section_id" >
+                        <option value="{{$release->relation_with_site->id}}" selected>{{$release->relation_with_site->site_name_ar}}</option>
+                            <!-- <option value="0">جميع الاقسام</option> -->
+                                @foreach ($sections as $sec)
+                                <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
+                                @endforeach
+                        </select>
+                        
+                    </div>
+                 <!----------------------------------------------------->
 
                  <!--'release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'------------------------------------->
               <input type="hidden" name="release_id"  value="{{$release->id}}">
-                 <div class="form-group">
+            <div class="form-group">
                  <label>التصنيف الرئيسى</label>
-                <select   class="form-control main_category" id="main_category_id" name="main_category" required>
-                 <option value="0" disabled="true" >اختر التصنيف الرئيسى</option> 
-                    <option value="{{$release->relation_with_main_category->id}}" selected="true">{{$release->relation_with_main_category->subname_ar}}</option>
-                   <?php 
-                    foreach($Main_Cat as $Main_Category)
-                        { if (($Main_Category->id!=$release->relation_with_main_category->id) && ($Main_Category->sub_cate2_count>0)  ) 
-                            {  
-                    ?>
-                              <option value="{{$Main_Category->id}}">{{$Main_Category->subname_ar}}</option>
-                   <?php 
-                            }
-                        }
-                    ?>
-                 </select> </div>
+                <select   class="form-control main_category" id="main_category_id" name="main_cate_id" >
+                        @if(!Session::get('cate_id'))
+                            <option value="{{$release->relation_with_main_category->id}}" selected="true">{{$release->relation_with_main_category->subname_ar}}</option>
+                        @endif
+                        @foreach ($Main_Cat as $category)
+                            @if(($category->id!=$release->relation_with_main_category->id)   ) 
+                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}}?>>{{ $category->subname_ar }}</option>
+                            @endif
+                        @endforeach
+                 </select>
+                 <!-----------------add new cate if no category found for this section------------------------------------>
+                 <div class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal0" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                    <!----------------------------------------------------->
+                 <div  id="main_error" style="color: red;display: none;">قم بادخال التصنيف الرئيسي</div>
+            </div>
 
             
              <!----------------------------------------------------->
-        <div id="all" style="background-color: #e8f2f9;border-radius: 23px;width: 95%; margin: auto;padding: 20px;">    
-            <div class="form-group"  id="sub2_div" style="display:block" >    
+        <!-- <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;">     -->
+            <div class="form-group"  id="sub2_div" >    
                     <label>   التصنيف الفرعي </label>
-
-                    <select  class="form-control sub2"  id="sub2_id" name="sub2" required>
-                    <option value="0" disabled="true" >اختر التصنيف الفرعي</option>
-                    <option value="{{$release->relation_with_sub2_category->id}}" selected="true">{{$release->relation_with_sub2_category->subname2_ar}}</option>
-                    <?php 
-                    foreach($Sub_Category2 as $Sub_cat2)
-                        { if ($Sub_cat2->id!=$release->relation_with_sub2_category->id ) 
-                            {  
-                    ?>
-                              <option value="{{$Sub_cat2->id}}">{{$Sub_cat2->subname2_ar}}</option>
-                   <?php 
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                    ?>
-                </select> 
-              </div>
-
+                    @if(Session::get('cate_id') && !Session::get('sub2_id'))
+                        <!-----------------add new cate if no category found for this section------------------------------------>
+                    <div class="form-control" id="sub2_requi" style="display:block;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                    <!----------------------------------------------------->
+                    @else
+                    <select  class="form-control sub2"  id="sub2_sel" name="sub2" >
+                        @if(!Session::get('sub2_id'))
+                            <option value="{{ $release->relation_with_sub2_category->id }}" selected >{{ $release->relation_with_sub2_category->subname2_ar }}</option>
+                        @endif
+                            @foreach ($Sub_Category2 as $sub2)
+                                @if($sub2->id!=$release->relation_with_sub2_category->id )
+                                    <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}}?>>{{ $sub2->subname2_ar }}</option>
+                                @endif
+                            @endforeach
+                    </select> 
+                    <div class="form-control" id="sub2_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
+                    <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                    <!----------------------------------------------------->
+                 @endif        
+            </div>
              <!----------------------------------------------------- -->
              
-             <div class="form-group"  id="sub3_div" style="display:block" >
-                <label>النوع</label>
-                 <select  class="form-control sub3"  id="sub3_id" name="sub3" required>
-
-                 <option value="0" disabled="true" >اختر النوع </option>
-                    <option value="{{$release->relation_with_sub3_category->id}}" selected="true">{{$release->relation_with_sub3_category->subname_ar}}</option>
-                    <?php 
-                    foreach($Sub_Category3 as $Sub_cat3)
-                        { if ($Sub_cat3->id!=$release->relation_with_sub3_category->id ) 
-                            {  
-                    ?>
-                              <option value="{{$Sub_cat3->id}}">{{$Sub_cat3->subname_ar}}</option>
-                   <?php 
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                    ?>  
-                 </select> 
+             <div class="form-group"  id="sub3_div" >
+                <label>النوع الرئيسي</label>
+                @if(Session::get('cate_id') && Session::get('sub2_id') && !Session::get('sub3_id'))
+                    <!-----------------add new cate if no category found for this section------------------------------------>
+                <div class="form-control" id="sub3_requi" style="display:block;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع رئيسي للتصنيف الفرعي المختار من فضلك قم باضافته اولا</span>
+                    <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal3" style="margin-right: 23px;font-weight: bold;"></i>
                 </div>
+                <!----------------------------------------------------->
+                @else
+                 <select  class="form-control sub3"  id="sub3_sel" name="sub3" >
+                     @if(!Session::get('sub3_id'))
+                     <option value="{{$release->relation_with_sub3_category->id}}" selected>{{$release->relation_with_sub3_category->subname_ar}}</option>
+                     @endif
+                      @foreach($Sub_Category3 as $sub3)
+                        @if($sub3->id!=$release->relation_with_sub3_category->id ) 
+                            <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $sub3->id){echo "selected";}}?>>{{ $sub3->subname_ar }}</option>
+                        @endif
+                    @endforeach
+                 </select> 
+                  <!----------------------------------------------------->
+                  <div class="form-control" id="sub3_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع رئيسي للتصنيف الفرعي المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal3" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                    <!----------------------------------------------------->
+                @endif
+            </div>
 
                 <!----------------------------------------------------- -->
-                <div class="form-group"  id="sub4_div" style="display:block" > 
-                <label>النوع الفرعى</label>
-                    <select  class="form-control sub4"  id="sub4_id" name="sub4" required>
-
-                    <option value="0" disabled="true" >اختر النوع الفرعى</option>
-                    <option value="{{$release->relation_with_sub4_category->id}}" selected="true">{{$release->relation_with_sub4_category->subname_ar}}</option>
-                    <?php 
-                    foreach($Sub_Category4 as $Sub_cat4)
-                        { if ($Sub_cat4->id!=$release->relation_with_sub4_category->id ) 
-                            {  
-                    ?>
-                              <option value="{{$Sub_cat4->id}}">{{$Sub_cat4->subname_ar}}</option>
-                   <?php 
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                    ?>  
-                    </select>
+                <div class="form-group"  id="sub4_div" > 
+                    <label>النوع الفرعى</label>
+                    @if(Session::get('cate_id') && Session::get('sub2_id') && Session::get('sub3_id') && !Session::get('sub4_id'))
+                        <!-----------------add new cate if no category found for this section------------------------------------>
+                    <div class="form-control" id="sub4_requi" style="display:block;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعي للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
                     </div>
-            </div>
+                    <!----------------------------------------------------->
+                    @else
+                    <select  class="form-control sub4"  id="sub4_sel" name="sub4" >
+                        @if(!Session::get('sub4_id'))
+                        <option value="{{$release->relation_with_sub4_category->id}}" selected>{{$release->relation_with_sub4_category->subname_ar}}</option>
+                        @endif
+                        @foreach ($Sub_Category4 as $sub4)
+                            @if($sub4->id!=$release->relation_with_sub4_category->id )
+                                 <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}}?>>{{ $sub4->subname_ar }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <div class="form-control" id="sub4_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعى للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
+                        <i  class="nav-icon fas fa-plus green" type="button"  data-toggle="modal" data-target="#exampleModal4" style="margin-right: 23px;font-weight: bold;"></i>
+                    </div>
+                     <!----------------------------------------------------->
+                     @endif
+                </div>
+      
                <!----------------------------------------------------->
               
                <div class="form-group">
                     <label for="title_ar">اسم النشرة </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar" value="{{$release->title_ar}}" required>
+                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar" value="{{$release->title_ar}}" required  oninvalid="this.setCustomValidity('قم بادخال اسم النشرة بالعربية')"  oninput="this.setCustomValidity('')">
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -139,7 +163,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم النشرة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en"  value="{{$release->title_en}}" required>
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en"  value="{{$release->title_en}}" required  oninvalid="this.setCustomValidity('قم بادخال اسم النشرة بالانجليزية')"  oninput="this.setCustomValidity('')">
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -150,7 +174,7 @@
                     <label for="image">صورة النشرة</label>
                     <center><img  style="width: 30%;"src=<?php echo asset("storage/release/release_$release->id/{$release->image}")?> alt="" ></center>
 
-                    <input type="file" class="form-control" name="image" accept="image/*">
+                    <input type="file" class="form-control" name="image" accept="image/*"  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -160,7 +184,7 @@
                     <label for="image">ملف النشرة</label>
                    <center> <embed src="<?php echo asset("storage/release/release_$release->id/{$release->file}")?>" width="30%"  accept="application/pdf,application/vnd.ms-excel"/></center>
 
-                    <input type="file" class="form-control" name="filee"  >
+                    <input type="file" class="form-control" name="filee"  oninvalid="this.setCustomValidity('قم بادخال ملف النشرة')"  oninput="this.setCustomValidity('')" >
                     @error('file')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -178,124 +202,21 @@
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
                 </form>
-                </div>
+</div>
  <!--#############################################################-->
-
+ <!--========================================================-->
+ @include('categories.Category_models.categories_model_adding')
+    <!--========================================================--> 
  		</div>
             </div>
         </div>
     </div>
 </section>
-@endsection
+
+
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
-<script>
-   
-    //---------------for show seelct option of sub2------------------------//
-     $(document).ready(function () {
-    $('select[name="main_category"]').on('change', function () {
-                var main_category_id = $(this).val();
-               if (main_category_id) {
-             //  alert("{{ URL::to('fetch_sub2')}}/" + main_category_id);
-                   
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ URL::to('fetch_sub2')}}/" + main_category_id,
-                        dataType: "json",
-                      
-                        success: function (data) 
-                        {
-                           //  alert("true");
-                             
-                           //  $("#all").show();
-                           // $("#sub2_div").show();
-                             $("#sub3_div").hide();
-                             $("#sub4_div").hide();
-                             $('select[name="sub2"]').empty();
-                             
-                             $('select[name="sub2"]').append('<option value="0" disabled="true" selected="true">اختر التصنيف الفرعي</option>');
-                             $.each(data, function (key, value) {
-                              $('select[name="sub2"]').append('<option value="' + key + '">' + value + '</option>');
-                             });
-                         
-                        },
-                        error:function()
-                        { alert("false"); }
-                    });
-                   
-                }
-                else {
-                    alert('AJAX load did not work');
-                }
-            });
-        });
-         //---------------for show seelct option of sub3------------------------//
-         $(document).ready(function () {
-            $('select[name="sub2"]').on('change', function () {
-                var sub2_id = $(this).val();
-               // alert (sub2_id);
-               if (sub2_id) {
-                  // alert("{{ URL::to('fetch_sub3')}}/" + sub2_id);
-                   
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ URL::to('fetch_sub3')}}/" + sub2_id,
-                        dataType: "json",
-                      
-                        success: function (data) 
-                        {
-                             //alert("true");
-                           $("#sub3_div").show();
-                             $('select[name="sub3"]').empty();
-                             $('select[name="sub3"]').append('<option value="0" disabled="true" selected="true">اختر النوع</option>');
-                               $.each(data, function (key, value) {
-                              $('select[name="sub3"]').append('<option value="' + key + '">' + value + '</option>');
-                             });
-                         
-                        },
-                        error:function()
-                        { alert("false"); }
-                    });
-                   
-                }
-                else {
-                    alert('AJAX load did not work');
-                }
-            });
-        });
-        //---------------for show seelct option of sub4------------------------//
-        $(document).ready(function () {
-            $('select[name="sub3"]').on('change', function () {
-                var sub3_id = $(this).val();
-                //alert (sub3_id);
-               if (sub3_id) {
-                  // alert("{{ URL::to('fetch_sub4')}}/" + sub3_id);
-                   
-                    $.ajax({
-                        type: "GET",
-                        url: "{{ URL::to('fetch_sub4')}}/" + sub3_id,
-                        dataType: "json",
-                      
-                        success: function (data) 
-                        {
-                             //alert("true");
-                          $("#sub4_div").show();
-                             $('select[name="sub4"]').empty();
-                             $('select[name="sub4"]').append('<option value="0" disabled="true" selected="true">اختر النوع الفرعى</option>');
-                               $.each(data, function (key, value) {
-                              $('select[name="sub4"]').append('<option value="' + key + '">' + value + '</option>');
-                             });
-                         
-                        },
-                        error:function()
-                        { alert("false"); }
-                    });
-                   
-                }
-                else {
-                    alert('AJAX load did not work');
-                }
-            });
-        });
-        //--------------------------------------------------------------------------//
-    </script>
+<!-- add script for categories and changes on it -->
+<script src="{{ URL::asset('/js/product/edit_script.js') }}"></script>
+
+@endsection

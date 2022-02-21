@@ -33359,7 +33359,8 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 }
 
 .info-box .info-box-icon {
-  border-radius: 0.25rem;
+  /* border-radius: 0.25rem; */
+  border-radius: 24.25rem;
   -ms-flex-align: center;
   align-items: center;
   display: -ms-flexbox;
@@ -70721,7 +70722,8 @@ font-weight: bold;
 .modal-body
 {
   width: 68%;
-   margin-right: 128px;
+   /* margin-right: 128px; */
+  margin-right: 95px;
 }
 .ttitle
 {
@@ -70730,4 +70732,17 @@ font-weight: bold;
 #all
 {
   background-color: rgb(247, 247, 247); border-radius: 23px; width: 95%; margin: auto; padding: 20px;
+}
+.info-box
+{
+  border-bottom-style: solid;
+    border-color: #009879;
+    border-radius: 26px;
+}
+.del
+{
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: white;
 }

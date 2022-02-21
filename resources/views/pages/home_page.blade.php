@@ -213,9 +213,9 @@
                   <div class="clearfix hidden-md-up"></div>
   
                     <div class="col-12 col-sm-6 col-md-4">
-                    <a href="{{route('branches.index')}}">
+                    <a href="{{route('supplier.index')}}">
                         <div class="info-box">
-                                <span class="info-box-icon bg-success elevation-1"><i class="nav-icon fas fa fa-building"></i></span>
+                                <span class="info-box-icon bg-success elevation-1"><i class="nav-icon fas fa-users "></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text" style="color: #009879;font-size: 20px;font-weight: bold;"> الموردين</span>

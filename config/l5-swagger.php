@@ -149,7 +149,9 @@ return [
          * Uncomment to add constants which can be used in annotations
          */
         'constants' => [
-        'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'https://backend.training.murabba.dev/api'),
-        ],
+        // 'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'https://backend.training.murabba.dev/api'),
+        'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST','https://backend.eradunited.training.murabba.dev/api'),  
+
+    ],
     ],
 ];

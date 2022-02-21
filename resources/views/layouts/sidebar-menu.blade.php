@@ -10,13 +10,13 @@
       </li>
 
       @can('isAdmin')
-
-      <li class="nav-item">
-        <a href="{{route('about_us.edit',1)}}" class="nav-link">
+<!-- 
+       <li class="nav-item">
+        <a href="{{route('about/edit',1)}}" class="nav-link">
           <i class="nav-icon fas fa-info green"></i>
           <p  class="ttitle">من نحن</p>
         </a>
-      </li>
+      </li>  -->
       
       <!------------------------------اقسام الموقع-------------------------------------------->
       <li class="nav-item has-treeview">
@@ -39,7 +39,7 @@
           </li>
          </ul>
       </li>
-<!---------------------------تصنيفات----------------------------------------------->
+<!---------------------------التصنيفات الرئيسيه----------------------------------------------->
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -62,6 +62,101 @@
               </a>
           </li>
         </ul>
+      </li>
+<!---------------------------التصنيفات الفرعيه----------------------------------------------->
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-cubes green"></i>
+          <p  class="ttitle">
+             التصنيفات الفرعيه
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('categories2_new.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه تصنيف</p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('categories2_new.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <p> قائمه التصنيفات</p>
+              </a>
+          </li>
+        </ul>
+      </li>
+<!--------------------------- الانواع الرئيسيه----------------------------------------------->
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-cubes green"></i>
+          <p  class="ttitle">
+             الانواع الرئيسيه
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('categories3_new.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه نوع</p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('categories3_new.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <p> قائمه الانواع</p>
+              </a>
+          </li>
+        </ul>
+      </li>
+<!---------------------------الانواع الفرعيه----------------------------------------------->
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-cubes green"></i>
+          <p  class="ttitle">
+          الانواع الفرعيه
+          </p> <i class="left fas fa-angle-right" style="margin-right:18%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('categories4_new.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافه نوع</p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('categories4_new.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-cubes orange"></i>
+                  <p> قائمه الانواع</p>
+              </a>
+          </li>
+        </ul>
+      </li>
+   <!-------------------------------supplier------------------------------------------->
+        <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-users  green"></i>
+          <p  class="ttitle"> الموردين</p> 
+          <i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('supplier.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة مورد </p>
+              </a>
+          </li>
+         
+          <li>
+              <a href="{{route('supplier.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users orange"></i>
+                  <p>  قائمةالموردين</p>
+              </a>
+          </li>
+         </ul>
       </li>
 <!----------------------------products---------------------------------------------->
       <li class="nav-item has-treeview">
@@ -293,30 +388,15 @@
           </li>
          </ul>
       </li>
-      <!-------------------------------supplier------------------------------------------->
-<li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-users  green"></i>
-          <p  class="ttitle"> الموردين</p> 
-          <i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
-        </a>
-        <ul class="nav nav-treeview">
-          <li>
-              <a href="{{route('supplier.create')}}" class="nav-link">
-                  <i class="nav-icon fas fa-plus orange"></i>
-                  <p> اضافة مورد </p>
-              </a>
-          </li>
-         
-          <li>
-              <a href="{{route('supplier.index')}}" class="nav-link">
-                  <i class="nav-icon fas fa-users orange"></i>
-                  <p>  قائمةالموردين</p>
-              </a>
-          </li>
-         </ul>
-      </li>
+
 <!-------------------------------------------------------------------------->
+      <li class="nav-item">
+        <a href="{{route('settings/edit',1)}}" class="nav-link">
+          <i class="nav-icon fas fa-cogs green"></i>
+          <p  class="ttitle">اعدادات الموقع</p>
+        </a>
+      </li>
+      <!-------------------------------------------------------------------------->
       @endcan
       
 

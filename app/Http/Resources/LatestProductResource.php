@@ -22,7 +22,7 @@ class LatestProductResource extends JsonResource
      */
     public function toArray($request)
     {
-        $path=storage_path().'/app/public/products/product_no_'.$this->id.'/';
+       // $path=storage_path().'/app/public/products/product_no_'.$this->id.'/';
 
         $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
         
@@ -35,7 +35,8 @@ class LatestProductResource extends JsonResource
                 'max' =>$this->max_amount,
                 'stock' =>$this->amount,
                 'security_clearance' =>$this->security_permit,
-                'image' => $path.$this->image,
+               // 'image' => $path.$this->image,
+                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
             ];
        
         //  return parent::toArray($request);

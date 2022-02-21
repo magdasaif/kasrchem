@@ -5,10 +5,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
-use App\Models\Main_Category;
 use App\Models\Product_attachment;
 use App\Models\Product_Feature;
 use App\Models\Supplier;
+
+use App\Models\Sitesection;
+use App\Models\Main_Category;
+use App\Models\Sub_Category2;
+use App\Models\Sub_Category3;
+use App\Models\Sub_Category4;
 
 use App\Http\Requests\ProductRequest;
 
@@ -24,27 +29,46 @@ class ProductController extends Controller
     public function index()
     {
          $title='المنتجات';
-        $products = Product::all();
+      //  $products = Product::orderBy('sort','asc')->get();
+       // $products=Product::orderBy('sort','asc')->get();
+       $products=Product::withoutTrashed()->orderBy('sort','asc')->get();
+       
         return view('pages.products.show',compact('products','title'));
     }
-
+//-----------------------------------------------------------------------------//
     public function create()
     {
         // $categories = Main_Category::get();
          $title='اضافه منتج';
-         $categories= Main_Category::withcount('sub_cate2')->get();
-         $suppliers= Supplier::get();
+         //$categories= Main_Category::withcount('sub_cate2')->get();
+        //  $sub_Category4      = Sub_Category4::get();
+        //  $sub_Category3      = Sub_Category3::get();
+        //  $Sub_Category2      = Sub_Category2::get();
+        //  $Main_Cat	         = Main_Category::get();
+        //  $sections           = Sitesection::get();
+        
+                  //++++++++++++++++++++new for unrequired++++++++++++++++++++//
+        $sub_Category4   = Sub_Category4::where('visible', '!=' , 0)->get(); 
+        $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
+        $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+        $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
+        $sections  = Sitesection::where('visible', '!=' , 0)->get();
+        $suppliers= Supplier::get();
+        //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
         // return $categories;
-        return view('pages.products.add',compact('categories','suppliers','title'));
+       // return view('pages.products.add',compact('categories','suppliers','title'));
+       return view('pages.products.add',compact('Main_Cat','suppliers','title','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
 
-
+//-----------------------------------------------------------------------------//
     public function store(ProductRequest $request)
     {
-        //dd();
+       // dd($request->all());
+
+
         //to handel multiple insertion
         DB::beginTransaction();
-        
+
        // dd('add');
         try{
             //vaildation
@@ -67,10 +91,70 @@ class ProductController extends Controller
            }
             $product =new Product();
 
-            $product->main_cate_id=$request->main_cate_id;
-            $product->sub2_id=$request->sub2;
-            $product->sub3_id=$request->sub3;
-            $product->sub4_id=$request->sub4;
+            // if($request->main_cate_id){
+                // read from edit form
+            //     $product->main_cate_id=$request->main_cate_id;
+            // }else{
+                //read from add form
+            //     $product->main_cate_id=$request->main_category;
+            // }
+
+
+            //+++++++++++++++++++ علشان لو ظاهر جزء اضف تصنيف ++++++++++++++++++++++//
+            if(!$request->section_id)
+                {
+                    $product->site_id=1;
+                }
+                else
+                {
+                    $product->site_id=$request->section_id; 
+                }
+
+                if(!$request->main_cate_id && !$request->main_category)
+                {
+                    $product->main_cate_id=1;
+                    
+                }
+                else
+                {
+                    if($request->main_cate_id){
+                       // read from edit form
+                        $product->main_cate_id=$request->main_cate_id;
+                    }else{
+                       // read from add form
+                        $product->main_cate_id=$request->main_category;
+                    }               
+               }
+
+                if(!$request->sub2)
+                {
+                    $product->sub2_id=1;
+                }
+                else
+                {
+                    $product->sub2_id=$request->sub2; 
+                }
+                if(!$request->sub3)
+                {
+                    $product->sub3_id=1;
+                }
+                else
+                {
+                    $product->sub3_id=$request->sub3; 
+                }
+                if(!$request->sub4)
+                {
+                    $product->sub4_id=1;
+                }
+                else
+                {
+                    $product->sub4_id=$request->sub4; 
+                }
+
+//++++++++++++++++++++++++++++++++++++++++++//
+            // $product->sub2_id=$request->sub2;
+            // $product->sub3_id=$request->sub3;
+            // $product->sub4_id=$request->sub4;
 
             $product->code=$request->code;
 
@@ -80,9 +164,13 @@ class ProductController extends Controller
             $product->desc_ar=$request->desc_ar;
             $product->desc_en=$request->desc_en;
 
-            $product->price= $request->price;
-            $product->tax= $request->tax;
-            $product->offer_price= $request->offer_price;
+            $product->sort= $request->sort;
+
+            $product->status= $request->status;
+
+           $product->price= $request->price;
+           $product->tax= $request->tax;
+           $product->offer_price= $request->offer_price;
 
             $product->amount= $request->amount;
             $product->min_amount= $request->min_amount;
@@ -90,12 +178,14 @@ class ProductController extends Controller
 
             $product->sell_through= $request->sell_through;
             $product->shipped_weight= $request->shipped_weight;
-            $product->sort= $request->sort;
 
-            $product->video_link= $request->video_link;
 
+            if(isset($request->video_link)){
+                 $product->video_link= $request->video_link;
+            }else{
+                $product->video_link='';
+            }
             $product->availabe_or_no= $request->availabe_or_no;
-            $product->status= $request->status;
 
             $product->image= $photo_name;
 
@@ -104,13 +194,13 @@ class ProductController extends Controller
             }else{
                 $product->security_permit=0;
             }
-            
+
             $product->save();
 
             //attach products with supplier
              $product->suppliers()->attach($request->supplier_id);
 
-            
+
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
 
@@ -142,23 +232,32 @@ class ProductController extends Controller
                     ]);
                 }
             }
-            $List_Classes=$request->List_Classes;
-            foreach ($List_Classes as $list) {
-                Product_Feature::create([
-                    'weight_ar' => $list['weight_ar'],
-                    'weight_en' => $list['weight_en'],
-                    'value_ar' => $list['value_ar'],
-                    'value_en' => $list['value_en'],
-                    'product_id'=>Product::latest()->first()->id
-                ]);
-            }
+
+
+        //    $array2=$request->List_Classes;
+        //    $count = count($array2[0]);
+        //    dd($count);
+
+
+                $List_Classes=$request->List_Classes;
+                foreach ($List_Classes as $list) {
+                    if($list['weight_ar']==null){}else{
+                        Product_Feature::create([
+                            'weight_ar' => $list['weight_ar'],
+                            'weight_en' => $list['weight_en'],
+                            'value_ar' => $list['value_ar'],
+                            'value_en' => $list['value_en'],
+                            'product_id'=>Product::latest()->first()->id
+                        ]);
+                    }
+                }
 
             DB::commit();
             //toastr()->success('تمت الاضافه بنجاح');
 
             return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
-            
+
             DB::rollback();
          //   dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -166,6 +265,7 @@ class ProductController extends Controller
          //   return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
+    //-----------------------------------------------------------------------------//
     // --------------start products images funcrion -----------------------
     public function products_images($product_id)
     {
@@ -186,6 +286,7 @@ class ProductController extends Controller
       //  dd($Product_images);
          return view('pages.products.images',compact('Product_images','product_id','title'));
     }
+    //-----------------------------------------------------------------------------//
     public function add_product_images(Request $request,$product_id){
         try{
            // dd($request->photos);
@@ -210,6 +311,7 @@ class ProductController extends Controller
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
+//-----------------------------------------------------------------------------//
     //public function delete_product_images($image_id){
     public function delete_product_images(Request $request){
 
@@ -222,7 +324,7 @@ class ProductController extends Controller
     // --------------end products images funcrion -----------------------
 
 
-       // --------------start products files funcrion -----------------------
+ // --------------start products files funcrion -----------------------
        public function products_files($product_id)
        {
          //  return 'pppp '.$product_id;
@@ -242,6 +344,7 @@ class ProductController extends Controller
           // dd($Product_files);
             return view('pages.products.files',compact('Product_files','product_id','title'));
        }
+ //-----------------------------------------------------------------------------//
        public function add_products_files(Request $request,$product_id){
            try{
             // dd($request->ffff);
@@ -273,6 +376,7 @@ class ProductController extends Controller
            }
 
        }
+//-----------------------------------------------------------------------------//
       // public function delete_products_files($image_id){
        public function delete_products_files(Request $request){
 
@@ -281,28 +385,84 @@ class ProductController extends Controller
            Product_attachment::findOrfail($request->file_id)->delete();
            return redirect()->back()->with(['success'=>'تم الحذف']);
        }
-       // --------------end products files funcrion -----------------------
-       
+ // --------------end products files funcrion -----------------------
+
     public function edit($id)
     {
          $title='تعديل المنتج';
 
+        //  $sub_Category4      = Sub_Category4::get();
+        //  $sub_Category3      = Sub_Category3::get();
+        //  $Sub_Category2      = Sub_Category2::get();
+        // // $Main_Cat	     = Main_Category::get();
+        //  $sections           = Sitesection::get();
+
+          //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
+    $sections = Sitesection::where('visible', '!=' , 0)->get();
+    //$Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+    $sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+    $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+    $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+   // dd($video->main_cate_id);
+  //  dd(Main_Category::findOrfail(4));
+  
+  //-----------------------------------//
          $product = Product::findOrfail($id);
-         $categories= Main_Category::withcount('sub_cate2')->get();
+         //$categories= Main_Category::withcount('sub_cate2')->get();
+         $categories= Main_Category::where('visible', '!=' , 0)->get();
+       //  dd($categories);
          $features = Product_Feature::where('product_id','=',$id)->get();
 
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
 
          $suppliers= Supplier::get();
-         
-         //dd($product);
-        return view('pages.products.edit',compact('product','categories','title','features','feature_count','suppliers'));
-    }
 
+          //-----------------------------------//
+  /*if($product->main_cate_id==1 )
+  {
+ 
+    $main_categories_0 =Main_Category::findOrfail($product->main_cate_id);
+   // dd($main_categories_0);
+    if($main_categories_0->visible==0)
+    {
+         //to retrive value of section-->اختر
+        $main_categories = Main_Category::first(); 
+        // $main_categories = Main_Category::where('visible','=',0)->get();
+        // $s = Sitesection::where('visible','=',0)->get(); 
+         $s = Sitesection::first(); 
+         return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
+     
+    }
+    else
+    {
+         //to retrive value of section
+        $main_categories = Main_Category::findOrfail($product->main_cate_id);
+       $s = Sitesection::findOrfail($main_categories->section_id);
+       return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
+    }
+  
+  }
+  else
+  {
+     //to retrive value of section
+     $main_categories = Main_Category::findOrfail($product->main_cate_id);
+     $s = Sitesection::findOrfail($main_categories->section_id);
+
+     //dd($product);
+   // return view('pages.products.edit',compact('s','product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
+
+  }*/
+
+  return view('pages.products.edit',compact('product','categories','title','features','feature_count','suppliers','sub_Category4','sub_Category3','Sub_Category2','sections'));
+
+
+        
+    }
+//-----------------------------------------------------------------------------//
     //ProductRequest
     public function update(ProductRequest $request)
     {
-      //  dd($request->all);
+    // dd($request->all());
         if(($request->add_as_new)=='on'){
             return $this->store($request);
         }else{
@@ -321,14 +481,58 @@ class ProductController extends Controller
                     ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
                     $product->image= $photo_name;
             }
-
-
+            //+++++++++++++++++++ علشان لو ظاهر جزء اضف تصنيف يخلى الحاجة ظى قيمتها بصفر ++++++++++++++++++++++//
+            if(!$request->section_id)
+            {
+                $product->site_id=1;
+            }
+            else
+            {
+                $product->site_id=$request->section_id; 
+            }
+            if(!$request->main_cate_id)
+            {
+                $product->main_cate_id=1;
+                
+            }
+            else
+            {
                 $product->main_cate_id=$request->main_cate_id;
-                $product->sub2_id=$request->sub2;
-                $product->sub3_id=$request->sub3;
-                $product->sub4_id=$request->sub4;
+            }
 
-                $product->code=$request->code;
+            if(!$request->sub2)
+            {
+                $product->sub2_id=1;
+            }
+            else
+            {
+                $product->sub2_id=$request->sub2; 
+            }
+            if(!$request->sub3)
+            {
+                $product->sub3_id=1;
+            }
+            else
+            {
+                $product->sub3_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $product->sub4_id=1;
+            }
+            else
+            {
+                $product->sub4_id=$request->sub4; 
+            }
+
+            //++++++++++++++++++++++++++++++++++++++++++//
+          
+            //     $product->main_cate_id=$request->main_cate_id;
+            //     $product->sub2_id=$request->sub2;
+            //     $product->sub3_id=$request->sub3;
+            //     $product->sub4_id=$request->sub4;
+
+             //   $product->code=$request->code;
 
                 $product->name_ar=$request->name_ar;
                 $product->name_en=$request->name_en;
@@ -336,28 +540,30 @@ class ProductController extends Controller
                 $product->desc_ar=$request->desc_ar;
                 $product->desc_en=$request->desc_en;
 
-                $product->price= $request->price;
-                $product->tax= $request->tax;
-                $product->offer_price= $request->offer_price;
+                // $product->price= $request->price;
+                // $product->tax= $request->tax;
+                // $product->offer_price= $request->offer_price;
 
-                $product->amount= $request->amount;
-                $product->min_amount= $request->min_amount;
-                $product->max_amount= $request->max_amount;
+                // $product->amount= $request->amount;
+                // $product->min_amount= $request->min_amount;
+                // $product->max_amount= $request->max_amount;
 
-                $product->sell_through= $request->sell_through;
-                $product->shipped_weight= $request->shipped_weight;
+                // $product->sell_through= $request->sell_through;
+                // $product->shipped_weight= $request->shipped_weight;
                 $product->sort= $request->sort;
 
-                $product->video_link= $request->video_link;
+                if(isset($request->video_link)){
+                    $product->video_link= $request->video_link;
+                }
 
-                $product->availabe_or_no= $request->availabe_or_no;
+                // $product->availabe_or_no= $request->availabe_or_no;
                 $product->status= $request->status;
 
-                if($request->security_permit=='on'){
-                    $product->security_permit=1;
-                }else{
-                    $product->security_permit=0;
-                }
+                // if($request->security_permit=='on'){
+                //     $product->security_permit=1;
+                // }else{
+                //     $product->security_permit=0;
+                // }
 
                 $product->save();
 
@@ -367,17 +573,21 @@ class ProductController extends Controller
                 }else{
                     $product->suppliers()->sync();
                 }
+
                 $List_Classes=$request->List_Classes;
                 if(isset($List_Classes)){
                     Product_Feature::where('product_id',$request->id) ->delete();
+
                     foreach ($List_Classes as $list) {
-                        Product_Feature::create([
-                            'weight_ar' => $list['weight_ar'],
-                            'weight_en' => $list['weight_en'],
-                            'value_ar' => $list['value_ar'],
-                            'value_en' => $list['value_en'],
-                            'product_id'=>$request->id
-                        ]);
+                        if($list['weight_ar']==null){}else{
+                            Product_Feature::create([
+                                'weight_ar' => $list['weight_ar'],
+                                'weight_en' => $list['weight_en'],
+                                'value_ar' => $list['value_ar'],
+                                'value_en' => $list['value_en'],
+                                'product_id'=>$request->id
+                            ]);
+                        }
                     }
                 }
                // toastr()->success('تمت التعديل بنجاح');
@@ -391,9 +601,23 @@ class ProductController extends Controller
             }
         }
     }
-
-    public function destroy($id)
-    {
-        //
+//-----------------------------------------------------------------------------//
+    public function delete_product(Request $request,$product_id)
+    { 
+       // dd($product_id);
+        Product::where('id',$product_id)->delete(); //soft_delete
+        //Product::where('id',$id)->forceDelete();//hard delete
+        return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
+      
     }
+
+//-----------------------------------------------------------------------------//
+// public function restore_product(Request $request,$product_id)
+// { 
+//    dd($product_id);
+//    Product::onlyTrashed()->find($product_id)->restore();
+//    return redirect()->route('products.index')->with(['success'=>'تم استرجاع المنتج بنجاح']); 
+// }
+//----------------------------------------------------------------------------------//
+   
 }

@@ -34,4 +34,9 @@ class Video extends Model
     {
         return $this->belongsTo('App\Models\Sub_Category4', 'sub3_id');
     }
+    
+    public function relation_with_site()
+    {
+        return $this->belongsTo('App\Models\Sitesection', 'site_id');
+    }
 }

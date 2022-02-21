@@ -6,22 +6,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReleaseRequest;
 use App\Models\Release;
+
+use App\Models\Sitesection;
 use App\Models\Main_Category;
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
+
 class ReleaseController extends Controller
 {
     public function index()
     {
-        $Rel=Release::all();
+        $Rel=Release::orderBy('id','desc')->get();
          return view('pages.Release.Show',compact('Rel'));
     }
 //--------------------------------------------
  public function create()
     {
-        $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-        return view('pages.Release.add',compact('Main_Cat'));
+        //$Main_Cat = Main_Category::withCount('sub_cate2')->get();
+        // $sub_Category4      = Sub_Category4::get(); 
+        // $sub_Category3      = Sub_Category3::get(); 
+        // $Sub_Category2      = Sub_Category2::get();
+        // $Main_Cat	        = Main_Category::get();
+        // $sections           = Sitesection::get();
+   //+++++++++++++++++++++++++new for unrequired +++++++++++++++++++++++++//
+            $sections = Sitesection::where('visible', '!=' , 0)->get();
+            $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+            $sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+            $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+            $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+    //+++++++++++++++++++++++++++++++++++++++++++++//
+        return view('pages.Release.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
     //--------------------------------------------
     public function store(ReleaseRequest $request)
@@ -56,7 +71,7 @@ class ReleaseController extends Controller
 
            }
 
-            $release = new Release
+           /* $release = new Release
            ([
             'main_cate_id' =>  $request->main_category,
             'sub1_id' =>  $request->sub2,
@@ -67,7 +82,77 @@ class ReleaseController extends Controller
              'status' =>  $request->status,
             'image' =>$photo_name,
             'file' =>$file_name,
-           ]);
+           ]);*/
+           $release = new Release();
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
+            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+                    
+            if(!$request->section_id)
+            {
+                $release->site_id= 1;
+            }
+            else
+            {
+                $release->site_id= $request->section_id; 
+            }
+
+           if(!$request->main_category)
+            {
+                $release->main_cate_id=1;
+            }
+            else
+            {
+                $release->main_cate_id= $request->main_category; 
+            }
+            /* if(!$request->main_cate_id && !$request->main_category)
+            {
+                $release->main_cate_id=1;
+                
+            }
+            else
+            {
+                if($request->main_cate_id){
+                   // read from edit form
+                    $release->main_cate_id=$request->main_cate_id;
+                }else{
+                   // read from add form
+                    $release->main_cate_id=$request->main_category;
+                }               
+           }*/
+
+            if(!$request->sub2)
+            {
+                $release->sub1_id= 1;
+
+            }
+            else
+            {
+                $release->sub1_id= $request->sub2; 
+            }
+
+            if(!$request->sub3)
+            {
+                $release->sub2_id=1;
+            }
+            else
+            {
+                $release->sub2_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $release->sub3_id=1;
+            }
+            else
+            {
+                $release->sub3_id= $request->sub4; 
+            }
+          
+            $release->title_ar=$request->title_ar;
+            $release->title_en=$request->title_en;
+            $release->status=$request->status;
+            $release->image=$photo_name;
+            $release->file=$file_name;
+        //++++++++++++++++++++++++++++++++++++++++++//
         $release->save();
 
             return redirect()->route('release.index')->with(['success'=>'تمت الاضافه بنجاح']);
@@ -81,29 +166,101 @@ class ReleaseController extends Controller
     {
         $release = Release::findOrfail($id);
         if(!$release) return redirect()->back();
-       $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       $Sub_Category4 = Sub_Category4::get();
-       $Sub_Category3=Sub_Category3:: whereIn('id',  $Sub_Category4)->get();
-       $Sub_Category2= Sub_Category2::  whereIn('id',  $Sub_Category3)->get();
-        return view('pages.Release.edit',compact('release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+        
+       /*  $sections     = Sitesection::get();
+         $Main_Cat = Main_Category::get();
+         $Sub_Category4      = Sub_Category4::get();
+         $Sub_Category3      = Sub_Category3::get();
+         $Sub_Category2      = Sub_Category2::get();
+
+        //to retrive value of section
+        $main_categories = Main_Category::findOrfail($release->main_cate_id);
+        $s = Sitesection::findOrfail($main_categories->section_id);    
+        return view('pages.Release.edit',compact('s','sections','release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+        */
+        //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
+        $sections = Sitesection::where('visible', '!=' , 0)->get();
+        $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+        $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+        $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+        $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+        return view('pages.Release.edit',compact('sections','release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+//+++++++++++++++++++++++++++++++++++++++++++++//
     }
 //--------------------------------------------
     public function update(ReleaseRequest $request, $id)
     {
-    // dd($request->$release_id);
-
+   //dd( $request->all());
+   //dd($request->sub2);
         try {
 
              $validated = $request->validated();
             // $rel = Release::findOrFail($request->id);
             $rel = Release::findOrFail($id);
-             $rel->main_cate_id = $request->main_category;
+            // $rel->main_cate_id = $request->main_category;
+            /* $rel->main_cate_id = $request->main_cate_id;
              $rel->sub1_id =  $request->sub2;
              $rel->sub2_id = $request->sub3;
              $rel->sub3_id=  $request->sub4;
              $rel-> title_ar= $request->title_ar;
              $rel->title_en = $request->title_en;
-             $rel-> status=$request->status;
+             $rel-> status=$request->status;*/
+             //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
+            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+                    
+            if(!$request->section_id)
+            {
+                $rel->site_id= 1;
+            }
+            else
+            {
+                $rel->site_id= $request->section_id; 
+            }
+
+            if(!$rel->main_cate_id)
+            {
+                $rel->main_cate_id=1;
+            }
+            else
+            {
+                $rel->main_cate_id= $request->main_cate_id; 
+            }
+
+            if(!$request->sub2)
+            {
+                
+                $rel->sub1_id= 1;
+
+            }
+            else
+            {
+                $rel->sub1_id= $request->sub2; 
+            }
+
+            if(!$request->sub3)
+            {
+                $rel->sub2_id=1;
+            }
+            else
+            {
+                $rel->sub2_id=$request->sub3; 
+            }
+
+            if(!$request->sub4)
+            {
+                $rel->sub3_id=1;
+            }
+            else
+            {
+                $rel->sub3_id= $request->sub4; 
+            }
+          
+            $rel->title_ar=$request->title_ar;
+            $rel->title_en=$request->title_en;
+            $rel->status=$request->status;
+        //++++++++++++++++++++++++++++++++++++++++++//
 
              if($request->image)
              {

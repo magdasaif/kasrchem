@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Main_Category; 
 use App\Models\Sub_Category2; 
+use App\Models\Sitesection; 
 
 use App\Http\Requests\subCategory2Request;
 
@@ -20,7 +21,7 @@ class SubcategoryController2 extends Controller
      */
     public function index()
     {
-        $categories = Sub_Category2::all();
+        $categories = Sub_Category2::where('visible', '!=' , 0)->orderBy('id','desc')->get();
       // $categories = Sub_Category2 ::withCount('cate_id')->get();
         
         return view('categories.sub2.category',compact('categories'));
@@ -28,16 +29,22 @@ class SubcategoryController2 extends Controller
 
     public function show_add_form($cate_id)
     {
+        $from_side_or_no='no';
         $sub1_categories = Main_Category::find($cate_id);
-       
-        return view('categories.sub2.add',compact('sub1_categories'));
+        $sections = Sitesection::where('id',$sub1_categories->section_id)->first();
+
+        //dd($sections);
+
+        return view('categories.sub2.add',compact('sub1_categories','from_side_or_no','sections'));
     }
 
     public function create()
     {
+        $from_side_or_no='no';
+        $sections = Sitesection::get();
         $sub1_categories = Main_Category::get();
         //return $sub1_categories;
-        return view('categories.sub2.add',compact('sub1_categories'));
+        return view('categories.sub2.add',compact('sub1_categories','from_side_or_no','sections'));
     }
 
   
@@ -80,8 +87,29 @@ class SubcategoryController2 extends Controller
 
 
             //toastr()->success('تمت الاضافه بنجاح');
-
-            return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت الاضافه بنجاح']);
+             if ($request->model1==1)
+             {
+                //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+                return redirect()->back()->with(
+                    [
+                        'success'=>'تمت اضافة التصنيف الفرعى بنجاح',
+                        'section_id'=>$request->section_id,
+                       'cate_id'=>$request->cate_id,
+                       'sub2_id' => $category->id,
+                    ]
+                );
+               
+             }
+             else
+             {
+                if($request->change_redirect=='yes'){
+                    return redirect()->route('categories2_new.index',$category ->cate_id)->with(['success'=>'تمت الاضافه بنجاح']);
+    
+                }else{
+                    return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت الاضافه بنجاح']);
+    
+                }
+             }
         }catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
@@ -90,23 +118,29 @@ class SubcategoryController2 extends Controller
    
     public function show($id)
     {
+        $from_side_or_no='no';
         $categories = Sub_Category2::withcount('sub_cate3')->where('cate_id','=',$id)->get();
        // dd($categories);
-        return view('categories.sub2.category',compact('categories','id'));
+        return view('categories.sub2.category',compact('categories','id','from_side_or_no'));
     }
 
    
     public function edit($id)
     {
         $sub_categories = Sub_Category2::findOrfail($id);
-      //  return $categories;
+        $main_categories = Main_Category::findOrfail($sub_categories->cate_id);
+        $selected_section = Sitesection::findOrfail($main_categories->section_id);
+
+        $sections = Sitesection::get();
+        $all_main_categories = Main_Category::get();
+
+       // dd($sub_categories);
+
         
         if(!$sub_categories)
              return redirect()->back();
 
-        $main_categories = Main_Category::all();
-
-        return view('categories.sub2.edit',compact('sub_categories','main_categories'));
+        return view('categories.sub2.edit',compact('sub_categories','sections','selected_section','all_main_categories','main_categories'));
     }
 
    
@@ -118,7 +152,8 @@ class SubcategoryController2 extends Controller
 
             $category = Sub_Category2::findOrfail($request->id);
 
-            $category->cate_id=$request->cate_id;
+           // $category->cate_id=$request->cate_id;
+            $category->cate_id=$request->main_cate_id;
             $category->subname2_ar=$request->subname2_ar;
             $category->subname2_en=$request->subname2_en;
             $category->status= $request->status;
@@ -138,8 +173,14 @@ class SubcategoryController2 extends Controller
 
 
             //toastr()->success('تمت الاضافه بنجاح');
+            
+            // if($request->change_redirect=='yes'){
+                return redirect()->route('categories2_new.index',$category ->cate_id)->with(['success'=>'تمت التعديل بنجاح']);
 
-            return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت التعديل بنجاح']);
+            // }else{
+            //     return redirect()->route('categories2.show',$category ->cate_id)->with(['success'=>'تمت التعديل بنجاح']);
+
+            // }
         }catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }

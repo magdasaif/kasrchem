@@ -23,22 +23,21 @@ class HomeController extends Controller
     //------------------------------------------------------
      public function dashboard()
      {
-       $title='الرئيسيه';
+       $data['title']='الرئيسيه';
+      
+       $data['sections'] = Sitesection::get()->count();
+       $data['sub1'] = Main_Category::get()->count();
+       $data['slider'] = Slider::get()->count();
+       $data['article'] = Article::get()->count();
+       $data['gallery'] = Photo_Gallery::get()->count();
+       $data['video'] = Video::get()->count();
+       $data['partner'] = Partner::get()->count();
+       $data['social'] = Social::get()->count(); 
+       $data['product'] = Product::get()->count(); 
+       $data['branches'] = Branche::get()->count(); 
+       $data['supplier'] = Supplier::get()->count(); 
        
-       $sections = Sitesection::get()->count();
-       $sub1 = Main_Category::get()->count();
-       $slider = Slider::get()->count();
-       $article = Article::get()->count();
-       $gallery = Photo_Gallery::get()->count();
-       $video = Video::get()->count();
-       $partner = Partner::get()->count();
-       $social = Social::get()->count(); 
-       $product = Product::get()->count(); 
-       $branches = Branche::get()->count(); 
-       $supplier = Supplier::get()->count(); 
-       
-     //dd($slider);
-       return view('pages.home_page',compact('sections','sub1','slider','article','gallery','video','partner','social','product','branches','title'));
+       return view('pages.home_page',$data);
      }
 
 }

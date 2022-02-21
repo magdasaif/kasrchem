@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label for="priority">الأولوية</label>
-                    <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="ادخل الأولوية" name="priority" required>
+                    <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="ادخل الأولوية" name="priority"  value="{{ old('priority') }}" required  oninvalid="this.setCustomValidity('قم بادخال الاولوية')"  oninput="this.setCustomValidity('')">
                     @error('priority')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -45,7 +45,7 @@
 
                 <div class="form-group">
                     <label for="image">صوره</label>
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                    <input type="file" class="form-control" name="image"  accept="image/*" required  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -55,8 +55,8 @@
                 <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status" >
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                       <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                       <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
 

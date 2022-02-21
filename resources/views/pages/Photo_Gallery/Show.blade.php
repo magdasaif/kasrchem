@@ -64,21 +64,13 @@
 
                               /
                               <a  title="حذف" data-catid="{{$Photo_Gallery->id}}" data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}"> <i class="fa fa-trash red"></i></a>
-                            <!-- <button type="button" class="btn btn-info" ><a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  target="_blank"> تعديل</a></button> -->
-                           <!-- <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"><button type="button" class="btn btn-warning" > الصور</button></a>
-                           <button class="btn btn-danger" data-catid={{$Photo_Gallery->id}} data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}">حذف</button>  -->
-                        
                              
-                         
-                        </td>
-                            </tr>
-                        <!--############################ model for delete #################################-->
+                         <!--############################ model for delete #################################-->
           
-                            <div class="modal modal-danger fade" id="delete{{$Photo_Gallery->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                         <div class="modal modal-danger fade" id="delete{{$Photo_Gallery->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                <div class="modal-header" style="direction: ltr;">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
                                 <form action="{{route('photo_gallery.destroy',$Photo_Gallery->id)}}"  method="post">
@@ -89,18 +81,21 @@
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                             <input type="hidden" name="galary_id" id="$Photo_Gallery->id" value="{{$Photo_Gallery->id}}">
-
+                                            <img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$Photo_Gallery->image}")?> alt="" >
                                     </div>
                                     <input type="hidden" name="deleted_image" value="{{$Photo_Gallery->image}}">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <button type="submit" class="btn btn-success">حذف</button>
+                                        <input type="submit" value="حذف"  class="btn btn-primary">
                                     </div>
                                 </form>
                                 </div>
                             </div>
                             </div>
             <!--#############################################################-->
+                        </td>
+                            </tr>
+                        
 
                         @endforeach
 

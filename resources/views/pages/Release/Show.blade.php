@@ -62,15 +62,12 @@
                                 <a href="{{route('release.edit',$release->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                 /
                                 <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$release->id}}" data-toggle="modal" data-target="#delete{{$release->id}}"> <i class="fa fa-trash red"></i></a>
-							</td>
-                            </tr>
-                        <!--############################ model for delete #################################-->
+						  <!--############################ model for delete #################################-->
           
-                            <div class="modal modal-danger fade" id="delete{{$release->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal modal-danger fade" id="delete{{$release->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                <div class="modal-header" style="direction: ltr;">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
                                 <form action="{{route('release.destroy',$release->id)}}"  method="post">
@@ -80,6 +77,7 @@
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
+                                             <div   style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$release->title_ar}}</div>
                                             <input type="hidden" name="release_id" id="$release->id" value="$release->id">
 
                                     </div>
@@ -94,6 +92,9 @@
                             </div>
                             </div>
             <!--#############################################################-->
+                            </td>
+                            </tr>
+                      
 
                         @endforeach
 

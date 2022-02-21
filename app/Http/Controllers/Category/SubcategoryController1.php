@@ -25,7 +25,7 @@ class SubcategoryController1 extends Controller
 
       //  $categories = Main_Category::all();
 
-        $categories = Main_Category::withCount('sub_cate2')->get();
+        $categories = Main_Category::where('visible', '!=' , 0)->withCount('sub_cate2')->orderBy('id','desc')->get();
 
        //dd($categories);
       
@@ -90,8 +90,21 @@ class SubcategoryController1 extends Controller
             // ]);
 
             //toastr()->success('تمت الاضافه بنجاح');
-
-            return redirect()->route('categories.index')->with(['success'=>'تمت الاضافه بنجاح']);
+            if ($request->model0==1)
+            {
+                
+               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
+               return redirect()->back()->with(
+                    [
+                       'success'=>'تمت اضافة التصنيف الرئيسى بنجاح',
+                       'section_id'=>$request->section_id,
+                       'cate_id' => $category->id,
+                    ]
+                );
+              
+            }else{
+                 return redirect()->route('categories.index')->with(['success'=>'تمت الاضافه بنجاح']);
+            }
         }catch(\Exception $e){
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
@@ -161,6 +174,17 @@ class SubcategoryController1 extends Controller
     
     public function destroy($id)
     {
-        //
+        // dd($id);
+        try
+        {
+        $Main_Category=Main_Category::find($id);
+        $Main_Category->delete();
+        return redirect()->route('categories.index')->with(['success'=>'تم الحذف بنجاح']);
+       }
+       catch
+       (\Exception $e)
+       {
+           return redirect()->back()->with(['error' => $e->getMessage()]);
+       }
     }
 }

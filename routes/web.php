@@ -16,16 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+    
 });
 
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'auth'], function () {
-    
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('home', function () {
-        return redirect('/site_section');
+        return redirect('/dashboard');
     });
 
     // Route::get('/{vue_capture?}', function () {
@@ -40,12 +41,24 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('categories2', 'SubcategoryController2');
         Route::GET('categories2/add/{id}', 'SubcategoryController2@show_add_form');
+        
+        Route::resource('categories2_new', 'SubcategoryController2_new');
 
         Route::resource('categories3', 'SubcategoryController3');
         Route::get('categories3_add/{id}', 'SubcategoryController3@create');
 
+        Route::resource('categories3_new', 'SubcategoryController3_new');
+
         Route::resource('categories4', 'SubcategoryController4');
         Route::get('categories4_add/{id}', 'SubcategoryController4@create');
+
+        Route::resource('categories4_new', 'SubcategoryController4_new');
+        //==================check if categories related with thing or not=========================//
+        Route::GET('/found_for_delete_sub1/{main_category_id}','deleteCategoriesController@findsub1');
+        Route::GET('/found_for_delete_sub2/{sub2_id}','deletedCategoriesController@findsub2');
+        Route::GET('/found_for_delete_sub3/{sub3_id}','deleteCategoriesController@findsub3');
+        Route::GET('/found_for_delete_sub4/{sub4_id}','deleteCategoriesController@findsub4');
+        //========================================================================================//
 
     });
     //------------------site_section------------------------------------------------------
@@ -80,6 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('add_product','livewire.show');
 
     //-------------------get sub2,sub3,sub4 when change on any select-------------------
+    Route::GET('/fetch_sub1/{section_id}','FetchCategoriesController@findsub1');
     Route::GET('/fetch_sub2/{main_category_id}','FetchCategoriesController@findsub2');
     Route::GET('/fetch_sub3/{sub2_id}','FetchCategoriesController@findsub3');
     Route::GET('/fetch_sub4/{sub3_id}','FetchCategoriesController@findsub4');
@@ -94,6 +108,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('add_products_files/{id}','Products\ProductController@add_products_files');
     Route::get('delete_products_files/{id}','Products\ProductController@delete_products_files');
 
+    //-----------soft delete && restore -------------------------------------------
+    Route::get('delete_product/{id}','Products\ProductController@delete_product')->name('product_delete');
+    // Route::get('restore_product/{id}','Products\ProductController@restore_product')->name('product_restore');
     //--------------------------------vedio---------------------------------------------
     Route::group(['namespace'=>'Video'],function(){
         Route::resource('video', 'VideoController');
@@ -147,9 +164,11 @@ Route::group(['middleware' => 'auth'], function () {
     //----------------------------------About_us--------------------------------------------//
 
     Route::group(['namespace'=>'About_us'],function(){
-        Route::resource('about_us', 'About_us_Controller');
-        Route::POST('edit_about/{id}', 'About_us_Controller@edit_about')->name('editt');
+        // Route::resource('about_us', 'About_us_Controller');
+        // Route::POST('update_about_us', 'About_us_Controller@update_about_us')->name('update_about_us');
 
+        Route::GET('about/edit', 'About_us_Controller@edit')->name('about/edit');
+        Route::POST('about/update', 'About_us_Controller@update')->name('about/update');
     });
     //------------------------------- ------------------------------------------------//
     Route::group(['namespace'=>'Supplier'],function(){
@@ -162,6 +181,9 @@ Route::group(['middleware' => 'auth'], function () {
     //-------------------------------------------------------------------------------//
 
     Route::GET('dashboard','HomeController@dashboard')->name('dashboard');
+
+    Route::GET('settings/edit', 'SettingController@edit')->name('settings/edit');
+    Route::POST('settings/update', 'SettingController@update')->name('settings/update');
 });
 //--------------------------------------------------------------------------------------//
 Route::get('/docs', function () {

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم : اضافه تصنيف</title>
+<title>لوحة التحكم : اضافه تصنيف </title>
  @endsection
 @section('content')
 <template>
@@ -32,6 +32,7 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
+                    <label >الاقسام</label>
                     <select class="form-control" name="section_id">
                         @foreach ($sections as $section)
                             <option value="{{ $section->id }}">{{ $section->site_name_ar }}</option>
@@ -42,7 +43,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"  required  oninvalid="this.setCustomValidity('قم بادخال التصنيف بالعربية بالشكل المطلوب')"  oninput="this.setCustomValidity('')">
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -60,7 +61,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
 
-                    <input type="file" class="form-control" name="image" accept="image/*">
+                    <input type="file" class="form-control" name="image" accept="image/*" required>
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>

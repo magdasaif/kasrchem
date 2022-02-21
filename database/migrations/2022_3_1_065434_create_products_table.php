@@ -16,7 +16,8 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
 
             $table->id();
-
+            $table->unsignedBigInteger('site_id');
+            $table->foreign('site_id')->references('id')->on('site_sections')->onDelete('cascade');
             $table->unsignedBigInteger('main_cate_id');
             $table->foreign('main_cate_id')->references('id')->on('main_categorys')->onDelete('cascade');
             $table->unsignedBigInteger('sub2_id');
@@ -26,8 +27,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('sub4_id');
             $table->foreign('sub4_id')->references('id')->on('sub_categorys4')->onDelete('cascade');
             
-            $table->string('name_ar');
-            $table->string('name_en');
+            $table->longText('name_ar');
+            $table->longText('name_en');
 
             $table->string('code');
 
@@ -55,6 +56,8 @@ class CreateProductsTable extends Migration
             
             $table->integer('security_permit');
             
+            $table->SoftDeletes();//column of deleted_at
+
             $table->timestamps();
         });
     }

@@ -29,11 +29,13 @@ class typesResource extends JsonResource
         {
             $x->map(function($i) { $i->lang = 'en'; });
         }
+        $path=storage_path().'/app/public/categories/third/';
        return 
        [
            'id'=>$this->id,
            'name'=>$subname,
-           'image'=>$this->image,
+         //  'image'=>$path.$this->image,
+           'image'=>asset('storage/categories/third/' . $this->image),
            'sub_types'=>  $x,
        ] ;
       

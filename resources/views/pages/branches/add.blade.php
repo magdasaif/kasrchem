@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('name_ar')}}" placeholder="Enter name" name="name_ar" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('name_ar')}}" placeholder="Enter name" name="name_ar" required oninvalid="this.setCustomValidity('قم بادخال اسم الفرع بالعربية')"  oninput="this.setCustomValidity('')">
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -46,7 +46,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('name_en')}}" placeholder="Enter name" name="name_en" required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('name_en')}}" placeholder="Enter name" name="name_en" required oninvalid="this.setCustomValidity('قم بادخال اسم الفرع بالانجليزية')"   oninput="this.setCustomValidity('')">
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -75,7 +75,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">البريد الالكترونى</label>
-                    <input type="text" class="form-control" name="email" value="{{old('email')}}" required>
+                    <input type="text" class="form-control" name="email" value="{{old('email')}}" required oninvalid="this.setCustomValidity('قم بادخال البريد الالكترونى')" >
                      @error('email')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -83,7 +83,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> الهاتف</label>
-                    <input type="text" class="form-control" name="phone" value="{{old('phone')}}" required>
+                    <input type="text" class="form-control" name="phone" value="{{old('phone')}}" required oninvalid="this.setCustomValidity('قم بادخال رقم التليفون')" >
                      @error('phone')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -91,7 +91,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> الفاكس</label>
-                    <input type="text" class="form-control" name="fax" value="{{old('fax')}}" required>
+                    <input type="text" class="form-control" name="fax" value="{{old('fax')}}" required oninvalid="this.setCustomValidity('قم بادخال رقم الفاكس')" >
                      @error('fax')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -131,7 +131,7 @@
         </div>
     </div>
 </section>
-@endsection
+
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
 <script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
@@ -224,3 +224,4 @@
             }
         });
 </script>
+@endsection

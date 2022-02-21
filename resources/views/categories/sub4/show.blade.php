@@ -28,7 +28,11 @@
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-sm bbtn">
-                        <a href="{{URL('categories4_add/'.$sub3_id)}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافة نوع فرعي </span></li></a>
+                         @if($from_side_or_no=='yes')
+                             <a href="{{url('categories4_new/create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافة نوع فرعي </span></li></a>
+                        @else
+                            <a href="{{url('categories4_add/'.$sub3_id)}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافة نوع فرعي</span></li></a>
+                        @endif
                     </button>
                 </div>
               </div>

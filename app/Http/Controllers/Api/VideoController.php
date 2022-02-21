@@ -83,15 +83,15 @@ class VideoController extends Controller
           //use header to read parameter passed in header 
           $lang=$request->header('locale');
 
-         if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
          
          if($lang=='ar'){
              $selected="title_ar as title";
          }else{
               $selected="title_en as title";
          }
-        
-         $posts =  Video::select('id',$selected,'link')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage);
+        // if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
+        //  $posts =  Video::select('id',$selected,'link')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage);
+         $posts =  Video::select('id',$selected,'link')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->get();
          return response($posts,200,['OK']);
     }
 }
