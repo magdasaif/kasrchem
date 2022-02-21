@@ -11,7 +11,6 @@ use App\Models\Sub_Category4;
 
 use App\Models\Product_Feature;
 use App\Models\Product_attachment;
-use App\Models\Supplier_image;
 
 class ProductResource extends JsonResource
 {
@@ -26,6 +25,20 @@ class ProductResource extends JsonResource
         $path=storage_path().'/app/public/products/product_no_'.$this->id.'/';
 
         $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
+        if($type=='first_fun'){
+            return [
+                'id' =>$this->id,
+                'name' =>$this->name,
+                'price' =>$this->price,
+                'offer_price' =>$this->offer_price,
+                'min' =>$this->min_amount,
+                'max' =>$this->max_amount,
+                'stock' =>$this->amount,
+                'security_clearance' =>$this->security_permit,
+               // 'image' => $path.$this->image,
+                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
+            ];
+        }else{
         
             if($this->sell_through==1){$x='both';}
             elseif($this->sell_through==2){$x='online';}
@@ -89,104 +102,58 @@ class ProductResource extends JsonResource
             array_push($new_files,$selected);
             }
 
-            //supplier data
-            $supplier_data=array();
-            if($type=='supplier_products'){
 
-                $supp_img= Supplier_image::where('supplier_id',$this->supplier_id)->get();
-                $supplier_images=array();
-                foreach($supp_img as $si){
-                    $S_I=[
-                        'id'=>$si->id,
-                       'image'=> asset('storage/supplier/' . $si->image),
-                    ];
-                array_push($supplier_images,$S_I);
-                }
-                $data=[
-                    'id'=>$this->supplier_id,
-                    'supplier_name'=>$this->supplier_name,
-                    'supplier_desc'=>$this->supplier_desc,
-                    'logo' => asset('storage/supplier/' . $this->logo),
-                    'images' => $supplier_images,
-                ];
-                array_push($supplier_data,$data);
+            return [
 
+                'lang' => $this->when( property_exists($this,'lang'), function() { return $this->lang; } ),
+    //'lang'=>$this->lang,
+                'id' =>$this->id,
+                'name' =>$this->name,
+                'price' =>$this->price,
+                'offer_price' =>$this->offer_price,
+                'min' =>$this->min_amount,
+                'max' =>$this->max_amount,
+                'stock' =>$this->amount,
+                'security_clearance' =>$this->security_permit,
 
-                return [
+            //   "image": "https://backend.eradco.murabba.dev/storage/products/product1/product1636788975.png",
 
-                    'id' =>$this->id,
-                    'name' =>$this->name,
-                    'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
-    
-                    'description' => $this->desc,
-                    
-                    'video_link' => $this->video_link,
-    
-                    'gallery'=>$new_images,
-                    
-                    'supplier_data' =>  $supplier_data,
-                ];
+               // 'image' => $path.$this->image,
+                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
 
-
-
+                'description' => $this->desc,
                 
-            }else{
+                'video_link' => $this->video_link,
 
-                return [
+                'selling_at'=> $x,
 
-                    'lang' => $this->when( property_exists($this,'lang'), function() { return $this->lang; } ),
-        //'lang'=>$this->lang,
-                    'id' =>$this->id,
-                    'name' =>$this->name,
-                    'price' =>$this->price,
-                    'offer_price' =>$this->offer_price,
-                    'min' =>$this->min_amount,
-                    'max' =>$this->max_amount,
-                    'stock' =>$this->amount,
-                    'security_clearance' =>$this->security_permit,
-    
-                //   "image": "https://backend.eradco.murabba.dev/storage/products/product1/product1636788975.png",
-    
-                   // 'image' => $path.$this->image,
-                    'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
-    
-                    'description' => $this->desc,
-                    
-                    'video_link' => $this->video_link,
-    
-                    'selling_at'=> $x,
-    
-                    'category' => [
-                        'id'=>$main_cate_id->id,
-                        'name'=>$main_cate_id->name,
-                    ],
-    
-                    'subCategory' => [
-                        'id'=>$sub2_id->id,
-                        'name'=> $sub2_id->name,
-                    ],
-                    'type' => [
-                        'id'=>$sub3_id->id,
-                        'name'=> $sub3_id->name,
-                    ],
-                    'subType' => [
-                        'id'=>$sub4_id->id,
-                        'name'=> $sub4_id->name,
-                    ],
-    
-                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!foreach
-                // 'properties'=>$ff,
-                    'properties'=>$new,
-    
-                    'gallery'=>$new_images,
-                    'product_attachments'=>$new_files,
-                    
-                    'supplier_data' =>  $supplier_data,
-                ];
-            }
+                'category' => [
+                    'id'=>$main_cate_id->id,
+                    'name'=>$main_cate_id->name,
+                ],
 
-           
+                'subCategory' => [
+                    'id'=>$sub2_id->id,
+                    'name'=> $sub2_id->name,
+                ],
+                'type' => [
+                    'id'=>$sub3_id->id,
+                    'name'=> $sub3_id->name,
+                ],
+                'subType' => [
+                    'id'=>$sub4_id->id,
+                    'name'=> $sub4_id->name,
+                ],
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!foreach
+            // 'properties'=>$ff,
+                'properties'=>$new,
+
+                'gallery'=>$new_images,
+                'product_attachments'=>$new_files,
+
+            ];
         //  return parent::toArray($request);
-       
+        }
     }
 }

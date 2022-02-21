@@ -11,6 +11,7 @@ class SupplierResource extends JsonResource
     public function toArray($request)
     {
         $lang = $this->when( property_exists($this,'lang'), function() { return $this->lang; } );
+       // $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
         if($lang=='ar')
         {
              $supplier_name= $this->name_ar;
@@ -27,12 +28,10 @@ class SupplierResource extends JsonResource
         return [
             'id'=>$this->id,
             'name' =>$supplier_name,
+            'description'=>$supplier_description,
            // 'logo' => $path.$this->logo,
             'logo' => asset('storage/supplier/' . $this->logo),
             'images'=> $x,
-            
-            
-             
         ];
     }
 }
