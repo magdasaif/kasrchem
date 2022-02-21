@@ -1233,6 +1233,16 @@
                 "operationId": "getsuppliersdata",
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "description": "supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
                         "name": "locale",
                         "in": "header",
                         "description": "App Locale",

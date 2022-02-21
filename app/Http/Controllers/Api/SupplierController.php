@@ -69,7 +69,7 @@ class SupplierController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/suppliers/{id}",
+     *      path="/supplier/{id}",
      *      operationId="getsuppliersdata",
      *      tags={"suppliers"},
      *      summary="Get supplier data",
