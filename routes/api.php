@@ -103,6 +103,9 @@ Route::get('/latest_releases',[LatestMultiMediaController::class,'latest_release
 ///------------------------------Supplier-------------------------------------
 Route::get('/suppliers',[SupplierController::class,'index']);
 
+///------------------------------Supplier details -------------------------------------
+Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
+
 //---------------------related products with supplier ------------------------
  Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
 
