@@ -13,3 +13,6 @@ npm-debug.log
 yarn-error.log
 reports/
 .ideastorage/logs/laravel.log
+storage/logs/laravel.log
+viewmurabba_eradico_dataonly.sql
+.idea/
