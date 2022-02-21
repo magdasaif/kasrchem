@@ -52,7 +52,7 @@ class SupplierController extends Controller
      *      ),
      *     )
      */
-    
+
     public function index(Request $request)
     {
       $lang=$request->header('locale');
@@ -75,14 +75,14 @@ class SupplierController extends Controller
      *      summary="Get supplier data",
      *      description="Returns supplier data",
      *      @OA\Parameter(
-	   *         in="path",
+	   *          in="path",
      *          name= "id",
      *          description= "supplier ID",
      *          required=true,
-     *        @OA\Schema(
-     *             type="integer",
-     *             format="int64"
-     *         )
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
      *      ),
      *      @OA\Parameter(
      *          name="locale",
@@ -120,7 +120,7 @@ class SupplierController extends Controller
      *      ),
      *     )
      */
-    
+
     public function getSupplier($id,Request $request){
 
       $lang=$request->header('locale');
