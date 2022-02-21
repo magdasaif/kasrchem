@@ -27,6 +27,7 @@ class VideoController extends Controller
     {
       //  $Main_Cat = Main_Category::withCount('sub_cate2')->get();
          //++++++++++++++++++++new for unrequired++++++++++++++++++++//
+         //visible', '!=' , 0 هيعرضلى على التصنيفات والاقسام اللى ال 
         $sub_Category4   = Sub_Category4::where('visible', '!=' , 0)->get(); 
         $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
         $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
@@ -41,9 +42,63 @@ class VideoController extends Controller
       // dd($request->all());
        try{
          $validated = $request->validated();
-             $video= new Video
-           ([
-            'main_cate_id' =>  $request->main_category,
+             $video= new Video();
+            
+//---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+          
+            if(!$request->section_id)
+            {
+                $video->site_id= 1;
+            }
+            else
+            {
+                $video->site_id= $request->section_id; 
+            }
+
+            if(!$request->main_category)
+            {
+                $video->main_cate_id=1;
+            }
+            else
+            {
+                $video->main_cate_id= $request->main_category; 
+            }
+
+            if(!$request->sub2)
+            {
+                $video->sub1_id= 1;
+           
+            }
+            else
+            {
+                $video->sub1_id= $request->sub2; 
+            }
+
+            if(!$request->sub3)
+            {
+                $video->sub2_id=1;
+            }
+            else
+            {
+                $video->sub2_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $video->sub3_id=1;
+            }
+            else
+            {
+                $video->sub3_id= $request->sub4; 
+            }
+            $video->title_ar=$request->title_ar;
+            $video->title_en=$request->title_en;
+            $video->link=$request->link;
+            $video->status=$request->status;
+           
+          
+//++++++++++++++++++++++++++++++++++++++++++//
+           /* ([
+          'main_cate_id' =>  $request->main_category,
             'sub1_id' =>  $request->sub2,
             'sub2_id' =>  $request->sub3,
             'sub3_id' =>  $request->sub4,
@@ -51,7 +106,7 @@ class VideoController extends Controller
             'title_en' =>  $request->title_en,
             'link' =>  $request->link,
             'status' =>  $request->status,
-           ]);
+           ]);*/
         $video->save();
 
             return redirect()->route('video.index')->with(['success'=>'تمت الاضافه بنجاح']);
@@ -77,8 +132,8 @@ public function edit($id)
    // dd($video->main_cate_id);
   //  dd(Main_Category::findOrfail(4));
   
-  //-----------------------------------//
-  if($video->main_cate_id==1 )
+  //--------------------لغيناه علشان مش هنجيب القسم من  التصنيف الرئيسى ضفتله كولوم فى الداتا بيز<--sالمتغير--------------//
+ /* if($video->main_cate_id==1 )
   {
    // dd(Main_Category::findOrfail($video->main_cate_id));
     $main_categories_0 = Main_Category::findOrfail($video->main_cate_id);
@@ -109,8 +164,10 @@ public function edit($id)
     $s = Sitesection::findOrfail($main_categories->section_id);
     return view('pages.Video.edit',compact('s','sections','video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
 
-  }
+  }*/
     //---+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--// 
+    return view('pages.Video.edit',compact('sections','video','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
 }
 
 //--------------------------------------------
@@ -122,10 +179,55 @@ public function edit($id)
             $validated = $request->validated();
             $Video = Video::findOrFail($request->id);
              // $Video->main_cate_id = $request->main_category;
-              $Video->main_cate_id = $request->main_cate_id;
+              //+++++++++++++++++++ علشان لو ظاهر جزء اضف تصنيف يخلى الحاجة ظى قيمتها بصفر ++++++++++++++++++++++//
+            if(!$request->section_id)
+            {
+                $Video->site_id=1;
+            }
+            else
+            {
+                $Video->site_id=$request->section_id; 
+            }
+            if(!$request->main_cate_id)
+            {
+                $Video->main_cate_id=1;
+                
+            }
+            else
+            {
+                $Video->main_cate_id=$request->main_cate_id;
+            }
+
+            if(!$request->sub2)
+            {
+                $Video->sub1_id=1;
+            }
+            else
+            {
+                $Video->sub1_id=$request->sub2; 
+            }
+            if(!$request->sub3)
+            {
+                $Video->sub2_id=1;
+            }
+            else
+            {
+                $Video->sub2_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $Video->sub3_id=1;
+            }
+            else
+            {
+                $Video->sub3_id=$request->sub4; 
+            }
+
+            //++++++++++++++++++++++++++++++++++++++++++//
+              /*$Video->main_cate_id = $request->main_cate_id;
              $Video->sub1_id =  $request->sub2;
             $Video->sub2_id = $request->sub3;
-            $Video->sub3_id=  $request->sub4;
+            $Video->sub3_id=  $request->sub4;*/
             $Video-> title_ar= $request->title_ar;
             $Video->title_en = $request->title_en;
             $Video-> link = $request->link;
