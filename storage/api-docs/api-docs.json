@@ -1223,7 +1223,7 @@
                 }
             }
         },
-        "/suppliers/{id}": {
+        "/supplier/{id}": {
             "get": {
                 "tags": [
                     "suppliers"
