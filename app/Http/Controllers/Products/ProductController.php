@@ -30,8 +30,9 @@ class ProductController extends Controller
     {
          $title='المنتجات';
       //  $products = Product::orderBy('sort','asc')->get();
-        $products=Product::orderBy('sort','asc')->get();
-
+       // $products=Product::orderBy('sort','asc')->get();
+       $products=Product::withoutTrashed()->orderBy('sort','asc')->get();
+       
         return view('pages.products.show',compact('products','title'));
     }
 //-----------------------------------------------------------------------------//
@@ -601,8 +602,22 @@ class ProductController extends Controller
         }
     }
 //-----------------------------------------------------------------------------//
-    public function destroy($id)
-    {
-        //
+    public function delete_product(Request $request,$product_id)
+    { 
+       // dd($product_id);
+        Product::where('id',$product_id)->delete(); //soft_delete
+        //Product::where('id',$id)->forceDelete();//hard delete
+        return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
+      
     }
+
+//-----------------------------------------------------------------------------//
+// public function restore_product(Request $request,$product_id)
+// { 
+//    dd($product_id);
+//    Product::onlyTrashed()->find($product_id)->restore();
+//    return redirect()->route('products.index')->with(['success'=>'تم استرجاع المنتج بنجاح']); 
+// }
+//----------------------------------------------------------------------------------//
+   
 }

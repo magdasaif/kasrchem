@@ -56,6 +56,8 @@ class CreateProductsTable extends Migration
             
             $table->integer('security_permit');
             
+            $table->SoftDeletes();//column of deleted_at
+
             $table->timestamps();
         });
     }
