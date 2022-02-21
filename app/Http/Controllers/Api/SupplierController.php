@@ -75,6 +75,16 @@ class SupplierController extends Controller
      *      summary="Get supplier data",
      *      description="Returns supplier data",
      *      @OA\Parameter(
+	   *         in="path",
+     *          name= "id",
+     *          description= "supplier ID",
+     *          required=true,
+     *        @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      ),
+     *      @OA\Parameter(
      *          name="locale",
      *          description="App Locale",
      *          required=true,
