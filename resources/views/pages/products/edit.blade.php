@@ -43,7 +43,8 @@
                         <label>  اقسام الموقع </label>
 
                         <select  class="form-control sub2"  id="section_sel" name="section_id" >
-                            <option value="{{$s->id}}" selected>{{$s->site_name_ar}}</option>
+                        <option value="{{$product->relation_with_site->id}}" selected>{{$product->relation_with_site->site_name_ar}}</option>
+   
                             <option value="1" disabled >جميع الاقسام</option>
                                 @foreach ($sections as $sec)
                                 <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>

@@ -47,7 +47,10 @@ class Product extends Model
     public function suppliers(){
         return $this->belongsToMany('App\Models\Supplier','products_suppliers');
     }
-    
+    public function relation_with_site()
+    {
+        return $this->belongsTo('App\Models\Sitesection', 'site_id');
+    }
    /* public function images()
     {
         return $this->hasMany(Product_attachment::class,'product_id')->where('type', 'image');
