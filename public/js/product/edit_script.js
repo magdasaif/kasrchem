@@ -371,18 +371,7 @@ $('select[name="main_cate_id"]').on('change', function () {
                 alert('AJAX load did not work');
             }
         });
-        //--------------change upload image by clicking n image-----------------//
-          $('#previewImg').on('click', function () {
-           // alert("xxx");
-           jQuery('#my_file').trigger('click');
-         
-         
-           });
-       //--------------change upload image by clicking on button-------------------//
-
-           $('#btn_image').on('click', function () {
-             jQuery('#my_file').trigger('click');
-            });
+   
            
     }); 
     //--------------------------------------------------------------------------

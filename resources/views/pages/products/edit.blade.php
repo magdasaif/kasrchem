@@ -454,6 +454,9 @@
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
+<!-- edit script for edit_upload_image-->
+<script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
+
 <!-- add script for categories and changes on it -->
 <script src="{{ URL::asset('/js/product/edit_script.js') }}"></script>
 
