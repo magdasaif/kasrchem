@@ -31,10 +31,10 @@ class SubcategoryController4 extends Controller
     {
         $from_side_or_no='no';
 
-        $sub_Category3      = Sub_Category3::find($sub3_id); 
-        $Sub_Category2      = Sub_Category2::where('id',$sub_Category3->sub2_id)->first();
-        $sub1_categories    = Main_Category::where('id',$Sub_Category2->cate_id)->first();
-        $sections           = Sitesection::where('id',$sub1_categories->section_id)->first();
+        $sub_Category3      = Sub_Category3::where('visible', '!=' , 0)->find($sub3_id); 
+        $Sub_Category2      = Sub_Category2::where('visible', '!=' , 0)->where('id',$sub_Category3->sub2_id)->first();
+        $sub1_categories    = Main_Category::where('visible', '!=' , 0)->where('id',$Sub_Category2->cate_id)->first();
+        $sections           = Sitesection::where('visible', '!=' , 0)->where('id',$sub1_categories->section_id)->first();
         return view('categories.sub4.add',compact('sub_Category3','Sub_Category2','sub3_id','sections','sub1_categories','from_side_or_no'));
    
     }
@@ -100,17 +100,17 @@ class SubcategoryController4 extends Controller
       // return view('categories.sub4.edit',compact('sub4'));
 
 
-      $data['sub4'] = sub_Category4::findOrfail($sub4_id);
-      $data['sub3_categories'] = sub_Category3::findOrfail($data['sub4']->sub3_id);;
-      $data['sub_categories'] = Sub_Category2::findOrfail($data['sub3_categories']->sub2_id);
-      $data['main_categories'] = Main_Category::findOrfail($data['sub_categories']->cate_id);
-      $data['selected_section'] = Sitesection::findOrfail($data['main_categories']->section_id);
+      $data['sub4'] = sub_Category4::where('visible', '!=' , 0)->findOrfail($sub4_id);
+      $data['sub3_categories'] = sub_Category3::where('visible', '!=' , 0)->findOrfail($data['sub4']->sub3_id);;
+      $data['sub_categories'] = Sub_Category2::where('visible', '!=' , 0)->findOrfail($data['sub3_categories']->sub2_id);
+      $data['main_categories'] = Main_Category::where('visible', '!=' , 0)->findOrfail($data['sub_categories']->cate_id);
+      $data['selected_section'] = Sitesection::where('visible', '!=' , 0)->findOrfail($data['main_categories']->section_id);
 
 
-      $data['sections'] = Sitesection::get();
-      $data['all_main_categories'] = Main_Category::get();
-      $data['all_sub_categories'] = Sub_Category2::get();
-      $data['all_sub3_categories'] = sub_Category3::get();
+      $data['sections'] = Sitesection::where('visible', '!=' , 0)->get();
+      $data['all_main_categories'] = Main_Category::where('visible', '!=' , 0)->get();
+      $data['all_sub_categories'] = Sub_Category2::where('visible', '!=' , 0)->get();
+      $data['all_sub3_categories'] = sub_Category3::where('visible', '!=' , 0)->get();
 
      // dd(sub_Category4::findOrfail($sub4_id));
        return view('categories.sub4.edit',$data);

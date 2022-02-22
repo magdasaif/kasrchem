@@ -32,8 +32,8 @@ class SubcategoryController2_new extends Controller
     public function create()
     {
         $from_side_or_no='yes';
-        $sections = Sitesection::get();
-        $sub1_categories = Main_Category::get();
+        $sections = Sitesection::where('visible', '!=' , 0)->get();
+        $sub1_categories = Main_Category::where('visible', '!=' , 0)->get();
         //return $sub1_categories;
         return view('categories.sub2.add',compact('sections','sub1_categories','from_side_or_no'));
     }

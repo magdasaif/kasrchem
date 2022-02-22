@@ -1,6 +1,6 @@
  //---------------for show selct option of when change on any one of them------------------------//
- $(document).ready(function () {
-
+$(document).ready(function () {
+ 
     $('select[name="section_id"]').on('change', function () {
     // alert('ssss');
     var section_id = $(this).val();
@@ -371,5 +371,9 @@ $('select[name="main_cate_id"]').on('change', function () {
                 alert('AJAX load did not work');
             }
         });
-    });
-    //--------------------------------------------------------------------------//
+   
+           
+    }); 
+    //--------------------------------------------------------------------------
+
+

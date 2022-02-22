@@ -192,7 +192,7 @@ class ReleaseController extends Controller
 //--------------------------------------------
     public function update(ReleaseRequest $request, $id)
     {
-   //dd( $request->all());
+  //dd( $request->all());
    //dd($request->sub2);
         try {
 
@@ -281,10 +281,10 @@ class ReleaseController extends Controller
              if($request->filee)
              {
 
-                $validator=$request->validate(['file' => 'required|max:10000|mimes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document',]);
-             if ($validator->fails()) {
-                return redirect()->back()->with($validator->errorrs());
-            }
+            //     $validator=$request->validate(['file' => 'required|max:10000|mimes:application/pdf,application/vnd.ms-excel',]);
+            //  if ($validator->fails()) {
+            //     return redirect()->back()->with($validator->errorrs());
+            // }
              $folder_name='release_'.$id;
              $file_name= str_replace(' ', '_',($request->filee)->getClientOriginalName());
              ($request->filee)->storeAs($folder_name,$file_name,$disk="release");
@@ -324,16 +324,5 @@ class ReleaseController extends Controller
        }
     }
     //--------------------------------------------
-    public function errorrs()
-    {
 
-    return   [
-        'image.required' =>'الملف مطلوب',
-        'image.max' =>'يجب ان يكون المرفق لا يتعدى ال 10000',
-        'image.mimes' =>'jpg,png,PNG,jpeg,gif,svgامتداد الصوزة غير مناسب يجب ان يكون ',
-
-        'file.required' =>'الصورة مطلوبة',
-        'file.image' =>'يجب ان يكون المرفق المرفوع صورة',
-        'file.mimes' =>'pdf,xml,wordامتداد الملف غير مناسب يجب ان يكون ',
-    ];}
 }

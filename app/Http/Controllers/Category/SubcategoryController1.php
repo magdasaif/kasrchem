@@ -37,7 +37,7 @@ class SubcategoryController1 extends Controller
 
     public function create()
     {
-        $sections = Sitesection::all();
+        $sections = Sitesection::where('visible', '!=' , 0)->get();
 
         return view('categories.sub1.add',compact('sections'));
     }
@@ -125,7 +125,7 @@ class SubcategoryController1 extends Controller
         if(!$categories)
              return redirect()->back();
 
-        $sectionss = Sitesection::all();
+        $sectionss = Sitesection::where('visible', '!=' , 0)->get();
 
         return view('categories.sub1.edit',compact('sectionss','categories'));
     }

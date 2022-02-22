@@ -43,9 +43,9 @@ class SubcategoryController3 extends Controller
     {
         $from_side_or_no='no';
               
-        $Sub_Category2 = Sub_Category2::find($sub2_id);
-        $sub1_categories = Main_Category::where('id',$Sub_Category2->cate_id)->first();
-        $sections = Sitesection::where('id',$sub1_categories->section_id)->first();
+        $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->find($sub2_id);
+        $sub1_categories = Main_Category::where('visible', '!=' , 0)->where('id',$Sub_Category2->cate_id)->first();
+        $sections = Sitesection::where('visible', '!=' , 0)->where('id',$sub1_categories->section_id)->first();
 
         //dd($Sub_Category2);
         return view('categories.sub3.add',compact('Sub_Category2','sub2_id','sections','sub1_categories','from_side_or_no'));
@@ -114,15 +114,15 @@ class SubcategoryController3 extends Controller
 //----------------------------------------------
 public function edit($sub3_id)
 {
-    $sub3_categories = sub_Category3::findOrfail($sub3_id);;
+    $sub3_categories = sub_Category3::where('visible', '!=' , 0)->findOrfail($sub3_id);;
 
-    $sub_categories = Sub_Category2::findOrfail($sub3_categories->sub2_id);
-    $main_categories = Main_Category::findOrfail($sub_categories->cate_id);
-    $selected_section = Sitesection::findOrfail($main_categories->section_id);
+    $sub_categories = Sub_Category2::where('visible', '!=' , 0)->findOrfail($sub3_categories->sub2_id);
+    $main_categories = Main_Category::where('visible', '!=' , 0)->findOrfail($sub_categories->cate_id);
+    $selected_section = Sitesection::where('visible', '!=' , 0)->findOrfail($main_categories->section_id);
 
-    $sections = Sitesection::get();
-    $all_main_categories = Main_Category::get();
-    $all_sub_categories = Sub_Category2::get();
+    $sections = Sitesection::where('visible', '!=' , 0)->get();
+    $all_main_categories = Main_Category::where('visible', '!=' , 0)->get();
+    $all_sub_categories = Sub_Category2::where('visible', '!=' , 0)->get();
 
    // dd($sub_categories);
     return view('categories.sub3.edit',compact('sub_categories','all_sub_categories','sections','main_categories','sub3_categories','selected_section','all_main_categories'));
