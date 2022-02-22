@@ -108,6 +108,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('add_products_files/{id}','Products\ProductController@add_products_files');
     Route::get('delete_products_files/{id}','Products\ProductController@delete_products_files');
 
+    //-----------soft delete && restore -------------------------------------------
+    Route::get('delete_product/{id}','Products\ProductController@delete_product')->name('product_delete');
+    // Route::get('restore_product/{id}','Products\ProductController@restore_product')->name('product_restore');
     //--------------------------------vedio---------------------------------------------
     Route::group(['namespace'=>'Video'],function(){
         Route::resource('video', 'VideoController');

@@ -67,13 +67,13 @@
 
                             <!-- <td>{{$product->code}}</td> -->
                             <td>{{$product->name_ar}}</td>
-                            <td>
+                            <!-- <td>
                               <?php
                             //    $name1= str_replace('&lt;', '<',($product->name_ar));
                             //    $name2= str_replace('&gt;', '>',($name1));
                             //    echo $name2;
                               ?>
-                            </td>
+                            </td> -->
                             <!-- <td>{{$product->price}}</td> -->
                             <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_$product->id/$product->image")?>"></td>
                             <td>{{$product->sort}}</td>
@@ -90,7 +90,14 @@
 
                             <td>
                                 <a href="{{route('products.edit',$product->id)}}" title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
-                            </td>
+                            
+                                /
+                                <a  href="{{route('product_delete',['id'=>$product->id])}}" title="حذف"><i class="fa fa-trash red del"></i></a>
+                                
+                                <!-- / -->
+                                <!-- <a  href="{{route('product_restore',['id'=>$product->id])}}" title="استرجاع"><i class="fas fa-trash-restore del" style="color: #009879;"></i></a> -->
+
+                              </td>
                         </tr>
 
                         @endforeach

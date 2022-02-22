@@ -25,11 +25,18 @@ class Photo_GalleryController extends Controller
     public function create()
     {
        // $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       $sub_Category4      = Sub_Category4::get(); 
+       /*$sub_Category4      = Sub_Category4::get(); 
         $sub_Category3      = Sub_Category3::get(); 
         $Sub_Category2      = Sub_Category2::get();
         $sections           = Sitesection::get();
-       $Main_Cat            = Main_Category::get();
+       $Main_Cat            = Main_Category::get();*/
+        //+++++++++++++++++++++++++new for unrequired +++++++++++++++++++++++++//
+        $sections = Sitesection::where('visible', '!=' , 0)->get();
+        $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+        $sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+        $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+        $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+          //+++++++++++++++++++++++++++++++++++++++++++++//
         return view('pages.Photo_Gallery.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
 //-------------------------------------------------------------//
@@ -47,7 +54,7 @@ class Photo_GalleryController extends Controller
                   ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
                   
               }
-               $photo_gallery = new Photo_Gallery
+              /* $photo_gallery = new Photo_Gallery
               ([
                'main_cate_id' =>  $request->main_category,
                'sub1_id' =>  $request->sub2,
@@ -57,7 +64,60 @@ class Photo_GalleryController extends Controller
                'title_en' =>  $request->title_en,
                'status' =>  $request->status,
                'image' =>$photo_name,
-              ]);
+              ]);*/
+              //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
+            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+            $photo_gallery = new Photo_Gallery();       
+            if(!$request->section_id)
+            {
+                $photo_gallery->site_id= 1;
+            }
+            else
+            {
+                $photo_gallery->site_id= $request->section_id; 
+            }
+
+           if(!$request->main_category)
+            {
+                $photo_gallery->main_cate_id=1;
+            }
+            else
+            {
+                $photo_gallery->main_cate_id= $request->main_category; 
+            }
+          
+          if(!$request->sub2)
+            {
+                $photo_gallery->sub1_id= 1;
+
+            }
+            else
+            {
+                $photo_gallery->sub1_id= $request->sub2; 
+            }
+
+            if(!$request->sub3)
+            {
+                $photo_gallery->sub2_id=1;
+            }
+            else
+            {
+                $photo_gallery->sub2_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $photo_gallery->sub3_id=1;
+            }
+            else
+            {
+                $photo_gallery->sub3_id= $request->sub4; 
+            }
+            $photo_gallery->title_ar=$request->title_ar;
+            $photo_gallery->title_en=$request->title_en;
+            $photo_gallery->status=$request->status;
+            $photo_gallery->image=$photo_name;
+           
+        //++++++++++++++++++++++++++++++++++++++++++//
            $photo_gallery->save();
    
                return redirect()->route('photo_gallery.index')->with(['success'=>'تمت الاضافه بنجاح']);
@@ -73,7 +133,7 @@ class Photo_GalleryController extends Controller
         $photo_gallery = Photo_Gallery::findOrfail($id);
         if(!$photo_gallery) return redirect()->back();
 
-         $sections     = Sitesection::get();
+         /*$sections     = Sitesection::get();
          $Main_Cat = Main_Category::get();
          $Sub_Category4      = Sub_Category4::get();
          $Sub_Category3      = Sub_Category3::get();
@@ -85,27 +145,91 @@ class Photo_GalleryController extends Controller
          $s = Sitesection::findOrfail($main_categories->section_id);
          
         return view('pages.Photo_Gallery.edit',compact('s','sections','photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
-    }
+    */
+     //+++++++++++++++++++++++++new for unrequired +++++++++++++++++++++++++//
+     $sections = Sitesection::where('visible', '!=' , 0)->get();
+     $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+     $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+     $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+     $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+     return view('pages.Photo_Gallery.edit',compact('sections','photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+}
 //-------------------------------------------------------------//
     public function update(Photo_Gallery_Request $request, $id)
     {
-      //dd( $request->all());
+     // dd( $request->all());
       try {
 
         $validated = $request->validated();
         $Photo_Gallery = Photo_Gallery::findOrFail($id);
          // $Photo_Gallery->main_cate_id = $request->main_category;
-          $Photo_Gallery->main_cate_id = $request->main_cate_id;
+         
+         /* $Photo_Gallery->main_cate_id = $request->main_cate_id;
          $Photo_Gallery->sub1_id =  $request->sub2;
         $Photo_Gallery->sub2_id = $request->sub3;
         $Photo_Gallery->sub3_id=  $request->sub4;
         $Photo_Gallery-> title_ar= $request->title_ar;
         $Photo_Gallery->title_en = $request->title_en;
-        $Photo_Gallery-> status=$request->status;
+        $Photo_Gallery-> status=$request->status;*/
+   //++++++++++++++++++++++++++++++++++++++++++//   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
+            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+                
+            if(!$request->section_id)
+            {
+                $Photo_Gallery->site_id= 1;
+            }
+            else
+            {
+                $Photo_Gallery->site_id= $request->section_id; 
+            }
 
+           if(!$request->main_cate_id)
+            {
+                $Photo_Gallery->main_cate_id=1;
+            }
+            else
+            {
+                $Photo_Gallery->main_cate_id= $request->main_cate_id; 
+            }
+          
+          if(!$request->sub2)
+            {
+                $Photo_Gallery->sub1_id= 1;
+
+            }
+            else
+            {
+                $Photo_Gallery->sub1_id= $request->sub2; 
+            }
+
+            if(!$request->sub3)
+            {
+                $Photo_Gallery->sub2_id=1;
+            }
+            else
+            {
+                $Photo_Gallery->sub2_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $Photo_Gallery->sub3_id=1;
+            }
+            else
+            {
+                $Photo_Gallery->sub3_id= $request->sub4; 
+            }
+            $Photo_Gallery->title_ar=$request->title_ar;
+            $Photo_Gallery->title_en=$request->title_en;
+            $Photo_Gallery->status=$request->status;
+         
+           
+        //++++++++++++++++++++++++++++++++++++++++++//
         if($request->image)
         {
-        $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+       // $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
         $folder_name='';
         // $photo_name= ($request->image)->getClientOriginalName();
         $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
@@ -113,6 +237,7 @@ class Photo_GalleryController extends Controller
         
         $Photo_Gallery->image = $photo_name;
         }
+      
         $Photo_Gallery->save();
         return redirect()->route('photo_gallery.index')->with(['success'=>'تم التعديل بنجاح']);
         }

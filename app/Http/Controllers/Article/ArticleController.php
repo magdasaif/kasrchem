@@ -23,11 +23,14 @@ class ArticleController extends Controller
  public function create()
     {
         //$Main_Cat = Main_Category::withCount('sub_cate2')->get();
-        $sub_Category4      = Sub_Category4::get(); 
-        $sub_Category3      = Sub_Category3::get(); 
-        $Sub_Category2      = Sub_Category2::get();
-        $Main_Cat           = Main_Category::get();
-        $sections           = Sitesection::get();
+       //++++++++++++++++++++new for unrequired++++++++++++++++++++//
+         //visible', '!=' , 0 هيعرضلى على التصنيفات والاقسام اللى ال 
+         $sub_Category4   = Sub_Category4::where('visible', '!=' , 0)->get(); 
+         $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
+         $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+         $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
+         $sections  = Sitesection::where('visible', '!=' , 0)->get();
+         //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
         return view('pages.Article.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
 //--------------------------------------------
@@ -70,8 +73,9 @@ class ArticleController extends Controller
                ($request->image)->storeAs($folder_name,$photo_name,$disk="article");
                
            }
-            $article = new Article
-           ([
+            $article = new Article();
+           /*
+           $article = new Article([
             'main_cate_id' =>  $request->main_category,
             'sub1_id' =>  $request->sub2,
             'sub2_id' =>  $request->sub3,
@@ -82,7 +86,64 @@ class ArticleController extends Controller
             'content_en' =>  $request->content_en,
             'status' =>  $request->status,
             'image' =>$photo_name,
-           ]);
+           ]);*/
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
+            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+                    
+            if(!$request->section_id)
+            {
+                $article->site_id= 1;
+            }
+            else
+            {
+                $article->site_id= $request->section_id; 
+            }
+
+            if(!$request->main_category)
+            {
+                $article->main_cate_id=1;
+            }
+            else
+            {
+                $article->main_cate_id= $request->main_category; 
+            }
+
+            if(!$request->sub2)
+            {
+                $article->sub1_id= 1;
+
+            }
+            else
+            {
+                $article->sub1_id= $request->sub2; 
+            }
+
+            if(!$request->sub3)
+            {
+                $article->sub2_id=1;
+            }
+            else
+            {
+                $article->sub2_id=$request->sub3; 
+            }
+            if(!$request->sub4)
+            {
+                $article->sub3_id=1;
+            }
+            else
+            {
+                $article->sub3_id= $request->sub4; 
+            }
+          
+            $article->title_ar=$request->title_ar;
+            $article->title_en=$request->title_en;
+            $article->content_ar=$request->content_ar;
+            $article->content_en=$request->content_en;
+            $article->status=$request->status;
+            $article->image=$photo_name;
+
+
+            //++++++++++++++++++++++++++++++++++++++++++//
         $article->save();
 
             return redirect()->route('article.index')->with(['success'=>'تمت الاضافه بنجاح']);
@@ -103,7 +164,7 @@ class ArticleController extends Controller
         $article = Article::findOrfail($id);
         if(!$article) return redirect()->back();
 
-         $sections     = Sitesection::get();
+        /* $sections     = Sitesection::get();
          $Main_Cat = Main_Category::get();
          $Sub_Category4      = Sub_Category4::get();
          $Sub_Category3      = Sub_Category3::get();
@@ -112,8 +173,17 @@ class ArticleController extends Controller
         //to retrive value of section
         $main_categories = Main_Category::findOrfail($article->main_cate_id);
         $s = Sitesection::findOrfail($main_categories->section_id);
-        
-        return view('pages.Article.edit',compact('s','sections','article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+        */
+        //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
+            $sections = Sitesection::where('visible', '!=' , 0)->get();
+            $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+            $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
+            $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
+            $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+    //+++++++++++++++++++++++++++++++++++++++++++++//
+        //return view('pages.Article.edit',compact('s','sections','article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+        return view('pages.Article.edit',compact('sections','article','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+
     }
 //--------------------------------------------
     public function update(ArticleRequest $request)
@@ -123,11 +193,61 @@ class ArticleController extends Controller
 
             $validated = $request->validated();
             $Article = Article::findOrFail($request->id);
+            //+++++++++++++++++++++  old before  unrequire category++++++++++++++++++++++++++++//
             // $Article->main_cate_id = $request->main_category;
-              $Article->main_cate_id = $request->main_cate_id;
+           /*   $Article->main_cate_id = $request->main_cate_id;
              $Article->sub1_id =  $request->sub2;
             $Article->sub2_id = $request->sub3;
-            $Article->sub3_id=  $request->sub4;
+            $Article->sub3_id=  $request->sub4;*/
+            //++++++++++++++++++++++for unrequire category+++++++++++++++++++++++++++//
+              //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
+                    
+              if(!$request->section_id)
+              {
+                  $Article->site_id= 1;
+              }
+              else
+              {
+                  $Article->site_id= $request->section_id; 
+              }
+  
+              if(!$request->main_category)
+              {
+                  $Article->main_cate_id=1;
+              }
+              else
+              {
+                  $Article->main_cate_id= $request->main_category; 
+              }
+  
+              if(!$request->sub2)
+              {
+                  $Article->sub1_id= 1;
+  
+              }
+              else
+              {
+                  $Article->sub1_id= $request->sub2; 
+              }
+  
+              if(!$request->sub3)
+              {
+                  $Article->sub2_id=1;
+              }
+              else
+              {
+                  $Article->sub2_id=$request->sub3; 
+              }
+              if(!$request->sub4)
+              {
+                  $Article->sub3_id=1;
+              }
+              else
+              {
+                  $Article->sub3_id= $request->sub4; 
+              }
+            
+              //++++++++++++++++++++++++++++++++++++++++++//
             $Article-> title_ar= $request->title_ar;
             $Article->title_en = $request->title_en;
             $Article-> content_ar = $request->content_ar;
