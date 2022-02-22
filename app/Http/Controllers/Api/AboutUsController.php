@@ -173,7 +173,16 @@ class AboutUsController extends Controller
 
     public function contact(Request $request){
 
-
+            //use header to read parameter passed in header 
+            // $lang=$request->header('locale');
+        
+            // if($lang=='ar'){
+            //     $selected ="site_name_ar as site_name";
+            //     $selected2="site_desc_ar as site_description";
+            // }else{
+            //      $selected="site_name_en as site_name";
+            //      $selected2="site_desc_en as site_description";
+            // }
         $response = array('response' => '', 'success'=>false);
         
         $validator = Validator::make(
@@ -185,13 +194,13 @@ class AboutUsController extends Controller
             'message'=>'required',
            ],
            [
-            'name.required' =>'اسم الراسل مطلوب',
-            'email.required' => 'تاكد من ادخال البريد الالكترونى',
-            'email.email' =>'تاكد من ادخال البريد الالكترونى بشكل صحيح',
-            'phone.required' =>'تاكد من ادخال الهاتف',
-            'phone.numeric' =>'يجب ان يحتوى الهاتف ع ارقام',
-            'phone.digits' =>'تاكد من ادخال 14 رقم فى الهاتف',
-            'message.required' =>'تاكد من ادخال محتوى الرساله',
+            'name.required' => trans('contact.name'),
+            'email.required' => trans('contact.mail_requird'),
+            'email.email' =>trans('contact.mail_email'),
+            'phone.required' =>trans('contact.phone_requird'),
+            'phone.numeric' =>trans('contact.phone_numeric'),
+            'phone.digits' =>trans('contact.phone_digits'),
+            'message.required' =>trans('contact.message_requird'),
             ]
         );
 
@@ -206,39 +215,54 @@ class AboutUsController extends Controller
             $cont->message =$request->message;
             $cont->save();
 
-             //use header to read parameter passed in header 
-            // $lang=$request->header('locale');
-        
-            // if($lang=='ar'){
-            //     $selected ="site_name_ar as site_name";
-            //     $selected2="site_desc_ar as site_description";
-            // }else{
-            //      $selected="site_name_en as site_name";
-            //      $selected2="site_desc_en as site_description";
-            // }
+             //to email --->mail of site owner
+             $to_email= SiteInfo::get()->pluck('site_mail');          
+
+            Mail::send(
+                'emails.contact',
+                array(
+                    'title' => 'Contact Mail -- تواصل معنا ',
+                    'name' => $request->get('name'),
+                    'mail' => $request->get('email'),
+                    'phone' => $request->get('phone'),
+                    'message' => $request->get('message'),
+                ),
+
+                function ($message) use ($request) {
+                    $message->subject("Contact Mail -- تواصل معنا ");
+                    $message->to($to_email);
+                    $message->from($request->email);
+                    
+
+                }
+            );
+
+
+            $response['response']='تم ارسال الرساله بنجاح';
+            $response['success']='true';
+
+
            
-          
+          //  Mail::To($to_email) ->send(new ConatctEmail($data));
+            //$response['success']= $to_email;
             
-            $mail_body1='From :'.$request->name;
-            $mail_body2='Mail :'.$request->email;
-            $mail_body3='Phone :'.$request->phone;
-            $mail_body4='Message :'.$request->message;
-            
-            $data=['title'=> 'new conatct' , 'name' => $mail_body1, 'mail' => $mail_body2, 'phone' => $mail_body3, 'message' => $mail_body4];
-            
-            //to email --->mail of site owner
-            $to_email= SiteInfo::select('site_mail')->first();          
-            // Mail::To($request->email) ->send(new ConatctEmail($data));
+            // Mail::To($to_email)->send(new ConatctEmail($data),function($message)
+            //  {
+            //      $message->to($to_email, 'Eradco Site')
+            //         // ->replyTo($request->email, $request->name)
+            //          ->replyTo($request->get('email'), $request->get('name'))
+            //          ->subject('Welcome!');
 
-            Mail::To($to_email) ->send(new ConatctEmail($data),function($message)
-             {
-                 $message->to($to_email, 'Eradco Site')
-                     ->replyTo($request->email, 'Reply message')
-                     ->subject('Welcome!');
-             });
+                     
+            //  });
+             
+            // Mail::send('emails.contact',$data,function($message)
+            //  {
+            //      $message->to($to_email, 'Eradco Site')
+            //          ->replyTo($request->email, $request->name)
+            //          ->subject('Welcome!');
+            //  });
 
-             $response['response']='تم ارسال الرساله بنجاح';
-             $response['success']='true';
              
         }
 
