@@ -12,6 +12,12 @@ $(document).ready(function () {
            $('#btn_image').on('click', function () {
              jQuery('#my_file').trigger('click');
             });
+
+        //--------------change upload file by clicking on button-------------------//
+ 
+            $('#btn_file').on('click', function () {
+              jQuery('#my_filee').trigger('click');
+             });
            
     }); 
     //--------------------------------------------------------------------------
