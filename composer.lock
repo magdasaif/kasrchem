@@ -4,8 +4,163 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "372dfb4a5c5888e4acf5bb35759cb28b",
+    "content-hash": "2f6669e027a9495e786930c34836ac12",
     "packages": [
+        {
+            "name": "algolia/algoliasearch-client-php",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/algolia/algoliasearch-client-php.git",
+                "reference": "8d78421f831b31868506e429828935c4dd1a0f23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/8d78421f831b31868506e429828935c4dd1a0f23",
+                "reference": "8d78421f831b31868506e429828935c4dd1a0f23",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^7.2 || ^8.0",
+                "psr/http-message": "^1.0",
+                "psr/log": "^1.0 || ^2.0 || ^3.0",
+                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "fzaninotto/faker": "^1.8",
+                "phpunit/phpunit": "^8.0 || ^9.0",
+                "symfony/yaml": "^2.0 || ^4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "If you prefer to use Guzzle HTTP client instead of the Http Client implementation provided by the package"
+            },
+            "bin": [
+                "bin/algolia-doctor"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.0": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Http/Psr7/functions.php",
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Algolia\\AlgoliaSearch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Algolia Team",
+                    "email": "contact@algolia.com"
+                }
+            ],
+            "description": "Algolia Search API Client for PHP",
+            "keywords": [
+                "algolia",
+                "api",
+                "client",
+                "php",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/3.2.0"
+            },
+            "time": "2022-01-04T15:48:50+00:00"
+        },
+        {
+            "name": "algolia/scout-extended",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/algolia/scout-extended.git",
+                "reference": "b6c530ce30cdca4b67cde905ee8b998ca32ca846"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/algolia/scout-extended/zipball/b6c530ce30cdca4b67cde905ee8b998ca32ca846",
+                "reference": "b6c530ce30cdca4b67cde905ee8b998ca32ca846",
+                "shasum": ""
+            },
+            "require": {
+                "algolia/algoliasearch-client-php": "^3.0.0",
+                "ext-json": "*",
+                "illuminate/console": "^8.0|^9.0",
+                "illuminate/contracts": "^8.0|^9.0",
+                "illuminate/database": "^8.0|^9.0",
+                "illuminate/filesystem": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "laravel/scout": "^8.0|^9.0",
+                "php": "^7.3|^8.0",
+                "riimu/kit-phpencoder": "^2.4"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.13",
+                "laravel/legacy-factories": "^1.1",
+                "mockery/mockery": "^1.4",
+                "nunomaduro/larastan": "^1.0",
+                "orchestra/testbench": "^4.9|^5.9|^6.6|^7.0",
+                "phpstan/phpstan": "^1.3",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "suggest": {
+                "ext-dom": "Required to use the HTML Splitter."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Algolia\\ScoutExtended\\ScoutExtendedServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Algolia\\ScoutExtended\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                },
+                {
+                    "name": "Algolia Team",
+                    "email": "contact@algolia.com"
+                }
+            ],
+            "description": "Scout Extended extends Laravel Scout adding algolia-specific features",
+            "keywords": [
+                "algolia",
+                "analytics",
+                "extended",
+                "laravel",
+                "places",
+                "scout",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/algolia/scout-extended/issues",
+                "source": "https://github.com/algolia/scout-extended/tree/v2.0.0"
+            },
+            "time": "2022-01-28T09:19:24+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",
@@ -1529,6 +1684,78 @@
             "time": "2022-01-25T20:06:06+00:00"
         },
         {
+            "name": "laravel/scout",
+            "version": "v9.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/scout.git",
+                "reference": "06c6da8eb76b98229d8e6bee13ca23904956667e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/06c6da8eb76b98229d8e6bee13ca23904956667e",
+                "reference": "06c6da8eb76b98229d8e6bee13ca23904956667e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/bus": "^8.0|^9.0",
+                "illuminate/contracts": "^8.0|^9.0",
+                "illuminate/database": "^8.0|^9.0",
+                "illuminate/http": "^8.0|^9.0",
+                "illuminate/pagination": "^8.0|^9.0",
+                "illuminate/queue": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "meilisearch/meilisearch-php": "^0.19",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^6.17|^7.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "suggest": {
+                "algolia/algoliasearch-client-php": "Required to use the Algolia engine (^2.2).",
+                "meilisearch/meilisearch-php": "Required to use the MeiliSearch engine (^0.17)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Scout\\ScoutServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Scout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Scout provides a driver based solution to searching your Eloquent models.",
+            "keywords": [
+                "algolia",
+                "laravel",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/scout/issues",
+                "source": "https://github.com/laravel/scout"
+            },
+            "time": "2022-02-15T18:13:05+00:00"
+        },
+        {
             "name": "laravel/serializable-closure",
             "version": "v1.1.0",
             "source": {
@@ -2924,6 +3151,77 @@
             "time": "2022-01-30T08:50:05+00:00"
         },
         {
+            "name": "protonemedia/laravel-paddle",
+            "version": "2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/protonemedia/laravel-paddle.git",
+                "reference": "a994a8ae0562087d1fc8ebbb8b63a5c65b5f8e84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/protonemedia/laravel-paddle/zipball/a994a8ae0562087d1fc8ebbb8b63a5c65b5f8e84",
+                "reference": "a994a8ae0562087d1fc8ebbb8b63a5c65b5f8e84",
+                "shasum": ""
+            },
+            "require": {
+                "egulias/email-validator": "^2.1.10",
+                "ext-openssl": "*",
+                "guzzlehttp/guzzle": "^7.0.1",
+                "illuminate/support": "^8.0",
+                "illuminate/validation": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ProtoneMedia\\LaravelPaddle\\PaddleServiceProvider"
+                    ],
+                    "aliases": {
+                        "Paddle": "ProtoneMedia\\LaravelPaddle\\Paddle"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ProtoneMedia\\LaravelPaddle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Baljet",
+                    "email": "pascal@protone.media",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Paddle.com integration for Laravel",
+            "homepage": "https://github.com/protonemedia/laravel-paddle",
+            "keywords": [
+                "laravel-paddle",
+                "paddle",
+                "protonemedia"
+            ],
+            "support": {
+                "issues": "https://github.com/protonemedia/laravel-paddle/issues",
+                "source": "https://github.com/protonemedia/laravel-paddle/tree/2.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/pascalbaljet",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-04-25T20:17:28+00:00"
+        },
+        {
             "name": "psr/cache",
             "version": "1.0.1",
             "source": {
@@ -3626,6 +3924,127 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "riimu/kit-phpencoder",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Riimu/Kit-PHPEncoder.git",
+                "reference": "ca6f004e1290aec7ef4bebf6c0807b30fcf981d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Riimu/Kit-PHPEncoder/zipball/ca6f004e1290aec7ef4bebf6c0807b30fcf981d7",
+                "reference": "ca6f004e1290aec7ef4bebf6c0807b30fcf981d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.4 || ^6.5 || ^5.7"
+            },
+            "suggest": {
+                "ext-gmp": "To convert GMP numbers into PHP code"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Riimu\\Kit\\PHPEncoder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Riikka Kalliomäki",
+                    "email": "riikka.kalliomaki@gmail.com",
+                    "homepage": "http://riimu.net"
+                }
+            ],
+            "description": "Highly customizable alternative to var_export for PHP code generation",
+            "homepage": "http://kit.riimu.net",
+            "keywords": [
+                "code",
+                "encoder",
+                "export",
+                "generator",
+                "variable"
+            ],
+            "support": {
+                "issues": "https://github.com/Riimu/Kit-PHPEncoder/issues",
+                "source": "https://github.com/Riimu/Kit-PHPEncoder/tree/v2.4.1"
+            },
+            "time": "2020-11-29T16:53:17+00:00"
+        },
+        {
+            "name": "spatie/laravel-searchable",
+            "version": "1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-searchable.git",
+                "reference": "9e2bd0ac87a577e212d6d394c444c2a82623b951"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-searchable/zipball/9e2bd0ac87a577e212d6d394c444c2a82623b951",
+                "reference": "9e2bd0ac87a577e212d6d394c444c2a82623b951",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "laravel/framework": "^8.78|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "orchestra/testbench": "^6.27|^7.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Searchable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Pragmatically search through models and other sources",
+            "homepage": "https://github.com/spatie/laravel-searchable",
+            "keywords": [
+                "laravel-searchable",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-searchable/issues",
+                "source": "https://github.com/spatie/laravel-searchable/tree/1.11.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-01-13T09:35:47+00:00"
         },
         {
             "name": "swagger-api/swagger-ui",

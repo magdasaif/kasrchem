@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\LatestMultiMediaController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\RelatedProductController;
 use App\Http\Controllers\Api\AboutUsController;
+use App\Http\Controllers\Api\SearchController;
 
 
 /*
@@ -114,4 +115,4 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
  
  Route::get('/setting',[AboutUsController::class,'setting']);
  
-
+ Route::get('/search',[SearchController::class,'search']);
