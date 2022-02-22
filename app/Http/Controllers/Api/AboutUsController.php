@@ -217,8 +217,7 @@ class AboutUsController extends Controller
             //      $selected2="site_desc_en as site_description";
             // }
            
-            $response['response']='تم ارسال الرساله بنجاح';
-            $response['success']='true';
+          
             
             $mail_body1='From :'.$request->name;
             $mail_body2='Mail :'.$request->email;
@@ -233,12 +232,13 @@ class AboutUsController extends Controller
 
             Mail::To($request->email) ->send(new ConatctEmail($data),function($message)
              {
-                 $message->to($to_email, 'John Smith')
+                 $message->to($to_email, 'Eradco Site')
                      ->replyTo($request->email, 'Reply message')
                      ->subject('Welcome!');
              });
 
-             $response['success']=$data;
+             $response['response']='تم ارسال الرساله بنجاح';
+             $response['success']='true';
              
         }
 
