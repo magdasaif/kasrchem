@@ -230,7 +230,7 @@ class AboutUsController extends Controller
             $to_email= SiteInfo::select('site_mail')->first();          
             // Mail::To($request->email) ->send(new ConatctEmail($data));
 
-            Mail::To($request->email) ->send(new ConatctEmail($data),function($message)
+            Mail::To($to_email) ->send(new ConatctEmail($data),function($message)
              {
                  $message->to($to_email, 'Eradco Site')
                      ->replyTo($request->email, 'Reply message')
