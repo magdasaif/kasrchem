@@ -28,10 +28,10 @@ class SubcategoryController4_new extends Controller
     {
       
         $from_side_or_no='yes';
-        $sub_Category3      = Sub_Category3::get(); 
-        $Sub_Category2      = Sub_Category2::get();
-        $sub1_categories    = Main_Category::get();
-        $sections           = Sitesection::get();
+        $sub_Category3      = Sub_Category3::where('visible', '!=' , 0)->get(); 
+        $Sub_Category2      = Sub_Category2::where('visible', '!=' , 0)->get();
+        $sub1_categories    = Main_Category::where('visible', '!=' , 0)->get();
+        $sections           = Sitesection::where('visible', '!=' , 0)->get();
         return view('categories.sub4.add',compact('sub_Category3','Sub_Category2','sections','sub1_categories','from_side_or_no'));
    
     }

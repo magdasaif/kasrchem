@@ -30,8 +30,8 @@ class SubcategoryController2 extends Controller
     public function show_add_form($cate_id)
     {
         $from_side_or_no='no';
-        $sub1_categories = Main_Category::find($cate_id);
-        $sections = Sitesection::where('id',$sub1_categories->section_id)->first();
+        $sub1_categories = Main_Category::where('visible', '!=' , 0)->find($cate_id);
+        $sections = Sitesection::where('visible', '!=' , 0)->where('id',$sub1_categories->section_id)->first();
 
         //dd($sections);
 
@@ -41,8 +41,8 @@ class SubcategoryController2 extends Controller
     public function create()
     {
         $from_side_or_no='no';
-        $sections = Sitesection::get();
-        $sub1_categories = Main_Category::get();
+        $sections = Sitesection::where('visible', '!=' , 0)->get();
+        $sub1_categories = Main_Category::where('visible', '!=' , 0)->get();
         //return $sub1_categories;
         return view('categories.sub2.add',compact('sub1_categories','from_side_or_no','sections'));
     }
@@ -119,7 +119,7 @@ class SubcategoryController2 extends Controller
     public function show($id)
     {
         $from_side_or_no='no';
-        $categories = Sub_Category2::withcount('sub_cate3')->where('cate_id','=',$id)->get();
+        $categories = Sub_Category2::where('visible', '!=' , 0)->withcount('sub_cate3')->where('cate_id','=',$id)->get();
        // dd($categories);
         return view('categories.sub2.category',compact('categories','id','from_side_or_no'));
     }
@@ -127,12 +127,12 @@ class SubcategoryController2 extends Controller
    
     public function edit($id)
     {
-        $sub_categories = Sub_Category2::findOrfail($id);
-        $main_categories = Main_Category::findOrfail($sub_categories->cate_id);
-        $selected_section = Sitesection::findOrfail($main_categories->section_id);
+        $sub_categories = Sub_Category2::where('visible', '!=' , 0)->findOrfail($id);
+        $main_categories = Main_Category::where('visible', '!=' , 0)->findOrfail($sub_categories->cate_id);
+        $selected_section = Sitesection::where('visible', '!=' , 0)->findOrfail($main_categories->section_id);
 
-        $sections = Sitesection::get();
-        $all_main_categories = Main_Category::get();
+        $sections = Sitesection::where('visible', '!=' , 0)->get();
+        $all_main_categories = Main_Category::where('visible', '!=' , 0)->get();
 
        // dd($sub_categories);
 
@@ -150,7 +150,7 @@ class SubcategoryController2 extends Controller
             //vaildation
            $validated = $request->validated();
 
-            $category = Sub_Category2::findOrfail($request->id);
+            $category = Sub_Category2::where('visible', '!=' , 0)->findOrfail($request->id);
 
            // $category->cate_id=$request->cate_id;
             $category->cate_id=$request->main_cate_id;
