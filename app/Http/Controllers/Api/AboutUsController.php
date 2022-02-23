@@ -262,10 +262,13 @@ class AboutUsController extends Controller
                     'content' => $request->get('message'),
                 ),
                 function ($message) use ($request) {
+                    $message->from($request->email);
                     $message->subject("Contact Mail -- تواصل معنا ");
 //                     $message->to( ($site_email) ? $site_email : 'eradunited@murabba.dev' );
-                   $message->to('eradunited@murabba.dev');
-                    $message->from($request->email);
+                    foreach ( SiteInfo::get()->pluck('site_mail') as $recipient) {
+                    Mail::to($recipient)->send($cont);
+                    }
+//                    $message->to('eradunited@murabba.dev');
                 }
             );
 
