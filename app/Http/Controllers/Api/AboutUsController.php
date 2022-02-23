@@ -248,27 +248,26 @@ class AboutUsController extends Controller
              //to email --->get mail of site owner to send mail to it
              $site_email= SiteInfo::get()->pluck('site_mail')->first();
 
-           $response['success']=$site_email;
+//            $response['success']=$site_email;
 
             //send mail with the content (passed here) of contact blade in emails folder
              //handel subject,from ,to in this mail
-            // Mail::send(
-            //     'emails.contact',
-            //     array(
-            //         'title' => 'Contact Mail -- تواصل معنا ',
-            //         'name' => $request->get('name'),
-            //         'mail' => $request->get('email'),
-            //         'phone' => $request->get('phone'),
-            //         'content' => $request->get('message'),
-            //     ),
-            //     function ($message) use ($request) {
-            //         $message->subject("Contact Mail -- تواصل معنا ");
-            //         $message->to($site_email);
-            //        // $message->to('eradunited@murabba.dev');
-            //         $message->from($request->email);
-
-            //     }
-            // );
+            Mail::send(
+                'emails.contact',
+                array(
+                    'title' => 'Contact Mail -- تواصل معنا ',
+                    'name' => $request->get('name'),
+                    'mail' => $request->get('email'),
+                    'phone' => $request->get('phone'),
+                    'content' => $request->get('message'),
+                ),
+                function ($message) use ($request) {
+                    $message->subject("Contact Mail -- تواصل معنا ");
+                    $message->to($site_email);
+                   // $message->to('eradunited@murabba.dev');
+                    $message->from($request->email);
+                }
+            );
 
 
             $response['response']='تم ارسال الرساله بنجاح';
