@@ -17,9 +17,9 @@ class AboutUsController extends Controller
 {
 
     public function about_us(Request $request){
-        //use header to read parameter passed in header 
+        //use header to read parameter passed in header
         $lang=$request->header('locale');
-      
+
         if($lang=='ar'){
             $selected ="title_ar as title";
             $selected2="mission_ar as mission";
@@ -35,7 +35,7 @@ class AboutUsController extends Controller
       //  $about->map(function($i) { $i->type = 'about_us'; });
         return response($about,200,['OK']);
     }
-    
+
 
     /**
      * @OA\Get (
@@ -81,9 +81,9 @@ class AboutUsController extends Controller
      */
 
     public function setting(Request $request){
-        //use header to read parameter passed in header 
+        //use header to read parameter passed in header
         $lang=$request->header('locale');
-      
+
         if($lang=='ar'){
             $selected ="site_name_ar as site_name";
             $selected2="site_desc_ar as site_description";
@@ -95,8 +95,8 @@ class AboutUsController extends Controller
        // $setting->map(function($i) { $i->type = 'setting'; });
         return response($setting,200,['OK']);
     }
-   
-    
+
+
     /**
      * @OA\Post(
      *      path="/contact",
@@ -178,9 +178,9 @@ class AboutUsController extends Controller
 
     public function contact(Request $request){
 
-            //use header to read parameter passed in header 
+            //use header to read parameter passed in header
              $lang=$request->header('locale');
-        
+
              if($lang=='ar'){
                 $validation_message = [
                     'name.required' =>'اسم الراسل مطلوب',
@@ -188,9 +188,11 @@ class AboutUsController extends Controller
                     'email.email' => 'تاكد من ادخال البريد الالكترونى بشكل صحيح',
                     'phone.required' =>'تاكد من ادخال الهاتف',
                     'phone.numeric' =>'يجب ان يحتوى الهاتف ع ارقام',
+                    'phone.min' =>'الحد الأدني لرقم الهاتف ٩ أرقام',
+                    'phone.max' =>'أقصي حد لرقم الهاتف ١٤ رقم',
                     'phone.digits' =>'تاكد من ادخال 14 رقم فى الهاتف',
                     'message.required' =>'تاكد من ادخال محتوى الرساله',
-                
+
                 ];
             }else{
                 $validation_message =[
@@ -199,9 +201,11 @@ class AboutUsController extends Controller
                     'email.email' => 'Be sure that mail is valid',
                     'phone.required' =>'Phone is requird',
                     'phone.numeric' =>'Be sure phone is numeric',
+                    'phone.min' =>'Phone Number must be at least 9 digits',
+                    'phone.max' =>'Phone Number Could be 14 digits at most',
                     'phone.digits' =>'Be sure phone is 14 digit',
                     'message.required' =>'Message is requird',
-                
+
                 ];
             }
 
@@ -216,13 +220,13 @@ class AboutUsController extends Controller
             //     'message.required' =>trans('contact.message_requird'),
             //     ]
         $response = array('response' => '', 'success'=>false);
-        
+
         $validator = Validator::make(
             $request->all(),
             [
             'name' => 'required',
             'email' =>'required|email',
-            'phone'=>'required|numeric|digits:14',//00966547449384
+            'phone'=>'required|numeric|min:9',//00966547449384
             'message'=>'required',
            ],
           $validation_message
@@ -242,7 +246,7 @@ class AboutUsController extends Controller
             $cont->save();
 
              //to email --->get mail of site owner to send mail to it
-             $site_email= SiteInfo::get()->pluck('site_mail');          
+             $site_email= SiteInfo::get()->pluck('site_mail')->first();
 
            $response['success']=$site_email;
 
@@ -271,16 +275,16 @@ class AboutUsController extends Controller
            // $response['success']='true';
 
 
-           
+
           //  Mail::To($to_email) ->send(new ConatctEmail($data));
-            //$response['success']= $to_email;
-             
+//             $response['success']= $to_email;
+
         }
 
         return $response;
 
-       
-       
+
+
     }
-   
+
 }
