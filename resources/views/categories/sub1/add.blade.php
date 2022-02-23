@@ -43,7 +43,8 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"  required  oninvalid="this.setCustomValidity('قم بادخال التصنيف بالعربية بالشكل المطلوب')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control"     aria-describedby="emailHelp" placeholder="Enter name"  name="subname_ar"  id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required >
+                     <span style="color:red;display:none;" id="error_name">  اسم التصنيف باللغة العربية لا يجب ان يكون ارقام فقط</span>
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -51,7 +52,7 @@
             
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" required>
+                    <input type="text" class="form-control" id="subname_en" onkeypress="return CheckArabicCharactersOnly2(event);" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en"  pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" required  oninvalid="this.setCustomValidity('قم بادخال التصنيف بالانجليزية بالشكل المطلوب')"  oninput="this.setCustomValidity('')">
                     @error('subname_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -77,7 +78,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">اضافه</button>
+                        <button  type="submit" class="btn btn-primary"  >اضافه</button>
                 </div>
                 </form>
         </div>
@@ -87,4 +88,9 @@
     </div>
 </section>
 </template>
+
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+    
 @endsection

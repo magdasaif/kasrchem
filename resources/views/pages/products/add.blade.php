@@ -60,7 +60,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
-                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar">{!! old('name_ar')!!}</textarea>
+                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" pattern="^(?=.*[ا-ى])(?=.*[0-9])[ا-ى0-9]+$" >{!! old('name_ar')!!}</textarea>
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
