@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\LatestMultiMediaController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\RelatedProductController;
 use App\Http\Controllers\Api\AboutUsController;
+use App\Http\Controllers\Api\SearchController;
 
 
 /*
@@ -113,5 +114,7 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
  Route::get('/about_us',[AboutUsController::class,'about_us']);
  
  Route::get('/setting',[AboutUsController::class,'setting']);
- 
 
+ Route::Post('/contact',[AboutUsController::class,'contact']);
+ 
+ Route::get('/search',[SearchController::class,'search']);

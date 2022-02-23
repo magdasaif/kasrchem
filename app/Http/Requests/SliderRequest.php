@@ -26,7 +26,7 @@ class SliderRequest extends FormRequest
         return [
             'status' => 'required',
             'priority' => 'required',
-           //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
+           //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|required|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315',
         ];
     }
     public function messages()

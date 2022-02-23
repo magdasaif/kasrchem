@@ -24,7 +24,7 @@ class SliderController extends Controller
       
     try{
             $validated = $request->validated();
-            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048','image requires']);
+            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315','image requires']);
            if($request->image)
            {
               $folder_name='';
@@ -69,7 +69,7 @@ class SliderController extends Controller
 
             if($request->image)
             {
-            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315',]);
             $folder_name='';
             // $photo_name= ($request->image)->getClientOriginalName();
             $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
@@ -84,7 +84,7 @@ class SliderController extends Controller
     }
     catch
     (\Exception $e) {
-        return redirect()->back()->with(['error' => $e->getMessage()]);
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
   
     }

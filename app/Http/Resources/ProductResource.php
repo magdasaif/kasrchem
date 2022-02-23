@@ -29,11 +29,8 @@ class ProductResource extends JsonResource
             return [
                 'id' =>$this->id,
                 'name' =>$this->name,
-                'price' =>$this->price,
-                'offer_price' =>$this->offer_price,
-                'min' =>$this->min_amount,
-                'max' =>$this->max_amount,
-                'stock' =>$this->amount,
+                'description' => $this->desc,
+               
                 'security_clearance' =>$this->security_permit,
                // 'image' => $path.$this->image,
                 'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),

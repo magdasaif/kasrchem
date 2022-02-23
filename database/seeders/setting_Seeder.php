@@ -17,7 +17,7 @@ class setting_Seeder extends Seeder
                  'site_name_en' => "Eradco",
                  'site_desc_ar'=>'وصف موقع ايرادكو',
                  'site_desc_en'=>'description for eradco site',
-                 'site_mail'=>'info@eradco.com',
+                 'site_mail'=>'eradunited@murabba.dev',
                  'site_phone'=>'01020304050',
                  'site_fax'=>'01020304050',
                  'site_whatsapp'=>'01020304050',

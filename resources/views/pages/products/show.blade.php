@@ -94,8 +94,7 @@
                                 /
                                 <a  href="{{route('product_delete',['id'=>$product->id])}}" title="حذف"><i class="fa fa-trash red del"></i></a>
                                 
-                                <!-- / -->
-                                <!-- <a  href="{{route('product_restore',['id'=>$product->id])}}" title="استرجاع"><i class="fas fa-trash-restore del" style="color: #009879;"></i></a> -->
+                             
 
                               </td>
                         </tr>

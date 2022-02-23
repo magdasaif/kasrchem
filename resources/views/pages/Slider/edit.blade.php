@@ -7,18 +7,23 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+        <div class="col-12">
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
-          <div class="col-12">
+         
         
             <div class="card">
               <div class="card-header"  >
@@ -52,7 +57,8 @@
                     تعديل الصورة
                     </button></center>
                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" >
-                    @error('image')
+                   <center><span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span></center>
+                   @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
