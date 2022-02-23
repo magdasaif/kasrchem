@@ -119,7 +119,7 @@ class AboutUsController extends Controller
      *          required=true,
      *          @OA\MediaType(mediaType="multipart/form-data",
      *              @OA\Schema(
-     *                  required={"name","email","phone","message"},
+     *                  required={"name","email","phone","message","token"},
      *                  @OA\Property(
      *                      property="name",
      *                      type="string",

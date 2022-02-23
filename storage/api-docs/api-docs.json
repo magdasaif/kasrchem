@@ -111,6 +111,10 @@
                                     "message": {
                                         "description": "Message Content",
                                         "type": "string"
+                                    },
+                                    "token": {
+                                        "description": "form token",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
