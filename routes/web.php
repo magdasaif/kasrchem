@@ -184,6 +184,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::GET('settings/edit', 'SettingController@edit')->name('settings/edit');
     Route::POST('settings/update', 'SettingController@update')->name('settings/update');
+
+    Route::resource('contact','ContactController');
+
 });
 //--------------------------------------------------------------------------------------//
 Route::get('/docs', function () {
