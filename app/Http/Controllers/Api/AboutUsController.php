@@ -261,8 +261,8 @@ class AboutUsController extends Controller
                 ),
                 function ($message) use ($request) {
                     $message->subject("Contact Mail -- تواصل معنا ");
-                   // $message->to($site_email);
-                    $message->to('eradunited@murabba.dev');
+                    $message->to($site_email);
+                   // $message->to('eradunited@murabba.dev');
                     $message->from($request->email);
 
                 }
