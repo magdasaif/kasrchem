@@ -244,56 +244,36 @@ class AboutUsController extends Controller
              //to email --->get mail of site owner to send mail to it
              $site_email= SiteInfo::get()->pluck('site_mail');          
 
-           // array_merge($request->all(), ['to' => $site_email]);
-            $request->request->add(['to' => $site_email]); 
-            $response['success']=$request->all();
+           $response['success']=$site_email;
 
             //send mail with the content (passed here) of contact blade in emails folder
              //handel subject,from ,to in this mail
-            Mail::send(
-                'emails.contact',
-                array(
-                    'title' => 'Contact Mail -- تواصل معنا ',
-                    'name' => $request->get('name'),
-                    'mail' => $request->get('email'),
-                    'phone' => $request->get('phone'),
-                    'content' => $request->get('message'),
-                ),
-                function ($message) use ($request) {
-                    $message->subject("Contact Mail -- تواصل معنا ");
-                    $message->to($site_email);
-                   // $message->to('eradunited@murabba.dev');
-                    $message->from($request->email);
+            // Mail::send(
+            //     'emails.contact',
+            //     array(
+            //         'title' => 'Contact Mail -- تواصل معنا ',
+            //         'name' => $request->get('name'),
+            //         'mail' => $request->get('email'),
+            //         'phone' => $request->get('phone'),
+            //         'content' => $request->get('message'),
+            //     ),
+            //     function ($message) use ($request) {
+            //         $message->subject("Contact Mail -- تواصل معنا ");
+            //         $message->to($site_email);
+            //        // $message->to('eradunited@murabba.dev');
+            //         $message->from($request->email);
 
-                }
-            );
+            //     }
+            // );
 
 
             $response['response']='تم ارسال الرساله بنجاح';
-            //$response['success']='true';
+           // $response['success']='true';
 
 
            
           //  Mail::To($to_email) ->send(new ConatctEmail($data));
             //$response['success']= $to_email;
-            
-            // Mail::To($to_email)->send(new ConatctEmail($data),function($message)
-            //  {
-            //      $message->to($to_email, 'Eradco Site')
-            //         // ->replyTo($request->email, $request->name)
-            //          ->replyTo($request->get('email'), $request->get('name'))
-            //          ->subject('Welcome!');
-
-                     
-            //  });
-             
-            // Mail::send('emails.contact',$data,function($message)
-            //  {
-            //      $message->to($to_email, 'Eradco Site')
-            //          ->replyTo($request->email, $request->name)
-            //          ->subject('Welcome!');
-            //  });
-
              
         }
 

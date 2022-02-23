@@ -116,6 +116,5 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
  Route::get('/setting',[AboutUsController::class,'setting']);
 
  Route::Post('/contact',[AboutUsController::class,'contact']);
-
  
  Route::get('/search',[SearchController::class,'search']);
