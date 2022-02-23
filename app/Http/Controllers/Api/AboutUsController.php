@@ -246,27 +246,35 @@ class AboutUsController extends Controller
             $cont->save();
 
              //to email --->get mail of site owner to send mail to it
-             $site_email= SiteInfo::get()->pluck('site_mail')->first();
+//              $site_email= SiteInfo::get()->pluck('site_mail')->first();
 
 //            $response['success']=$site_email;
 
             //send mail with the content (passed here) of contact blade in emails folder
              //handel subject,from ,to in this mail
-            Mail::send(
-                'emails.contact',
-                array(
-                    'title' => 'Contact Mail -- تواصل معنا ',
-                    'name' => $request->get('name'),
-                    'mail' => $request->get('email'),
-                    'phone' => $request->get('phone'),
-                    'content' => $request->get('message'),
-                ),
-                function ($message) use ($request) {
-                    $message->from($request->email);
-                    $message->subject("Contact Mail -- تواصل معنا ");
+//             Mail::send(
+//                 'emails.contact',
+//                 array(
+//                     'title' => 'Contact Mail -- تواصل معنا ',
+//                     'name' => $request->get('name'),
+//                     'mail' => $request->get('email'),
+//                     'phone' => $request->get('phone'),
+//                     'content' => $request->get('message'),
+//                 ),
+//                 function ($message) use ($request) {
+//                     $message->from($request->email);
+//                     $message->subject("Contact Mail -- تواصل معنا ");
 //                     $message->to( ($site_email) ? $site_email : 'eradunited@murabba.dev' );
                     foreach ( SiteInfo::get()->pluck('site_mail') as $recipient) {
-                    Mail::to($recipient)->send($cont);
+                    Mail::to($recipient)->send(
+                                    array(
+                                        'title' => 'Contact Mail -- تواصل معنا ',
+                                        'name' => $request->get('name'),
+                                        'mail' => $request->get('email'),
+                                        'phone' => $request->get('phone'),
+                                        'content' => $request->get('message'),
+                                    ),
+                    );
                     }
 //                    $message->to('eradunited@murabba.dev');
                 }
