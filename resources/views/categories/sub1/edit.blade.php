@@ -43,7 +43,9 @@
                         
                         <div class="form-group">
                             <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$categories->subname_ar}}" required>
+                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"   id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);" value="{{$categories->subname_ar}}" required>
+                            <span style="color:red;display:none;" id="error_name">  اسم التصنيف باللغة العربية لا يجب ان يكون ارقام فقط</span>
+
                             @error('subname_ar')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
@@ -102,7 +104,7 @@
 </template>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
 @endsection
