@@ -397,12 +397,7 @@
         </a>
       </li>
       <!-------------------------------------------------------------------------->
-      <!-- <li class="nav-item">
-        <a href="{{route('contact.index')}}" class="nav-link">
-          <i class="nav-icon fas fa-envelope-open-text green"></i>
-          <p  class="ttitle">تواصل معنا</p>
-        </a>
-      </li> -->
+    
       <!-------------------------------------------------------------------------->
       @endcan
       
