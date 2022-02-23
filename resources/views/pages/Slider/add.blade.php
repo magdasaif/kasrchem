@@ -6,19 +6,23 @@
 <template>
 <section class="content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row">    
+          <div class="col-12">
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
-
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
-          <div class="col-12">
+       
         
             <div class="card">
               <div class="card-header" >
@@ -31,10 +35,6 @@
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
-
-
-           
-
                 <div class="form-group">
                     <label for="priority">الأولوية</label>
                     <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="ادخل الأولوية" name="priority"  value="{{ old('priority') }}" required  oninvalid="this.setCustomValidity('قم بادخال الاولوية')"  oninput="this.setCustomValidity('')">
@@ -46,6 +46,8 @@
                 <div class="form-group">
                     <label for="image">صوره</label>
                     <input type="file" class="form-control" name="image"  accept="image/*" required  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
+                    <!-- <span style="color:red">dimensions [width must be between (850 and 1200)  , height must be between (315 and 600)]</span> -->
+                    <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
