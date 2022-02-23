@@ -93,7 +93,8 @@
                                     "name",
                                     "email",
                                     "phone",
-                                    "message"
+                                    "message",
+                                    "token"
                                 ],
                                 "properties": {
                                     "name": {
