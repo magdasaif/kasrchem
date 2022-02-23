@@ -17,6 +17,7 @@ use App\Models\Sitesection;
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Supplier;
+use App\Models\Photo_Gallery;
 
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 // use ProtoneMedia\LaravelPaddle\Events\SubscriptionCreated;
@@ -92,6 +93,7 @@ class SearchController extends Controller
                     ->add(Sub_Category3::select('id','subname_en as name','image'), ['subname_en'])
                     ->add(Supplier::select('id','name_en as name','logo'), ['name_en','description_en'])
                     ->add(Video::select('id','title_en as name','link'), ['title_en'])
+                    ->add(Photo_Gallery::select('id','title_en as name','image'), ['title_en'])
                     ->beginWithWildcard()
                     ->paginate()
                     ->get($s);
@@ -106,6 +108,7 @@ class SearchController extends Controller
                     ->add(Sub_Category3::select('id','subname_ar as name','image'), ['subname_ar'])
                     ->add(Supplier::select('id','name_ar as name','logo'), ['name_ar','description_ar'])
                     ->add(Video::select('id','title_ar as name','link'), ['title_ar'])
+                    ->add(Photo_Gallery::select('id','title_en as name','image'), ['title_en'])
                     ->beginWithWildcard()
                     ->paginate()
                     ->get($s);
