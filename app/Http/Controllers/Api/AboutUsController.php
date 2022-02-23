@@ -140,6 +140,11 @@ class AboutUsController extends Controller
      *                      type="string",
      *                      description="Message Content"
      *                  ),
+     *                  @OA\Property(
+     *                      property="token",
+     *                      type="string",
+     *                      description="form token"
+     *                  ),
      *             )
      *         )
      *      ),
@@ -174,15 +179,42 @@ class AboutUsController extends Controller
     public function contact(Request $request){
 
             //use header to read parameter passed in header 
-            // $lang=$request->header('locale');
+             $lang=$request->header('locale');
         
-            // if($lang=='ar'){
-            //     $selected ="site_name_ar as site_name";
-            //     $selected2="site_desc_ar as site_description";
-            // }else{
-            //      $selected="site_name_en as site_name";
-            //      $selected2="site_desc_en as site_description";
-            // }
+             if($lang=='ar'){
+                $validation_message = [
+                    'name.required' =>'اسم الراسل مطلوب',
+                    'email.required' =>'تاكد من ادخال البريد الالكترونى',
+                    'email.email' => 'تاكد من ادخال البريد الالكترونى بشكل صحيح',
+                    'phone.required' =>'تاكد من ادخال الهاتف',
+                    'phone.numeric' =>'يجب ان يحتوى الهاتف ع ارقام',
+                    'phone.digits' =>'تاكد من ادخال 14 رقم فى الهاتف',
+                    'message.required' =>'تاكد من ادخال محتوى الرساله',
+                
+                ];
+            }else{
+                $validation_message =[
+                    'name.required' =>'Sender name is requird',
+                    'email.required' =>'Email is requird',
+                    'email.email' => 'Be sure that mail is valid',
+                    'phone.required' =>'Phone is requird',
+                    'phone.numeric' =>'Be sure phone is numeric',
+                    'phone.digits' =>'Be sure phone is 14 digit',
+                    'message.required' =>'Message is requird',
+                
+                ];
+            }
+
+            //--------------to use trans fun ---but read site lang instead of passed lang----------------
+            // [
+            //     'name.required' => trans('contact.name'),
+            //     'email.required' => trans('contact.mail_requird'),
+            //     'email.email' =>trans('contact.mail_email'),
+            //     'phone.required' =>trans('contact.phone_requird'),
+            //     'phone.numeric' =>trans('contact.phone_numeric'),
+            //     'phone.digits' =>trans('contact.phone_digits'),
+            //     'message.required' =>trans('contact.message_requird'),
+            //     ]
         $response = array('response' => '', 'success'=>false);
         
         $validator = Validator::make(
@@ -193,31 +225,31 @@ class AboutUsController extends Controller
             'phone'=>'required|numeric|digits:14',//00966547449384
             'message'=>'required',
            ],
-           [
-            'name.required' => trans('contact.name'),
-            'email.required' => trans('contact.mail_requird'),
-            'email.email' =>trans('contact.mail_email'),
-            'phone.required' =>trans('contact.phone_requird'),
-            'phone.numeric' =>trans('contact.phone_numeric'),
-            'phone.digits' =>trans('contact.phone_digits'),
-            'message.required' =>trans('contact.message_requird'),
-            ]
+          $validation_message
         );
 
         if ($validator->fails()) {
              $response['response'] = $validator->messages();
         } else {
 
+            //insert into db
             $cont=new Contact();
             $cont->name =$request->name;
             $cont->email =$request->email;
             $cont->phone =$request->phone;
+            $cont->token =$request->token;
             $cont->message =$request->message;
             $cont->save();
 
-             //to email --->mail of site owner
-             $to_email= SiteInfo::get()->pluck('site_mail');          
+             //to email --->get mail of site owner to send mail to it
+             $site_email= SiteInfo::get()->pluck('site_mail');          
 
+           // array_merge($request->all(), ['to' => $site_email]);
+            $request->request->add(['to' => $site_email]); 
+            $response['success']=$request->all();
+
+            //send mail with the content (passed here) of contact blade in emails folder
+             //handel subject,from ,to in this mail
             Mail::send(
                 'emails.contact',
                 array(
@@ -225,21 +257,20 @@ class AboutUsController extends Controller
                     'name' => $request->get('name'),
                     'mail' => $request->get('email'),
                     'phone' => $request->get('phone'),
-                    'message' => $request->get('message'),
+                    'content' => $request->get('message'),
                 ),
-
                 function ($message) use ($request) {
                     $message->subject("Contact Mail -- تواصل معنا ");
-                    $message->to($to_email);
+                   // $message->to($site_email);
+                    $message->to('eradunited@murabba.dev');
                     $message->from($request->email);
-                    
 
                 }
             );
 
 
             $response['response']='تم ارسال الرساله بنجاح';
-            $response['success']='true';
+            //$response['success']='true';
 
 
            
