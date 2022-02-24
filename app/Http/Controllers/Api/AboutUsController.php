@@ -54,6 +54,7 @@ class AboutUsController extends Controller
         return response($setting,200,['OK']);
     }
 
+    /*
      * @param ContactRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
