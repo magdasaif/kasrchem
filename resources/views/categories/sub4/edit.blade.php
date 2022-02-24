@@ -166,5 +166,6 @@
 <!-- add script for categories and changes on it -->
 <script src="{{ URL::asset('/js/product/edit_script.js') }}"></script>
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+<!-- <script src="{{ URL::asset('/js/regax_name/regax_name _model.js') }}"></script> -->
 
 @endsection

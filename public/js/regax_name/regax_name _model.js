@@ -1,26 +1,24 @@
 //-------------------------------check for  subname_ar with enter -----------------//
 window.onload=function()
 {
-    let regax_name = document.getElementById('regax_name_ar');
-    // let regax_name_ar_model = document.getElementById('regax_name_ar_model');
-    regax_name.addEventListener('keypress', test_regax_name_ar);
-   // regax_name_ar_model.addEventListener('keypress', test_regax_name_ar);
-    function test_regax_name_ar(e) 
+    let regax_name_ar_model = document.getElementById('regax_name_ar_model');
+    regax_name_ar_model.addEventListener('keypress', test_regax_name_ar_model);
+    function test_regax_name_ar_model(e) 
     {
         if (e.keyCode === 13 )
         {
        // alert(regax_name);
-            if(!isNaN(regax_name))
+            if(!isNaN(regax_name_ar_model))
             {
                // هيدخل فى الاف لو كان كاتب رقم
                $(':button[type="submit"]').prop('disabled', true);//make submit  disabled
-                document.getElementById('error_name').style.display = 'block';
-               return !isNaN(regax_name)
+                document.getElementById('error_name_model').style.display = 'block';
+               return !isNaN(regax_name_ar_model)
 
             }
             else
            {
-           document.getElementById('error_name').style.display = 'none'; //if enter char and number or char only
+           document.getElementById('error_name_model').style.display = 'none'; //if enter char and number or char only
             $(':button[type="submit"]').prop('disabled', false);//make submit enabl
            }
             return false;     
@@ -28,27 +26,27 @@ window.onload=function()
     }
 }
 //-----------------------------------click on submit ---------------------//
-function check_regax_name_ar()
+function check_regax_name_ar_model()
 {
-   let text = document.getElementById('regax_name_ar').value;
-            if(!isNaN(text))
+   let text_model = document.getElementById('regax_name_ar_model').value;
+            if(!isNaN(text_model))
             {
                 //it is number only
             // هيدخل فى الاف لو كان كاتب رقم
-            $(':button[type="submit"]').prop('disabled', true);//make submit  disabled
-                document.getElementById('error_name').style.display = 'block';
-                return !isNaN(text)
+            //$(':button[type="submit"]').prop('disabled', true);//make submit  disabled
+                document.getElementById('error_name_model').style.display = 'block';
+                return !isNaN(text_model)
            }
            else
            {
-            document.getElementById('error_name').style.display = 'none'; //if enter char and number or char only
-            $(':button[type="submit"]').prop('disabled', false);//make submit enabl
+            document.getElementById('error_name_model').style.display = 'none'; //if enter char and number or char only
+           // $(':button[type="submit"]').prop('disabled', false);//make submit enabl
            }
            
 }
 //---------------//Allow Arabic Characters only-----------------------//
 
-function CheckArabicCharactersOnly(e) 
+function CheckArabicCharactersOnly_model(e) 
 {
     // 8 = backspace
     // 32 = space
@@ -73,7 +71,7 @@ function CheckArabicCharactersOnly(e)
   
 }
 //-----------------------// Allow english Characters only-------------------------------//
-function CheckEnglishCharactersOnly(e) 
+function CheckEnglishCharactersOnly_model(e) 
 {
     // 0 = numpad
     // 8 = backspace
@@ -93,11 +91,11 @@ function CheckEnglishCharactersOnly(e)
             if ( (unicode < 0x0600 || unicode > 0x06FF)) 
             {
             return true; //مش هيقدر يكتب بالعربى
-             document.getElementById('error_name_en').style.display = 'none'; 
+             document.getElementById('error_name_en_model').style.display = 'none'; 
            }
             else
             {
-                document.getElementById('error_name_en').style.display = 'block'; //if enter char and number or char only
+                document.getElementById('error_name_en_model').style.display = 'block'; //if enter char and number or char only
                  return false;
             }
            

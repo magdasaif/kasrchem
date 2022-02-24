@@ -128,6 +128,7 @@
 @endsection
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+<!-- <script src="{{ URL::asset('/js/regax_name/regax_name _model.js') }}"></script> -->
 <script>
 $(document).ready(function () {
     $('select[name="section_id"]').on('change', function () {
