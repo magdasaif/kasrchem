@@ -13,8 +13,8 @@ class setting_Seeder extends Seeder
         DB::table('site_infos')->delete();
         $site_infos = array(
             array(
-                'site_name_ar' => "ايرادكو",
-                 'site_name_en' => "Eradco",
+                'site_name_ar' => "ايرادكو يونيتد",
+                 'site_name_en' => "Erad United",
                  'site_desc_ar'=>'وصف موقع ايرادكو',
                  'site_desc_en'=>'description for eradco site',
                  'site_mail'=>'eradunited@murabba.dev',
@@ -22,13 +22,13 @@ class setting_Seeder extends Seeder
                  'site_fax'=>'01020304050',
                  'site_whatsapp'=>'01020304050',
                  'site_logo'=>'logo.jpg' ,
-                 
+
                  'created_at'=>date('Y-m-d H:i:s'),
                  'updated_at'=>date('Y-m-d H:i:s'),
                 ),
         );
         DB::table('site_infos')->insert($site_infos);
- 
+
 
 }
 }

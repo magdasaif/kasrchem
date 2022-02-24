@@ -17,19 +17,17 @@ class ConatctEmail extends Mailable
      * @return void
      */
     public $dd;
+    public $maill;
     public function __construct($data)
     {
         $this->dd=$data;
+        $this->maill=$data['mail'];
 
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->view('emails.contact');
+        return $this->from($this->maill)
+                    ->view('emails.contact');
     }
 }

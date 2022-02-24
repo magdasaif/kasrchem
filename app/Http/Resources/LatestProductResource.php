@@ -29,6 +29,7 @@ class LatestProductResource extends JsonResource
             return [
                 'id' =>$this->id,
                 'name' =>$this->name,
+                'description' => $this->desc,
                 'price' =>$this->price,
                 'offer_price' =>$this->offer_price,
                 'min' =>$this->min_amount,

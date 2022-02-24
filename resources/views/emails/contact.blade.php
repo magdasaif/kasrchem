@@ -119,7 +119,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                       <h1 style="font-size: 28px; font-weight: 400; margin: 2;"><?php echo $title;?></h1>
+                       <h1 style="font-size: 28px; font-weight: 400; margin: 2;"><?php echo $dd['title'];?></h1>
                     </td>
                 </tr>
             </table>
@@ -129,12 +129,13 @@
         <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
-                    <td bgcolor="#ffffff" align="right" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;"><?php echo $name; ?> </p>
-                        <p style="margin: 0;"><?php echo $mail ; ?></p>
-                        <p style="margin: 0;"><?php echo  $phone; ?> </p>
-                        <br>
-                        <p style="margin: 0;"><?php echo  $content;?> </p>
+                    <td bgcolor="#ffffff" align="right" style="text-align: inherit;padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Name : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['name']; ?></span> </p>
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Email : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['mail']; ?></span> </p>
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Phone : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['phone']; ?></span> </p>
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Message : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['content']; ?></span> </p>
+                        
                     </td>
                 </tr>
                 <tr>

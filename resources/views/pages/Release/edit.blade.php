@@ -35,10 +35,11 @@
                         <label>  اقسام الموقع </label>
                         <select  class="form-control sub2"  id="section_sel" name="section_id" >
                         <option value="{{$release->relation_with_site->id}}" selected>{{$release->relation_with_site->site_name_ar}}</option>
-                            <!-- <option value="0">جميع الاقسام</option> -->
-                                @foreach ($sections as $sec)
-                                <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
-                                @endforeach
+                            @foreach ($sections as $sec)
+                                @if(($sec->id!=$release->relation_with_site->id)) 
+                                    <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         
                     </div>
@@ -54,7 +55,7 @@
                         @endif
                         @foreach ($Main_Cat as $category)
                             @if(($category->id!=$release->relation_with_main_category->id)   ) 
-                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}}?>>{{ $category->subname_ar }}</option>
+                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}else{echo 'hidden';}}?>>{{ $category->subname_ar }}</option>
                             @endif
                         @endforeach
                  </select>
@@ -84,7 +85,7 @@
                         @endif
                             @foreach ($Sub_Category2 as $sub2)
                                 @if($sub2->id!=$release->relation_with_sub2_category->id )
-                                    <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}}?>>{{ $sub2->subname2_ar }}</option>
+                                    <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}else{echo 'hidden';}}?>>{{ $sub2->subname2_ar }}</option>
                                 @endif
                             @endforeach
                     </select> 
@@ -111,7 +112,7 @@
                      @endif
                       @foreach($Sub_Category3 as $sub3)
                         @if($sub3->id!=$release->relation_with_sub3_category->id ) 
-                            <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $sub3->id){echo "selected";}}?>>{{ $sub3->subname_ar }}</option>
+                            <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $sub3->id){echo "selected";}else{echo 'hidden';}}?>>{{ $sub3->subname_ar }}</option>
                         @endif
                     @endforeach
                  </select> 
@@ -139,7 +140,7 @@
                         @endif
                         @foreach ($Sub_Category4 as $sub4)
                             @if($sub4->id!=$release->relation_with_sub4_category->id )
-                                 <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}}?>>{{ $sub4->subname_ar }}</option>
+                                 <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}else{echo 'hidden';}}?>>{{ $sub4->subname_ar }}</option>
                             @endif
                         @endforeach
                     </select>

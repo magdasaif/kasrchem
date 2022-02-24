@@ -87,17 +87,19 @@ class ProductFilterController extends Controller
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
          
          if($lang=='ar'){
-             $selected="name_ar as name";
-         }else{
-              $selected="name_en as name";
-         }
+            $selected="name_ar as name";
+            $selected2="desc_ar as desc";
+        }else{
+             $selected="name_en as name";
+             $selected2="desc_en as desc";
+        }
          //stock=amunt
          //min=min_amount
          //max=max_amount
          //security_clearance
 
          //  $products = Product::select('id',$selected,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->orderBy('sort','asc')->paginate($perpage);
-         $products = ProductResource::collection(Product::select('*',$selected)->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
+         $products = ProductResource::collection(Product::select('*',$selected,$selected2)->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
          $products->map(function($i) { $i->type = 'first_fun'; });
          return response($products,200,['OK']);
     }
