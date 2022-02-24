@@ -97,16 +97,19 @@
 
                 <!----------------------------------------------------->
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم النوع بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$sub3_categories->subname_ar}}" required>
+                    <label for="exampleInputEmail1">اسم النوع بالعربيه*</label>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$sub3_categories->subname_ar}}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم النوع باللغة العربية وايضا لا يكون ارقام فقط</span>
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم النوع بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$sub3_categories->subname_en}}" required>
+                    <label for="exampleInputEmail1">اسم النوع بالانجليزيه*</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$sub3_categories->subname_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم النوع باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('subname_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -157,6 +160,8 @@
 </template>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 
 <!-- add script for categories and changes on it -->
 <script src="{{ URL::asset('/js/product/edit_script.js') }}"></script>
