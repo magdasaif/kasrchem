@@ -61,12 +61,14 @@ class LatestProductController extends Controller
         $lang=$request->header('locale');
 
         if($lang=='ar'){
-             $selected="name_ar as name";
-         }else{
-              $selected="name_en as name";
-         }
+          $selected="name_ar as name";
+          $selected2="desc_ar as desc";
+      }else{
+           $selected="name_en as name";
+           $selected2="desc_en as desc";
+      }
    
-         $products = LatestProductResource::collection(Product::select('id',$selected,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
+         $products = LatestProductResource::collection(Product::select('id',$selected,$selected2,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
          return response($products,200,['ok']);
     }
 
