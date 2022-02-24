@@ -51,7 +51,7 @@
                         <select class="form-control" id="cate_id2" name="cate_id" required >
                             <option value="" selected disable>كل التصنيفات</option>
                             @foreach ($sub1_categories as $category)
-                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}?>>{{ $category->subname_ar }}</option>
+                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{echo 'hidden';}?>>{{ $category->subname_ar }}</option>
                             @endforeach
                         </select>
                          <!-----------------add new cate if no category found for this section------------------------------------>
@@ -78,7 +78,7 @@
                             <select class="form-control" id="sub2_id2" name="sub2_id" required >
                                 <option value="" selected disable>اختر التصنيف الفرعى</option>
                                 @foreach ($Sub_Category2 as $sub2)
-                                    <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}?>>{{ $sub2->subname2_ar }}</option>
+                                    <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{echo 'hidden';}?>>{{ $sub2->subname2_ar }}</option>
                                 @endforeach
                             </select>
                            
@@ -109,7 +109,7 @@
                             <select class="form-control" id="sub3_id2" name="sub3_id" required >
                                 <option value="" selected disable>كل الانواع الرئيسيه</option>
                                 @foreach ($sub_Category3 as $sub3)
-                                    <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}?>>{{ $sub3->subname_ar }}</option>
+                                    <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{echo 'hidden';}?>>{{ $sub3->subname_ar }}</option>
                                 @endforeach
                             </select>
                         

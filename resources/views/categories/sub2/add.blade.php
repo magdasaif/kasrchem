@@ -53,7 +53,7 @@
                         <select class="form-control" id="cate_id2" name="cate_id" required >
                             <option value="" selected disable>اختر التصنيف الرئيسي</option>
                             @foreach ($sub1_categories as $category)
-                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}?>>{{ $category->subname_ar }}</option>
+                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{echo 'hidden';}?>>{{ $category->subname_ar }}</option>
                             @endforeach
                         </select>
                         <!-----------------add new cate if no category found for this section------------------------------------>

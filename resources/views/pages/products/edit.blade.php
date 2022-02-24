@@ -45,9 +45,11 @@
                         <select  class="form-control sub2"  id="section_sel" name="section_id" >
                         <option value="{{$product->relation_with_site->id}}" selected>{{$product->relation_with_site->site_name_ar}}</option>
    
-                            <option value="1" disabled >جميع الاقسام</option>
+                            <option value="1" <?php if($product->relation_with_site->id=='1'){echo'hidden';}?>>اختر القسم</option>
                                 @foreach ($sections as $sec)
-                                <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
+                                    @if(($sec->id!=$product->relation_with_site->id)) 
+                                        <option value="{{ $sec->id }}" <?php if($sec->id == Session::get('section_id')){echo 'selected';}else{ if(old('section_id') == $sec->id){echo "selected";}}?>>{{ $sec->site_name_ar }}</option>
+                                    @endif
                                 @endforeach
                         </select>
 
@@ -64,7 +66,7 @@
                         
                         @foreach ($categories as $category)
                             @if($product->relation_with_main_category->id != $category->id)
-                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}}?>>{{ $category->subname_ar }}</option>
+                                <option value="{{ $category->id }}" <?php if($category->id == Session::get('cate_id')){echo 'selected';}else{ if(old('main_category_id') == $category->id){echo "selected";}else{echo 'hidden';}}?>>{{ $category->subname_ar }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -91,7 +93,7 @@
                     <select  class="form-control sub2"  id="sub2_sel" name="sub2" >
                         <option value="{{ $product->relation_with_sub2_category->id }}" selected >{{ $product->relation_with_sub2_category->subname2_ar }}</option>
                         @foreach ($Sub_Category2 as $sub2)
-                            <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}}?>>{{ $sub2->subname2_ar }}</option>
+                            <option value="{{ $sub2->id }}" <?php if($sub2->id == Session::get('sub2_id')){echo 'selected';}else{ if(old('sub2') == $sub2->id){echo "selected";}else{echo 'hidden';}}?>>{{ $sub2->subname2_ar }}</option>
                         @endforeach
                     </select>
                     <div class="form-control" id="sub2_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف فرعى للتصنيف الرئيسي المختار من فضلك قم باضافته اولا</span>
@@ -115,7 +117,7 @@
                  <select  class="form-control sub3"  id="sub3_sel" name="sub3">
                      <option value="{{$product->relation_with_sub3_category->id}}" selected>{{$product->relation_with_sub3_category->subname_ar}}</option>
                      @foreach ($sub_Category3 as $sub3)
-                            <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $sub3->id){echo "selected";}}?>>{{ $sub3->subname_ar }}</option>
+                            <option value="{{ $sub3->id }}" <?php if($sub3->id == Session::get('sub3_id')){echo 'selected';}else{ if(old('sub3') == $sub3->id){echo "selected";}else{echo 'hidden';}}?>>{{ $sub3->subname_ar }}</option>
                         @endforeach
                  </select>
 
@@ -140,7 +142,7 @@
                     <select  class="form-control sub4"   id="sub4_sel" name="sub4" >
                          <option value="{{$product->relation_with_sub4_category->id}}" selected>{{$product->relation_with_sub4_category->subname_ar}}</option>
                          @foreach ($sub_Category4 as $sub4)
-                            <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}}?>>{{ $sub4->subname_ar }}</option>
+                            <option value="{{ $sub4->id }}" <?php if($sub4->id == Session::get('sub4_id')){echo 'selected';}else{ if(old('sub4') == $sub4->id){echo "selected";}else{echo 'hidden';}}?>>{{ $sub4->subname_ar }}</option>
                         @endforeach
                     </select>
                     <div class="form-control" id="sub4_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد نوع فرعى للنوع الرئيسي المختار من فضلك قم باضافته اولا</span>
