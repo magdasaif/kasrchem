@@ -43,8 +43,9 @@
                         
                         <div class="form-group">
                             <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"   id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);" value="{{$categories->subname_ar}}" required>
-                            <span style="color:red;display:none;" id="error_name">  اسم التصنيف باللغة العربية لا يجب ان يكون ارقام فقط</span>
+                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"   id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+
+                            <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط</span>
 
                             @error('subname_ar')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -53,7 +54,10 @@
                     
                         <div class="form-group">
                             <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$categories->subname_en}}" required>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" value="{{$categories->subname_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+
+                            <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                             @error('subname_en')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
