@@ -72,8 +72,8 @@ class AboutUsController extends Controller
                     'phone.required' =>'تاكد من ادخال الهاتف',
                     'phone.numeric' =>'يجب ان يحتوى الهاتف ع ارقام',
                     'phone.min' =>'الحد الأدني لرقم الهاتف ٩ أرقام',
-                    'phone.max' =>'أقصي حد لرقم الهاتف ١٤ رقم',
-                    'phone.digits' =>'تاكد من ادخال 14 رقم فى الهاتف',
+                   // 'phone.max' =>'أقصي حد لرقم الهاتف ١٤ رقم',
+                  //  'phone.digits' =>'تاكد من ادخال 14 رقم فى الهاتف',
                     'message.required' =>'تاكد من ادخال محتوى الرساله',
                 ];
         } else {
@@ -84,8 +84,8 @@ class AboutUsController extends Controller
                     'phone.required' =>'Phone is requird',
                     'phone.numeric' =>'Be sure phone is numeric',
                     'phone.min' =>'Phone Number must be at least 9 digits',
-                    'phone.max' =>'Phone Number Could be 14 digits at most',
-                    'phone.digits' =>'Be sure phone is 14 digit',
+                  //  'phone.max' =>'Phone Number Could be 14 digits at most',
+                   // 'phone.digits' =>'Be sure phone is 14 digit',
                     'message.required' =>'Message is requird',
                 ];
         }
