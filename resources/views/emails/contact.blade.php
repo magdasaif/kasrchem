@@ -129,12 +129,13 @@
         <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
-                    <td bgcolor="#ffffff" align="right" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;"><h3>Name :</h3><?php echo $dd['name']; ?> </p>
-                        <p style="margin: 0;"><h3>Email :</h3><?php echo $dd['mail'] ; ?></p>
-                        <p style="margin: 0;"><h3>Phone :</h3><?php echo  $dd['phone']; ?> </p>
-                        <br>
-                        <p style="margin: 0;"><?php echo  $dd['content'];?> </p>
+                    <td bgcolor="#ffffff" align="right" style="text-align: inherit;padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Name : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['name']; ?></span> </p>
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Email : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['mail']; ?></span> </p>
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Phone : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['phone']; ?></span> </p>
+                        <p style="margin: 0;"><span style="font-size: 26px; font-weight: 400; margin: 2;color:#54cc96">Message : </span><span style="font-size: 26px; font-weight: 400; margin: 2;"><?php echo $dd['content']; ?></span> </p>
+                        
                     </td>
                 </tr>
                 <tr>
