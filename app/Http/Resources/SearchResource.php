@@ -36,6 +36,9 @@ class SearchResource extends JsonResource
         elseif($this->type=='Supplier'){
             $path= asset('storage/supplier/'. $this->logo);
         }
+        elseif($this->type=='Photo_Gallery'){
+            $path= asset('storage/photo_gallery/gallery_photo_images_no_'.$this->id.'/'. $this->image);
+        }
         elseif($this->type=='Video'){
             $path=  $this->link;
         }
