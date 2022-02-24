@@ -71,7 +71,7 @@ class AboutUsController extends Controller
                     'email.email' => 'تاكد من ادخال البريد الالكترونى بشكل صحيح',
                     'phone.required' =>'تاكد من ادخال الهاتف',
                     'phone.numeric' =>'يجب ان يحتوى الهاتف ع ارقام',
-                    'phone.min' =>'الحد الأدني لرقم الهاتف ٩ أرقام',
+                    'phone.regex' =>'الحد الأدني لرقم الهاتف ٩ أرقام',
                    // 'phone.max' =>'أقصي حد لرقم الهاتف ١٤ رقم',
                   //  'phone.digits' =>'تاكد من ادخال 14 رقم فى الهاتف',
                     'message.required' =>'تاكد من ادخال محتوى الرساله',
@@ -83,7 +83,7 @@ class AboutUsController extends Controller
                     'email.email' => 'Be sure that mail is valid',
                     'phone.required' =>'Phone is requird',
                     'phone.numeric' =>'Be sure phone is numeric',
-                    'phone.min' =>'Phone Number must be at least 9 digits',
+                    'phone.regex' =>'Phone Number must be at least 9 digits',
                   //  'phone.max' =>'Phone Number Could be 14 digits at most',
                    // 'phone.digits' =>'Be sure phone is 14 digit',
                     'message.required' =>'Message is requird',
@@ -97,7 +97,7 @@ class AboutUsController extends Controller
             [
             'name' => 'required',
             'email' =>'required|email',
-            'phone'=>'required|numeric|min:9',//00966547449384
+            'phone'=>'required|regex:/[0-9]{9}/',//00966547449384
             'message'=>'required',
            ],
             $validation_message
@@ -126,7 +126,7 @@ class AboutUsController extends Controller
                 'content' => $request->get('message'),
            ];
 
-            Mail::to($site)->send(new ConatctEmail($data));
+           // Mail::to($site)->send(new ConatctEmail($data));
         
             $response['response'] = 'تم ارسال الرساله بنجاح';
             $response['success']=true;
