@@ -103,7 +103,7 @@ class AboutUsController extends Controller
             $response['response'] = $validator->messages();
         } else {
             //insert into db
-            $cont=new ConatctEmail();
+            $cont=new Contact();
             $cont->name =$request->name;
             $cont->email =$request->email;
             $cont->phone =$request->phone;
@@ -111,7 +111,7 @@ class AboutUsController extends Controller
             $cont->message =$request->message;
             $cont->save();
             foreach (SiteInfo::get()->pluck('site_mail') as $recipient) {
-                Mail::to($recipient)->send($cont);
+                Mail::to($recipient)->send(new ConatctEmail($cont));
             }
             $response['response'] = 'تم ارسال الرساله بنجاح';
         }
