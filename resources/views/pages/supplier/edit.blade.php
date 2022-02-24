@@ -38,8 +38,11 @@
                <!----------------------------------------------------->
               
                <div class="form-group">
-                    <label for="name_ar">اسم المورد  بالعربية </label>
-                    <input type="text" class="form-control" id="name_ar" aria-describedby="name_ar" placeholder="ادخل اسم المعرض بالعربية" name="name_ar" value="{{$Supplier->name_ar}}" required>
+                    <label for="name_ar">اسم المورد  بالعربية *</label>
+                    <input type="text" class="form-control"  aria-describedby="name_ar" placeholder="ادخل اسم المورد بالعربية" name="name_ar" value="{{$Supplier->name_ar}}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم المورد باللغة العربية وايضا لا يكون ارقام فقط</span>
+ 
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -47,8 +50,10 @@
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="name_en">اسم المورد بالانجليزية</label>
-                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المعرض بالانجليزية" name="name_en"  value="{{$Supplier->name_en}}" required>
+                    <label for="name_en">اسم المورد بالانجليزية*</label>
+                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية" name="name_en"  value="{{$Supplier->name_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -110,6 +115,7 @@
 </section>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
