@@ -1,4 +1,4 @@
-//-------------------------------check for  sunname_ar with enter -----------------//
+//-------------------------------check for  subname_ar with enter -----------------//
 window.onload=function()
 {
     let regax_name = document.getElementById('regax_name_ar');
@@ -18,19 +18,20 @@ window.onload=function()
             }
             else
            {
+          document.getElementById('error_name').style.display = 'none'; //if enter char and number or char only
             $(':button[type="submit"]').prop('disabled', false);//make submit enabl
-
            }
             return false;     
         }  
     }
 }
-//-----------------------------------click on submit---------------------//
+//-----------------------------------click on submit ---------------------//
 function check_regax_name_ar()
 {
    let text = document.getElementById('regax_name_ar').value;
             if(!isNaN(text))
             {
+                //it is number only
             // هيدخل فى الاف لو كان كاتب رقم
             $(':button[type="submit"]').prop('disabled', true);//make submit  disabled
                 document.getElementById('error_name').style.display = 'block';
@@ -38,8 +39,8 @@ function check_regax_name_ar()
            }
            else
            {
+            document.getElementById('error_name').style.display = 'none'; //if enter char and number or char only
             $(':button[type="submit"]').prop('disabled', false);//make submit enabl
-
            }
            
 }
@@ -67,9 +68,10 @@ function CheckArabicCharactersOnly(e)
             return false; //disable key press
         }
     }
+  
 }
-//-----------------------// Allow Arabic Characters only-------------------------------//
-function CheckArabicCharactersOnly2(e) 
+//-----------------------// Allow english Characters only-------------------------------//
+function CheckEnglishCharactersOnly(e) 
 {
     // 0 = numpad
     // 8 = backspace
@@ -86,10 +88,14 @@ function CheckArabicCharactersOnly2(e)
         else 
         {
             //if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF))//if not a arabic and number
-            if ( (unicode < 0x0600 || unicode > 0x06FF)) //if not a arabic---> مبيقبلش الكلام اللى مش عربى 
-            return true; //مش هيقدر يتكتب حاجة مش باللغة العربية
+            if ( (unicode < 0x0600 || unicode > 0x06FF)) 
+            {
+            return true; //مش هيقدر يكتب بالعربى
+             document.getElementById('error_name_en').style.display = 'none'; 
+           }
             else
             {
+                document.getElementById('error_name_en').style.display = 'block'; //if enter char and number or char only
                  return false;
             }
            

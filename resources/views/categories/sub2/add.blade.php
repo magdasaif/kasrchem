@@ -70,9 +70,10 @@
 
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <!-- pattern="^[a-zA-Z][a-zA-Z0-9-_]+$" -->
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname2_ar" required>
+                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>  
+
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname2_ar"  id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط</span>
                     @error('subname2_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -80,8 +81,8 @@
             
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <!-- pattern="^[\u0621-\u064A\u0660-\u0669a-zA-Z][a-zA-Z0-9-_]+$" -->
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname2_en"   required>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname2_en"   required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
                     @error('subname2_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -126,6 +127,7 @@
 </template>
 @endsection
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 <script>
 $(document).ready(function () {
     $('select[name="section_id"]').on('change', function () {
