@@ -116,7 +116,7 @@ class AboutUsController extends Controller
             $cont->save();
 
            $site= SiteInfo::get()->first()->pluck('site_mail');
-           $response['success']=$site;
+          
 
            $data=[
                 'title' => 'Contact Mail -- تواصل معنا ',
@@ -129,6 +129,7 @@ class AboutUsController extends Controller
             Mail::to($site)->send(new ConatctEmail($data));
         
             $response['response'] = 'تم ارسال الرساله بنجاح';
+            $response['success']=true;
         }
         return $response;
     }
