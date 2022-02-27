@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\Contact;
 
 class ContactController extends Controller
@@ -30,5 +30,13 @@ class ContactController extends Controller
         {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
+    }
+    
+    public function deleteAll(Request $request)
+    {
+      $all_ids = explode(',',$request->delete_all_id);
+     // dd($all_ids);
+     Contact::whereIn('id',$all_ids)->delete();
+     return redirect()->route('contact.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 }

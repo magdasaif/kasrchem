@@ -92,4 +92,12 @@ class PageController extends Controller
            return redirect()->back()->with(['error' => $e->getMessage()]);
        }
     }
+
+    public function deleteAll(Request $request)
+    {
+      $all_ids = explode(',',$request->delete_all_id);
+     // dd($all_ids);
+     Page::whereIn('id',$all_ids)->delete();
+     return redirect()->route('page.index')->with(['success'=>'تم الحذف بنجاح']);
+    }
 }

@@ -23,7 +23,7 @@
                 </div>
             @endif
 
-
+            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
@@ -42,10 +42,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover styled-table">
+                <table id="datatable" class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr>
+                            <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                             <th>#</th>
                             <!-- <th>كود المنتج</th> -->
                             <th>اسم المنتج</th>
@@ -63,6 +64,7 @@
                         @foreach($products as $product)
                         <?php $i++;?>
                         <tr>
+                            <td><input type="checkbox" value="{{$product->id}}" class="box1" onclick="javascript:check();"></td>
                             <td>{{$i}}</td>
 
                             <!-- <td>{{$product->code}}</td> -->
@@ -90,12 +92,39 @@
 
                             <td>
                                 <a href="{{route('products.edit',$product->id)}}" title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
-                            
                                 /
-                                <a  href="{{route('product_delete',['id'=>$product->id])}}" title="حذف"><i class="fa fa-trash red del"></i></a>
-                                
-                             
+                                <a  title="حذف" data-catid="{$product->id}}" data-toggle="modal" data-target="#delete{{$product->id}}"> <i class="fa fa-trash red del"></i></a> 
 
+                              <!--############################ model for delete #################################-->
+
+                              <div class="modal modal-danger fade" id="delete{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                              <div class="card-header" >
+                                <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
+                              </div>
+                              <form class="delete" action="{{route('product_delete',$product->id)}}" method="GET">
+                              @method('POST')
+                             {{csrf_field()}}
+                              <div class="modal-body">
+                                        <h3 class="text-center">
+                                            هل تريد الحذف بالفعل؟
+                                          </h3>
+                                          <div   style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$product->name_ar}}</div>
+                                    </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                  <input type="submit" value="حذف"  class="btn btn-primary">
+                                </div>
+                                
+
+                              </form>
+                              </div>
+                              </div>
+                              </div>
+                              <!--#############################################################-->
                               </td>
                         </tr>
 
@@ -108,8 +137,15 @@
             </div>
 
           </div>
+
+  <!--========================================================-->
+  <?php $type="product";?>
+  @include('delete_all_model')
+  <!--========================================================-->
         </div>
         </div>
   </section>
 </template>
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/delete_all.js') }}"></script>
 @endsection

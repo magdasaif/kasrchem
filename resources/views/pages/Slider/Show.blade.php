@@ -20,7 +20,8 @@
                 {{Session::get('error')}}
                 </div>
             @endif
-          
+            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
+
         
             <div class="card">
               <div class="card-header" >
@@ -34,10 +35,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover styled-table ">
+                <table id="datatable" class="table table-hover styled-table ">
             <!--#############################################################-->
                   <thead>
                         <tr >
+                        <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                          <th>#</th>
                          <th>الصورة</th>
                         <th>الأولوية</th>
@@ -50,7 +52,9 @@
 
                         @foreach($Slider as $slider)
                             <tr>
+                                
                             <?php $i++; ?>
+                            <td><input type="checkbox" value="{{$slider->id}}" class="box1" onclick="javascript:check();"></td>
                             <td>{{ $i }}</td>
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/slider/{$slider->image}")?> alt="" ></td>
                             <td>{{$slider->priority}}</td>
@@ -109,9 +113,15 @@
                   <pagination :data="products" @pagination-change-page="getResults"></pagination>
             </div> -->
             <!-- /.card -->
+            <!--========================================================-->
+ <?php $type="slider";?>
+  @include('delete_all_model')
+    <!--========================================================--> 
           </div>
         </div>
         </div>
   </section>
 </template>
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/delete_all.js') }}"></script>
 @endsection

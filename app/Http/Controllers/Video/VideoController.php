@@ -243,20 +243,28 @@ public function edit($id)
     }
     }
     //--------------------------------------------
-public function destroy($id)
-{
-    // dd($id);
-    try
+    public function destroy($id)
     {
-    $Video=Video::find($id);
-    $Video->delete();
-    return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
-   }
-   catch
-   (\Exception $e)
-   {
-       return redirect()->back()->with(['error' => $e->getMessage()]);
-   }
-}
+        // dd($id);
+        try
+        {
+            $Video=Video::find($id);
+            $Video->delete();
+            return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
+        }
+        catch
+        (\Exception $e)
+        {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function deleteAll(Request $request)
+    {
+      $all_ids = explode(',',$request->delete_all_id);
+     // dd($all_ids);
+     Video::whereIn('id',$all_ids)->delete();
+     return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
+    }
 
 }

@@ -309,5 +309,13 @@ class Photo_GalleryController extends Controller
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
 //--------------------------------------------------------------------------
-   
+
+    public function deleteAll(Request $request)
+    {
+    $all_ids = explode(',',$request->delete_all_id);
+    // dd($all_ids);
+    Photo_Gallery::whereIn('id',$all_ids)->delete();
+    return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
+    }
+
 }
