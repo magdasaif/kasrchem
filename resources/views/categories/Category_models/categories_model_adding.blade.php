@@ -1,5 +1,4 @@
 <div class="container">
- 
   <!-------------------------------- [ Modal #0 ]------------------------------------------------------- -->
   <div class="modal fade" id="exampleModal0" tabindex="-1">
     <div class="modal-dialog">
@@ -25,15 +24,19 @@
             
             <div class="form-group">
                 <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" required>
-                @error('subname_ar')
+                <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" id="regax_name_ar_model0" onkeyup="check_regax_name_ar_model(0);" onkeypress="return CheckArabicCharactersOnly_model(event,0);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+
+                <span style="color:red;display:none;font-weight: bold;" id="error_name_model0"> يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط</span>
+               @error('subname_ar')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
             </div>
         
             <div class="form-group">
                 <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" required>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname_en" required onkeypress="return CheckEnglishCharactersOnly_model(event,0);"  pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                <span style="color:red;display:none;font-weight: bold;" id="error_name_en_model0"> يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                 @error('subname_en')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
@@ -101,16 +104,19 @@
 
                 
                 <div class="form-group">
-                    <label >اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter name" name="subname2_ar" required>
+                    <label >اسم التصنيف الفرعى بالعربيه</label>
+                    <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter name" name="subname2_ar" id="regax_name_ar_model1" onkeyup="check_regax_name_ar_model(1);" onkeypress="return CheckArabicCharactersOnly_model(event,1);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف الفرعى باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_model1"> يجب ان يكون اسم التصنيف الفرعى باللغة العربية وايضا لا يكون ارقام فقط</span>
                     @error('subname2_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
             
                 <div class="form-group">
-                    <label >اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname2_en" required>
+                    <label >اسم التصنيف الفرعى بالانجليزيه</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="subname2_en" required onkeypress="return CheckEnglishCharactersOnly_model(event,1);"  pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$"oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en_model1"> يجب ان يكون اسم التصنيف الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('subname2_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -151,9 +157,8 @@
      </div>
     </div>
   </div>
-
-  <!------------------------------------------------ [ Modal #3 ]--------------------------------------------------------->
-  <div class="modal fade" id="exampleModal3" tabindex="-1">
+   <!------------------------------------------------ [ Modal #3 ]--------------------------------------------------------->
+   <div class="modal fade" id="exampleModal3" tabindex="-1">
     <div class="modal-dialog">
      <div class="modal-content">
       <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
@@ -184,7 +189,9 @@
             
             <div class="form-group">
                 <label for="exampleInputEmail1">اسم النوع بالعربيه</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ادخل اسم الفرع بالعربية" name="subname_ar" required>
+                <input type="text" class="form-control" aria-describedby="emailHelp"  placeholder="ادخل اسم النوع بالعربية" name="subname_ar" id="regax_name_ar_model3" onkeyup="check_regax_name_ar_model(3);" onkeypress="return CheckArabicCharactersOnly_model(event,3);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                <span style="color:red;display:none;font-weight: bold;" id="error_name_model3"> يجب ان يكون اسم النوع باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                 @error('subname_ar')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
@@ -192,7 +199,9 @@
         
             <div class="form-group">
                 <label for="exampleInputEmail1">اسم النوع بالانجليزيه</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ادخل اسم الفرع بالانجليزية" name="subname_en" required>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="ادخل اسم النوع بالانجليزية" name="subname_en" required onkeypress="return CheckEnglishCharactersOnly_model(event,3);"  pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$"oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">  
+                <span style="color:red;display:none;font-weight: bold;" id="error_name_en_model3"> يجب ان يكون اسم النوع باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                 @error('subname_en')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
@@ -242,7 +251,7 @@
      <div class="modal-content">
       <div class="card-header">
         <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-        اضافه نوع  فرعى                </h5>
+        اضافه نوع  فرعى</h5>
             
 
       </div>
@@ -270,7 +279,8 @@
             
             <div class="form-group">
                 <label for="exampleInputEmail1">اسم النوع الفرعى  بالعربيه</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_ar" required>
+                <input type="text" class="form-control"  aria-describedby="emailHelp"  name="subname_ar"  id="regax_name_ar_model4" onkeyup="check_regax_name_ar_model(4);" onkeypress="return CheckArabicCharactersOnly_model(event,4);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع الفرعى باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                <span style="color:red;display:none;font-weight: bold;" id="error_name_model4"> يجب ان يكون اسم النوع الفرعى باللغة العربية وايضا لا يكون ارقام فقط</span>
                 @error('subname_ar')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
@@ -278,7 +288,9 @@
         
             <div class="form-group">
                 <label for="exampleInputEmail1">اسم النوع الفرعى بالانجليزيه</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_en" required>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_en" required onkeypress="return CheckEnglishCharactersOnly_model(event,4);"  pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$"oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                <span style="color:red;display:none;font-weight: bold;" id="error_name_en_model4"> يجب ان يكون اسم النوع الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                 @error('subname_en')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
@@ -339,7 +351,9 @@
 
                         <div class="form-group">
                             <label for="name_ar"> اسم المورد </label>
-                            <input type="text" class="form-control" id="name_ar" aria-describedby="name_ar" placeholder="ادخل اسم المورد" name="name_ar"  value="{{ old('name_ar') }}" required  oninvalid="this.setCustomValidity('قم بادخال المورد بالعربية')"  oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control"  aria-describedby="name_ar" placeholder="ادخل اسم المورد" name="name_ar"  value="{{ old('name_ar') }}" required  id="regax_name_ar_model5" onkeyup="check_regax_name_ar_model(5);" onkeypress="return CheckArabicCharactersOnly_model(event,5);"    oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                            <span style="color:red;display:none;font-weight: bold;" id="error_name_model5"> يجب ان يكون اسم المورد باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                             @error('name_ar')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
@@ -348,7 +362,9 @@
                         <!----------------------------------------------------->
                         <div class="form-group">
                             <label for="name_en">اسم المورد بالانجليزية</label>
-                            <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية"  value="{{ old('name_en') }}" name="name_en" required  oninvalid="this.setCustomValidity('قم بادخال اسم المورد بالانجليزية')"  oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control" id="name_en" aria-describedby="name_en"  placeholder="ادخل اسم المورد بالانجليزية"  value="{{ old('name_en') }}" name="name_en" required onkeypress="return CheckEnglishCharactersOnly_model(event,5);"  pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$"oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                            <span style="color:red;display:none;font-weight: bold;" id="error_name_en_model5"> يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                             @error('name_en')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
