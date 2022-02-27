@@ -20,8 +20,9 @@
                 {{Session::get('error')}}
                 </div>
             @endif
-          
-        
+
+            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
+                
             <div class="card">
               <div class="card-header" >
                 <h3 class="card-title" > تواصل معنا</h3>
@@ -31,10 +32,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover styled-table ">
+                <table id="datatable"  class="table table-hover styled-table ">
             <!--#############################################################-->
                   <thead>
-                        <tr >
+                        <tr>
+                         <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                          <th>#</th>
                          <th>الاسم</th>
                         <th>البريد الالكترونى</th>
@@ -48,6 +50,7 @@
 
                         @foreach($contact as $cont)
                         <tr>
+                        <td><input type="checkbox" value="{{$cont->id}}" class="box1" onclick="javascript:check();"></td>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
                             <td>{{$cont->name}}</td>
@@ -67,16 +70,15 @@
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
                                 <form class="delete" action="{{route('contact.destroy',$cont->id)}}" method="POST">
-                                   
+                                @method('GET')
+                                {{csrf_field()}}
                                     <div class="modal-body">
-                                            <center><h3 class="text-center">
+                                            <center><h3 class="text-center" style="margin-right: -127px;">
                                                 هل تريد الحذف بالفعل؟
                                              </h3><center>
                                     </div>
                                     <div class="modal-footer">
                                    
-                                    <input type="hidataen" name="_method" value="DELETE">
-                                    <input type="hidataen" name="_token" value="{{ csrf_token() }}" />
                                     <center>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <input type="submit" value="حذف"  class="btn btn-primary">
@@ -95,7 +97,10 @@
                 </table>
                 </div></div>
            <!--#############################################################-->
-
+  <!--========================================================-->
+  <?php $type="contact";?>
+  @include('delete_all_model')
+    <!--========================================================-->    
 
             <!-- /.card-body -->
             <!-- <div class="card-footer">
@@ -107,4 +112,6 @@
         </div>
   </section>
 </template>
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/delete_all.js') }}"></script>
 @endsection

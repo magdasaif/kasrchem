@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Supplier;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use App\Models\Supplier_image;
+use App\Models\Product_supplier;
 use App\Http\Requests\Supplier_Request;
 use Illuminate\Http\Request;
 
@@ -115,15 +116,22 @@ class SupplierController extends Controller
      public function destroy(Request $request ,$id)
     {
          // dd($id);
-
-         $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
-        // dd($id); 
-         unlink($image_path);
+        
+         
          try 
          {
-         $Supplier=Supplier::find($id);  
-         $Supplier->delete(); 
-         return redirect()->route('supplier.index')->with(['success'=>'تم الحذف بنجاح']);
+            $found_product= Product_supplier::where('supplier_id',$id)->count();
+            if($found_product>0){
+                return redirect()->route('supplier.index')->with(['error'=>'يوجد منتجات مرتبطه بهذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...']);
+            }else{
+                $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
+                // dd($id); 
+                unlink($image_path);
+            
+                $Supplier=Supplier::find($id);  
+                $Supplier->delete(); 
+                return redirect()->route('supplier.index')->with(['success'=>'تم الحذف بنجاح']);
+             }
         }
         catch
         (\Exception $e)
@@ -176,5 +184,25 @@ class SupplierController extends Controller
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
 // //--------------------------------------------------------------------------
-   
+    public function deleteAll(Request $request)
+    {
+        $all_ids = explode(',',$request->delete_all_id);
+        $new_ids=array();
+        $found=0;
+
+        foreach($all_ids as $id){
+            $found_product= Product_supplier::where('supplier_id',$id)->count();
+            if($found_product>0){//supplier related with product
+                $found++;
+            }else{
+                array_push($new_ids,$id);//all supplier ids that don't related with products
+            }
+        }
+        
+                
+        // dd($all_ids);
+        Supplier::whereIn('id',$new_ids)->delete();
+        return redirect()->route('supplier.index')->with(['success'=>'تم حذف الموردين الغير مرتبطين بمنتجات ']);
+            
+    }
 }

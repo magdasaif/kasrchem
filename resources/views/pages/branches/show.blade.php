@@ -25,7 +25,8 @@
                 </div>
             @endif
           
-        
+            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
+            
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">  {{$title}}</h3>
@@ -41,10 +42,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover styled-table">
+                <table id="datatable" class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr>
+                            <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                             <th>#</th>
                             <th>اسم الفرع</th>
                             <th>الهاتف</th>
@@ -58,6 +60,7 @@
                         @foreach($branches as $branche)
                         <?php $i++;?>
                         <tr>
+                        <td><input type="checkbox" value="{{$branche->id}}" class="box1" onclick="javascript:check();"></td>
                             <td>{{$i}}</td>
                             <td>{{$branche->name_ar}}</td>
                             <td>{{$branche->phone}}</td>
@@ -107,8 +110,14 @@
             </div>
           
           </div>
+           <!--========================================================-->
+  <?php $type="branche";?>
+  @include('delete_all_model')
+  <!--========================================================-->
         </div>
         </div>
   </section>
 </template>
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/delete_all.js') }}"></script>
 @endsection

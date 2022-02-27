@@ -131,7 +131,8 @@
                 </div>
             @endif
           
-        
+            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
+
             <div class="card">
               <div class="card-header" >
                 <h3 class="card-title">  {{$title}}</h3>
@@ -147,10 +148,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover styled-table">
+                <table  id="datatable" class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr >
+                           <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                             <th>#</th>
                             <th>اسم الرابط</th>
                             <th> الايقون</th>
@@ -163,6 +165,7 @@
                         @foreach($socialLinks as $social)
                         <?php $i++;?>
                         <tr>
+                            <td><input type="checkbox" value="{{$social->id}}" class="box1" onclick="javascript:check();"></td>
                             <td>{{$i}}</td>
                             <td>{{$social->name}}</td>
                             <td ><li class="{{$social->icon}} "></li></td>
@@ -213,7 +216,13 @@
             </div>
             
           </div>
+           <!--========================================================-->
+ <?php $type="social";?>
+  @include('delete_all_model')
+    <!--========================================================--> 
         </div>
         </div>
   </section>
+  <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/delete_all.js') }}"></script>
 @endsection

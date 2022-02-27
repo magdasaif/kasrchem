@@ -126,4 +126,14 @@ class PartnerController extends Controller
         return redirect()->route('partner.index')->with(['success'=>'تم الحذف ']);
 
     }
+
+    
+  public function deleteAll(Request $request)
+  {
+    $all_ids = explode(',',$request->delete_all_id);
+   // dd($all_ids);
+   Partner::whereIn('id',$all_ids)->delete();
+   return redirect()->route('partner.index')->with(['success'=>'تم الحذف بنجاح']);
+  }
+
 }

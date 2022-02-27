@@ -602,7 +602,8 @@ class ProductController extends Controller
         }
     }
 //-----------------------------------------------------------------------------//
-    public function delete_product(Request $request,$product_id)
+   // public function delete_product(Request $request,$product_id)
+    public function delete_product($product_id)
     { 
        // dd($product_id);
         Product::where('id',$product_id)->delete(); //soft_delete
@@ -619,5 +620,11 @@ class ProductController extends Controller
 //    return redirect()->route('products.index')->with(['success'=>'تم استرجاع المنتج بنجاح']); 
 // }
 //----------------------------------------------------------------------------------//
-   
+public function deleteAll(Request $request)
+{
+  $all_ids = explode(',',$request->delete_all_id);
+ // dd($all_ids);
+ Product::whereIn('id',$all_ids)->delete();
+ return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
+}
 }

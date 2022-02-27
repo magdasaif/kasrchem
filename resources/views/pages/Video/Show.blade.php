@@ -20,7 +20,8 @@
                 </div>
             @endif
           
-        
+            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">  الفيديوهات</h3>
@@ -36,10 +37,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover styled-table">
+                <table id="datatable" class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
                         <tr  style="color: #17899b;" >
+                        <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                         <th>#</th>
                         <th>عنوان الفيديو</th>
                         <th>الحالة</th>
@@ -50,6 +52,7 @@
                          <?php $i = 0; $status=1?>
                         @foreach($Vid as $video)
                             <tr>
+                            <td><input type="checkbox" value="{{$video->id}}" class="box1" onclick="javascript:check();"></td>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
                             <td>{{$video->title_ar}}</td>
@@ -104,19 +107,15 @@
             </div>
           
           </div>
+           <!--========================================================-->
+  <?php $type="video";?>
+  @include('delete_all_model')
+  <!--========================================================-->
         </div>
         </div>
   </section>
-@endsection
+
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-<script >
-    // $(".delete").on("submit", function(){
+<script src="{{ URL::asset('/js/delete_all.js') }}"></script>
 
-
-    //     if(!confirm(" هل تريد الحذف بالفعل؟"))
-    //     event.preventDefault();
-    //     return confirm(" هل تريد الحذف بالفعل؟");
-    // });
-
- 
-</script>
+@endsection

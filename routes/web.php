@@ -68,10 +68,14 @@ Route::group(['middleware' => 'auth'], function () {
     //-----------------------slider-------------------------------------------------------
     Route::group(['namespace'=>'Slider'],function(){
         Route::resource('slider', 'SliderController');
+        Route::post('delete_all_slider', 'SliderController@deleteAll')->name('delete_all_slider');
+
     });
     //--------------------------------article---------------------------------------------
     Route::group(['namespace'=>'Article'],function(){
         Route::resource('article', 'ArticleController');
+        
+        Route::post('delete_all_article', 'ArticleController@deleteAll')->name('delete_all_article');
 
         Route::GET('/sub2_article/{main_category_id}','ArticleController@findsub2');
         Route::GET('/sub3_article/{sub2_id}','ArticleController@findsub3');
@@ -80,8 +84,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     //-------------------------Products----------------------------------------------------
     Route::group(['namespace'=>'Products'],function(){
-        Route::resource('products', 'ProductController');
-
+        Route::resource('products', 'ProductController');       
+        Route::post('delete_all_product', 'ProductController@deleteAll')->name('delete_all_product');
     });
     //----------------------------add product with livewire---------------------------------
 
@@ -114,25 +118,28 @@ Route::group(['middleware' => 'auth'], function () {
     //--------------------------------vedio---------------------------------------------
     Route::group(['namespace'=>'Video'],function(){
         Route::resource('video', 'VideoController');
+        Route::post('delete_all_video', 'VideoController@deleteAll')->name('delete_all_video');
     });
     //--------------------------------partners---------------------------------------------
     Route::group(['namespace'=>'Partners'],function(){
         Route::resource('partner', 'PartnerController');
-
+        Route::post('delete_all_partner', 'PartnerController@deleteAll')->name('delete_all_partner');
     });
     //----------------------------release-------------------------------------------------
     Route::group(['namespace'=>'Release'],function(){
         Route::resource('release', 'ReleaseController');
+        Route::post('delete_all_release', 'ReleaseController@deleteAll')->name('delete_all_release');
 
     });
     //----------------------------release-------------------------------------------------
     Route::group(['namespace'=>'Branches'],function(){
         Route::resource('branches', 'BrancheController');
-
+        Route::post('delete_all_branche', 'BrancheController@deleteAll')->name('delete_all_branche');
     });
     //------------------------photo_gallery-------------------------------------------------------
     Route::group(['namespace'=>'Photo_Gallery'],function(){
         Route::resource('photo_gallery', 'Photo_GalleryController');
+        Route::post('delete_all_gallery', 'Photo_GalleryController@deleteAll')->name('delete_all_gallery');
 
     });
     //############photo_gallery images############-
@@ -143,6 +150,7 @@ Route::group(['middleware' => 'auth'], function () {
     //---------------------------pages-------------------------------------------------//
     Route::group(['namespace'=>'Pages'],function(){
         Route::resource('page', 'PageController');
+        Route::post('delete_all_page', 'PageController@deleteAll')->name('delete_all_page');
 
     });
 
@@ -153,7 +161,7 @@ Route::group(['middleware' => 'auth'], function () {
     //----------------------------Social links-----------------------------------------------//
     Route::group(['namespace'=>'SocialLinks'],function(){
         Route::resource('social', 'SocialController');
-
+        Route::post('delete_all_social', 'SocialController@deleteAll')->name('delete_all_social');
     });
 
     //----------------------------Users-------------------------------------------------
@@ -173,6 +181,7 @@ Route::group(['middleware' => 'auth'], function () {
     //------------------------------- ------------------------------------------------//
     Route::group(['namespace'=>'Supplier'],function(){
         Route::resource('supplier', 'SupplierController');
+        Route::post('delete_all_supplier', 'SupplierController@deleteAll')->name('delete_all_supplier');
     });
     //===========show_supplier_image=========//
     Route::get('show_supplier_images/{id}','Supplier\SupplierController@show_supplier_image');
@@ -186,6 +195,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::POST('settings/update', 'SettingController@update')->name('settings/update');
 
     Route::resource('contact','ContactController');
+    Route::post('delete_all_contact', 'ContactController@deleteAll')->name('delete_all_contact');
 
 });
 //--------------------------------------------------------------------------------------//
