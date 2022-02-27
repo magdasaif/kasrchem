@@ -34,9 +34,10 @@
                
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الشريك بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" 
-                    value="{{ old('name_ar') }}" required  oninvalid="this.setCustomValidity('قم بادخال اسم الشريك بالعربية')"  oninput="this.setCustomValidity('')"
-                    >
+                    <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" 
+                    value="{{ old('name_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الشريك باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم الشريك باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -46,8 +47,9 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الشريك بالانجليزيه</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" 
-                    value="{{ old('name_en') }}" required  oninvalid="this.setCustomValidity('قم بادخال اسم الشريك بالانجليزية')"  oninput="this.setCustomValidity('')"
-                    >
+                    value="{{ old('name_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم الشريك باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')"> 
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم الشريك باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -94,4 +96,7 @@
     </div>
 </section>
 </template>
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 @endsection

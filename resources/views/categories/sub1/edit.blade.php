@@ -43,7 +43,7 @@
                         
                         <div class="form-group">
                             <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar"   id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name" name="subname_ar" value="{{$categories->subname_ar}}"   id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
 
                             <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط</span>
 
@@ -87,7 +87,7 @@
 
 
                         <div class="form-group">
-                            <label for="exampleInputEmail1">الحالة</label>
+                        <label for="status">الحالة*</label>
                             <select class="form-control" name="status">
                                     <option value="1" <?php if($categories->status==1){echo'selected';}?> >مُفعل</option>
                                     <option value="0" <?php if($categories->status==0){echo'selected';}?> >غير مُفعل</option>

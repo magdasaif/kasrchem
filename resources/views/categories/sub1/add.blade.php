@@ -42,8 +42,8 @@
 
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه</label>
-                    <input type="text" class="form-control"     aria-describedby="emailHelp" placeholder="Enter name"  name="subname_ar"  id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <label for="exampleInputEmail1">اسم التصنيف بالعربيه*</label>
+                    <input type="text" class="form-control"     aria-describedby="emailHelp" placeholder="Enter name"  name="subname_ar"   value="{{ old('subname_ar') }}"  id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط</span>
                     @error('subname_ar')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -51,8 +51,8 @@
                 </div>
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه</label>
-                    <input type="text" class="form-control" id="subname_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <label for="exampleInputEmail1">اسم التصنيف بالانجليزيه*</label>
+                    <input type="text" class="form-control" id="subname_en"   name="subname_en"  value="{{ old('subname_en') }}"  required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم التصنيف باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
                     @error('subname_en')
@@ -62,9 +62,9 @@
 
                 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label>
+                    <label for="exampleInputEmail1">صوره*</label>
 
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                    <input type="file" class="form-control" name="image" accept="image/*"   value="{{ old('image') }}" required   oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')"> 
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -73,9 +73,11 @@
 
 
                 <div class="form-group">
+                <label for="status">الحالة*</label>
+
                     <select class="form-control" name="status">
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                     <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
                 

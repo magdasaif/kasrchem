@@ -129,7 +129,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم النوع الفرعى  بالعربيه</label>
-                    <input type="text" class="form-control"  aria-describedby="emailHelp"  name="subname_ar" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع الفرعى باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control"  aria-describedby="emailHelp"  name="subname_ar"  value="{{ old('subname_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع الفرعى باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم النوع الفرعى باللغة العربية وايضا لا يكون ارقام فقط</span>
 
                     @error('subname_ar')
@@ -139,7 +139,7 @@
             
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم النوع الفرعى بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="subname_en"  value="{{ old('subname_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم النوع الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
 
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم النوع الفرعى باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
                     @error('subname_en')
@@ -152,8 +152,8 @@
                 <div class="form-group">
                 <label for="exampleInputEmail1">الحالة</label>
                     <select class="form-control" name="status">
-                            <option value="1">مُفعل</option>
-                            <option value="0">غير مُفعل</option>
+                    <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                     <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
                 
