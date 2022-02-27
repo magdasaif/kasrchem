@@ -22,6 +22,8 @@ class setting_Seeder extends Seeder
                  'site_fax'=>'01020304050',
                  'site_whatsapp'=>'01020304050',
                  'site_logo'=>'logo.jpg' ,
+                 'ios_link'=>'https://murabba.com/' ,
+                 'android_link'=>'https://murabba.com/' ,
 
                  'created_at'=>date('Y-m-d H:i:s'),
                  'updated_at'=>date('Y-m-d H:i:s'),

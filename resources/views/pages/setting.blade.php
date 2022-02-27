@@ -105,6 +105,21 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <hr>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">لينك تطبيق الايفون </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" value="{{$info->ios_link}}" name="ios_link">
+                    @error('ios_link')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">لينك تطبيق الاندرويد </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter link" value="{{$info->android_link}}" name="android_link">
+                    @error('android_link')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
 
                      <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>

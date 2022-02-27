@@ -11,6 +11,7 @@ class AboutResource extends JsonResource
     {
       //  $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
 
+        //about us details
         if(isset($this->image)){
             //$path=storage_path().'/app/public/about_us/';
             
@@ -23,7 +24,7 @@ class AboutResource extends JsonResource
                 
             ];
         }
-        else{
+        else{//setting details
            // $path=public_path().'/images/';
             return [
                 'site_name'=>$this->site_name,
@@ -33,6 +34,8 @@ class AboutResource extends JsonResource
                 'site_fax' =>$this->site_fax,
                 'site_whatsapp' =>$this->site_whatsapp,
                 'site_logo' => asset('public/images/' . $this->site_logo),
+                'ios_link' =>$this->ios_link,
+                'android_link' =>$this->android_link,
             ];
         }
     }
