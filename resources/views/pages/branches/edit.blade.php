@@ -36,7 +36,9 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالعربيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$branch->name_ar}}" placeholder="Enter name" name="name_ar" required oninvalid="this.setCustomValidity('قم بادخال اسم الفرع بالعربية')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control"  aria-describedby="emailHelp" value="{{$branch->name_ar}}" placeholder="Enter name" name="name_ar"id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم الفرع باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -46,7 +48,9 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$branch->name_en}}" placeholder="Enter name" name="name_en" required oninvalid="this.setCustomValidity('قم بادخال اسم الفرع بالانجليزية')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$branch->name_en}}" placeholder="Enter name" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -132,6 +136,7 @@
 </template>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 
 <script src="https://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
 

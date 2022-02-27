@@ -60,7 +60,9 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
-                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar"  >{!! old('name_ar')!!}</textarea>
+                    <textarea class="form-control" rows="5" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المنتج باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">{!! old('name_ar')!!}</textarea>
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم المنتج باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -68,7 +70,9 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالانجليزيه</label>
-                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en">{!! old('name_en')!!}</textarea>
+                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المنتج باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">{!! old('name_en')!!}</textarea>
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المنتج باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -322,6 +326,7 @@
 
 <!-- add script for categories and changes on it -->
 <script src="{{ URL::asset('/js/product/add_script.js') }}"></script>
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>

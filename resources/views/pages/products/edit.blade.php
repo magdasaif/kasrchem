@@ -171,7 +171,9 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
-                    <textarea class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar">{!! $product->name_ar !!}</textarea>
+                    <textarea class="form-control" rows="5"  aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المنتج باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">{!! $product->name_ar !!}</textarea>
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم المنتج باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -179,7 +181,9 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالانجليزيه</label>
-                    <textarea  class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en">{!! $product->name_en !!}</textarea>
+                    <textarea  class="form-control" rows="5" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المنتج باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">{!! $product->name_en !!}</textarea>
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المنتج باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -455,7 +459,7 @@
 </div>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
 
