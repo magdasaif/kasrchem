@@ -236,4 +236,5 @@
 
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 @endsection
