@@ -23,6 +23,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('partner.index')}}" class="aa"> <li class="fa fa-handshake" ><span> قائمه الشركاء </span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
  <div class="modal-body">

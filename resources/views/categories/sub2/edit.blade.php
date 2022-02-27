@@ -25,10 +25,9 @@
               <div class="card-header">
                 <h3 class="card-title">تعديل تصنيف</h3>
                 <div class="card-tools">
-                      <button type="button" class="btn btn-sm bbtn">
-                        <a href="{{route('categories2_new.index')}}" class="aa" > <li class="fa fa-plus-square" ><span>قائمه التصنيفات الفرعيه</span></li></a>
-                        <!-- <a href="{{url('categories2/'.$sub_categories->relation_sub2_with_main->id)}}" class="aa" > <li class="fa fa-plus-square" ><span>قائمه التصنيفات الفرعيه</span></li></a> -->
-                     </button>
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('categories2_new.index')}}" class="aa"> <li class="fas fa-cubes" ><span>  قائمة التصنيفات الفرعيه</span></li></a>
+                    </button>
                 </div>
               </div>
  <!--#############################################################-->

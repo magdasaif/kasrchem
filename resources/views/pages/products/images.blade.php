@@ -23,6 +23,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('products.index')}}" class="aa"> <li class="fas fab fa-product-hunt" ><span> قائمه المنتجات </span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
  <div class="modal-body">
@@ -43,7 +48,7 @@
 
                     <input type="hidden" value="{{$product_id}}" name="product_id">
                 </div>
-                <center> <button type="submit" class="btn btn-success">حفظ الصور</button></center>
+                <center> <button type="submit" class="btn btn-primary">حفظ الصور</button></center>
                 <br>
                 
             </form>
@@ -82,7 +87,7 @@
                                         <input type="hidden" name="image_id" value="{{$image->id}}">
 
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <button type="submit" class="btn btn-success" >حذف</button>
+                                        <button type="submit" class="btn btn-primary" >حذف</button>
                                     </div>
                                 </form>
                                 </div>
@@ -91,7 +96,7 @@
             <!--#############################################################-->
             @endforeach
             </div>
-            <br><center><a href="{{route('products.index')}}"><button type="button" class="btn btn-success" > قائمه المنتجات</button></a></center><br>
+            <!-- <br><center><a href="{{route('products.index')}}"><button type="button" class="btn btn-success" > قائمه المنتجات</button></a></center><br> -->
 
             </div>
  <!--#############################################################-->

@@ -23,6 +23,11 @@
             <div class="card">
               <div class="card-header" >
                 <h3 class="card-title">تعديل صفحة</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('page.index')}}" class="aa"> <li class="fa fa-code" ><span> قائمه الصفحات </span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
  <div class="modal-body" >

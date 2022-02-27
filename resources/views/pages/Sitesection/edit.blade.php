@@ -23,6 +23,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">تعديل قسم</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('site_section.index')}}" class="aa"> <li class="fas fa-sitemap" ><span>  اقسام الموقع </span></li></a>
+                    </button>
+                </div>
               </div>
                 <div class="modal-body">
                     <form method="POST"  action="{{route('site_section.update',$section->id)}}" enctype="multipart/form-data">

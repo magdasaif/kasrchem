@@ -26,6 +26,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('branches.index')}}" class="aa"> <li class="fa fa-building" ><span> قائمه الفروع </span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
  <div class="modal-body">

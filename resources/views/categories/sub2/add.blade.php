@@ -24,6 +24,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">اضافه تصنيف فرعى</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('categories2_new.index')}}" class="aa"> <li class="fas fa-cubes" ><span>  قائمة التصنيفات الفرعيه</span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
         <div class="modal-body">
