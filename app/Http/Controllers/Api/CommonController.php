@@ -37,6 +37,50 @@ class CommonController extends Controller
     }
 
 
+    /**
+     * @OA\Get (
+     *      path="/setting",
+     *      operationId="Get site setting information",
+     *      tags={"Setting"},
+     *      summary="Get site setting information",
+     *      @OA\Parameter(
+     *          name="locale",
+     *          description="App Locale",
+     *          required=true,
+     *          in="header",
+     *          @OA\Schema(
+     *              type="string",
+     *              enum={"ar", "en"},
+     *              default="ar"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *     )
+     */
+
+
 
     public function setting(Request $request)
     {
@@ -55,11 +99,89 @@ class CommonController extends Controller
         return response($setting, 200, ['OK']);
     }
 
-    /*
+    /**
+     * @OA\Post(
+     *      path="/contact",
+     *      operationId="send_message",
+     *      tags={"Contact"},
+     *      summary="Contact Message Endpoint",
+     *      description="Send Message",
+     *      @OA\Parameter(
+     *          name="locale",
+     *          description="App Locale",
+     *          required=true,
+     *          in="header",
+     *          @OA\Schema(
+     *              type="string",
+     *              enum={"ar", "en"},
+     *              default="ar"
+     *          )
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  required={"name","email","phone","message","token"},
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                      description="Sender Name"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="email",
+     *                      type="string",
+     *                      description="Sender Email"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="phone",
+     *                      type="string",
+     *                      description="Sender Phone"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="token",
+     *                      type="string",
+     *                      description="Form Token"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="message",
+     *                      type="string",
+     *                      description="Message Content"
+     *                  ),
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Mail not send"
+     *      ),
+     *     )
      * @param ContactRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-  
+    
     public function contact(Request $request)
     {
         //use header to read parameter passed in header
