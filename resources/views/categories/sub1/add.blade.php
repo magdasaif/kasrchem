@@ -23,6 +23,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">اضافه تصنيف</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('categories.index')}}" class="aa"> <li class="fas fa-cubes" ><span>  قائمة التصنيفات الرئيسيه</span></li></a>
+                    </button>
+                </div>
               </div>
         <div class="modal-body">
             

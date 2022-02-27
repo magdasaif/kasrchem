@@ -23,6 +23,11 @@
             <div class="card">
               <div class="card-header" >
                 <h3 class="card-title">تعديل مقال</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('article.index')}}" class="aa"> <li class="fa fa-newspaper" ><span> قائمه المقالات </span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
  <div class="modal-body" >

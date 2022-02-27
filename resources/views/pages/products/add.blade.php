@@ -29,6 +29,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('products.index')}}" class="aa"> <li class="fas fab fa-product-hunt" ><span> قائمه المنتجات </span></li></a>
+                    </button>
+                </div>
               </div>
  <!--#############################################################-->
         <div class="modal-body">

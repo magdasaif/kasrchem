@@ -23,14 +23,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">  اضافه صور المعرض</h3>
-              
-              <div class="card-tools">
-
-<button type="button" class="btn btn-sm bbtn" >
-<a href="{{route('photo_gallery.index')}}" class="aa"> قائمة المعارض</a>
-   </button>
-       
-   </div>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-sm bbtn" >
+                        <a href="{{route('photo_gallery.index')}}" class="aa"> <li class="fa fa-camera" ><span> قائمه المعارض </span></li></a>
+                    </button>
+                </div>
 </div>
  <!--#############################################################-->
           <div class="modal-body">
