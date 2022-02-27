@@ -105,7 +105,6 @@
         </div>
   </section>
 </template>
-@endsection
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
 
@@ -148,3 +147,4 @@ function theFunction(cate_id,cate_name)
 }
   
 </script>
+@endsection
