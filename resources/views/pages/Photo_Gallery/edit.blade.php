@@ -169,7 +169,9 @@
               
                <div class="form-group">
                     <label for="title_ar">اسم المعرض  بالعربية </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم المعرض بالعربية" name="title_ar" value="{{$photo_gallery->title_ar}}" required   oninvalid="this.setCustomValidity('قم بادخال اسم المعرض بالعربية')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" aria-describedby="title_ar" placeholder="ادخل اسم المعرض بالعربية" name="title_ar" value="{{$photo_gallery->title_ar}}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المعرض باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم المعرض باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                     @error('title_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -178,7 +180,9 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم المعرض بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم المعرض بالانجليزية" name="title_en"  value="{{$photo_gallery->title_en}}" required oninvalid="this.setCustomValidity('قم بادخال اسم المعرض بالانجليزية')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم المعرض بالانجليزية" name="title_en"  value="{{$photo_gallery->title_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المعرض باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المعرض باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('title_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -229,6 +233,8 @@
 
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+
 
 <!-- add script for categories and changes on it -->
 <script src="{{ URL::asset('/js/product/edit_script.js') }}"></script>

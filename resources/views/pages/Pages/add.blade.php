@@ -37,7 +37,10 @@
             <!----------------------------------------------------->
                  <div class="form-group">
                     <label for="title_ar">اسم الصفحة  </label>
-                    <input type="text" class="form-control" id="title_ar" aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar"  value="{{ old('title_ar') }}" required oninvalid="this.setCustomValidity('قم بادخال اسم الصفحة بالعربية')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control"  aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar"  value="{{ old('title_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الصفحة باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم الصفحة باللغة العربية وايضا لا يكون ارقام فقط</span>
+
                     @error('title_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -45,7 +48,9 @@
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="title_en">اسم الصفحة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required oninvalid="this.setCustomValidity('قم بادخال اسم الصفحة بالانجليزية')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
+
                     @error('title_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
@@ -108,7 +113,9 @@
     </div>
 </section>
 
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
+<script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
