@@ -59,6 +59,9 @@ class SettingController extends Controller
            $info-> site_phone= $request->site_phone;
            $info-> site_fax= $request->site_fax;
            $info-> site_whatsapp= $request->site_whatsapp;
+           
+           $info-> ios_link= $request->ios_link;
+           $info-> android_link= $request->android_link;
           
 
            if($request->site_logo)

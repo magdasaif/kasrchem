@@ -18,7 +18,7 @@ use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\LatestMultiMediaController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\RelatedProductController;
-use App\Http\Controllers\Api\AboutUsController;
+use App\Http\Controllers\Api\CommonController;
 use App\Http\Controllers\Api\SearchController;
 
 
@@ -111,10 +111,10 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
  Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
 
  ///------------------------------about us------------------------------------
- Route::get('/about_us',[AboutUsController::class,'about_us']);
+ Route::get('/about_us',[CommonController::class,'about_us']);
  
- Route::get('/setting',[AboutUsController::class,'setting']);
+ Route::get('/setting',[CommonController::class,'setting']);
 
- Route::Post('/contact',[AboutUsController::class,'contact']);
+ Route::Post('/contact',[CommonController::class,'contact']);
  
  Route::get('/search',[SearchController::class,'search']);

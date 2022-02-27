@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ConatctEmail;
 use App\Models\Contact;
 
-class AboutUsController extends Controller
+class CommonController extends Controller
 {
     public function about_us(Request $request)
     {
