@@ -1,4 +1,4 @@
-            <div class="form-group">    
+            <div class="form-group" hidden>    
                 <label>  اقسام الموقع </label>
                 
                 <select  class="form-control sub2"  id="section_sel" name="section_id" >
@@ -10,7 +10,7 @@
                  
             </div>
                 
-            <div class="form-group">
+            <div class="form-group" hidden>
                  <label>التصنيف الرئيسى</label>
                  <select class="form-control " name="main_category" id="main_category_id">
                     
@@ -36,7 +36,7 @@
                     ?>
                  </select>
                     <!-----------------add new cate if no category found for this section------------------------------------>
-                  <div class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>
+                  <div hidden class="form-control" id="sub1_requi" style="display:none;"><span style="color:#d54646;font-weight: bold;"> لا يوجـد تصنيف رئيسى للقسم المختار من فضلك قم باضافته اولا</span>
                             <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#exampleModal0" style="margin-right: 23px;font-weight: bold;"></i>
                     </div>
                         <!----------------------------------------------------->
@@ -47,9 +47,9 @@
                 </div>
 
             <!----------------------------------------------------->
-            <input type="hidden" value="" id="selected_main">
-             <div  style="display: block">    
-                <div class="form-group"  id="sub2_div"   >    
+            <input  type="hidden" value="" id="selected_main">
+             <div  style="display: block" >    
+                <div  hidden class="form-group"  id="sub2_div"   >    
                     <label>   التصنيف الفرعي </label>
                     @if(Session::get('cate_id') && !Session::get('sub2_id'))
                         <!-----------------add new cate if no category found for this section------------------------------------>
@@ -73,7 +73,7 @@
                  </div>
              <!----------------------------------------------------- -->
              
-             <div class="form-group"  id="sub3_div" >
+             <div hidden class="form-group"  id="sub3_div" >
                 <label>النوع الرئيسى</label>
                     @if(Session::get('cate_id') && Session::get('sub2_id') && !Session::get('sub3_id'))
                         <!-----------------add new cate if no category found for this section------------------------------------>
@@ -97,7 +97,7 @@
                 @endif
             </div>
                 <!----------------------------------------------------- -->
-            <div class="form-group"  id="sub4_div" > 
+            <div hidden class="form-group"  id="sub4_div" > 
                 <label>النوع الفرعى</label>
                     @if(Session::get('cate_id') && Session::get('sub2_id') && Session::get('sub3_id') && !Session::get('sub4_id'))
                         <!-----------------add new cate if no category found for this section------------------------------------>

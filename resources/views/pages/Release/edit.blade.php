@@ -36,7 +36,7 @@
                 {{method_field('PATCH')}}
                 @csrf
                  <!----------------------------------------------------->
-                 <div class="form-group">    
+                 <div hidden class="form-group">    
                         <label>  اقسام الموقع </label>
                         <select  class="form-control sub2"  id="section_sel" name="section_id" >
                         <option value="{{$release->relation_with_site->id}}" selected>{{$release->relation_with_site->site_name_ar}}</option>
@@ -52,7 +52,7 @@
 
                  <!--'release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'------------------------------------->
               <input type="hidden" name="release_id"  value="{{$release->id}}">
-            <div class="form-group">
+            <div hidden class="form-group">
                  <label>التصنيف الرئيسى</label>
                 <select   class="form-control main_category" id="main_category_id" name="main_cate_id" >
                         @if(!Session::get('cate_id'))
@@ -75,7 +75,7 @@
             
              <!----------------------------------------------------->
         <!-- <div id="all" style="background-color:rgb(247 247 247);border-radius: 23px;width: 95%; margin: auto;padding: 20px;">     -->
-            <div class="form-group"  id="sub2_div" >    
+            <div  hidden class="form-group"  id="sub2_div" >    
                     <label>   التصنيف الفرعي </label>
                     @if(Session::get('cate_id') && !Session::get('sub2_id'))
                         <!-----------------add new cate if no category found for this section------------------------------------>
@@ -102,7 +102,7 @@
             </div>
              <!----------------------------------------------------- -->
              
-             <div class="form-group"  id="sub3_div" >
+             <div  hidden class="form-group"  id="sub3_div" >
                 <label>النوع الرئيسي</label>
                 @if(Session::get('cate_id') && Session::get('sub2_id') && !Session::get('sub3_id'))
                     <!-----------------add new cate if no category found for this section------------------------------------>
@@ -130,7 +130,7 @@
             </div>
 
                 <!----------------------------------------------------- -->
-                <div class="form-group"  id="sub4_div" > 
+                <div  hidden class="form-group"  id="sub4_div" > 
                     <label>النوع الفرعى</label>
                     @if(Session::get('cate_id') && Session::get('sub2_id') && Session::get('sub3_id') && !Session::get('sub4_id'))
                         <!-----------------add new cate if no category found for this section------------------------------------>
