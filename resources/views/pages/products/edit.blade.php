@@ -170,6 +170,7 @@
                         @foreach ($suppliers as $supplier)
                              <option value="{{ $supplier->id }}">{{ $supplier->name_ar }}</option>
                         @endforeach
+                        
                     </select>
                 </div>
                 <hr>

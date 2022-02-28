@@ -20,6 +20,8 @@ class CreateSuppliersTable extends Migration
             $table->string('logo');
             $table->longText('description_ar');
             $table->longText('description_en');
+            $table->integet('parent_id');
+            $table->string('type');
             $table->timestamps();
         });
     }
