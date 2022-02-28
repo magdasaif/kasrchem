@@ -161,14 +161,37 @@
                 <hr>
                 <div class="form-group">
                     <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
+                             <?php
+                            $selected_supplier=array();
+
+                            foreach ($product->suppliers as $supplier_select){
+                              array_push($selected_supplier,$supplier_select->id);
+                             }
+                            // print_r($selected_supplier);
+                                //  if(in_array('1',$selected_supplier)){
+                                //     echo'selected';
+                                // }else{
+                                //     echo'not selected';
+                                // }
+                             ?>
+                            
                     <select class="form-control" name="supplier_id[]"  multiple required>
-
-                        @foreach ($product->suppliers as $supplier_select)
-                             <option selected value="{{ $supplier_select->id }}">{{ $supplier_select->name_ar }}</option>
-                        @endforeach
-
+                            
                         @foreach ($suppliers as $supplier)
-                             <option value="{{ $supplier->id }}">{{ $supplier->name_ar }}</option>
+                        <?php
+                            $style_right="0";
+                            $color="#c20620";
+                            $size="15";
+                            if(in_array($supplier->id,$selected_supplier)){
+                                $select_or_no='selected';
+                            }else{
+                                $select_or_no='';
+                            }
+                        ?>
+                            <option style="margin-right:{{$style_right}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}elseif($supplier->id == Session::get('supplier_id')){echo 'selected';}else{echo $select_or_no;}?>> - {{ $supplier->name_ar }}</option>
+                            @if(count($supplier->childs))
+                                @include('pages.products.manageChild',['childs' => $supplier->childs,'style_right'=>$style_right+30,'color'=>'#209c41','$size'=>$size-1,'selected_supplier'=>$selected_supplier])
+                            @endif
                         @endforeach
                         
                     </select>

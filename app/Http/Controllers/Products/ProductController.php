@@ -417,8 +417,8 @@ class ProductController extends Controller
 
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
 
-          $suppliers= Supplier::get();
-      //  $suppliers= Supplier::where('parent_id', '=', 0)->get();
+         // $suppliers= Supplier::get();
+        $suppliers= Supplier::where('parent_id', '=', 0)->get();
           //-----------------------------------//
   /*if($product->main_cate_id==1 )
   {
