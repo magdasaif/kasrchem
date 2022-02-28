@@ -2,6 +2,7 @@
 @section('title')
 <title> لوحة التحكم :اضافة مورد</title>
 @endsection
+
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -35,12 +36,22 @@
                 @csrf
                <!--------0--supplier , another--sub_supplier------------------>
                <div class="form-group">
-                    <label for="supplier_or_sub">الحالة</label>
-                    <select class="form-control" name="supplier_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع المورد')"  oninput="this.setCustomValidity('')">
-                            <option value="0" selected > اختر المورد</option>
-                            @foreach($Supplier as $Supp)
-                            <option  value="{{$Supp->id}}"  {{ old('supplier_or_sub') == '0' ? "selected" : "" }}> {{$Supp->name_ar}}</option>
-                            @endforeach
+                   <label for="supplier_or_sub">نوع المـــــــورد</label>
+                   
+                   <select class="form-control" name="supplier_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع المورد')"  oninput="this.setCustomValidity('')">
+                   <option value="0" selected > مورد رئيسى</option>
+
+                   @foreach($suppliers as $supplier)
+                        <?php
+                            $margin="0";
+                            $color="#c20620";
+                            $size="15";
+                        ?>
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;"  value="{{$supplier->id}}"  {{ old('supplier_or_sub') == '0' ? "selected" : "" }}> {{$supplier->name_ar}}</option>
+                            @if(count($supplier->childs))
+                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','$size'=>$size-1])
+                            @endif
+                        @endforeach
                     </select>
                 </div>
                 <!----------------------------------------------------->
