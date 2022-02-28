@@ -20,14 +20,14 @@ class SupplierController extends Controller
 // //-------------------------------------------------------------//
     public function create()
     {
-       // $suppliers=Supplier::get();
-       $suppliers= Supplier::where('parent_id', '=', 0)->get();
+      //   $suppliers=Supplier::get();
+      $suppliers= Supplier::where('parent_id', '=', 0)->get();
         return view('pages.supplier.add',compact('suppliers'));
     }
 // //-------------------------------------------------------------//
     public function store(Supplier_Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
          try{
             $validated = $request->validated();
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
@@ -91,8 +91,18 @@ class SupplierController extends Controller
     {
        
         $Supplier = Supplier::findOrfail($id);
+        if($Supplier->parent_id==0)
+        {$first_select=0; $parent_of_supplier='';}
+        else
+        {$first_select=''; $parent_of_supplier = Supplier::findOrfail($Supplier->parent_id);}
        
-        return view('pages.supplier.edit',compact('Supplier'));
+        $all_suppliers =Supplier::where('parent_id', '=', 0)->get();
+        //dd( $suppliers);
+     //  dd($parent_of_supplier);
+        if(!$parent_of_supplier){$first_select=0;}else{$first_select='';}
+        //$parent_of_supplier=Supplier::where('id','=',$id)->get();
+        // dd( $parent_of_supplier);
+        return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
     }
 // //-------------------------------------------------------------//
     public function update(Supplier_Request $request, $id)

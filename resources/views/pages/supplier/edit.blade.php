@@ -38,9 +38,41 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
               
-                
-        
-               <!----------------------------------------------------->
+                  <!----------------------------------------------------->
+                  <div  class="form-group">
+                  <label for="supplier_or_sub">نوع المـــــــورد</label>
+                  <select class="form-control" name="supplier_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع المورد')"  oninput="this.setCustomValidity('')">
+                    <?php
+                    if($first_select=='0'){
+                        echo'<option value="0" selected > مورد رئيسى</option>';
+                     }else{?>
+                        <option value="{{ $parent_of_supplier->id}}" selected> {{ $parent_of_supplier->name_ar}}</option>
+
+                    <?php }    
+                        foreach ($all_suppliers as $xx){
+                         
+                        //   if($first_select!='0'){
+                        //    if($xx->id == $parent_of_supplier->id)
+                        //    {}else{
+                          
+                                $margin="0";
+                                $color="#c20620";
+                                $size="15";
+                                $type="supplier";
+                            ?>
+                                <option  value="{{$xx->id}}"  > {{$xx->name_ar}}</option>
+                                @if(count($xx->childs))
+                                    @include('pages.products.manageChild',['childs' => $xx->childs,'margin'=>$margin+30,'color'=>'#209c41','$size'=>$size-1,'type'=>$type])
+                                @endif
+                            <?php
+                            //     }
+                            // } 
+                         }?>
+                        
+                        </select>
+
+                    </div>
+                   <!----------------------------------------------------->
               
                <div class="form-group">
                     <label for="name_ar">اسم المورد  بالعربية *</label>
