@@ -20,12 +20,13 @@ class SupplierController extends Controller
 // //-------------------------------------------------------------//
     public function create()
     {
-        return view('pages.supplier.add');
+        $Supplier=Supplier::get();
+        return view('pages.supplier.add',compact('Supplier'));
     }
 // //-------------------------------------------------------------//
     public function store(Supplier_Request $request)
     {
-         //dd($request->all());
+        // dd($request->all());
          try{
             $validated = $request->validated();
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
@@ -37,12 +38,25 @@ class SupplierController extends Controller
                   ($request->logo)->storeAs($folder_name,$photo_name,$disk="supplier");
                   
               }
+               
+
+              //-----------------------------------//
+              if($request->supplier_or_sub==0)
+              {
+                $ttype="supplier";
+              }
+              else
+              {
+                $ttype="sub_supplier";
+              }
                $Supplier = new Supplier
               ([
                'name_ar' =>  $request->name_ar,
                'name_en' =>  $request->name_en,
                'description_ar' =>  $request->description_ar,
                'description_en' =>  $request->description_en,
+               'parent_id'=>  $request->supplier_or_sub ,
+               'type'=> $ttype  ,
                
                'logo' =>$photo_name,
               ]);
