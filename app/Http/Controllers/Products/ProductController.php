@@ -53,7 +53,9 @@ class ProductController extends Controller
         $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
         $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
         $sections  = Sitesection::where('visible', '!=' , 0)->get();
-        $suppliers= Supplier::get();
+
+
+        $suppliers= Supplier::where('parent_id', '=', 0)->get();
         //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
         // return $categories;
        // return view('pages.products.add',compact('categories','suppliers','title'));
@@ -415,8 +417,8 @@ class ProductController extends Controller
 
          $feature_count = Product_Feature::where('product_id','=',$id)->count();
 
-         $suppliers= Supplier::get();
-
+          $suppliers= Supplier::get();
+      //  $suppliers= Supplier::where('parent_id', '=', 0)->get();
           //-----------------------------------//
   /*if($product->main_cate_id==1 )
   {

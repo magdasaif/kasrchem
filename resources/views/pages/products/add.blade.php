@@ -1,4 +1,6 @@
 @extends('layouts.master')
+
+<!-- <link href="{{ URL::asset('/css/treeview.css') }}" rel="stylesheet"> -->
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
  @endsection
@@ -57,10 +59,20 @@
                     </center>
                     <select class="form-control" name="supplier_id[]"  multiple required>
                         @foreach ($suppliers as $supplier)
-                             <option value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>>{{ $supplier->name_ar }}</option>
+                        <?php
+                            $style_right="0";
+                            $color="#c20620";
+                            $size="15";
+                        ?>
+                            <option style="margin-right:{{$style_right}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>> - {{ $supplier->name_ar }}</option>
+                            @if(count($supplier->childs))
+                                @include('pages.products.manageChild',['childs' => $supplier->childs,'style_right'=>$style_right+30,'color'=>'#209c41','$size'=>$size-1])
+                            @endif
                         @endforeach
                     </select>
                 </div>
+
+                
                 <hr>
 
                 <div class="form-group">
@@ -336,4 +348,5 @@
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
+<!-- <script src="{{ URL::asset('/js/treeview.js') }}"></script> -->
 @endsection
