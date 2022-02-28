@@ -179,18 +179,19 @@
                             
                         @foreach ($suppliers as $supplier)
                         <?php
-                            $style_right="0";
+                            $margin="0";
                             $color="#c20620";
                             $size="15";
+                            $type='product';
                             if(in_array($supplier->id,$selected_supplier)){
                                 $select_or_no='selected';
                             }else{
                                 $select_or_no='';
                             }
                         ?>
-                            <option style="margin-right:{{$style_right}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}elseif($supplier->id == Session::get('supplier_id')){echo 'selected';}else{echo $select_or_no;}?>> - {{ $supplier->name_ar }}</option>
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}elseif($supplier->id == Session::get('supplier_id')){echo 'selected';}else{echo $select_or_no;}?>> - {{ $supplier->name_ar }}</option>
                             @if(count($supplier->childs))
-                                @include('pages.products.manageChild',['childs' => $supplier->childs,'style_right'=>$style_right+30,'color'=>'#209c41','$size'=>$size-1,'selected_supplier'=>$selected_supplier])
+                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','$size'=>$size-1,'selected_supplier'=>$selected_supplier,'type'=>$type])
                             @endif
                         @endforeach
                         

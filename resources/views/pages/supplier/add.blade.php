@@ -2,6 +2,7 @@
 @section('title')
 <title> لوحة التحكم :اضافة مورد</title>
 @endsection
+
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -33,10 +34,29 @@
             <form method="POST" action="{{route('supplier.store')}}" enctype="multipart/form-data">
 
                 @csrf
-               <!----------------------------------------------------->
-              
+               <!--------0--supplier , another--sub_supplier------------------>
                <div class="form-group">
-                    <label for="name_ar"> اسم المورد </label>
+                   <label for="supplier_or_sub">نوع المـــــــورد</label>
+                   
+                   <select class="form-control" name="supplier_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع المورد')"  oninput="this.setCustomValidity('')">
+                   <option value="0" selected > اختر نوع المورد</option>
+
+                   @foreach($suppliers as $supplier)
+                        <?php
+                            $style_right="0";
+                            $color="#c20620";
+                            $size="15";
+                        ?>
+                            <option style="margin-right:{{$style_right}}px;color: {{$color}};font-size: {{$size}}px;"  value="{{$supplier->id}}"  {{ old('supplier_or_sub') == '0' ? "selected" : "" }}> {{$supplier->name_ar}}</option>
+                            @if(count($supplier->childs))
+                                @include('pages.products.manageChild',['childs' => $supplier->childs,'style_right'=>$style_right+30,'color'=>'#209c41','$size'=>$size-1])
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <!----------------------------------------------------->
+               <div class="form-group">
+                    <label for="name_ar"> اسم المورد* </label>
                     <input type="text" class="form-control"  aria-describedby="name_ar" placeholder="ادخل اسم المورد" name="name_ar"  value="{{ old('name_ar') }}" required  id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم المورد باللغة العربية وايضا لا يكون ارقام فقط</span>
 
@@ -47,7 +67,7 @@
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="name_en">اسم المورد بالانجليزية</label>
+                    <label for="name_en">اسم المورد بالانجليزية*</label>
                     <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية"  value="{{ old('name_en') }}" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
@@ -57,7 +77,7 @@
                 </div>
                  <!----------------------------------------------------->
                 <div class="form-group">
-                    <label for="logo">اللوجــو</label>
+                    <label for="logo">اللوجــو*</label>
                     <input type="file" class="form-control" name="logo" accept="image/*" required  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
                     @error('logo')
                     <small class="form-text text-danger">{{$message}}</small>

@@ -20,12 +20,14 @@ class SupplierController extends Controller
 // //-------------------------------------------------------------//
     public function create()
     {
-        return view('pages.supplier.add');
+       // $suppliers=Supplier::get();
+       $suppliers= Supplier::where('parent_id', '=', 0)->get();
+        return view('pages.supplier.add',compact('suppliers'));
     }
 // //-------------------------------------------------------------//
     public function store(Supplier_Request $request)
     {
-         //dd($request->all());
+        //dd($request->all());
          try{
             $validated = $request->validated();
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
@@ -37,17 +39,30 @@ class SupplierController extends Controller
                   ($request->logo)->storeAs($folder_name,$photo_name,$disk="supplier");
                   
               }
+               
+
+              //-----------------------------------//
+              if($request->supplier_or_sub==0)
+              {
+                $ttype="supplier";
+              }
+              else
+              {
+                $ttype="sub_supplier";
+              }
                $Supplier = new Supplier
               ([
                'name_ar' =>  $request->name_ar,
                'name_en' =>  $request->name_en,
                'description_ar' =>  $request->description_ar,
                'description_en' =>  $request->description_en,
-               
-               'logo' =>$photo_name,
+               'parent_id'=>  $request->supplier_or_sub ,
+               'type'=> $ttype,
+               'logo' => $photo_name,
               ]);
-           $Supplier->save();
+             // dd('done');
 
+           $Supplier->save();
            if ($request->supplier_model==1)
            {
               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
