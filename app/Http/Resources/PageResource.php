@@ -13,6 +13,7 @@ class PageResource extends JsonResource
         if($type=='single'){
             return [
                 'id'=>$this->id,
+                'name'=>$this->name,
                 'slug' =>str_replace(' ', '_',$this->slug ),
                 'sample'=>$this->sample,
                 'content'=>$this->content,
@@ -20,6 +21,7 @@ class PageResource extends JsonResource
         }else{
             return [
                 'id'=>$this->id,
+                'name'=>$this->name,
                 'slug' =>str_replace(' ', '_',$this->slug ),
                 'sample'=>$this->sample,
             ];

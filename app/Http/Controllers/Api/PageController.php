@@ -64,7 +64,7 @@ class PageController extends Controller
            $selected2="content_en as content";
            $selected3="title_en as slug";
       }
-      $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->get();
+      $Page = Page::select('id','title_ar as name','title_en as slug',$selected,$selected2)->where('status','1')->get();
 
       $Page = PageResource::collection($Page);
       $Page->map(function($i) { $i->type = 'all'; });
@@ -132,13 +132,11 @@ class PageController extends Controller
       if($lang=='ar'){
         $selected="description_ar as sample";
         $selected2="content_ar as content";
-        $selected3="title_ar as slug";
     }else{
          $selected="description_en as sample";
          $selected2="content_en as content";
-         $selected3="title_en as slug";
     }
-      $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->where('id',$id)->get();
+      $Page = Page::select('id','title_ar as name','title_en as slug',$selected,$selected2)->where('status','1')->where('id',$id)->get();
 
       $Page = PageResource::collection($Page);
       $Page->map(function($i) { $i->type = 'single'; });
