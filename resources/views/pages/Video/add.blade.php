@@ -82,10 +82,7 @@
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
                 </form>
- </div>
- <!--========================================================-->
- @include('categories.Category_models.categories_model_adding')
-     <!--========================================================-->    
+ </div>   
  		</div>
             </div>
         </div>
