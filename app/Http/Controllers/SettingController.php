@@ -84,7 +84,8 @@ class SettingController extends Controller
 
              $info->save();
 
-            return redirect()->route('settings/edit')->with(['success'=>'تم التعديل بنجاح']);
+            //return redirect()->route('settings/edit')->with(['success'=>'تم التعديل بنجاح']);
+            return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
        }
        catch
        (\Exception $e)
