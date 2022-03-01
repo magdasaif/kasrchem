@@ -21,13 +21,13 @@
                 </div>
             @endif
 
-            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
                 
             <div class="card">
               <div class="card-header" >
                 <h3 class="card-title" > تواصل معنا</h3>
                 <div class="card-tools">
-                
+                <button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button>
+
                 </div>
               </div>
             <!-- /.card-header -->
