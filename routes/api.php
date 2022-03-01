@@ -62,6 +62,9 @@ Route::get('/sliders',[sliderController::class,'index']);
 //-------------------------Pages---------------------------------
 Route::get('/pages',[PageController::class,'getpages']);
 
+///------------------------------page details -------------------------------------
+Route::get('/page/{id}',[PageController::class,'page_detail']);
+
 //--------------------------Partners----------------------------
 Route::get('/partners',[PartnerController::class,'getpartners']);
 

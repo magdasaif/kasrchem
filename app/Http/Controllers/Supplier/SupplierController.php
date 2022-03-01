@@ -39,7 +39,17 @@ class SupplierController extends Controller
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
               if($request->logo)
               {
-                 $folder_name='';
+
+                $last_id = Supplier::orderBy('id', 'desc')->first();
+                if($last_id){
+                    $new_id = $last_id->id + 1;
+                }else{
+                    $new_id=1;
+                }
+                $folder_name='supplier_no_'. $new_id;
+
+                
+               //  $folder_name='';
                 //  $photo_name= ($request->logo)->getClientOriginalName();
                 $photo_name= str_replace(' ', '_',($request->logo)->getClientOriginalName());
                   ($request->logo)->storeAs($folder_name,$photo_name,$disk="supplier");
@@ -69,6 +79,23 @@ class SupplierController extends Controller
              // dd('done');
 
            $Supplier->save();
+
+           if(!empty($request->photos)){
+            foreach($request->photos as $photo){
+
+                $folder_name0='supplier_no_'. $new_id;
+                // dd($last_id->id,$folder_name);
+                 $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
+                ($photo)->storeAs($folder_name0,$photo_name0,$disk="supplier");
+
+                Supplier_image::create([
+                    'supplier_id'=>Supplier::latest()->first()->id,
+                    'image'=>$photo_name0,
+                    
+                ]);
+            }
+        }
+        
            if ($request->supplier_model==1)
            {
               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
@@ -152,7 +179,9 @@ class SupplierController extends Controller
         if($request->logo)
         {
         $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
-        $folder_name='';
+
+        $folder_name='supplier_no_'. $id;
+       // $folder_name='';
         // $photo_name= ($request->logo)->getClientOriginalName();
         $photo_name= str_replace(' ', '_',($request->logo)->getClientOriginalName());
         ($request->logo)->storeAs($folder_name,$photo_name,$disk="supplier");
@@ -210,7 +239,7 @@ class SupplierController extends Controller
              if(!empty($request->image)){
                  foreach($request->image as $imagee){
                    //  dd($photo);
-                 $folder_namee='supplier_images_no_'. $id;
+                 $folder_namee='supplier_no_'. $id;
                 // $folder_namee=""
                      $photo_namee= ($imagee)->getClientOriginalName();
                     // $photo_namee= str_replace(' ', '_',($imagee)->getClientOriginalName());

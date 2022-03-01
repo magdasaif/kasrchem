@@ -86,7 +86,16 @@
                     @enderror
                 </div>
              <!----------------------------------------------------->
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الصور الفرعيه</label>
 
+                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple>
+
+                    @error('image')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <!----------------------------------------------------->
              <div class="form-group">
                     <label for="description_ar">وصف المورد بالعربية  </label>
                     <textarea  class="form-control tinymce-editor" name="description_ar" id="description_ar" placeholder="ادخل  وصف المورد بالعربية "  >{!! old('description_ar')!!}</textarea>

@@ -125,7 +125,7 @@
               <!----------------------------------------------------->
             <div class="form-group">
                     <label for="logo">الصورة</label>
-                   <center> <img id="previewImg"  style="width:30%;" src="<?php echo asset("storage/supplier/{$Supplier->logo}")?>" class="uploaded-img"></center>
+                   <center> <img id="previewImg"  style="width:30%;" src="<?php echo asset("storage/supplier/supplier_no_$Supplier->id/{$Supplier->logo}")?>" class="uploaded-img"></center>
                    <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
