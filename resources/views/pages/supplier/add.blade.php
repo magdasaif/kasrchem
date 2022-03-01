@@ -45,12 +45,12 @@
                         <?php
                             $margin="0";
                             $color="#c20620";
-                            $size="15";
+                            $size="20";
                             $type="supplier";
                          ?>
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;"  value="{{$supplier->id}}"  > {{$supplier->name_ar}}</option>
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;font-family: Serif;"  value="{{$supplier->id}}"  > {{$supplier->name_ar}}</option>
                             @if(count($supplier->childs))
-                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','size'=>$size-1,'type'=>$type])
+                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'font-family'=>'Cursive','color'=>'#209c41','size'=>$size-4,'type'=>$type])
                             @endif
                         @endforeach
                     </select>
