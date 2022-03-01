@@ -28,6 +28,12 @@ class SupplierController extends Controller
     public function store(Supplier_Request $request)
     {
         // dd($request->all());
+        // if(Supplier::where('name_ar',$request->name_ar)
+        // ->orWhere('name_en',$request->name_en)
+        // ->exists()
+        // ){
+        //     return redirect()->back()->withErrors('اسم المورد  مُضاف بالفعل من قبل ');
+        // }
          try{
             $validated = $request->validated();
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
@@ -90,16 +96,31 @@ class SupplierController extends Controller
     public function edit($id)
     {
        
-        $Supplier = Supplier::findOrfail($id);
+        $Supplier = Supplier::findOrfail($id);  //data of edited supplier
         if($Supplier->parent_id==0)
-        {$first_select=0; $parent_of_supplier='';}
+        {
+            $first_select=0; 
+            $parent_of_supplier='';
+            $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id','!=',$id)->get();
+        }
         else
-        {$first_select=''; $parent_of_supplier = Supplier::findOrfail($Supplier->parent_id);}
-       
-        $all_suppliers =Supplier::where('parent_id', '=', 0)->get();
+        {
+            $first_select='';
+             $parent_of_supplier = Supplier::findOrfail($Supplier->parent_id);
+             $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id', '!=', $parent_of_supplier->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+        }
+      // dd( $all_suppliers);
+        //$all_suppliers =Supplier::where('parent_id', '=', 0)->get();
         //dd( $suppliers);
-     //  dd($parent_of_supplier);
-        if(!$parent_of_supplier){$first_select=0;}else{$first_select='';}
+        //dd($parent_of_supplier);
+        if(!$parent_of_supplier)
+        {
+            $first_select=0;
+        }
+        else
+        {
+            $first_select='';
+        }
         //$parent_of_supplier=Supplier::where('id','=',$id)->get();
         // dd( $parent_of_supplier);
         return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
@@ -107,15 +128,25 @@ class SupplierController extends Controller
 // //-------------------------------------------------------------//
     public function update(Supplier_Request $request, $id)
     {
-    //   dd( $request->all());
+     //dd( $request->all());
       try {
-
+        if($request->supplier_or_sub==0)
+        {
+          $ttype="supplier";
+        }
+        else
+        {
+          $ttype="sub_supplier";
+        }
         $validated = $request->validated();
         $Supplier = Supplier::findOrFail($id);
-          $Supplier->name_ar = $request->name_ar;
-         $Supplier->name_en =  $request->name_en;
+        $Supplier->name_ar = $request->name_ar;
+        $Supplier->name_en =  $request->name_en;
         $Supplier-> description_ar= $request->description_ar;
         $Supplier->description_en = $request->description_en;
+        $Supplier->parent_id=  $request->supplier_or_sub ;
+        $Supplier->type=$ttype;
+        
       
 
         if($request->logo)
