@@ -23,7 +23,6 @@
                 </div>
             @endif
 
-            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
@@ -36,6 +35,7 @@
                    <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('products.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
+                    <button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button>
 
 
                 </div>

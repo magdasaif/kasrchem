@@ -198,6 +198,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('delete_all_contact', 'ContactController@deleteAll')->name('delete_all_contact');
 
 });
+//---------------------------------------ChangePassword-----------------------------------------------//
+Route::group(['namespace'=>'Change_password'],function(){
+    Route::get('change-password', 'ChangePasswordController@index')->name('show_password');
+    Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
+});
 //--------------------------------------------------------------------------------------//
 Route::get('/docs', function () {
     return view('swagger.index');

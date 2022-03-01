@@ -21,7 +21,6 @@
                 </div>
             @endif
             
-            <center><button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button></center>
         
             <div class="card">
               <div class="card-header" >
@@ -32,7 +31,8 @@
                  <button type="button" class="btn btn-sm bbtn" >
                         <a  class="aa"  href="{{route('supplier.create')}}" > <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
-                        
+                    <button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button>
+
 
                 </div>
               </div> 
