@@ -363,15 +363,9 @@
                             $size="15";
                             $type="supplier";
                         ?>
-<<<<<<< HEAD
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;"  value="{{$supplier->id}}"  > {{$supplier->name_ar}}</option>
-                            @if(count($supplier->childs))
-                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','size'=>$size-1,'type'=>$type])
-=======
                             <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;"  value="{{$supplier->id}}"  {{ old('supplier_or_sub') == '0' ? "selected" : "" }}> {{$supplier->name_ar}}</option>
                             @if(count($supplier->childs))
                                 @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','$size'=>$size-1,'type'=>$type])
->>>>>>> 6a61c2d6ad68986d2a1509d99d3459f5224e2fb0
                             @endif
                         @endforeach
                     </select>
