@@ -58,7 +58,7 @@
             <div class="row">
             @foreach($Supplier_image as $xx)
             <div class="col">
-                  <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/supplier/supplier_images_no_$id/{$xx->image}")?>">
+                  <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/supplier/supplier_no_$id/{$xx->image}")?>">
                   <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$xx->id}}" style="margin-right: 55px;" > حذف</button> 
                 </div>
                 

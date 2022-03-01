@@ -47,7 +47,7 @@ class SupplierResource extends JsonResource
             'is_child'=>$is_child,
             'is_leave'=>$is_leave,
            // 'logo' => $path.$this->logo,
-            'logo' => asset('storage/supplier/' . $this->logo),
+            'logo' => asset('storage/supplier/supplier_no_'.$this->id.'/'. $this->logo),
             'images'=> $x,
             'description'=>$supplier_description,
         ];

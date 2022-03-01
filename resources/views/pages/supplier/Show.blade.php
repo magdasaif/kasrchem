@@ -56,7 +56,7 @@
                             <td><input type="checkbox" value="{{$Supp->id}}" class="box1" onclick="javascript:check();"></td>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/supplier/{$Supp->logo}")?> alt="" ></td>
+                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/supplier/supplier_no_$Supp->id/{$Supp->logo}")?> alt="" ></td>
                             <td>{{$Supp->name_ar}}</td>
                             <td style="font-weight: bold;font-size: 17px;"> 
                              <a href="{{route('supplier.edit',$Supp->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
