@@ -74,7 +74,7 @@ class SettingController extends Controller
              }
             //----------------- //----------------- //-----------------
             $folder_name='';
-            // $photo_name= str_replace(' ', '_',($request->site_logo)->getClientOriginalName());
+             //$photo_name= str_replace(' ', '_',($request->site_logo)->getClientOriginalName());
             $photo_name='logo.jpg';
             ($request->site_logo)->storeAs($folder_name,$photo_name,$disk="site_logo");
 

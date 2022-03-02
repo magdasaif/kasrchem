@@ -70,6 +70,13 @@
 
 
 <div class="container">
+
+    <!-- @if(Session::has('image'))
+        <div class="alert alert-danger">
+            {{Session::get('image')}}
+        </div>
+    @endif -->
+ 
     @if (Route::has('login'))
 
     <!-------------------------------------------------->
