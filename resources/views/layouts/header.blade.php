@@ -20,9 +20,9 @@
 
                   <!-- {{ Auth::user()->name }} -->
                   <span class="brand-text font-weight-light" style="color: #009879;font-size: 21px;font-weight: bold;">EradUnited</span>
-                  <span class="d-block text-muted">
+                  <center><span class="d-block " style="color:white;">
                     {{ Ucfirst(Auth::user()->type) }}
-                  </span>
+                  </span></center>
               </div>
              
              <!----------------------------------------->
