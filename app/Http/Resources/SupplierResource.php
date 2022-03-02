@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Supplier_imagesResource;
+use App\Models\Supplier;
 use App\Models\Supplier_image;
 class SupplierResource extends JsonResource
 {
@@ -25,18 +26,26 @@ class SupplierResource extends JsonResource
         if($this->parent_id=='0'){
             $is_root=true;
             $is_child=false;
-            $is_leave=false;
+            $is_leaf=false;
         }else{
             if(count($this->childs)){//child
                 $is_root=false;
                 $is_child=true;
-                $is_leave=false;
+                $is_leaf=false;
             }else{//leave
                 $is_root=false;
                 $is_child=false;
-                $is_leave=true;
+                $is_leaf=true;
             }
         }
+
+
+        if(count($this->childs)){//child
+             $child_supplier=SupplierResource::collection(Supplier::where('parent_id',$this->id)->get());
+        }else{
+            $child_supplier='[]';
+        }
+        
        $x= Supplier_imagesResource::collection (Supplier_image::where('supplier_id',$this->id)->get());
         $path=storage_path().'/app/public/supplier/';
         return [
@@ -44,12 +53,11 @@ class SupplierResource extends JsonResource
             'name' =>$supplier_name,
             'parent_id' =>$this->parent_id,
             'is_root'=>$is_root,
-            'is_child'=>$is_child,
-            'is_leave'=>$is_leave,
-           // 'logo' => $path.$this->logo,
+            'is_leaf'=>$is_leaf,
             'logo' => asset('storage/supplier/supplier_no_'.$this->id.'/'. $this->logo),
             'images'=> $x,
             'description'=>$supplier_description,
+            'child' =>$child_supplier,
         ];
     }
 }
