@@ -74,9 +74,6 @@
  
     @if (Route::has('login'))
 
-<?php
-$handle = opendir(storage_path().'/app/public/setting/');
-?>
     <!-------------------------------------------------->
     @auth
 
@@ -84,23 +81,37 @@ $handle = opendir(storage_path().'/app/public/setting/');
        <div class="links" style="position: absolute;top: 60px;"> <a style="font-size: 20px;font-weight: bold;color: green;" href="{{ url('/home') }}" >ابدأ مشروعك</a></div>
              <div class="content">
             <?php
-            while($file = readdir($handle)){
-                if($file !== '.' && $file !== '..'){
-                    //echo '<img src="pictures/'.$file.'" border="0" />';
-                    echo'<img style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src='.asset("storage/setting/$file").' alt="" > ';
+              if(file_exists(storage_path().'/app/public/setting/')){
+                $handle = opendir(storage_path().'/app/public/setting/');
+                while($file = readdir($handle)){
+                    if($file !== '.' && $file !== '..'){
+                        //echo '<img src="pictures/'.$file.'" border="0" />';
+                        echo'<img style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src='.asset("storage/setting/$file").' alt="" > ';
+                    }
                 }
-            }?>
+            }else{
+                echo'<img style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src='.asset("/images/logo.jpg").' alt="" > ';
+            }
+            ?>
             </div>
         </div>
     @else
      <div class="content">
             <?php
-            while($file = readdir($handle)){
-                if($file !== '.' && $file !== '..'){
-                    //echo '<img src="pictures/'.$file.'" border="0" />';
-                    echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
+            if(file_exists(storage_path().'/app/public/setting/')){
+                $handle = opendir(storage_path().'/app/public/setting/');
+
+                while($file = readdir($handle)){
+                    if($file !== '.' && $file !== '..'){
+                        //echo '<img src="pictures/'.$file.'" border="0" />';
+                        echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
+                    }
                 }
-            }?>
+            }else{
+                echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("/images/logo.jpg").' alt="" >  ';
+
+            }
+            ?>
                 
             </div>
    <!-------------------------------------------------->

@@ -73,14 +73,21 @@
 
             <div class="content">
             <?php
-            $handle = opendir(storage_path().'/app/public/setting/');
+            if(file_exists(storage_path().'/app/public/setting/')){
+                $handle = opendir(storage_path().'/app/public/setting/');
 
-            while($file = readdir($handle)){
-                if($file !== '.' && $file !== '..'){
-                    //echo '<img src="pictures/'.$file.'" border="0" />';
-                    echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
+                while($file = readdir($handle)){
+                    if($file !== '.' && $file !== '..'){
+                        //echo '<img src="pictures/'.$file.'" border="0" />';
+                        echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
+                    }
                 }
-            }?>            </div>
+            }else{
+                echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("/images/logo.jpg").' alt="" >  ';
+
+            }
+            ?>
+            </div>
 
         <!-- </div> -->
 

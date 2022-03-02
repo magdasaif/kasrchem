@@ -70,9 +70,10 @@ class SettingController extends Controller
             // dd($request->deleted_image);
             if($request->deleted_image!=null)
             {
-              $image_path=storage_path().'/app/public/setting/'.$request->deleted_image;
-
-              unlink($image_path);
+                if(file_exists(storage_path().'/app/public/setting/'.$request->deleted_image)){
+                  $image_path=storage_path().'/app/public/setting/'.$request->deleted_image;
+                  unlink($image_path);
+                }
              }
             //----------------- //----------------- //-----------------
             $folder_name='';

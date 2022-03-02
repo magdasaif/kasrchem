@@ -13,14 +13,21 @@
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
               <?php
-            $handle = opendir(storage_path().'/app/public/setting/');
 
-            while($file = readdir($handle)){
-                if($file !== '.' && $file !== '..'){
-                    //echo '<img src="pictures/'.$file.'" border="0" />';
-                    echo'<img alt="The Logo" class="img-circle elevation-2" src='.asset("storage/setting/$file").'>  ';
+              if(file_exists(storage_path().'/app/public/setting/')){
+                $handle = opendir(storage_path().'/app/public/setting/');
+
+                while($file = readdir($handle)){
+                    if($file !== '.' && $file !== '..'){
+                        //echo '<img src="pictures/'.$file.'" border="0" />';
+                        echo'<img alt="The Logo" class="img-circle elevation-2" src='.asset("storage/setting/$file").'>  ';
+                      }
                 }
-            }?>
+              }else{
+                echo'<img alt="The Logo" class="img-circle elevation-2" src='.asset("/images/logo.jpg").'>  ';
+
+              }
+            ?>
                 <!-- <img src="{{ auth()->user()->photo }}" class="img-circle elevation-2" alt="User Image"> -->
               </div>
 
