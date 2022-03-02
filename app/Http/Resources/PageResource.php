@@ -13,16 +13,16 @@ class PageResource extends JsonResource
         if($type=='single'){
             return [
                 'id'=>$this->id,
-                'name'=>$this->name,
-                'slug' =>str_replace(' ', '_',$this->slug ),
+                'name'=>$this->title,
+                'slug' =>str_replace(' ', '_',$this->title),
                 'sample'=>$this->sample,
                 'content'=>$this->content,
             ]; 
         }else{
             return [
                 'id'=>$this->id,
-                'name'=>$this->name,
-                'slug' =>str_replace(' ', '_',$this->slug ),
+                'name'=>$this->title,
+                'slug' =>str_replace(' ', '_',$this->title),
                 'sample'=>$this->sample,
             ];
         }
