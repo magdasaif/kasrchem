@@ -30,7 +30,7 @@
                  <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('page.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
-                    <button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button>
+                    <button type="button" id="btn_delete_all" disabled class="btn  btn-danger btn-sm  aa delelte_all " style=" font-weight: 900;font-size: 13px;">حذف المُحدد</button>
   
 
                 </div>
@@ -42,18 +42,18 @@
                   <thead>
                         <tr >
 
-                        <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                         <th>#</th>
                         <th>اسم الصفحة</th>
                         <th>الحالة</th>
                         <th>الاجراءات</th>
+                        <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
+
                         </tr>
                     </thead>
                     <tbody>
                          <?php $i = 0; $status=1?>
                         @foreach($Page as $Pagee)
                             <tr>
-                            <td><input type="checkbox" value="{{$Pagee->id}}" class="box1" onclick="javascript:check();"></td>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
                             <td>{{$Pagee->title_ar}}</td>
@@ -93,6 +93,8 @@
                              <!-- <button class="btn btn-danger" data-catid={{$Pagee->id}} data-toggle="modal" data-target="#delete{{$Pagee->id}}">حذف</button> -->
 							 
                             </td>
+                            <td><input type="checkbox" value="{{$Pagee->id}}" class="box1" onclick="javascript:check();"></td>
+
                             </tr>
                      
 
