@@ -20,9 +20,9 @@
 
                   <!-- {{ Auth::user()->name }} -->
                   <span class="brand-text font-weight-light" style="color: #009879;font-size: 21px;font-weight: bold;">EradUnited</span>
-                  <span class="d-block text-muted">
+                  <center><span class="d-block " style="color:white;">
                     {{ Ucfirst(Auth::user()->type) }}
-                  </span>
+                  </span></center>
               </div>
              
              <!----------------------------------------->
@@ -38,16 +38,7 @@
   </div>
 </div>
 <!----------------------------------------->
-<!-- <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <button class="dropdown-item" type="button">Action</button>
-    <button class="dropdown-item" type="button">Another action</button>
-    <button class="dropdown-item" type="button">Something else here</button>
-  </div>
-</div> -->
+
 <!----------------------------------------->
 </div>
         </router-link>

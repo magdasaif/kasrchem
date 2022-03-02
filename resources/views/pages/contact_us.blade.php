@@ -26,7 +26,7 @@
               <div class="card-header" >
                 <h3 class="card-title" > تواصل معنا</h3>
                 <div class="card-tools">
-                <button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button>
+                <button type="button" id="btn_delete_all" disabled class="btn  btn-danger btn-sm  aa delelte_all " style=" font-weight: 900;font-size: 13px;">حذف المُحدد</button>
 
                 </div>
               </div>
@@ -36,13 +36,14 @@
             <!--#############################################################-->
                   <thead>
                         <tr>
-                         <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                          <th>#</th>
                          <th>الاسم</th>
                         <th>البريد الالكترونى</th>
                         <th>الهاتف</th>
                         <th>التاريخ</th>
                         <th>حذف</th>
+                        <th ><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
+
                         </tr>
                     </thead>
                       <tbody>
@@ -50,7 +51,6 @@
 
                         @foreach($contact as $cont)
                         <tr>
-                        <td><input type="checkbox" value="{{$cont->id}}" class="box1" onclick="javascript:check();"></td>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
                             <td>{{$cont->name}}</td>
@@ -90,7 +90,8 @@
                             </div>
             <!--#############################################################-->
                         </td>
-                            
+                        <td ><input type="checkbox" value="{{$cont->id}}" class="box1" onclick="javascript:check();"></td>
+  
 						</tr>
                        @endforeach
                     </tbody> 

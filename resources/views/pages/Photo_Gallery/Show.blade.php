@@ -33,7 +33,7 @@
                         <a  class="aa"  href="{{route('photo_gallery.create')}}" > <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                     </button>
                         
-                    <button type="button" disabled class="btn btn-danger"  id="btn_delete_all">حذف المُحدد</button>
+                    <button type="button" id="btn_delete_all" disabled class="btn  btn-danger btn-sm  aa delelte_all " style=" font-weight: 900;font-size: 13px;">حذف المُحدد</button>
 
                 </div>
               </div> 
@@ -43,19 +43,19 @@
             <!--#############################################################-->
                   <thead>
                         <tr >
-                        <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                         <th>#</th>
                         <th>الصورة</th>
                         <th>الاسم</th>
                         <th>الحالة</th>
                         <th>الاجراءات</th>
+                        <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
+
                         </tr>
                     </thead>
                     <tbody>
                          <?php $i = 0; $status=1?>
                         @foreach($Photo_Gal as $Photo_Gallery)
                             <tr>
-                            <td><input type="checkbox" value="{{$Photo_Gallery->id}}" class="box1" onclick="javascript:check();"></td>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$Photo_Gallery->image}")?> alt="" ></td>
@@ -98,6 +98,8 @@
                             </div>
             <!--#############################################################-->
                         </td>
+                        <td><input type="checkbox" value="{{$Photo_Gallery->id}}" class="box1" onclick="javascript:check();"></td>
+
                             </tr>
                         
 

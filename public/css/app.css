@@ -70708,6 +70708,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 {
   background-color: rgb(243 243 243);
   border-style: solid;
+  padding-right: 20px;
+  font-weight: bold;
 }
 .aa
 {
@@ -70780,3 +70782,11 @@ font-weight: bold;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+.delelte_all
+{
+  font-weight: 900;
+    font-size: 13px;
+    color: #fff;
+    /* margin-left: 50px; */
+}
+
