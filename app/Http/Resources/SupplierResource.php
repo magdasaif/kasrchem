@@ -25,18 +25,17 @@ class SupplierResource extends JsonResource
         }
         if($this->parent_id=='0'){
             $is_root=true;
-            $is_child=false;
             $is_leaf=false;
+            $description=$supplier_description;
         }else{
             if(count($this->childs)){//child
                 $is_root=false;
-                $is_child=true;
                 $is_leaf=false;
             }else{//leave
                 $is_root=false;
-                $is_child=false;
                 $is_leaf=true;
             }
+            $description='';
         }
 
 
@@ -56,7 +55,7 @@ class SupplierResource extends JsonResource
             'is_leaf'=>$is_leaf,
             'logo' => asset('storage/supplier/supplier_no_'.$this->id.'/'. $this->logo),
             'images'=> $x,
-            'description'=>$supplier_description,
+            'description'=>$description,
             'child' =>$child_supplier,
         ];
     }
