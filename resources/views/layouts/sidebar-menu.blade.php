@@ -153,7 +153,7 @@
           <li>
               <a href="{{route('supplier.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-users orange"></i>
-                  <p>  قائمةالموردين</p>
+                  <p>  قائمة الموردين</p>
               </a>
           </li>
          </ul>
@@ -404,14 +404,14 @@
         </a>
       </li>
       <!-------------------------------------------------------------------------->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a href="{{route('show_password')}}" class="nav-link">
           <i class="nav-icon fa fa-key green"></i>
           <p class="ttitle">
             تغيير كلمة الســـــر
           </p>
         </a>
-      </li>
+      </li> -->
       <!-------------------------------------------------------------------------->
       @endcan
       
