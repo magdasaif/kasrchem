@@ -67,16 +67,20 @@ class SettingController extends Controller
            if($request->site_logo)
            {
                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
+            // dd($request->deleted_image);
             if($request->deleted_image!=null)
             {
-              $image_path=public_path().'/images/'.$request->deleted_image;
+              $image_path=storage_path().'/app/public/setting/'.$request->deleted_image;
+
               unlink($image_path);
              }
             //----------------- //----------------- //-----------------
             $folder_name='';
-             //$photo_name= str_replace(' ', '_',($request->site_logo)->getClientOriginalName());
-            $photo_name='logo.jpg';
-            ($request->site_logo)->storeAs($folder_name,$photo_name,$disk="site_logo");
+             $photo_name= str_replace(' ', '_',($request->site_logo)->getClientOriginalName());
+            //$photo_name='logo.jpg';
+          // dd($photo_name);
+            ($request->site_logo)->storeAs($folder_name,$photo_name,$disk="setting");
+            
 
           // ($request->site_logo)->move($disk="site_logo", $photo_name);
                 $info->site_logo = $photo_name;

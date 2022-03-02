@@ -71,27 +71,37 @@
 
 <div class="container">
 
-    <!-- @if(Session::has('image'))
-        <div class="alert alert-danger">
-            {{Session::get('image')}}
-        </div>
-    @endif -->
  
     @if (Route::has('login'))
 
+<?php
+$handle = opendir(storage_path().'/app/public/setting/');
+?>
     <!-------------------------------------------------->
     @auth
 
        <div class="flex-center position-ref full-height">
        <div class="links" style="position: absolute;top: 60px;"> <a style="font-size: 20px;font-weight: bold;color: green;" href="{{ url('/home') }}" >ابدأ مشروعك</a></div>
              <div class="content">
-             <img    style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src=<?php echo asset("images/logo.jpg")?> alt="" > 
-
+            <?php
+            while($file = readdir($handle)){
+                if($file !== '.' && $file !== '..'){
+                    //echo '<img src="pictures/'.$file.'" border="0" />';
+                    echo'<img style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src='.asset("storage/setting/$file").' alt="" > ';
+                }
+            }?>
             </div>
         </div>
     @else
      <div class="content">
-                <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src=<?php echo asset("images/logo.jpg")?> alt="" > 
+            <?php
+            while($file = readdir($handle)){
+                if($file !== '.' && $file !== '..'){
+                    //echo '<img src="pictures/'.$file.'" border="0" />';
+                    echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
+                }
+            }?>
+                
             </div>
    <!-------------------------------------------------->
        

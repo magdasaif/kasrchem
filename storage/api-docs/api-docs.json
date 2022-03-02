@@ -586,7 +586,7 @@
                 }
             }
         },
-        "/page/{id}": {
+        "/page/{slug}": {
             "get": {
                 "tags": [
                     "pages"
@@ -596,13 +596,12 @@
                 "operationId": "getPagedata",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "slug",
                         "in": "path",
-                        "description": "Page ID",
+                        "description": "Page Slug",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "format": "int64"
+                            "type": "string"
                         }
                     },
                     {
