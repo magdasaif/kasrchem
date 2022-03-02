@@ -68,14 +68,19 @@
 
 @section('content')
 
+
 <div class="container">
 
-
-
-
             <div class="content">
-              <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 15%;margin-bottom: 30px;" src=<?php echo asset("images/logo.jpg")?> alt="" > 
-            </div>
+            <?php
+            $handle = opendir(storage_path().'/app/public/setting/');
+
+            while($file = readdir($handle)){
+                if($file !== '.' && $file !== '..'){
+                    //echo '<img src="pictures/'.$file.'" border="0" />';
+                    echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
+                }
+            }?>            </div>
 
         <!-- </div> -->
 

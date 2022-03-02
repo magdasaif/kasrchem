@@ -96,9 +96,9 @@ return [
             'root' => storage_path('app/public/supplier_images'),
         ],
 
-        'site_logo'=> [
+        'setting'=> [
             'driver' => 'local',
-            'root' => public_path('images'),
+            'root' => storage_path('app/public/setting'),
         ],
 
         'public' => [

@@ -71,7 +71,7 @@
                 <hr>
                 <div class="form-group">
                     <label for="exampleInputEmail1">لوجو</label>
-                    <center><img data-v-20a423fa="" width="30%" src="<?php echo asset("images/$info->site_logo")?>" class="uploaded-img"> </center>
+                    <center><img data-v-20a423fa="" width="30%" src="<?php echo asset("storage/setting/$info->site_logo")?>" class="uploaded-img"> </center>
                     <input type="file" class="form-control" name="site_logo" accept="image/*">
                     <input type="hidden" name="deleted_image" value="{{$info->site_logo}}">
                     @error('site_logo')
