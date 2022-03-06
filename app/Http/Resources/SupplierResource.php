@@ -25,7 +25,13 @@ class SupplierResource extends JsonResource
         }
         if($this->parent_id=='0'){
             $is_root=true;
-            $is_leaf=false;
+            
+            if(count($this->childs)){//child
+                $is_leaf=false;
+            }else{//leave
+                $is_leaf=true;
+            }
+            
             $description=$supplier_description;
         }else{
             if(count($this->childs)){//child
