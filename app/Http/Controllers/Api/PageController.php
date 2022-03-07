@@ -85,7 +85,7 @@ class PageController extends Controller
      *          description= "Page ID",
      *          required=true,
      *          @OA\Schema(
-     *              type="string",
+     *              type="integer",
      *              format="int64"
      *          )
      *      ),
@@ -95,7 +95,7 @@ class PageController extends Controller
      *          required=true,
      *          in="header",
      *          @OA\Schema(
-     *             type="integer",
+     *             type="string",
      *              enum={"ar", "en"},
      *              default="ar"
      *          )
