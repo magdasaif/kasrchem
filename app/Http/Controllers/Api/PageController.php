@@ -74,18 +74,19 @@ class PageController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/page/{slug}",
+     *      path="/page/{id}",
      *      operationId="getPagedata",
      *      tags={"pages"},
      *      summary="Get page data",
      *      description="Returns page data",
      *      @OA\Parameter(
 	   *          in="path",
-     *          name= "slug",
-     *          description= "Page Slug",
+     *          name= "id",
+     *          description= "Page ID",
      *          required=true,
      *          @OA\Schema(
      *              type="string",
+     *              format="int64"
      *          )
      *      ),
      *      @OA\Parameter(
@@ -94,7 +95,7 @@ class PageController extends Controller
      *          required=true,
      *          in="header",
      *          @OA\Schema(
-     *              type="string",
+     *             type="integer",
      *              enum={"ar", "en"},
      *              default="ar"
      *          )
