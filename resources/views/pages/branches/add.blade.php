@@ -107,17 +107,29 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <br>
                 <hr>
 
                 <div class="form-group">
                    <!-- <div id="map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.7108075704655!2d30.83655031457593!3d29.320157559377936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1459793cff58fb35%3A0x79bae666057d7920!2sFayoum%20University!5e0!3m2!1sen!2seg!4v1642668929461!5m2!1sen!2seg" width="450" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
                    <!-- </div> -->
-                   
+                   <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="exampleInputEmail1">خطوط الطول</label>
+                                <input type="text" name="map_long" id="map_long" class="form-control MapLon" value="{{old('map_long')}}" required>
+                             </div>
+                            <div class="col-sm">
+                                <label for="exampleInputEmail1">دوائر العرض</label>
+                                <input type="text" name="map_lat" id="map_lat" class="form-control MapLat" value="{{old('map_lat')}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
                    <center><div id="map_canvas" style="height: 350px;width:70%;margin: 0.6em;"></div></center>
-			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" value="{{old('map_long')}}" readonly>
-                    <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" value="{{old('map_lat')}}" readonly>
-                        
-                    
+
+                   
                 </div>
                 
                 <br>

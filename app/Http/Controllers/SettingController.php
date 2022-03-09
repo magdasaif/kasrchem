@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\SiteInfo;
 
@@ -44,8 +43,11 @@ class SettingController extends Controller
     {
        // dd($request->all());
            //dd($request->all());
+
+           
        try
        {
+
           // $validated = $request->validated();
 
           $info = SiteInfo::first();
@@ -66,6 +68,12 @@ class SettingController extends Controller
 
            if($request->site_logo)
            {
+
+            $request->validate(['site_logo' => 'required|image|mimes:png,PNG,svg|dimensions:max_width=300,max_height=300']);
+             
+
+            //$request->validate(['site_logo' => 'required|image|mimes:png,svg','تاكد من اختيار صوره من نوع png  او  svg ']);
+
                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
             // dd($request->deleted_image);
             if($request->deleted_image!=null)
