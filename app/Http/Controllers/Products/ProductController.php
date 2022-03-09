@@ -187,6 +187,13 @@ class ProductController extends Controller
             }else{
                 $product->video_link='';
             }
+
+            if(isset($request->link)){
+                $product->link= $request->link;
+           }else{
+               $product->link='';
+           }
+
             $product->availabe_or_no= $request->availabe_or_no;
 
             $product->image= $photo_name;
@@ -558,6 +565,10 @@ class ProductController extends Controller
                     $product->video_link= $request->video_link;
                 }
 
+                if(isset($request->link)){
+                    $product->link= $request->link;
+                }
+                
                 // $product->availabe_or_no= $request->availabe_or_no;
                 $product->status= $request->status;
 

@@ -154,6 +154,14 @@
                     @enderror
                 </div>
 
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الرابط</label>
+                    <input type="text" class="form-control" id="link" aria-describedby="emailHelp" placeholder="Enter link" name="link" value="{{old('link')}}">
+                    @error('link')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
                 <hr>
 
                 <div class="form-group">
