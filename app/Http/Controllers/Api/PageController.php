@@ -74,18 +74,19 @@ class PageController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/page/{slug}",
+     *      path="/page/{id}",
      *      operationId="getPagedata",
      *      tags={"pages"},
      *      summary="Get page data",
      *      description="Returns page data",
      *      @OA\Parameter(
 	   *          in="path",
-     *          name= "slug",
-     *          description= "Page Slug",
+     *          name= "id",
+     *          description= "Page ID",
      *          required=true,
      *          @OA\Schema(
-     *              type="string",
+     *              type="integer",
+     *              format="int64"
      *          )
      *      ),
      *      @OA\Parameter(
@@ -94,7 +95,7 @@ class PageController extends Controller
      *          required=true,
      *          in="header",
      *          @OA\Schema(
-     *              type="string",
+     *             type="string",
      *              enum={"ar", "en"},
      *              default="ar"
      *          )
@@ -132,18 +133,18 @@ class PageController extends Controller
         $selected="description_ar as sample";
         $selected2="content_ar as content";
         $selected3="title_ar as title";
-        $search='title_ar';
+       // $search='title_ar';
     }else{
          $selected="description_en as sample";
          $selected2="content_en as content";
          $selected3="title_en as title";
-         $search='title_en';
+        // $search='title_en';
     }
-     // $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->where('id',$id)->get();
+     $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->where('id',$id)->get();
 
      //revert slug without underscore_
-      $new_word=str_replace('_', ' ',$id);
-      $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->where($search, 'like', '%' . $new_word . '%')->get();
+      // $new_word=str_replace('_', ' ',$id);
+      // $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->where($search, 'like', '%' . $new_word . '%')->get();
 
       $Page = PageResource::collection($Page);
       $Page->map(function($i) { $i->type = 'single'; });

@@ -24,7 +24,7 @@
                       }
                 }
               }else{
-                echo'<img alt="The Logo" class="img-circle elevation-2" src='.asset("/images/logo.jpg").'>  ';
+                echo'<img alt="The Logo" class="img-circle elevation-2" src='.asset("/images/logo.png").'>  ';
 
               }
             ?>

@@ -263,7 +263,9 @@ class SupplierController extends Controller
 //  //--------------------------------------------------------------------------
     public function delete_supplier_images(Request $request ,$id){
       
-        $image_path=storage_path().'/app/public/supplier/supplier_images_no_'.$request->supplier_id.'/'.$request->deleted_image;
+        //$image_path=storage_path().'/app/public/supplier/supplier_images_no_'.$request->supplier_id.'/'.$request->deleted_image;
+        $image_path=storage_path().'/app/public/supplier/supplier_no_'.$request->supplier_id.'/'.$request->deleted_image;
+        
         unlink($image_path);
         Supplier_image::findOrfail($id)->delete();
         return redirect()->back()->with(['success'=>'تم الحذف']);

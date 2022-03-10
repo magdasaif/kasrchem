@@ -28,7 +28,7 @@ class LatestProductResource extends JsonResource
         
             return [
                 'id' =>$this->id,
-                'name' =>$this->name,
+                'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
                 'description' => $this->desc,
                 'price' =>$this->price,
                 'offer_price' =>$this->offer_price,
@@ -36,6 +36,7 @@ class LatestProductResource extends JsonResource
                 'max' =>$this->max_amount,
                 'stock' =>$this->amount,
                 'security_clearance' =>$this->security_permit,
+                'link' =>$this->link,
                // 'image' => $path.$this->image,
                 'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
             ];

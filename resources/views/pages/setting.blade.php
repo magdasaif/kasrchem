@@ -15,11 +15,16 @@
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
+            
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
@@ -72,7 +77,9 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">لوجو</label>
                     <center><img data-v-20a423fa="" width="30%" src="<?php echo asset("storage/setting/$info->site_logo")?>" class="uploaded-img"> </center>
-                    <input type="file" class="form-control" name="site_logo" accept="image/*">
+                    <input type="file" class="form-control" name="site_logo" accept="image/png, image/svg"  oninvalid="this.setCustomValidity('يجب اختيار صوره من نوع png  او svg  واقصى احداثياتها [300*300]')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red">يجب اختيار صوره من نوع png  او svg  واقصى احداثياتها [300*300]</span>
+
                     <input type="hidden" name="deleted_image" value="{{$info->site_logo}}">
                     @error('site_logo')
                     <small class="form-text text-danger">{{$message}}</small>

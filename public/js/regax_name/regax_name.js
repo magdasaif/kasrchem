@@ -59,7 +59,7 @@ function CheckArabicCharactersOnly(e)
     if (unicode != 8) 
     { 
         //if the key isn't the backspace key (which we should allow)
-        if (unicode == 32) 
+        if (unicode == 32 ||unicode ==13 ) 
         {
             return true;
         }
@@ -82,7 +82,7 @@ function CheckEnglishCharactersOnly(e)
     if (unicode != 8) 
     { 
         //if the key isn't the backspace key (which we should allow)
-        if (unicode == 32) 
+        if (unicode == 32 ||unicode ==13 ) 
         {
             return true;
         }

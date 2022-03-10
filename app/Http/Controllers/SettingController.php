@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\SiteInfo;
+use App\Http\Requests\SettingRequest;
+use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
@@ -40,12 +41,15 @@ class SettingController extends Controller
     }
 
   
-    public function update(Request $request)
+    public function update(SettingRequest $request)
     {
        // dd($request->all());
            //dd($request->all());
+
+           
        try
        {
+
           // $validated = $request->validated();
 
           $info = SiteInfo::first();
@@ -66,7 +70,8 @@ class SettingController extends Controller
 
            if($request->site_logo)
            {
-                //-----------------لو مفيش صورة يحذفها اصلا-------------------//
+
+            //-----------------لو مفيش صورة يحذفها اصلا-------------------//
             // dd($request->deleted_image);
             if($request->deleted_image!=null)
             {

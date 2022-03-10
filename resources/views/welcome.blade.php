@@ -108,7 +108,7 @@
                     }
                 }
             }else{
-                echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("/images/logo.jpg").' alt="" >  ';
+                echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("/images/logo.png").' alt="" >  ';
 
             }
             ?>

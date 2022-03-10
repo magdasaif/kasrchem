@@ -50,7 +50,7 @@ class CreateProductsTable extends Migration
             $table->string('image');
 
             $table->string('video_link');
-
+            $table->string('link');
             $table->integer('availabe_or_no');
             $table->integer('status');
             

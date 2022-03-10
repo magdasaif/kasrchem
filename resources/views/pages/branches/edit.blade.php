@@ -108,12 +108,22 @@
                 <hr>
 
                 <div class="form-group">
-                                      
+
+                <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="exampleInputEmail1">خطوط الطول</label>
+                                <input type="text" name="map_long" id="map_long" class="form-control MapLon" value="{{$branch->longitude}}" required>
+                             </div>
+                            <div class="col-sm">
+                                <label for="exampleInputEmail1">دوائر العرض</label>
+                                <input type="text" name="map_lat" id="map_lat" class="form-control MapLat" value="{{$branch->latitude}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
 					<center><div id="map_canvas" style="height: 350px;width:70%;margin: 0.6em;"></div></center>
-			        <input type="hidden" name="map_long" id="map_long" class="form-control MapLon" value="{{$branch->longitude}}" readonly>
-                    <input type="hidden" name="map_lat" id="map_lat" class="form-control MapLat" value="{{$branch->latitude}}" readonly>
-                        
-                    
+			       
                 </div>
                 
                 <br>
