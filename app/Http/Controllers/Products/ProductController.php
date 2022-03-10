@@ -471,7 +471,7 @@ class ProductController extends Controller
     //ProductRequest
     public function update(ProductRequest $request)
     {
-    // dd($request->all());
+     //dd($request->all());
         if(($request->add_as_new)=='on'){
             return $this->store($request);
         }else{
