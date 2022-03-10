@@ -7,13 +7,13 @@
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
 
-    $appDir = '/home/viewmurabba/public_html/training/eradunited';
+    $appDir = '/home/viewmurabba/public_html/eradunited/dashboard';
 
     $buildsDir = $appDir . '/backendreleases';
 
     $deploymentDir = $buildsDir . '/' . $date;
 
-    $serve = $appDir . '/backend';
+    $serve = $appDir . '/dashboard';
     $env = $appDir . '/.env';
     $htaccess = $appDir . '/htaccess.txt';
     $storage = $appDir . '/storage';
