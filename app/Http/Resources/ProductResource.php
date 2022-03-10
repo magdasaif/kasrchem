@@ -28,7 +28,7 @@ class ProductResource extends JsonResource
         if($type=='first_fun'){
             return [
                 'id' =>$this->id,
-                'name' =>$this->name,
+                'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
                 'description' => $this->desc,
                 'link' => $this->link,
                 'security_clearance' =>$this->security_permit,
@@ -105,7 +105,7 @@ class ProductResource extends JsonResource
                 'lang' => $this->when( property_exists($this,'lang'), function() { return $this->lang; } ),
     //'lang'=>$this->lang,
                 'id' =>$this->id,
-                'name' =>$this->name,
+                'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
                 'price' =>$this->price,
                 'offer_price' =>$this->offer_price,
                 'min' =>$this->min_amount,
