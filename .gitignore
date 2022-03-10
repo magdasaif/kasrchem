@@ -12,8 +12,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 reports/
-.ideastorage/logs/laravel.log
-storage/logs/laravel.log
+.idea
+storage/logs
 viewmurabba_eradico_dataonly.sql
 .idea/
-storage/logs/laravel.log
