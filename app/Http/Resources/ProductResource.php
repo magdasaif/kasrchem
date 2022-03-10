@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
                 'id' =>$this->id,
                 'name' =>$this->name,
                 'description' => $this->desc,
-               
+                'link' => $this->link,
                 'security_clearance' =>$this->security_permit,
                // 'image' => $path.$this->image,
                 'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
@@ -121,7 +121,7 @@ class ProductResource extends JsonResource
                 'description' => $this->desc,
                 
                 'video_link' => $this->video_link,
-
+                'link' => $this->link,
                 'selling_at'=> $x,
 
                 'category' => [
