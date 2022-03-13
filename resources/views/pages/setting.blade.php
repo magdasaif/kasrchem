@@ -76,8 +76,8 @@
                 <hr>
                 <div class="form-group">
                     <label for="exampleInputEmail1">لوجو</label>
-                    <center><img data-v-20a423fa="" width="30%" src="<?php echo asset("storage/setting/$info->site_logo")?>" class="uploaded-img"> </center>
-                    <input type="file" class="form-control" name="site_logo" accept="image/png, image/svg"  oninvalid="this.setCustomValidity('يجب اختيار صوره من نوع png  او svg  واقصى احداثياتها [300*300]')"  oninput="this.setCustomValidity('')">
+                    <center><img width="30%" src="<?php echo asset("storage/setting/$info->site_logo")?>" class="uploaded-img"> </center>
+                    <input type="file" class="form-control" name="site_logo" accept="image/png, image/svg"  >
                     <span style="color:red">يجب اختيار صوره من نوع png  او svg  واقصى احداثياتها [300*300]</span>
 
                     <input type="hidden" name="deleted_image" value="{{$info->site_logo}}">
