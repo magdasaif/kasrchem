@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SiteInfo;
 use App\Http\Requests\SettingRequest;
-use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
@@ -59,13 +58,13 @@ class SettingController extends Controller
            $info-> site_desc_ar= $request->site_desc_ar;
            $info-> site_desc_en= $request->site_desc_en;
 
-           $info-> site_mail= $request->site_mail;
-           $info-> site_phone= $request->site_phone;
-           $info-> site_fax= $request->site_fax;
-           $info-> site_whatsapp= $request->site_whatsapp;
+           $info-> site_mail= ($request->site_mail)?$request->site_mail:'';
+           $info-> site_phone= ($request->site_phone)?$request->site_phone:'';
+           $info-> site_fax= ($request->site_fax)?$request->site_fax:'';
+           $info-> site_whatsapp= ($request->site_whatsapp)?$request->site_whatsapp:'';
            
-           $info-> ios_link= $request->ios_link;
-           $info-> android_link= $request->android_link;
+           $info-> ios_link= ($request->ios_link)?$request->ios_link:'';
+           $info-> android_link= ($request->android_link)?$request->android_link:'';
           
 
            if($request->site_logo)
