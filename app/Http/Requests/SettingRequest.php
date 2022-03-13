@@ -19,7 +19,7 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-                'site_logo' => 'required|image|mimes:PNG,png,svg|dimensions:max_width=300,max_height=300',
+                'site_logo' => 'image|mimes:PNG,png,svg|dimensions:max_width=300,max_height=300',
               ];
     }
     public function messages()
