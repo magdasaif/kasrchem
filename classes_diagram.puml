@@ -1,0 +1,192 @@
+@startuml Eradco_united
+title Eradco_unitied
+skinparam classFontColor  #550A35
+skinparam FontName Courier
+skinparam classFontSize 21
+skinparam sequenceArrowThickness 3
+skinparam backgroundColor  #F2F2F2
+skinparam ArrowColor #B3446C
+skinparam defaultFontSize 16
+
+interface main_class #ADD8E6
+{
+  -name_ar:String
+  -name_en:Srting
+  -created_at
+  -updated_at
+  --
+  +index()
+  +show(id)
+  +add(request)
+  +edit(id)
+  +update(request)
+  +delete(request)
+
+}
+interface images  #D9FF00
+{
+  -image_name:String
+  -folder_name:Srting
+  -disk_name:String
+  --
+  +save()
+  +unlink(image_path)
+
+}
+interface files   #89AF00
+{
+  -file_name:String
+  -folder_name:Srting
+  -disk_name:String
+  --
+  +save()
+  +unlink(image_path)
+
+}
+class  desc #FF8080
+{
+ -desc_ar:String
+ -desc_en:String
+}
+class  common_data #008080
+{
+ 
+}
+class  vedio
+{
+ -link:String
+ -status:int
+}
+class  social
+{
+- name:String
+- link:string
+ -icon:string
+ -status:int
+}
+class  releases
+{
+-status:int
+}
+
+class  photo_gallarys
+{
+ -status:int
+}
+
+class  slider
+{
+ -sort:int
+- status:int
+}
+
+class  partners
+{
+ -link:srting
+}
+class  products
+{
+ -link:String
+ -vedio_link:string
+-sort:int
+}
+class supplier{
+ -parent_id:int
+ - type:string
+ -logo:string
+}
+class  site_info
+{
+ -fax:varchar
+ -android_link:string
+ -ios_link:string
+ -whatsapp:varchar
+}
+class  mail #B3446C
+{
+ -email:string
+}
+class  phone   #FFFF00 
+{
+ -phone:string
+}
+class  articles
+{
+ - status:int
+}
+class  branches
+{
+  -fax:varchar
+  -latitude:varchar
+  -longitude:varchar
+  -status:int
+}
+class Pages
+{
+  -content_ar:longtext
+  -content_en:longtext
+ - status:int
+}
+class contact 
+{
+  -name:string
+  -message:srting
+ -token:srting
+  -created_at
+  -updated_at
+
+}
+class user 
+{
+  -name:srting
+  -type:string
+  -email_verified_at
+  -remember_token
+  --
+  +login()
+  +logout()
+}
+
+class password 
+{
+  -password:srting
+  --
+  +encrypyion()
+  +decryption()
+  +change_password()
+}
+main_class <|-- common_data
+images <|--common_data
+main_class <|-- social
+main_class <|-- vedio
+common_data <|-- photo_gallarys
+common_data <|-- releases
+files <|-- releases
+common_data <|-- slider
+common_data <|-- partners
+desc<|-- products
+common_data<|-- products 
+desc<|-- supplier
+common_data<|-- supplier 
+
+
+products "1" *-- "many" supplier : contains  
+
+common_data <|-- site_info
+desc<|-- site_info
+mail <|-- site_info
+phone<|-- site_info
+common_data <|-- articles
+desc<|-- articles
+common_data <|-- branches
+desc<|-- branches
+mail <|-- branches
+phone<|-- branches
+common_data <|-- Pages
+desc<|-- Pages
+mail <|-- contact
+phone<|-- contact
+mail <|-- user
+phone<|-- user
+user "1" *-- "1" password : have 
+@enduml
