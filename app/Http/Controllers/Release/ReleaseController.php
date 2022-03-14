@@ -199,14 +199,7 @@ class ReleaseController extends Controller
              $validated = $request->validated();
             // $rel = Release::findOrFail($request->id);
             $rel = Release::findOrFail($id);
-            // $rel->main_cate_id = $request->main_category;
-            /* $rel->main_cate_id = $request->main_cate_id;
-             $rel->sub1_id =  $request->sub2;
-             $rel->sub2_id = $request->sub3;
-             $rel->sub3_id=  $request->sub4;
-             $rel-> title_ar= $request->title_ar;
-             $rel->title_en = $request->title_en;
-             $rel-> status=$request->status;*/
+          
              //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
             //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
                     
@@ -219,15 +212,19 @@ class ReleaseController extends Controller
                 $rel->site_id= $request->section_id; 
             }
 
-            if(!$rel->main_cate_id)
+            if(!$request->main_cate_id)
             {
                 $rel->main_cate_id=1;
+             //   $ff='1';
             }
             else
             {
-                $rel->main_cate_id= $request->main_cate_id; 
+                $rel->main_cate_id= $request->main_cate_id;
+           //     $ff='2';
             }
 
+         //   dd('ddd '.$rel->main_cate_id.$ff);
+            
             if(!$request->sub2)
             {
                 
@@ -306,11 +303,15 @@ class ReleaseController extends Controller
     public function destroy(Request $request ,$id)
     {
         // dd($id);
+        if(file_exists(storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_image)){
+            unlink(storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_image);
+        }
+
+        if(file_exists(storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_file)){
+            unlink(storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_file);
+        }
         
-        $image_path=storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_image;
-        unlink($image_path);
-        $file_path=storage_path().'/app/public/release/release_'.$id.'/'.$request->deleted_file;
-        unlink($file_path);
+        
         try
         {
         $Release=Release::find($id);

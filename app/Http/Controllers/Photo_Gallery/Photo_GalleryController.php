@@ -250,9 +250,10 @@ class Photo_GalleryController extends Controller
 //-------------------------------------------------------------//
      public function destroy(Request $request ,$id)
     {
-         // dd($id);
-         $image_path=storage_path().'/app/public/photo_gallery/'.$request->deleted_image;
-         unlink($image_path);
+        if(file_exists(storage_path().'/app/public/photo_gallery/'.$request->deleted_image)){
+            unlink(storage_path().'/app/public/photo_gallery/'.$request->deleted_image);
+        }
+           
          try 
          {
          $Photo_Gallery=Photo_Gallery::find($id);  
@@ -302,9 +303,11 @@ class Photo_GalleryController extends Controller
     }
  //--------------------------------------------------------------------------
     public function delete_gallery_images(Request $request ,$id){
-      
-        $image_path=storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$request->gallery_id.'/'.$request->deleted_image;
-        unlink($image_path);
+
+        if(file_exists(storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$id.'/'.$request->deleted_image)){
+            unlink(storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$id.'/'.$request->deleted_image);
+           }
+    
         Gallery_Photo_Image::findOrfail($id)->delete();
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }

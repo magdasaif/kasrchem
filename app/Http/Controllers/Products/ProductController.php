@@ -76,15 +76,18 @@ class ProductController extends Controller
             //vaildation
            $validated = $request->validated();
 
-           $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+           //$request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
            if($request->image){
-                $last_id = Product::orderBy('id', 'desc')->first();
+                $last_id = Product::withTrashed()->orderBy('id', 'desc')->first();
+                
                 if($last_id){
                     $new_id = $last_id->id + 1;
                 }else{
                     $new_id=1;
                 }
                 $folder_name='product_no_'. $new_id;
+
+               // dd($last_id.'---'.$new_id.'--'.$folder_name);
                 // dd($last_id->id,$folder_name);
                 $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                 ($request->image)->storeAs($folder_name,$photo_name,$disk="products");
@@ -324,8 +327,11 @@ class ProductController extends Controller
     //public function delete_product_images($image_id){
     public function delete_product_images(Request $request){
 
-        $image_path=storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->image_name;
-        unlink($image_path);
+        //dd($request->product_id);
+        if(file_exists(storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->image_name)){
+            unlink(storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->image_name);
+        }
+        
       //  Storage::disk('products')->delete('products/product_no_'.$request->product_id.'/'.$request->image_name);
         Product_attachment::findOrfail($request->image_id)->delete();
         return redirect()->back()->with(['success'=>'تم الحذف']);
@@ -389,8 +395,11 @@ class ProductController extends Controller
       // public function delete_products_files($image_id){
        public function delete_products_files(Request $request){
 
-        $image_path=storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->file_name;
-        unlink($image_path);
+        if(file_exists(storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->file_name)){
+            unlink(storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->file_name);
+        }
+        
+       
            Product_attachment::findOrfail($request->file_id)->delete();
            return redirect()->back()->with(['success'=>'تم الحذف']);
        }
@@ -485,6 +494,10 @@ class ProductController extends Controller
             if($request->image){
                 $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
 
+                if(file_exists(storage_path().'/app/public/products/product_no_'.$request->id.'/'.$request->deleted_image)){
+                    unlink(storage_path().'/app/public/products/product_no_'.$request->id.'/'.$request->deleted_image);
+                }
+                
                     $folder_name='product_no_'. $request->id;
                     $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
                     ($request->image)->storeAs($folder_name,$photo_name,$disk="products");

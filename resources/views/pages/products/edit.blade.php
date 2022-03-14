@@ -137,7 +137,7 @@
                             </svg>
                              تعديل الصورة
                      </button></center>
-                  
+                     <input type="hidden" name="deleted_image" value="{{$product->image}}">
                      <input type="file" class="form-control" name="image"  id="my_file" accept="image/*" style="display: none;" >
 
                     @error('image')
