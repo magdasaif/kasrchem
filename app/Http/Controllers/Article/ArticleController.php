@@ -277,8 +277,11 @@ class ArticleController extends Controller
     public function destroy(Request $request ,$id)
     {
         // dd($id);
-        $image_path=storage_path().'/app/public/article/'.$request->deleted_image;
-         unlink($image_path);
+        
+        if(file_exists(storage_path().'/app/public/article/'.$request->deleted_image)){
+            unlink(storage_path().'/app/public/article/'.$request->deleted_image);
+        }
+        
         try 
         {
         $Article=Article::find($id);  

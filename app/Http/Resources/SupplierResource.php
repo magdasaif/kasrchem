@@ -47,6 +47,11 @@ class SupplierResource extends JsonResource
 
         if(count($this->childs)){//child
              $child_supplier=SupplierResource::collection(Supplier::where('parent_id',$this->id)->get());
+             if($lang=='ar'){
+                $child_supplier->map(function($i) { $i->lang = 'ar'; });
+             }else{
+                $child_supplier->map(function($i) { $i->lang = 'en'; });
+             }
         }else{
             $child_supplier='[]';
         }

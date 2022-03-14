@@ -43,8 +43,9 @@ class About_us_Controller extends Controller
                 //-----------------لو مفيش صورة يحذفها اصلا-------------------//
             if($request->deleted_image!=null)
             {
-              $image_path=storage_path().'/app/public/about_us/'.$request->deleted_image;
-              unlink($image_path);
+               if(file_exists(storage_path().'/app/public/about_us/'.$request->deleted_image)){
+                unlink(storage_path().'/app/public/about_us/'.$request->deleted_image);
+               }
 
              }
             //----------------- //----------------- //-----------------
