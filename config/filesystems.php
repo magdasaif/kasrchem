@@ -101,6 +101,11 @@ return [
             'root' => storage_path('app/public/setting'),
         ],
 
+        'pages' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pages'),
+        ],
+        
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

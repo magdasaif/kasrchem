@@ -151,7 +151,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace'=>'Pages'],function(){
         Route::resource('page', 'PageController');
         Route::post('delete_all_page', 'PageController@deleteAll')->name('delete_all_page');
-
+   
+     //-------------------pages images routes (show/add/delete)-------------------
+     Route::get('page_img/{id}','PageController@pages_images');
+     Route::post('add_page_images/{id}','PageController@add_page_images');
+     Route::get('delete_page_images/{id}','PageController@delete_page_images');
     });
 
     //----------------------------------------cities------------------------------------//

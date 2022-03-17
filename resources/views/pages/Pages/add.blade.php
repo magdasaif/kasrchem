@@ -21,7 +21,7 @@
         
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"  > اضافة صفحة </h3>
+                <h3 class="card-title"> اضافة صفحة </h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('page.index')}}" class="aa"> <li class="fa fa-code" ><span> قائمه الصفحات </span></li></a>
@@ -30,7 +30,7 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body">
-   <form method="POST" action="{{route('page.store')}}" >
+   <form method="POST" action="{{route('page.store')}}" enctype="multipart/form-data">
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
@@ -55,6 +55,17 @@
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
                 </div>
+            <!----------------------------------------------------->
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الصور الفرعيه</label>
+
+                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple>
+
+                    @error('image')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+            
             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="description_ar">وصف الصفحة </label>
