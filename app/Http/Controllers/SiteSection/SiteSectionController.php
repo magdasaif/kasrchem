@@ -89,13 +89,13 @@ class SiteSectionController extends Controller
         {
             $first_select=0; 
             $parent_of_section='';
-            $all_sections =Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->where('id','!=',$id)->get();
+            $all_sections =Sitesection::where('parent_id', '=', Null)->where('id','!=',$id)->get();
         }
         else
         {
             $first_select='';
              $parent_of_section = Sitesection::findOrfail($section->parent_id);
-             $all_sections =Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+             $all_sections =Sitesection::where('parent_id', '=', Null)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
         }
       
         if(!$parent_of_section)
@@ -145,11 +145,21 @@ class SiteSectionController extends Controller
              $Sitesections->image = $photo_name;
         }
            ///------------------------------
+           if($request->site_or_sub=='0')
+           {
+              $parent_id_value=Null;
+           }
+           else
+           {
+             $parent_id_value=$request->site_or_sub;
+           }
+           //-------------------------------
          
             $Sitesections->site_name_ar = $request->site_name_ar;
             $Sitesections->site_name_en = $request->site_name_en;
             $Sitesections->priority = $request->priority;
             $Sitesections->statues = $request->statues;
+            $Sitesections->parent_id=  $parent_id_value ;
           
         $Sitesections->save();
 
