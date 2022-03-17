@@ -37,7 +37,32 @@
                                 @csrf
                                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
-
+                                  <!--------------------------------------------------->
+                                  <div class="form-group">
+                                    <label for="site_or_sub">نوع القســم</label>
+                                    
+                                    <select class="form-control" name="site_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع القسم')"  oninput="this.setCustomValidity('')">
+                                    <option value="0" selected > قسم رئيسى</option>
+                 
+                                    @foreach($parent_sites as $site)
+                                    <?php
+                                    $color="#c20620";
+                                    $new=[
+                                        'childs' => $site->childs,
+                                        'color'=>'#209c41',
+                                        'number'=>2,
+                                        $type="site_section",
+                                        'site_id'=>$site->id,
+                                    ];
+                                     ?>
+                                    <option style="color:{{$color}}"  value="{{$site->id}}">-{{$site->site_name_ar}}</option>
+                                        @if(count($site->childs))
+                                           @include('pages.products.manageChild',$new)
+                                        @endif
+                                         @endforeach
+                                     </select>
+                                 </div>
+                                  <!--------------------------------------------------->
 
                                 <div class="form-group">
                                     <label for="site_name_ar">اسم القسـم بالعربيه</label>

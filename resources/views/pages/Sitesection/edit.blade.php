@@ -36,7 +36,47 @@
                         @csrf
                         {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
-
+                     <!----------------------------------------------------->
+                  <div  class="form-group">
+                    <label for="site_or_sub">نوع القسم</label>
+                    <select class="form-control" name="site_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع القسم')"  oninput="this.setCustomValidity('')">
+                        <?php
+                          if($first_select=='0')
+                          {
+                              echo'<option value="0" selected > قسـم رئيسى</option>';
+                          }
+                          else
+                          {
+                        ?>
+                           <option value="{{ $parent_of_section->id}}" selected> {{ $parent_of_section->site_name_ar}}</option>
+                        <?php
+                          }    
+                          foreach ($all_sections as $xx)
+                          {
+                            
+                                 $color="#c20620";
+                                    $new=[
+                                        'childs' => $xx->childs,
+                                        'color'=>'#209c41',
+                                        'number'=>2,
+                                        $type="site_section",
+                                        'site_id'=>$xx->id,
+                                    ];
+                 
+                              ?>
+                                <option style="color:{{$color}}"  value="{{$xx->id}}">-{{$xx->site_name_ar}}</option>
+                                @if(count($xx->childs))
+                                   @include('pages.products.manageChild',$new)
+                                @endif
+                              <?php
+                              //     }
+                              // } 
+                           }?>
+                          
+                          </select>
+  
+                      </div>
+                     <!----------------------------------------------------->
 
                         <div class="form-group">
                             <label for="Name"  class="mr-sm-2">اسم القسم بالعربية:</label>

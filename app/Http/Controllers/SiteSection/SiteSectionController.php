@@ -16,16 +16,17 @@ class SiteSectionController extends Controller
 
       return view('pages.Sitesection.Sitesection',compact('site_section'));
     }
-
+//---------------------------------------------
     public function create()
     {
-        return view('pages.Sitesection.add');
+        $parent_sites= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
+        return view('pages.Sitesection.add',compact('parent_sites'));
     }
-
+//---------------------------------------------
     public function store(SiteSectionRequest $request)
     {
 
-
+  //dd($request->all());
         if(  Sitesection::where('site_name_ar',$request->site_name_ar)
         ->orWhere('site_name_en',$request->site_name_en)
         ->exists()
@@ -46,9 +47,19 @@ class SiteSectionController extends Controller
                $photo_name='';
            }
 
-
+           if($request->site_or_sub=='0')
+           {
+              $parent_id_value=Null;
+           }
+           else
+           {
+             $parent_id_value=$request->site_or_sub;
+           }
+          // dd( $parent_id_value);
            $Sitesection = new Sitesection
            ([
+               
+            'parent_id'=>$parent_id_value,
             'site_name_ar' => $request->site_name_ar,
             'site_name_en' => $request->site_name_en,
             'priority' => $request-> priority,
@@ -67,15 +78,43 @@ class SiteSectionController extends Controller
 
 
     }
-
+//---------------------------------------------
     public function edit($id)
     {
-        $section = Sitesection::findOrfail($id);
-        if(!$section)
+     
+       
+        //------------------------------------------------------//
+        $section = Sitesection::findOrfail($id);  //data of edited supplier
+        if($section->parent_id==0)
+        {
+            $first_select=0; 
+            $parent_of_section='';
+            $all_sections =Sitesection::where('parent_id', '=', Null)->where('id','!=',$id)->get();
+        }
+        else
+        {
+            $first_select='';
+             $parent_of_section = Sitesection::findOrfail($section->parent_id);
+             $all_sections =Sitesection::where('parent_id', '=', Null)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+        }
+      
+        if(!$parent_of_section)
+        {
+            $first_select=0;
+        }
+        else
+        {
+            $first_select='';
+        }
+        return view('pages.Sitesection.edit',compact('section','parent_of_section','first_select','all_sections'));
+   
+        //------------------------------------------------------//
+        //$section = Sitesection::findOrfail($id);
+        /*if(!$section)
              return redirect()->back();
-        return view('pages.Sitesection.edit',compact('section'));
+        return view('pages.Sitesection.edit',compact('section'));*/
     }
-
+//---------------------------------------------
     public function update(SiteSectionRequest $request,$id)
     {
        try {
@@ -106,11 +145,21 @@ class SiteSectionController extends Controller
              $Sitesections->image = $photo_name;
         }
            ///------------------------------
+           if($request->site_or_sub=='0')
+           {
+              $parent_id_value=Null;
+           }
+           else
+           {
+             $parent_id_value=$request->site_or_sub;
+           }
+           //-------------------------------
          
             $Sitesections->site_name_ar = $request->site_name_ar;
             $Sitesections->site_name_en = $request->site_name_en;
             $Sitesections->priority = $request->priority;
             $Sitesections->statues = $request->statues;
+            $Sitesections->parent_id=  $parent_id_value ;
           
         $Sitesections->save();
 
@@ -125,12 +174,12 @@ class SiteSectionController extends Controller
       }
 
       }
-
+//---------------------------------------------
     public function show($id)
     {
         //
     }
-
+//---------------------------------------------
     public function destroy($id)
     {
         //

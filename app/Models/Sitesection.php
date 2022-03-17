@@ -8,7 +8,12 @@ use App\Models\Main_Category;
 class Sitesection extends Model
 {
     use HasFactory;
-    public $fillable = ['id','site_name_ar','site_name_en','priority','statues','image'];
+    public $fillable = ['id','parent_id','site_name_ar','site_name_en','priority','statues','image'];
     protected $table = 'site_sections';
+
+    
+    public function childs() {
+        return $this->hasMany('App\Models\Sitesection','parent_id','id') ;
+    }
     
 }
