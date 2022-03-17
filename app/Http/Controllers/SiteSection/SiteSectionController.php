@@ -16,13 +16,13 @@ class SiteSectionController extends Controller
 
       return view('pages.Sitesection.Sitesection',compact('site_section'));
     }
-
+//---------------------------------------------
     public function create()
     {
         $parent_sites= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
         return view('pages.Sitesection.add',compact('parent_sites'));
     }
-
+//---------------------------------------------
     public function store(SiteSectionRequest $request)
     {
 
@@ -78,19 +78,19 @@ class SiteSectionController extends Controller
 
 
     }
-
+//---------------------------------------------
     public function edit($id)
     {
-        ///---------------------------------//
-        //$main_departments = Department::where('parent_id',Null)->where('id','!=',$real_id)->get();
-
-        ///-----------------------------------//
+     
         $section = Sitesection::findOrfail($id);
+        //------------------------------------------------------//
+        
+        //------------------------------------------------------//
         if(!$section)
              return redirect()->back();
         return view('pages.Sitesection.edit',compact('section'));
     }
-
+//---------------------------------------------
     public function update(SiteSectionRequest $request,$id)
     {
        try {
@@ -140,12 +140,12 @@ class SiteSectionController extends Controller
       }
 
       }
-
+//---------------------------------------------
     public function show($id)
     {
         //
     }
-
+//---------------------------------------------
     public function destroy($id)
     {
         //

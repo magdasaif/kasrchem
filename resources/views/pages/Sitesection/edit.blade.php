@@ -36,7 +36,46 @@
                         @csrf
                         {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
-
+                     <!----------------------------------------------------->
+                  <div  class="form-group">
+                    <label for="site_or_sub">نوع القسم</label>
+                    <select class="form-control" name="site_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع القسم')"  oninput="this.setCustomValidity('')">
+                        <?php
+                          if($first_select=='0')
+                          {
+                              echo'<option value="0" selected > قسـم رئيسى</option>';
+                          }
+                          else
+                          {
+                        ?>
+                           <option value="{{ $parent_of_supplier->id}}" selected> {{ $parent_of_supplier->name_ar}}</option>
+                        <?php
+                          }    
+                          foreach ($all_suppliers as $xx)
+                          {
+                             //   if($first_select!='0'){
+                           //  if($xx->id == $parent_of_supplier->id)
+                           //    {}else{
+                            
+                          $margin="0";
+                          $color="#c20620";
+                          $size="20";
+                          $type="supplier";
+                          $number=2;
+                              ?>
+                                  <option  style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;font-family: Serif;"  value="{{$xx->id}}"> {{$xx->name_ar}}</option>
+                                  @if(count($xx->childs))
+                                      @include('pages.products.manageChild',['childs' => $xx->childs,'margin'=>$margin+30,'font-family'=>'Cursive','color'=>'#209c41','size'=>$size-1,'type'=>$type,'number'=>$number])
+                                  @endif
+                              <?php
+                              //     }
+                              // } 
+                           }?>
+                          
+                          </select>
+  
+                      </div>
+                     <!----------------------------------------------------->
 
                         <div class="form-group">
                             <label for="Name"  class="mr-sm-2">اسم القسم بالعربية:</label>
