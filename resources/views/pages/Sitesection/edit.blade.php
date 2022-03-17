@@ -48,25 +48,26 @@
                           else
                           {
                         ?>
-                           <option value="{{ $parent_of_supplier->id}}" selected> {{ $parent_of_supplier->name_ar}}</option>
+                           <option value="{{ $parent_of_section->id}}" selected> {{ $parent_of_section->site_name_ar}}</option>
                         <?php
                           }    
-                          foreach ($all_suppliers as $xx)
+                          foreach ($all_sections as $xx)
                           {
-                             //   if($first_select!='0'){
-                           //  if($xx->id == $parent_of_supplier->id)
-                           //    {}else{
                             
-                          $margin="0";
-                          $color="#c20620";
-                          $size="20";
-                          $type="supplier";
-                          $number=2;
+                                 $color="#c20620";
+                                    $new=[
+                                        'childs' => $xx->childs,
+                                        'color'=>'#209c41',
+                                        'number'=>2,
+                                        $type="site_section",
+                                        'site_id'=>$xx->id,
+                                    ];
+                 
                               ?>
-                                  <option  style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;font-family: Serif;"  value="{{$xx->id}}"> {{$xx->name_ar}}</option>
-                                  @if(count($xx->childs))
-                                      @include('pages.products.manageChild',['childs' => $xx->childs,'margin'=>$margin+30,'font-family'=>'Cursive','color'=>'#209c41','size'=>$size-1,'type'=>$type,'number'=>$number])
-                                  @endif
+                                <option style="color:{{$color}}"  value="{{$xx->id}}">-{{$xx->site_name_ar}}</option>
+                                @if(count($xx->childs))
+                                   @include('pages.products.manageChild',$new)
+                                @endif
                               <?php
                               //     }
                               // } 

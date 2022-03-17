@@ -82,13 +82,37 @@ class SiteSectionController extends Controller
     public function edit($id)
     {
      
-        $section = Sitesection::findOrfail($id);
+       
         //------------------------------------------------------//
-        
+        $section = Sitesection::findOrfail($id);  //data of edited supplier
+        if($section->parent_id==0)
+        {
+            $first_select=0; 
+            $parent_of_section='';
+            $all_sections =Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->where('id','!=',$id)->get();
+        }
+        else
+        {
+            $first_select='';
+             $parent_of_section = Sitesection::findOrfail($section->parent_id);
+             $all_sections =Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+        }
+      
+        if(!$parent_of_section)
+        {
+            $first_select=0;
+        }
+        else
+        {
+            $first_select='';
+        }
+        return view('pages.Sitesection.edit',compact('section','parent_of_section','first_select','all_sections'));
+   
         //------------------------------------------------------//
-        if(!$section)
+        //$section = Sitesection::findOrfail($id);
+        /*if(!$section)
              return redirect()->back();
-        return view('pages.Sitesection.edit',compact('section'));
+        return view('pages.Sitesection.edit',compact('section'));*/
     }
 //---------------------------------------------
     public function update(SiteSectionRequest $request,$id)
