@@ -19,7 +19,7 @@
       </li>  -->
       
       <!------------------------------اقسام الموقع-------------------------------------------->
-      <!-- <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa fa-sitemap green"></i>
           <p  class="ttitle">اقسام الموقع</p> <i class="left fas fa-angle-right" style="margin-right: 33%;"></i>
@@ -38,7 +38,7 @@
               </a>
           </li>
          </ul>
-      </li> -->
+      </li> 
 <!---------------------------التصنيفات الرئيسيه----------------------------------------------->
 
       <!-- <li class="nav-item has-treeview">

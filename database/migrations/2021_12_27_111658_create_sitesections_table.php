@@ -10,6 +10,8 @@ class CreateSitesectionsTable extends Migration
     {
         Schema::create('site_sections', function (Blueprint $table) {
             $table->id()->start_from(1);            
+            $table->unsignedBigInteger('parent_id')->unsigned()->nullable();
+            $table->foreign('parent_id')->references('id')->on('site_sections')->onDelete('cascade');
             $table->string('site_name_ar');
             $table->string('site_name_en');
              $table->integer('priority');

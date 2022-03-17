@@ -19,13 +19,14 @@ class SiteSectionController extends Controller
 
     public function create()
     {
-        return view('pages.Sitesection.add');
+        $parent_sites= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
+        return view('pages.Sitesection.add',compact('parent_sites'));
     }
 
     public function store(SiteSectionRequest $request)
     {
 
-
+  //dd($request->all());
         if(  Sitesection::where('site_name_ar',$request->site_name_ar)
         ->orWhere('site_name_en',$request->site_name_en)
         ->exists()
@@ -46,9 +47,19 @@ class SiteSectionController extends Controller
                $photo_name='';
            }
 
-
+           if($request->site_or_sub=='0')
+           {
+              $parent_id_value=Null;
+           }
+           else
+           {
+             $parent_id_value=$request->site_or_sub;
+           }
+          // dd( $parent_id_value);
            $Sitesection = new Sitesection
            ([
+               
+            'parent_id'=>$parent_id_value,
             'site_name_ar' => $request->site_name_ar,
             'site_name_en' => $request->site_name_en,
             'priority' => $request-> priority,
@@ -70,6 +81,10 @@ class SiteSectionController extends Controller
 
     public function edit($id)
     {
+        ///---------------------------------//
+        //$main_departments = Department::where('parent_id',Null)->where('id','!=',$real_id)->get();
+
+        ///-----------------------------------//
         $section = Sitesection::findOrfail($id);
         if(!$section)
              return redirect()->back();
