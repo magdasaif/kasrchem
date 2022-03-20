@@ -30,7 +30,7 @@ class ReleaseController extends Controller
         // $Main_Cat	        = Main_Category::get();
         // $sections           = Sitesection::get();
    //+++++++++++++++++++++++++new for unrequired +++++++++++++++++++++++++//
-            $sections = Sitesection::where('visible', '!=' , 0)->get();
+            $sections =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
             $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
             $sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
             $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
@@ -86,7 +86,9 @@ class ReleaseController extends Controller
            $release = new Release();
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
             //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
-                    
+              
+             
+                //--------------------------------    
             if(!$request->section_id)
             {
                 $release->site_id= 1;
@@ -154,7 +156,12 @@ class ReleaseController extends Controller
             $release->file=$file_name;
         //++++++++++++++++++++++++++++++++++++++++++//
         $release->save();
+  
+          //attach sections with release  to insert in releases_sections
+         // dd($request->site_id);
 
+         $release->rel_section()->attach($request->site_id);
+    
             return redirect()->route('release.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }
         catch(\Exception $e){
@@ -179,9 +186,9 @@ class ReleaseController extends Controller
         return view('pages.Release.edit',compact('s','sections','release','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
 
         */
-        //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
-        $sections = Sitesection::where('visible', '!=' , 0)->get();
-        $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
+        //+++++++++++++++++++++++++ new for unrequired +++++++++++++++++++++++++//
+        $sections = Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id','!=',$id)->get();     
+       $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
         $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
         $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
         $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
@@ -290,6 +297,12 @@ class ReleaseController extends Controller
              }
 
         $rel->save();
+        //attach sections with supplier
+        if(isset($request->site_id)){
+            $rel->rel_section()->sync($request->site_id);
+        }else{
+            $rel->rel_section()->sync();
+        }
        return redirect()->route('release.index')->with(['success'=>'تم التعديل بنجاح']);
      }
      catch

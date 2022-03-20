@@ -16,9 +16,12 @@ class CreateReleasesTable extends Migration
         Schema::create('releases', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('site_id');
-            $table->foreign('site_id')->references('id')->on('site_sections')->onDelete('cascade');  
+            // $table->unsignedBigInteger('site_id');
+            // $table->foreign('site_id')->references('id')->on('site_sections')->onDelete('cascade');  
             
+            $table->unsignedBigInteger('site_id')->unsigned()->nullable();
+            $table->foreign('site_id')->references('id')->on('site_sections')->onDelete('cascade');
+
             $table->unsignedBigInteger('main_cate_id');
             $table->foreign('main_cate_id')->references('id')->on('main_categorys')->onDelete('cascade');
             
