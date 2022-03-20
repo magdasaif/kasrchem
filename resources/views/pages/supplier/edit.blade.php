@@ -42,40 +42,34 @@
                   <div  class="form-group">
                   <label for="supplier_or_sub">نوع المـــــــورد</label>
                   <select class="form-control" name="supplier_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع المورد')"  oninput="this.setCustomValidity('')">
-                    <?php
-                        if($first_select=='0')
-                        {
-                            echo'<option value="0" selected > مورد رئيسى</option>';
-                        }
-                        else
-                        {
-                   ?>
-                         <option value="{{ $parent_of_supplier->id}}" selected> {{ $parent_of_supplier->name_ar}}</option>
-                   <?php
-                        }    
+
+                        <option value='0' <?php if($Supplier->parent_id == 0){echo'selected';}?>>مورد رئيسى</option>
+                        <?php
                         foreach ($all_suppliers as $xx)
                         {
-                           //   if($first_select!='0'){
-                         //  if($xx->id == $parent_of_supplier->id)
-                         //    {}else{
-                          
-                        $margin="0";
-                        $color="#c20620";
-                        $size="20";
-                        $type="supplier";
-                        $number=2;
+                            $color="#c20620";
+                            $new=[
+                                'childs' => $xx->childs,
+                                'color'=>'#209c41',
+                                'number'=>2,
+                                'type'=>"supplier",
+                                'main_id'=>$Supplier->id,//pramiry key of supplier we edit on it 
+                                'parent_id'=>$Supplier->parent_id //parent_id of another supplier
+
+                            ];
+
+                            // echo 'parent_id'.$Supplier->parent_id;
+                            // echo 'id'.$xx->id;
+                            // echo'<br>----------------------<br>';
+                            
                             ?>
-                                <option  style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;font-family: Serif;"  value="{{$xx->id}}"> {{$xx->name_ar}}</option>
+                                <option  style="color: {{$color}};"  value="{{$xx->id}}" <?php if($Supplier->parent_id == $xx->id){echo'selected';}?>>- {{$xx->name_ar}}</option>
                                 @if(count($xx->childs))
-                                    @include('pages.products.manageChild',['childs' => $xx->childs,'margin'=>$margin+30,'font-family'=>'Cursive','color'=>'#209c41','size'=>$size-1,'type'=>$type,'number'=>$number])
+                                    @include('pages.products.manageChild',$new)
                                 @endif
                             <?php
-                            //     }
-                            // } 
                          }?>
-                        
                         </select>
-
                     </div>
                    <!----------------------------------------------------->
               

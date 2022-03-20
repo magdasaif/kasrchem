@@ -34,6 +34,37 @@
             <form method="POST" action="{{route('supplier.store')}}" enctype="multipart/form-data">
 
                 @csrf
+
+                 <!----------------------------------------------------->
+                 <div class="form-group">
+                    <label for="exampleInputEmail1">الاقسام</label> <span style="font-size: initial;color: red;"></span>
+                    <select class="form-control" name="category_id[]"  multiple required>
+                        @foreach ($suppliers as $supplier)
+                        <?php
+                            $margin="0";
+                            $color="#c20620";
+                            
+                            $new=[
+                                'margin' =>0,
+                                'childs' => $supplier->childs,
+                                'color'=>'#209c41',
+                                'number'=>2,
+                                'type'=>"product",
+                                'main_id'=>$supplier->id,//pramiry key of supplier we edit on it
+                                'parent_id'=>'0',
+                            ];
+                        ?>
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>> - {{ $supplier->name_ar }}</option>
+                            @if(count($supplier->childs))
+                                @include('pages.products.manageChild',$new)
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+
+                
+                <hr>
+                
                <!--------0--supplier , another--sub_supplier------------------>
                <div class="form-group">
                    <label for="supplier_or_sub">نوع المـــــــورد</label>
@@ -42,16 +73,23 @@
                    <option value="0" selected > مورد رئيسى</option>
 
                    @foreach($suppliers as $supplier)
-                        <?php
-                            $margin="0";
+                        
+                          <?php
+                          
                             $color="#c20620";
-                            $size="20";
-                            $type="supplier";
-                            $number=2;
-                         ?>
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;font-family: Serif;"  value="{{$supplier->id}}"  > {{$supplier->name_ar}}</option>
+                            $new=[
+                                'childs' => $supplier->childs,
+                                'color'=>'#209c41',
+                                'number'=>2,
+                                'type'=>"supplier",
+                                'main_id'=>'',//pramiry key of supplier we edit on it
+                               // 'main_id'=>$supplier->id,//pramiry key of supplier we edit on it
+                                'parent_id'=>'',
+                            ];
+                        ?>
+                            <option style="color:{{$color}};"  value="{{$supplier->id}}"  >- {{$supplier->name_ar}}</option>
                             @if(count($supplier->childs))
-                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'font-family'=>'Cursive','color'=>'#209c41','size'=>$size-4,'type'=>$type,'number'=>$number])
+                                @include('pages.products.manageChild',$new)
                             @endif
                         @endforeach
                     </select>
