@@ -124,33 +124,34 @@ class SupplierController extends Controller
     {
        
         $Supplier = Supplier::findOrfail($id);  //data of edited supplier
-        if($Supplier->parent_id==0)
-        {
-            $first_select=0; 
-            $parent_of_supplier='';
-            $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id','!=',$id)->get();
-        }
-        else
-        {
-            $first_select='';
-             $parent_of_supplier = Supplier::findOrfail($Supplier->parent_id);
-             $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id', '!=', $parent_of_supplier->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
-        }
-      // dd( $all_suppliers);
-        //$all_suppliers =Supplier::where('parent_id', '=', 0)->get();
-        //dd( $suppliers);
-        //dd($parent_of_supplier);
-        if(!$parent_of_supplier)
-        {
-            $first_select=0;
-        }
-        else
-        {
-            $first_select='';
-        }
-        //$parent_of_supplier=Supplier::where('id','=',$id)->get();
-        // dd( $parent_of_supplier);
-        return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
+        $all_suppliers = Supplier::where('parent_id',0)->where('id','!=',$id)->get();
+        
+        // if($Supplier->parent_id==0)
+        // {
+        //     $first_select=0; 
+        //     $parent_of_supplier='';
+        //     $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id','!=',$id)->get();
+        // }
+        // else
+        // {
+        //     $first_select='';
+        //      $parent_of_supplier = Supplier::findOrfail($Supplier->parent_id);
+        //      $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id', '!=', $parent_of_supplier->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+        // }
+
+        
+        // if(!$parent_of_supplier)
+        // {
+        //     $first_select=0;
+        // }
+        // else
+        // {
+        //     $first_select='';
+        // }
+
+        
+        // return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
+        return view('pages.supplier.edit',compact('Supplier','all_suppliers'));
     }
 // //-------------------------------------------------------------//
     public function update(Supplier_Request $request, $id)

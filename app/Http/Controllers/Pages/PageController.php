@@ -149,7 +149,7 @@ class PageController extends Controller
        $Pages_images = PageImage::where([
           ['page_id', '=', $page_id],
       ])->get();
-       return view('pages.pages.images',compact('Pages_images','page_id','title'));
+       return view('pages.Pages.images',compact('Pages_images','page_id','title'));
   }
   //-----------------------------------------------------------------------------//
   public function add_page_images(Request $request,$page_id){
