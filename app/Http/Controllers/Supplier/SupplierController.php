@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Supplier;
-use App\Http\Controllers\Controller;
 use App\Models\Supplier;
+use App\Models\Sitesection;
+use Illuminate\Http\Request;
 use App\Models\Supplier_image;
 use App\Models\Product_supplier;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Supplier_Request;
-use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
@@ -20,20 +22,15 @@ class SupplierController extends Controller
 // //-------------------------------------------------------------//
     public function create()
     {
-      //   $suppliers=Supplier::get();
-      $suppliers= Supplier::where('parent_id', '=', 0)->get();
-        return view('pages.supplier.add',compact('suppliers'));
+        $sections= Sitesection::whereNull('parent_id')->get();
+        $suppliers= Supplier::where('parent_id', '=', 0)->get();
+        return view('pages.supplier.add',compact('suppliers','sections'));
     }
 // //-------------------------------------------------------------//
     public function store(Supplier_Request $request)
     {
-        // dd($request->all());
-        // if(Supplier::where('name_ar',$request->name_ar)
-        // ->orWhere('name_en',$request->name_en)
-        // ->exists()
-        // ){
-        //     return redirect()->back()->withErrors('اسم المورد  مُضاف بالفعل من قبل ');
-        // }
+        DB::beginTransaction();
+       
          try{
             $validated = $request->validated();
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
@@ -79,7 +76,9 @@ class SupplierController extends Controller
              // dd('done');
 
            $Supplier->save();
-
+//dd($request->all());
+           $Supplier->sup_sections()->attach($request->section_id);
+           
            if(!empty($request->photos)){
             foreach($request->photos as $photo){
 
@@ -95,7 +94,8 @@ class SupplierController extends Controller
                 ]);
             }
         }
-        
+
+        DB::commit();
            if ($request->supplier_model==1)
            {
               //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
@@ -116,6 +116,7 @@ class SupplierController extends Controller
            }
         }
         catch(\Exception $e){
+            DB::rollback();
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
@@ -125,33 +126,11 @@ class SupplierController extends Controller
        
         $Supplier = Supplier::findOrfail($id);  //data of edited supplier
         $all_suppliers = Supplier::where('parent_id',0)->where('id','!=',$id)->get();
-        
-        // if($Supplier->parent_id==0)
-        // {
-        //     $first_select=0; 
-        //     $parent_of_supplier='';
-        //     $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id','!=',$id)->get();
-        // }
-        // else
-        // {
-        //     $first_select='';
-        //      $parent_of_supplier = Supplier::findOrfail($Supplier->parent_id);
-        //      $all_suppliers =Supplier::where('parent_id', '=', 0)->where('id', '!=', $parent_of_supplier->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
-        // }
-
-        
-        // if(!$parent_of_supplier)
-        // {
-        //     $first_select=0;
-        // }
-        // else
-        // {
-        //     $first_select='';
-        // }
-
+        $all_sections = Sitesection::whereNull('parent_id')->where('id','!=',$id)->get();
+       
         
         // return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
-        return view('pages.supplier.edit',compact('Supplier','all_suppliers'));
+        return view('pages.supplier.edit',compact('Supplier','all_suppliers','all_sections'));
     }
 // //-------------------------------------------------------------//
     public function update(Supplier_Request $request, $id)
@@ -194,6 +173,14 @@ class SupplierController extends Controller
         $Supplier->logo = $photo_name;
         }
         $Supplier->save();
+
+          //attach sections with supplier
+        if(isset($request->section_id)){
+            $Supplier->sup_sections()->sync($request->section_id);
+        }else{
+            $Supplier->sup_sections()->sync();
+        }
+      
         return redirect()->route('supplier.index')->with(['success'=>'تم التعديل بنجاح']);
         }
         catch

@@ -38,24 +38,24 @@
                  <!----------------------------------------------------->
                  <div class="form-group">
                     <label for="exampleInputEmail1">الاقسام</label> <span style="font-size: initial;color: red;"></span>
-                    <select class="form-control" name="category_id[]"  multiple required>
-                        @foreach ($suppliers as $supplier)
+                    <select class="form-control" name="section_id[]"  multiple>
+                        @foreach ($sections as $section)
                         <?php
                             $margin="0";
                             $color="#c20620";
                             
                             $new=[
                                 'margin' =>0,
-                                'childs' => $supplier->childs,
+                                'childs' => $section->childs,
                                 'color'=>'#209c41',
                                 'number'=>2,
-                                'type'=>"product",
-                                'main_id'=>$supplier->id,//pramiry key of supplier we edit on it
+                                'type'=>"supplier_section",
+                                'main_id'=>$section->id,//pramiry key of supplier we edit on it
                                 'parent_id'=>'0',
                             ];
                         ?>
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>> - {{ $supplier->name_ar }}</option>
-                            @if(count($supplier->childs))
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $section->id }}" <?php if (collect(old('section_id'))->contains($section->id)) {echo 'selected';}?> > - {{ $section->site_name_ar }}</option>
+                            @if(count($section->childs))
                                 @include('pages.products.manageChild',$new)
                             @endif
                         @endforeach
