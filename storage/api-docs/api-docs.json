@@ -1421,6 +1421,52 @@
                 }
             }
         },
+        "/suppliers_section": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "summary": "Get list of sections with suppliers",
+                "description": "Returns list of sections with suppliers",
+                "operationId": "getsuppliersList",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
         "/supplier/{id}": {
             "get": {
                 "tags": [

@@ -101,6 +101,9 @@ Route::get('/latest_galleries',[LatestMultiMediaController::class,'latest_galler
 //---------------------releases------------------------
 Route::apiResource('/releases', 'ReleaseController', array("as" => "api"));
 
+//---------------------categories with releases ------------------------
+Route::get('/release_section',[ReleaseController::class,'sectionsAndRelease']);
+
 //---------------------latest releases------------------------
 Route::get('/latest_releases',[LatestMultiMediaController::class,'latest_releases']);
 
@@ -112,7 +115,10 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
 
 //---------------------related products with supplier ------------------------
  Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
-
+ 
+//---------------------categories with supplier ------------------------
+ Route::get('/suppliers_section',[SupplierController::class,'sectionsAndSupplier']);
+ 
  ///------------------------------about us------------------------------------
  Route::get('/about_us',[CommonController::class,'about_us']);
  

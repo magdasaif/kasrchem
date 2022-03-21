@@ -60,7 +60,7 @@ class SupplierResource extends JsonResource
        $x= Supplier_imagesResource::collection (Supplier_image::where('supplier_id',$this->id)->get());
         $path=storage_path().'/app/public/supplier/';
         return [
-            'lang'=>$lang,
+            // 'lang'=>$lang,
             'id'=>$this->id,
             'name' =>$supplier_name,
             'parent_id' =>$this->parent_id,

@@ -38,7 +38,7 @@
                  <!----------------------------------------------------->
                  <div class="form-group">
                     <label for="exampleInputEmail1">الاقسام</label> <span style="font-size: initial;color: red;"></span>
-                    <select class="form-control" name="section_id[]"  multiple>
+                    <select class="form-control" name="section_id[]"  multiple required>
                         @foreach ($sections as $section)
                         <?php
                             $margin="0";
