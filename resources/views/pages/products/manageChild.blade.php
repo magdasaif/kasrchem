@@ -1,8 +1,4 @@
-<<<<<<< HEAD
   <?php
-=======
-<?php
->>>>>>> release_section
 foreach($childs as $child){
      // echo '<option>'.$type.'</option>';
      
@@ -11,11 +7,7 @@ foreach($childs as $child){
          $extra.='-';
       }
 
-<<<<<<< HEAD
-      if($type=='product'||$type=='supplier_section'){
-=======
       if($type=='product'||$type=='supplier_section' ||$type=='release'){
->>>>>>> release_section
         //to check if you come from add or edit form
         if(isset($selected_supplier)){//edit
             if(in_array($child->id,$selected_supplier)){
@@ -32,11 +24,7 @@ foreach($childs as $child){
         $select_or_no='';
       }
 
-<<<<<<< HEAD
-      if($type=='site_section'||$type=='supplier_section'){$show_name="site_name_ar";}else{$show_name="name_ar";}
-=======
       if($type=='site_section'||$type=='supplier_section'||$type=='release'){$show_name="site_name_ar";}else{$show_name="name_ar";}
->>>>>>> release_section
       
       
         if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
@@ -58,11 +46,7 @@ foreach($childs as $child){
         ];
         ?>
         @if($child->id!=$main_id)
-<<<<<<< HEAD
-            <option  style="<?php if($type=='product'||$type=='supplier_section'){echo'margin-right:'. ($margin) .'px;';}?>color: {{$color}};" value="{{ $child->id }}" <?php echo $select_or_no;?>> <?php echo $extra;?> {{ $child->$show_name }}</option>
-=======
             <option  style="<?php if($type=='product'||$type=='supplier_section'||$type=='release'){echo'margin-right:'. ($margin) .'px;';}?>color: {{$color}};" value="{{ $child->id }}" <?php echo $select_or_no;?>> <?php echo $extra;?> {{ $child->$show_name }}</option>
->>>>>>> release_section
             @if(count($child->childs))
                 @include('pages.products.manageChild',$new)
             @endif 
