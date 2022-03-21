@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers\SiteSection;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Release_Section;
+use App\Models\Supplier_section;
+use App\Models\Sitesection;
+use App\Models\Release;
+use App\Models\Supplier;
+class CheckSectionController extends Controller
+{
+     //--------------------------------------------
+     public function check_section($section_id)
+     {
+        //-----------------------------------------------//
+        $releases_sections= Release_Section::where("sitesection_id",$section_id)->pluck("release_id"); 
+        $supllier_section= Supplier_section::where("sitesection_id",$section_id)->pluck("supplier_id");
+        //-----------------------------------------------//
+        //   $data= Sitesection::where('id',$section_id)
+        //  ->whereIn('id',  $supllier_section)
+        //  ->orWhereIn('id',  $releases_sections)
+        //  ->get();
+        //-------------------------------------------------------//
+
+        
+      // dd($data);
+       // return $data;
+         //return  $releases_sections->count();
+       // return  $releases_sections;
+       // return  $supllier_section;
+       // return  $supllier_section->count();
+       //-------------------------------------------------------//
+       if($releases_sections->count()>=1 && $supllier_section->count()>=1)
+       {
+         return  "بموردين ونشرات ";
+        }
+        elseif($releases_sections->count()>=1)
+       {
+       $data= Release::whereIn('id',  $releases_sections)->pluck("title_ar");
+          return $data ;
+       }
+       elseif($supllier_section->count()>=1)
+       {
+        $data= Supplier::whereIn('id',  $supllier_section)->pluck("name_ar");
+        return  $data ;
+       }
+     }
+    
+}

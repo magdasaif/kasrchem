@@ -64,6 +64,10 @@ Route::group(['middleware' => 'auth'], function () {
     //------------------site_section------------------------------------------------------
     Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
+      //=======check if section related with release or supplier=========//
+  Route::GET('/check_section/{section_id}','CheckSectionController@check_section');
+  //================================================================//
+
     });
     //-----------------------slider-------------------------------------------------------
     Route::group(['namespace'=>'Slider'],function(){
@@ -211,3 +215,6 @@ Route::group(['namespace'=>'Change_password'],function(){
 Route::get('/docs', function () {
     return view('swagger.index');
 });
+//------------------------------------------------------------------------------//
+
+  
