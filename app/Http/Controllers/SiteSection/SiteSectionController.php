@@ -180,8 +180,20 @@ class SiteSectionController extends Controller
         //
     }
 //---------------------------------------------
-    public function destroy($id)
+    public function destroy (Request $request,$id)
     {
-        //
+       // dd($id);
+        try
+        {
+            $Sitesections=Sitesection::findOrFail($id);
+            $Sitesections->visible= 0; //SOFT  DELETED WITH VISIBLE
+             $Sitesections->save();
+            return redirect()->route('site_section.index')->with(['success'=>'تم الحذف بنجاح']);
+        }
+        catch
+        (\Exception $e)
+        {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }

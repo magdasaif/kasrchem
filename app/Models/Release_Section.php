@@ -9,7 +9,7 @@ class Release_Section extends Model
 {
     use HasFactory;
 
-    protected $table = 'release_sections';
+    protected $table = 'releases_sections';
     protected $guarded=[];
     public $timestamps = true;
 }
