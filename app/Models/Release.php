@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Release extends Model
 {
     use HasFactory;
-    public $fillable = ['main_cate_id','sub1_id','sub2_id','sub3_id','title_ar','title_en','image','file','status'];
-    protected $table = 'releases';
+  //  public $fillable = ['site_id','main_cate_id','sub1_id','sub2_id','sub3_id','title_ar','title_en','image','file','status'];
+  protected $guarded=[]; 
+  protected $table = 'releases';
 
 
     public function relation_with_main_category()
@@ -37,5 +38,8 @@ class Release extends Model
     public function relation_with_site()
     {
         return $this->belongsTo('App\Models\Sitesection', 'site_id');
+    }
+    public function rel_section(){
+        return $this->belongsToMany('App\Models\Sitesection','releases_sections');
     }
 }
