@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\RelatedProductController;
 use App\Http\Controllers\Api\CommonController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\ReleaseController;
 
 
 /*

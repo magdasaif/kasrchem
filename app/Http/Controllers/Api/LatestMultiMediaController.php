@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Resources\LatestMultiMediaResource;
-use App\Models\Photo_Gallery;
-use App\Models\Release;
-use App\Models\Article;
 use App\Models\Video;
+use App\Models\Article;
+use App\Models\Release;
+use App\Models\Sitesection;
+use Illuminate\Http\Request;
+use App\Models\Photo_Gallery;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ReleaseSectionResource;
+use App\Http\Resources\LatestMultiMediaResource;
 
 class LatestMultiMediaController extends Controller
 {
@@ -128,10 +130,22 @@ class LatestMultiMediaController extends Controller
           }else{
                $selected="title_en as title";
           }
-         
-         $posts = LatestMultiMediaResource::collection(Release::select('id',$selected,'image','file')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
-         $posts->map(function($t) { $t->type = 'latest_releases'; });
-         return response($posts,200,['OK']);
+          
+     //     $posts = LatestMultiMediaResource::collection(Release::select('id',$selected,'image','file')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
+     //     $posts->map(function($t) { $t->type = 'latest_releases'; });
+     //     return response($posts,200,['OK']);
+
+
+     
+          $all=Sitesection::select('site_sections.id as section_id','site_name_ar','site_name_en')
+               ->join('releases_sections', 'releases_sections.sitesection_id', '=', 'site_sections.id')
+               ->groupBy('section_id')
+               ->get();
+
+          $section=ReleaseSectionResource::collection($all);
+          $section->map(function($i) { $i->type = 'latest'; });
+          return response($section,200,['OK']);
+
     }
     
    /**

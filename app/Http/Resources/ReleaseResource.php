@@ -11,6 +11,12 @@ class ReleaseResource extends JsonResource
     {
         $path=storage_path().'/app/public/release/release_'.$this->id.'/';
 
+        $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
+
+        if($type=='release_section'){
+          
+        }
+        
         return [
 
             'id' =>$this->id,

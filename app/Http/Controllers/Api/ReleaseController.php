@@ -7,8 +7,11 @@ use App\Models\Sitesection;
 
 use Illuminate\Http\Request;
 
+use App\Models\Release_Section;
+use App\Models\Supplier_section;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReleaseResource;
+use App\Http\Resources\ReleaseSectionResource;
 
 class ReleaseController extends Controller
 {
@@ -31,20 +34,6 @@ class ReleaseController extends Controller
      *      ),
      *      @OA\Parameter(
      *          name="category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="sub_category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="type_id",
      *          in="query",
      *          @OA\Schema(
      *              type="string",
@@ -79,8 +68,8 @@ class ReleaseController extends Controller
     {
     //select Release in selected categories 
          $main_cate_id=$request->category_id;
-         $sub2_id=$request->sub_category_id;
-         $sub3_id=$request->type_id;
+     //     $sub2_id=$request->sub_category_id;
+     //     $sub3_id=$request->type_id;
          
           //use header to read parameter passed in header 
         $lang=$request->header('locale');
@@ -93,8 +82,14 @@ class ReleaseController extends Controller
               $selected="title_en as title";
          }
         
-         $relases =  ReleaseResource::collection(Release::select('id',$selected,'image','file')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
-         return response($relases,200,['OK']);
+         // $relases =  ReleaseResource::collection(Release::select('id',$selected,'image','file')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
+
+          $releases_ids=Release_Section::where('sitesection_id',$main_cate_id)->pluck('release_id');
+          
+          $rr=Release::select('id',$selected,'image','file')->whereIn('id',$releases_ids)->where('status','1')->paginate($perpage);
+          $relases =  ReleaseResource::collection($rr);
+
+          return response($relases,200,['OK']);
     }
 
 
@@ -143,21 +138,21 @@ class ReleaseController extends Controller
      */
     public function sectionsAndRelease(Request $request)
     {
-    //   $lang=$request->header('locale');
-    //   $all=Sitesection::select('site_sections.id as section_id','site_name_ar','site_name_en')
-    //   ->join('supplier_sections', 'supplier_sections.sitesection_id', '=', 'site_sections.id')
-    //   ->groupBy('section_id')
-    //   ->get();
-    //   //return response($all,200,['OK']);
-        
-    //   $Supplier=SupplierSectionResource::collection($all);
-
-    //   if($lang=='ar'){
-    //     $Supplier->map(function($i) { $i->lang = 'ar'; });
-    //  }else{
-    //     $Supplier->map(function($i) { $i->lang = 'en'; });
-    //  }
-    //   return response($Supplier,200,['OK']);
+      $lang=$request->header('locale');
+      
+      $all=Sitesection::select('site_sections.id as section_id','site_name_ar','site_name_en')
+      ->join('releases_sections', 'releases_sections.sitesection_id', '=', 'site_sections.id')
+      ->groupBy('section_id')
+      ->get();
+      
+      $section=ReleaseSectionResource::collection($all);
+      $section->map(function($i) { $i->type = 'all'; });
+      if($lang=='ar'){
+        $section->map(function($i) { $i->lang = 'ar'; });
+     }else{
+        $section->map(function($i) { $i->lang = 'en'; });
+     }
+      return response($section,200,['OK']);
     }
     
 }
