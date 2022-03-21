@@ -6,9 +6,7 @@ use App\Models\Sitesection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SupplierResource;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SupplierSectionResource;
-use App\Models\Supplier_section;
 
 class SupplierController extends Controller
 {

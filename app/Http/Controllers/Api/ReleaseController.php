@@ -8,7 +8,6 @@ use App\Models\Sitesection;
 use Illuminate\Http\Request;
 
 use App\Models\Release_Section;
-use App\Models\Supplier_section;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReleaseResource;
 use App\Http\Resources\ReleaseSectionResource;
