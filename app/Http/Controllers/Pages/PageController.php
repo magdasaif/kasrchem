@@ -5,10 +5,13 @@ use App\Models\PageImage;
 use Illuminate\Http\Request;
 use App\Http\Requests\PageRequest;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ImageRequest;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
+    // public function show($id)
+    // {}
     public function index()
     {
         $Page=Page::orderBy('id','desc')->get();
@@ -48,6 +51,8 @@ class PageController extends Controller
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
 
+                   // $request->validate(['photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315',]);
+
                     $folder_name0='page_no_'. $page->id;
                     $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
                     ($photo)->storeAs($folder_name0,$photo_name0,$disk="pages");
@@ -73,13 +78,17 @@ class PageController extends Controller
     {
         $page = Page::findOrfail($id);
         if(!$page) return redirect()->back();
-         return view('pages.Pages.edit',compact('page'));
+
+        $Pages_images = PageImage::where([
+            ['page_id', '=', $id],
+        ])->get();
+        
+         return view('pages.Pages.edit',compact('page','Pages_images'));
     }
 //--------------------------------------------
     public function update(PageRequest $request)
     {
-         //dd( $request->all());
-         try 
+        try 
         {
 
             $validated = $request->validated();
@@ -92,7 +101,9 @@ class PageController extends Controller
             $Page->content_en = $request->content_en;
             $Page-> status=$request->status;
             $Page->save();
-           return redirect()->route('page.index')->with(['success'=>'تم التعديل بنجاح']);
+
+        //    return redirect()->route('page.index')->with(['success'=>'تم التعديل بنجاح']);
+           return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
         }
         catch
         (\Exception $e) 
@@ -152,7 +163,7 @@ class PageController extends Controller
        return view('pages.Pages.images',compact('Pages_images','page_id','title'));
   }
   //-----------------------------------------------------------------------------//
-  public function add_page_images(Request $request,$page_id){
+  public function add_page_images(ImageRequest $request,$page_id){
       try{
          // dd($request->photos);
           if(!empty($request->photos)){

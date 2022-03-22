@@ -5,19 +5,25 @@
 @section('content')
 <section class="content">
     <div class="container-fluid">
+ 
         <div class="row">
+            <div class="col-12">
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
-          <div class="col-12">
+         
         
             <div class="card">
               <div class="card-header">
@@ -60,8 +66,9 @@
                     <label for="exampleInputEmail1">الصور الفرعيه</label>
 
                     <input type="file" class="form-control" name="photos[]" accept="image/*" multiple>
+                    <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
 
-                    @error('image')
+                    @error('photos')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>

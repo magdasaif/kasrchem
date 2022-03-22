@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
         return redirect('/dashboard');
     });
 
+    // Route::POST('check_action', function () {
+    //     return view('pages.Pages.ServerFileToExecute');
+    // });
+    
     // Route::get('/{vue_capture?}', function () {
     //     return view('home');
     // })->where('vue_capture', '[\/\w\.-]*')->middleware('auth');

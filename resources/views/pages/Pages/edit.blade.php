@@ -7,18 +7,23 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+        <div class="col-12">
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
-          <div class="col-12">
+         
         
             <div class="card">
               <div class="card-header" >
@@ -31,7 +36,80 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body" >
-   <form method="POST"  action="{{route('page.update',$page->id)}}" >
+
+
+ <center><h3 style='color:#009879'>ـــــــــــــــــــــــــ الصور الفرعيه ـــــــــــــــــــــــــ</h3></center>
+<br>
+ <form method="POST" action="{{url('add_page_images',$page->id)}}" enctype="multipart/form-data">
+
+                {{method_field('POST')}}
+                @csrf
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الصور الفرعيه</label>
+
+                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple required>
+                    <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
+
+                    @error('photos')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+
+                    <input type="hidden" value="{{$page->id}}" name="page_id">
+                </div>
+                <center> <button type="submit" class="btn btn-primary">حفظ الصور</button></center>
+                <br>
+                
+            </form>
+<!-- ------------------------------------------------------------------------- -->
+ <div class="row">
+            @foreach($Pages_images as $image)
+                 <div class="col">
+                    <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/pages/page_no_$page->id/$image->image")?>">
+                    <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$image->id}}" style="margin-right: 55px;"> حذف</button>
+
+                </div>
+                
+                 <!--############################ model for delete #################################-->
+          
+                 <div class="modal modal-danger fade" id="delete{{$image->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header" style="direction: ltr;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
+                                </div>
+                                <form action="{{url('delete_page_images/'.$image->id)}}"  method="POST">
+                                @method('GET')
+                                {{csrf_field()}}
+                                    <div class="modal-body">
+                                            <h3 class="text-center">
+                                                هل تريد الحذف بالفعل؟
+                                             </h3>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <input type="hidden" name="page_id" value="{{$page->id}}">
+                                        <input type="hidden" name="image_name" value="{{$image->image}}">
+                                        <input type="hidden" name="image_id" value="{{$image->id}}">
+
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                        <button type="submit" class="btn btn-primary" >حذف</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
+            <!--#############################################################-->
+            @endforeach
+            </div>
+<br><hr>
+<center><h3 style='color:#009879'> ـــــــــــــــــــــــ البيانات الاساسيه ـــــــــــــــــــــــــ </h3></center>
+<br><hr>
+            <!-- ------------------------------------------------------------------------- -->
+   <form method="POST"  action="{{route('page.update',$page->id)}}" enctype="multipart/form-data">
+   <!-- <form method="POST"  action="{{url('page/'.$page->id.'/update')}}" enctype="multipart/form-data"> -->
                 {{method_field('PATCH ')}}
 
                 @csrf
@@ -60,8 +138,14 @@
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
                 </div>
+                 <!----------------------------------------------------->
+                
+               <!----------------------------------------------------->
+              
                <!----------------------------------------------------->
                <div class="form-group">
+                   <br>
+                   <hr>
                     <label for="content_ar">وصف الصفحة </label>
                     <textarea  class="form-control" rows="4" name="description_ar" id="description_ar" placeholder="ادخل وصف الصفحة "  style="border-radius: 6px;">{!!$page->description_ar!!}</textarea>
                     

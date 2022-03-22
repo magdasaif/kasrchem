@@ -22,6 +22,7 @@ class PageRequest extends FormRequest
         'content_ar' => 'required',
         'content_en' => 'required',
         'status' => 'required',
+        'photos.*' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315'. $this->id,
           
         ];
     } 
@@ -39,6 +40,8 @@ class PageRequest extends FormRequest
         'content_ar.required' =>'محتوى الصفحة بالعربية مطلوب',
         'content_en.required' =>'محتوى الصفحة بالانجليزية مطلوب',
         'status.required' =>'الحالة مطلوبة',
+
+        'photos.*.dimensions'=>'الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]',
         ];
     }
 }
