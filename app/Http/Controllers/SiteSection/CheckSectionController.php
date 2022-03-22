@@ -34,16 +34,30 @@ class CheckSectionController extends Controller
        //-------------------------------------------------------//
        if($releases_sections->count()>=1 && $supllier_section->count()>=1)
        {
-         return  "بموردين ونشرات ";
+      //  $data = array( "بموردين ونشرات ");
+       // $data_release_ = array( "النشرة ");
+        $data = array("<span style='color:#009879;font-style: italic;font-weight: bold;font-size: 14px;'>__النشرة التالية__</span>" ,"<br>");
+        $data_release= Release::whereIn('id',  $releases_sections)->pluck("title_ar");
+        array_push($data, "(",$data_release,")", "<br><br>","<span style='color:#009879;font-style: italic;font-weight: bold;font-size: 14px;'> __ الموردالتالى__</span>", "<br>");   
+
+
+        $data_supplier= Supplier::whereIn('id',  $supllier_section)->pluck("name_ar");
+        array_push($data,"(",$data_supplier,")");   
+        return $data ;
+       // return  "بموردين ونشرات ";
         }
         elseif($releases_sections->count()>=1)
        {
-       $data= Release::whereIn('id',  $releases_sections)->pluck("title_ar");
-          return $data ;
+        $data = array("<span style='color:#009879;font-style: italic;font-weight: bold;font-size: 14px;'>__النشرة__</span>" ,"<br>");
+        $data_release= Release::whereIn('id',  $releases_sections)->pluck("title_ar");
+       array_push($data, $data_release);   
+       return $data ;
        }
        elseif($supllier_section->count()>=1)
        {
-        $data= Supplier::whereIn('id',  $supllier_section)->pluck("name_ar");
+        $data = array("<span style='color:#009879;font-style: italic;font-weight: bold;font-size: 14px;'>__المورد__</span>" ,"<br>");
+        $data_supplier= Supplier::whereIn('id',  $supllier_section)->pluck("name_ar");
+        array_push($data, $data_supplier);
         return  $data ;
        }
      }

@@ -104,39 +104,35 @@
 </template>
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
-
-
 function check_related_section(section_id,site_name_ar)
 {
-            //alert("inside onclick");
-            //alert("section_id="+section_id);  
-              // alert("{{ URL::to('check_section')}}/" + section_id);
-
-            $.ajax({
-                type: "GET",
-                 url: "{{ URL::to('check_section')}}/" +section_id,
-             //dataType: "json",
-                success: function (data) 
-                {
-                //alert ("data="+data) ;
-                    if(data!='')
-                    { 
-                        $('.modal-body').empty();
-                        $('.modal-body').append('<div  style="text-align: center;font-size:18px;color: red;" >'+site_name_ar +' </div><h2 style="text-align: center;font-size: 18px;color: black;" > مرتبط  ب  <h3  style="text-align: center;font-size: 18px;color: blue;">'+data+'</h3> <h3 style="text-align: center;font-size: 18px;color: black;" >قم بتغيير القسم اولا</h3></h2></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button><input id="del_button" type="submit" value="حذف"  class="btn btn-primary" disabled > </div>');
-                    }
-                    else
-                    {
-                    
-
-                   $('.modal-body').empty();
-                     $('.modal-body').append('<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ site_name_ar+'</div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button> <input id="del_button" type="submit" value="حذف"  class="btn btn-primary" >  </div>');
-                    //document.getElementById("del_button").disabled = false;
-                    }
-                    
-                },
-                error:function()
-                { alert("false"); }
-            });
+  //alert("inside onclick");
+  //alert("section_id="+section_id);  
+  // alert("{{ URL::to('check_section')}}/" + section_id);
+  $.ajax({
+    type: "GET",
+      url: "{{ URL::to('check_section')}}/" +section_id,
+      //dataType: "json",
+    success: function (data) 
+    {
+        // alert ("all_data="+data) ;
+        // alert("first_element"+data[0]); //type
+        if(data!='')
+        { 
+            $('.modal-body').empty();
+            $('.modal-body').append('<div  style="text-align: center;font-size:18px;color: red;" > <span style="font-size: 18px;color: black;" >القسم &nbsp;</span>'+site_name_ar +' </div><h2 style="text-align: center;font-size: 18px;color: black;" > مرتبط  ب  <h3  style="text-align: center;font-size: 18px;color: red;">'+data.join(' ')+'</h3> <h3 style="text-align: center;font-size: 18px;color: black;" >قم بتغيير القسم اولا</h3></h2></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button><input id="del_button" type="submit" value="حذف"  class="btn btn-primary" disabled > </div>');
+        }
+        else
+        {
+          $('.modal-body').empty();
+          $('.modal-body').append('<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ site_name_ar+'</div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button> <input id="del_button" type="submit" value="حذف"  class="btn btn-primary" >  </div>');
+        //document.getElementById("del_button").disabled = false;
+        }
+        
+    },
+    error:function()
+    { alert("false"); }
+});
 // });
 }
   
