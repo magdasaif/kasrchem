@@ -100,47 +100,125 @@
           </div>
         </div>
         </div>
+
+
+        <div class="modal fade" id ="Registration">
+          <div class="container">
+            <form role="form" class="center-block" method="POST">
+                  <div class="form-group">
+                      <div class="ct-form-content">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>First Name</label>
+                                  <input type="text" required class="form-control input-lg" value="Kristine" placeholder="">
+                                  <label>Last Name</label>
+                                  <input type="text" required class="form-control input-lg" value="Black" placeholder="">
+                                  <label>Number of Properties</label>
+                                  <input type="text" required class="form-control input-lg" value="15" placeholder="">
+                                  <label>Include contact form?</label>
+                              </div>
+                           </div>
+                          <button type="submit" class="btn btn-success center-block">Save changes</button>
+                      </div>
+                      <div class="ct-form-close"><i class="fa fa-times"></i></div>
+                  </div>
+              </form>
+          </div>
+      </div>
+
+
+
   </section>
 </template>
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script>
-
-
 function check_related_section(section_id,site_name_ar)
 {
-            //alert("inside onclick");
-            //alert("section_id="+section_id);  
-              // alert("{{ URL::to('check_section')}}/" + section_id);
+  //alert("inside onclick");
+  //alert("section_id="+section_id);  
+  // alert("{{ URL::to('check_section')}}/" + section_id);
+  $.ajax({
+    type: "GET",
+      url: "{{ URL::to('check_section')}}/" +section_id,
+      //dataType: "json",
+    success: function (data) 
+    {
+       //alert ("all_data1="+data) ;
+        //alert("first_element"+data[1]); //type
+        
+       // alert ("all_datalength="+data.length) ;
+        
+        if(data!='')
+        { 
+          //#################################################################//
+        var all_data=[];
+      if(data.length==13)
+        {
+          // alert("together") ;
+         all_data.push(data[0],data[1],data[2]);
+         for( var i = 0; i < data[3].length; i++)
+            { 
+              //alert (data[3][i]); //اسماء النشرات
+           all_data.push(data[3][i].link("{{ URL::to('release')}}/"+data[11][i]+"/edit", "_blank"));
+            }
+            all_data.push(data[4],data[5],data[6],data[7],data[8]);
+            for( var i = 0; i < data[9].length; i++)
+            { 
+              //alert (data[9][i]); //اسماءالموردين
+           all_data.push(data[9][i].link("{{ URL::to('supplier')}}/"+data[12][i]+"/edit", "_blank"));
 
-            $.ajax({
-                type: "GET",
-                 url: "{{ URL::to('check_section')}}/" +section_id,
-             //dataType: "json",
-                success: function (data) 
-                {
-                //alert ("data="+data) ;
-                    if(data!='')
-                    { 
-                        $('.modal-body').empty();
-                        $('.modal-body').append('<div  style="text-align: center;font-size:18px;color: red;" >'+site_name_ar +' </div><h2 style="text-align: center;font-size: 18px;color: black;" > مرتبط  ب  <h3  style="text-align: center;font-size: 18px;color: blue;">'+data+'</h3> <h3 style="text-align: center;font-size: 18px;color: black;" >قم بتغيير القسم اولا</h3></h2></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button><input id="del_button" type="submit" value="حذف"  class="btn btn-primary" disabled > </div>');
-                    }
-                    else
-                    {
-                    
+           }
+            all_data.push(data[10]);
+           // alert("release_element"+data[11]);//release_ids
+            //alert("supplier_element"+data[12]);//supplier_ids
+        }
 
-                   $('.modal-body').empty();
-                     $('.modal-body').append('<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ site_name_ar+'</div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button> <input id="del_button" type="submit" value="حذف"  class="btn btn-primary" >  </div>');
-                    //document.getElementById("del_button").disabled = false;
-                    }
-                    
-                },
-                error:function()
-                { alert("false"); }
-            });
+
+
+
+        else if(data.length==4)
+        {
+           all_data.push(data[0],data[1]);
+          for( var i = 0; i < data[2].length; i++)
+            { 
+              //alert (data[2][i]); //اسماء النشرات
+              all_data.push(data[2][i].link("{{ URL::to('release')}}/"+data[3][i]+"/edit", "_blank"));
+              
+              
+
+            }
+        }
+
+        else if(data.length==5)
+        {
+         all_data.push(data[0],data[1],data[2]);
+          for( var i = 0; i < data[3].length; i++)
+            { 
+              //alert (data[3][i]);//اسماء الموردين
+           all_data.push(data[3][i].link("{{ URL::to('supplier')}}/"+data[4][i]+"/edit", "_blank"));
+
+            }
+            //alert("supplier_element"+data[4]);//supplier_ids
+        }
+  //##########################################//
+            $('.modal-body').empty();
+           $('.modal-body').append('<div  style="text-align: center;font-size:18px;color: red;" > <span style="font-size: 18px;color: black;" >القسم &nbsp;</span>'+site_name_ar +' </div><h2 style="text-align: center;font-size: 18px;color: black;" > مرتبط  ب  <h3  style="text-align: center;font-size: 18px;color: red;" >'+all_data.join(' ')+'</h3> <h3 style="text-align: center;font-size: 18px;color: black;" >قم بتغيير القسم اولا</h3></h2></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button><input id="del_button" type="submit" value="حذف"  class="btn btn-primary" disabled > </div>');
+
+        }
+        else
+        {
+          $('.modal-body').empty();
+          $('.modal-body').append('<div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >'+ site_name_ar+'</div><h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3></div><div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button> <input id="del_button" type="submit" value="حذف"  class="btn btn-primary" >  </div>');
+        //document.getElementById("del_button").disabled = false;
+        }
+        
+    },
+    error:function()
+    { alert("false"); }
+});
 // });
 }
   
-
 
 </script>
 @endsection
