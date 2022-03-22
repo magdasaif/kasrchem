@@ -151,7 +151,7 @@ return [
         'constants' => [
         // 'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'https://backend.training.murabba.dev/api'),
         // 'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST','https://backend.eradunited.training.murabba.dev/api'),
-        'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST','https://dashboard.eradunited.murabba.dev//api'),
+        'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST','https://dashboard.eradunited.murabba.dev/api'),
 
     ],
     ],
