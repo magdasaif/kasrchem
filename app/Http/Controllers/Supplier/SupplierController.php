@@ -9,6 +9,8 @@ use App\Models\Product_supplier;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Supplier_Request;
+use App\Models\Product;
+use App\Models\Supplier_section;
 
 class SupplierController extends Controller
 {
@@ -197,7 +199,9 @@ class SupplierController extends Controller
          
          try 
          {
-            $found_product= Product_supplier::where('supplier_id',$id)->count();
+            $undeleted_products_id =  Product::withoutTrashed()->pluck('id');
+            $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
+            
             if($found_product>0){
                 return redirect()->route('supplier.index')->with(['error'=>'يوجد منتجات مرتبطه بهذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...']);
             }else{
@@ -208,9 +212,14 @@ class SupplierController extends Controller
                 // $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
                 // // dd($id); 
                 // unlink($image_path);
-            
-                $Supplier=Supplier::find($id);  
-                $Supplier->delete(); 
+
+                //to delete supplier with product in table product_supplier when delete supplier and product is soft deleted
+                $deleted_products_id =  Product::onlyTrashed()->pluck('id');
+                Product_supplier::whereIn('product_id',$deleted_products_id)->where('supplier_id',$id)->delete();
+                
+                Supplier_section::where('supplier_id',$id)->delete();
+                Supplier::find($id)->delete();
+                
                 return redirect()->route('supplier.index')->with(['success'=>'تم الحذف بنجاح']);
              }
         }
@@ -273,8 +282,9 @@ class SupplierController extends Controller
         $new_ids=array();
         $found=0;
 
+       $undeleted_products_id =  Product::withoutTrashed()->pluck('id');
         foreach($all_ids as $id){
-            $found_product= Product_supplier::where('supplier_id',$id)->count();
+            $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
             if($found_product>0){//supplier related with product
                 $found++;
             }else{
@@ -284,7 +294,16 @@ class SupplierController extends Controller
         
                 
         // dd($all_ids);
-        Supplier::whereIn('id',$new_ids)->delete();
+        foreach($all_ids as $ids){
+            
+            //to delete supplier with product in table product_supplier when delete supplier and product is soft deleted
+            $deleted_products_id =  Product::onlyTrashed()->pluck('id');
+            Product_supplier::whereIn('product_id',$deleted_products_id)->where('supplier_id',$ids)->delete();
+            
+            Supplier_section::where('supplier_id',$ids)->delete();
+            Supplier::find($ids)->delete();
+        }
+        //Supplier::whereIn('id',$all_ids)->delete();
         return redirect()->route('supplier.index')->with(['success'=>'تم حذف الموردين الغير مرتبطين بمنتجات ']);
             
     }

@@ -78,8 +78,19 @@ class RelatedProductController extends Controller
              $selected2="desc_en as desc";
         }
         $products_ids= Product_supplier::select('product_id')->where('supplier_id','=',$id)->get();
-        $products = ProductResource::collection(Product::select('*',$selected,$selected2)->whereIn('id',$products_ids)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
+
+        $products = ProductResource::collection(
+                Product::select('*',$selected,$selected2)
+                ->withoutTrashed()
+                ->whereIn('id',$products_ids)
+                ->where('status','1')
+                ->orderBy('sort','asc')
+                ->paginate($perpage)
+        );
+        // $products = ProductResource::collection(Product::select('*',$selected,$selected2)->whereIn('id',$products_ids)->where('status','1')->orderBy('sort','asc')->paginate($perpage));
+
         $products->map(function($i) { $i->type = 'first_fun'; });
+
         return response($products,200,['OK']);
     }
    

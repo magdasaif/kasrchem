@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\social_linksController;
-use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\LatestProductController;
 use App\Http\Controllers\Api\PostsController;

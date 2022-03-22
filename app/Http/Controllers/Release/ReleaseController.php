@@ -9,6 +9,7 @@ use App\Models\Release;
 
 use App\Models\Sitesection;
 use App\Models\Main_Category;
+use App\Models\Release_Section;
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
@@ -327,8 +328,12 @@ class ReleaseController extends Controller
         
         try
         {
-        $Release=Release::find($id);
-        $Release->delete();
+        // $Release=Release::find($id);
+        // $Release->delete();
+
+        Release_Section::where('release_id',$id)->delete();
+        Release::find($id)->delete();
+                
         return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
        }
        catch
@@ -342,7 +347,11 @@ class ReleaseController extends Controller
     {
     $all_ids = explode(',',$request->delete_all_id);
     // dd($all_ids);
-    Release::whereIn('id',$all_ids)->delete();
+    foreach($all_ids as $ids){
+        Release_Section::where('release_id',$ids)->delete();
+        Release::find($ids)->delete();
+    }
+    //Release::whereIn('id',$all_ids)->delete();
     return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 

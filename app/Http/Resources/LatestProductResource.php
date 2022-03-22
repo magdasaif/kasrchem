@@ -28,7 +28,7 @@ class LatestProductResource extends JsonResource
         
             return [
                 'id' =>$this->id,
-                'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
+                'name' =>preg_replace("\r\n", '<br/>', $this->name),
                 'description' => $this->desc,
                 'price' =>$this->price,
                 'offer_price' =>$this->offer_price,
