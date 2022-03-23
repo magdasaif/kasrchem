@@ -12,7 +12,9 @@ class SiteSectionController extends Controller
     public function index()
     {
        // return "Sitesection";
-       $site_section=Sitesection::where('visible', '!=' , 0)->orderBy('priority','asc')->get();
+       $deleted_parent_section=Sitesection::where('visible', '=' , 0)->whereNull('parent_id')->pluck('id');
+       
+       $site_section=Sitesection::where('visible', '!=' , 0)->whereNotIn('parent_id',$deleted_parent_section)->orWhere('parent_id',NULL)->orderBy('priority','asc')->get();
 
       return view('pages.Sitesection.Sitesection',compact('site_section'));
     }

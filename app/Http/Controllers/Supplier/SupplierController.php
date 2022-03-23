@@ -200,6 +200,7 @@ class SupplierController extends Controller
          
          try 
          {
+             
             $undeleted_products_id =  Product::withoutTrashed()->pluck('id');
             $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
             
