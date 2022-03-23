@@ -49,7 +49,7 @@
                              }
                              ?>
                             
-                    <select class="form-control" name="section_id[]"  multiple>
+                    <select class="form-control" name="section_id[]"  multiple required oninvalid="this.setCustomValidity('اختر القسم')"  oninput="this.setCustomValidity('')">
                             
                         @foreach ($all_sections as $sec)
                         <?php
