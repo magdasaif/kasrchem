@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSectionAllPagesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+   
     public function up()
     {
         Schema::create('section_all_pages', function (Blueprint $table) {
@@ -23,11 +19,7 @@ class CreateSectionAllPagesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+   
     public function down()
     {
         Schema::dropIfExists('section_all_pages');
