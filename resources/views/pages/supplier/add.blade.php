@@ -13,9 +13,13 @@
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
           <div class="col-12">
@@ -119,6 +123,8 @@
                 <div class="form-group">
                     <label for="logo">اللوجــو*</label>
                     <input type="file" class="form-control" name="logo" accept="image/*" required  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
+                    <span style="color:red"> يجب اختيار صوره اقصى احداثياتها [300*300]</span>
+
                     @error('logo')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

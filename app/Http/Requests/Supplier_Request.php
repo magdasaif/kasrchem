@@ -20,7 +20,8 @@ class Supplier_Request extends FormRequest
         'name_en' => 'required|unique:suppliers,name_en,'.$this->id,
         'description_ar' => 'required',
         'description_en' => 'required',
-          
+        'logo' => 'image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=300,max_height=300'. $this->id,
+
         ];
     }
     public function messages()
@@ -32,6 +33,7 @@ class Supplier_Request extends FormRequest
         'description_en.required' =>'وصف المورد  بالانجليزية مطلوب',
         'name_ar.unique'=>'اسم المورد باللغه العربيه مُضاف مسبقا... قم بادخال اسم اخر ',
         'name_en.unique'=>'اسم المورد باللغه الانجليزيه مُضاف مسبقا... قم بادخال اسم اخر ',
+        'logo.dimensions'=>'اقصى احداثيات يمكنك رفعها 300*300'
         ];
     }
 }

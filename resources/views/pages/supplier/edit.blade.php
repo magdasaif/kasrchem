@@ -13,9 +13,13 @@
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
           <div class="col-12">
@@ -177,7 +181,9 @@
                     <input type="hidden" name="deleted_image" value="{{$Supplier->logo}}">
 
                    <input type="file" class="form-control" name="logo" id="my_file" accept="image/*" style="display: none;" >
-                    @error('logo')
+                   <span style="color:red"> يجب اختيار صوره اقصى احداثياتها [300*300]</span>
+
+                   @error('logo')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
