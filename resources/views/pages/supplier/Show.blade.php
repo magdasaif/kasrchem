@@ -21,16 +21,17 @@
                     {{Session::get('error')}}
 
                     @if(Session::has('data'))
-                        <ul>
-                            @foreach (Session::get('data') as $d)
-                                <li>{{ $d }}</li>
+                        <ol> 
+                            @foreach(session::get('data')  as $d)
+                             <li style="color:green;font-size:15px">{{$d}}</li>
                             @endforeach
-                        </ul>
+                         </ol>
                     @endif
             
                 </div>
             @endif
-            
+
+         
             
             <div class="card">
               <div class="card-header" >

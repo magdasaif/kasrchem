@@ -205,7 +205,7 @@ class SupplierController extends Controller
                 $s=Supplier::where('parent_id',$id)->pluck('name_ar');
                 return redirect()->route('supplier.index')->with([
                     'error'=>'يوجد موردين فرعيين من هذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...',
-                    'data'=>$s
+                    'data'=>$s,
                 ]);
             }else{
                 
