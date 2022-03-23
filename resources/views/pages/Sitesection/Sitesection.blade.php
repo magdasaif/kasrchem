@@ -20,8 +20,19 @@
                     {{Session::get('error')}}
                 </div>
             @endif
-          
-        
+
+             @if(Session::has('msg'))
+             <div class="alert alert-danger">
+             {{Session::get('msg')}}
+              <ol> 
+                 @foreach(session::get('data')  as $child_sections)
+                  <li style="color:green;font-size:15px">{{$child_sections}}</li>
+                 @endforeach
+             </ol>
+             {{Session::get('msg2')}}
+            </div>
+            @endif
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">أقسام الموقع</h3>

@@ -13,8 +13,7 @@ class SiteSectionController extends Controller
     {
        // return "Sitesection";
        $site_section=Sitesection::where('visible', '!=' , 0)->orderBy('priority','asc')->get();
-
-      return view('pages.Sitesection.Sitesection',compact('site_section'));
+       return view('pages.Sitesection.Sitesection',compact('site_section'));
     }
 //---------------------------------------------
     public function create()
@@ -181,19 +180,37 @@ class SiteSectionController extends Controller
     }
 //---------------------------------------------
     public function destroy (Request $request,$id)
-    {
-       // dd($id);
-        try
+    { 
+        //------check if section relate with other or not------------
+       $site_section_=Sitesection::where('visible', '!=' , 0)->where('parent_id',$id)->pluck('site_name_ar');
+        //  dd($site_section_->count());
+        if( $site_section_->count()== 0)
         {
-            $Sitesections=Sitesection::findOrFail($id);
-            $Sitesections->visible= 0; //SOFT  DELETED WITH VISIBLE
-             $Sitesections->save();
-            return redirect()->route('site_section.index')->with(['success'=>'تم الحذف بنجاح']);
+            // dd($id);
+            try
+            {
+                $Sitesections=Sitesection::findOrFail($id);
+                $Sitesections->visible= 0; //SOFT  DELETED WITH VISIBLE
+                $Sitesections->save();
+                return redirect()->route('site_section.index')->with(['success'=>'تم الحذف بنجاح']);
+            }
+            catch
+            (\Exception $e)
+            {
+                return redirect()->back()->with(['error' => $e->getMessage()]);
+            }
         }
-        catch
-        (\Exception $e)
+        else
         {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
+
+             return redirect()->back()->with([
+                 'msg' => " هذا القسم مرتبط باقسام فرعية اخرى",
+                 'data'=>$site_section_,
+                 'msg2'=>' قم بتغييرالقسم اولا واعد المحاول'
+            ]);
         }
     }
-}
+        //---------------------------------------------------------
+      
+    }
+
