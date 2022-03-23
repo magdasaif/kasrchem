@@ -39,6 +39,8 @@
                 <!--========================================================-->
                 @include('categories.Category_models.select_category_adding')
               <!--========================================================-->
+              @include('pages.Sitesection.tree_view_section_adding')
+              <!--========================================================-->
                <div class="form-group">
                     <label for="title_ar">عنوان الفيديو </label>
                     <input type="text" class="form-control" aria-describedby="title_ar" placeholder="ادخل عنوان الفيديو" name="title_ar"  value="{{old('title_ar')}}"  id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون عنوان الفيديو باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">

@@ -32,14 +32,14 @@ class VideoController extends Controller
         $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
         $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
         $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
-        $sections  = Sitesection::where('visible', '!=' , 0)->get();
+        $sections  = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
         //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
         return view('pages.Video.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
    //--------------------------------------------
     public function store(VideoRequest $request)
     {
-      // dd($request->all());
+      //dd($request->all());
        try{
          $validated = $request->validated();
              $video= new Video();
@@ -108,7 +108,7 @@ class VideoController extends Controller
             'status' =>  $request->status,
            ]);*/
         $video->save();
-
+        $video->rel_section()->attach($request->site_id,['type' => 'videos']);
             return redirect()->route('video.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }
         catch(\Exception $e){
@@ -124,7 +124,7 @@ public function edit($id)
     $video = Video::findOrfail($id);
     if(!$video) return redirect()->back();
  //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
-    $sections = Sitesection::where('visible', '!=' , 0)->get();
+    $sections = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->where('id','!=',$id)->get();
     $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
     $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
     $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
