@@ -10,7 +10,8 @@
     },
     "servers": [
         {
-            "url": "https://backend.eradunited.training.murabba.dev/api",
+            // "url": "https://backend.eradunited.training.murabba.dev/api",
+            "url": "https://dashboard.eradunited.murabba.dev/api",
             "description": "API Server"
         }
     ],
