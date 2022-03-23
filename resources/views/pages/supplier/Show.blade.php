@@ -14,14 +14,24 @@
                     {{Session::get('success')}}
                 </div>
             @endif
+            
 
             @if(Session::has('error'))
                 <div class="alert alert-danger">
                     {{Session::get('error')}}
+
+                    @if(Session::has('data'))
+                        <ul>
+                            @foreach (Session::get('data') as $d)
+                                <li>{{ $d }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+            
                 </div>
             @endif
             
-        
+            
             <div class="card">
               <div class="card-header" >
               <h3 class="card-title"> الموردين</h3>

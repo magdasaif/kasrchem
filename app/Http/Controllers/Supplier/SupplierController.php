@@ -35,7 +35,7 @@ class SupplierController extends Controller
        
          try{
             $validated = $request->validated();
-             $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+             $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=300,max_height=300',]);
               if($request->logo)
               {
 
@@ -199,29 +199,40 @@ class SupplierController extends Controller
          
          try 
          {
-            $undeleted_products_id =  Product::withoutTrashed()->pluck('id');
-            $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
-            
-            if($found_product>0){
-                return redirect()->route('supplier.index')->with(['error'=>'يوجد منتجات مرتبطه بهذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...']);
+             $check_found_sub=Supplier::where('parent_id',$id)->count();
+             
+             if($check_found_sub>0){
+                $s=Supplier::where('parent_id',$id)->pluck('name_ar');
+                return redirect()->route('supplier.index')->with([
+                    'error'=>'يوجد موردين فرعيين من هذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...',
+                    'data'=>$s
+                ]);
             }else{
+                
+                $undeleted_products_id =  Product::withoutTrashed()->pluck('id');
+                $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
+                
+                if($found_product>0){
+                    return redirect()->route('supplier.index')->with(['error'=>'يوجد منتجات مرتبطه بهذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...']);
+                }else{
 
-                if(file_exists(storage_path().'/app/public/supplier/supplier_no_'.$request->supplier_id.'/'.$request->deleted_image)){
-                    unlink(storage_path().'/app/public/supplier/supplier_no_'.$request->supplier_id.'/'.$request->deleted_image);
+                    if(file_exists(storage_path().'/app/public/supplier/supplier_no_'.$request->supplier_id.'/'.$request->deleted_image)){
+                        unlink(storage_path().'/app/public/supplier/supplier_no_'.$request->supplier_id.'/'.$request->deleted_image);
+                    }
+                    // $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
+                    // // dd($id); 
+                    // unlink($image_path);
+
+                    //to delete supplier with product in table product_supplier when delete supplier and product is soft deleted
+                    $deleted_products_id =  Product::onlyTrashed()->pluck('id');
+                    Product_supplier::whereIn('product_id',$deleted_products_id)->where('supplier_id',$id)->delete();
+                    
+                    Supplier_section::where('supplier_id',$id)->delete();
+                    Supplier::find($id)->delete();
+                    
+                    return redirect()->route('supplier.index')->with(['success'=>'تم الحذف بنجاح']);
                 }
-                // $image_path=storage_path().'/app/public/supplier/'.$request->deleted_image;
-                // // dd($id); 
-                // unlink($image_path);
-
-                //to delete supplier with product in table product_supplier when delete supplier and product is soft deleted
-                $deleted_products_id =  Product::onlyTrashed()->pluck('id');
-                Product_supplier::whereIn('product_id',$deleted_products_id)->where('supplier_id',$id)->delete();
-                
-                Supplier_section::where('supplier_id',$id)->delete();
-                Supplier::find($id)->delete();
-                
-                return redirect()->route('supplier.index')->with(['success'=>'تم الحذف بنجاح']);
-             }
+            }
         }
         catch
         (\Exception $e)
@@ -282,13 +293,29 @@ class SupplierController extends Controller
         $new_ids=array();
         $found=0;
 
+
+
+        
+       
        $undeleted_products_id =  Product::withoutTrashed()->pluck('id');
         foreach($all_ids as $id){
-            $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
-            if($found_product>0){//supplier related with product
-                $found++;
+
+
+
+            $check_found_sub=Supplier::where('parent_id',$id)->count();
+            if($check_found_sub>0){
+                $s=Supplier::where('parent_id',$id)->pluck('name_ar');
+                return redirect()->route('supplier.index')->with([
+                    'error'=>'يوجد موردين فرعيين من هذا المورد .. من فضلك قم بنقلهم الى مورد اخر ثم اعد المحاوله ...',
+                    'data'=>$s
+                ]);
             }else{
-                array_push($new_ids,$id);//all supplier ids that don't related with products
+                $found_product= Product_supplier::where('supplier_id',$id)->whereIn('product_id',$undeleted_products_id)->count();
+                if($found_product>0){//supplier related with product
+                    $found++;
+                }else{
+                    array_push($new_ids,$id);//all supplier ids that don't related with products
+                }
             }
         }
         
