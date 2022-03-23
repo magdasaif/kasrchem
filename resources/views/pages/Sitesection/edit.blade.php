@@ -49,7 +49,8 @@
                           {
                         ?>
                            <option value="{{ $parent_of_section->id}}" selected> {{ $parent_of_section->site_name_ar}}</option>
-                        <?php
+                           <option value="0"  > قسم رئيسى</option>
+                       <?php
                           }    
                           foreach ($all_sections as $xx)
                           {
