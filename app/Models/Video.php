@@ -39,4 +39,8 @@ class Video extends Model
     {
         return $this->belongsTo('App\Models\Sitesection', 'site_id');
     }
+    public function rel_section(){
+        return $this->belongsToMany('App\Models\Sitesection','section_all_pages','type_id','sitesection_id')->withTimestamps();
+      
+    }
 }
