@@ -13,7 +13,7 @@ class Sitesection extends Model
     protected $guarded=[];
     
     public function childs() {
-        return $this->hasMany('App\Models\Sitesection','parent_id','id') ;
+        return $this->hasMany('App\Models\Sitesection','parent_id','id')->where('visible', '!=',0);
     }
     
 }
