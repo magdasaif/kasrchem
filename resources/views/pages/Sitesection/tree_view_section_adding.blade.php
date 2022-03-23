@@ -16,7 +16,7 @@
                         ];
                         ?>
                             
-                        <option style="color:{{$color}}"  value="{{$site->id}}">-{{$site->site_name_ar}}</option>
+                        <option style="color:<?php echo $color;?>"  value="{{$site->id}}">-{{$site->site_name_ar}}</option>
                         @if(count($site->childs))
                             @include('pages.products.manageChild',$new)
                         @endif
