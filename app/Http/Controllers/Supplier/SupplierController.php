@@ -24,7 +24,8 @@ class SupplierController extends Controller
 // //-------------------------------------------------------------//
     public function create()
     {
-        $sections= Sitesection::whereNull('parent_id')->get();
+       // $sections= Sitesection::whereNull('parent_id')->get();
+        $sections= Sitesection:: where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
         $suppliers= Supplier::where('parent_id', '=', 0)->get();
         return view('pages.supplier.add',compact('suppliers','sections'));
     }
@@ -128,8 +129,8 @@ class SupplierController extends Controller
        
         $Supplier = Supplier::findOrfail($id);  //data of edited supplier
         $all_suppliers = Supplier::where('parent_id',0)->where('id','!=',$id)->get();
-        $all_sections = Sitesection::whereNull('parent_id')->where('id','!=',$id)->get();
-       
+       // $all_sections = Sitesection::whereNull('parent_id')->where('id','!=',$id)->get();
+       $all_sections =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id','!=',$id)->get();
         
         // return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
         return view('pages.supplier.edit',compact('Supplier','all_suppliers','all_sections'));

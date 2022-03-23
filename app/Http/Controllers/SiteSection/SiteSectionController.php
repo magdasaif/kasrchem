@@ -89,13 +89,13 @@ class SiteSectionController extends Controller
         {
             $first_select=0; 
             $parent_of_section='';
-            $all_sections =Sitesection::where('parent_id', '=', Null)->where('id','!=',$id)->get();
+            $all_sections =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id','!=',$id)->get();
         }
         else
         {
             $first_select='';
              $parent_of_section = Sitesection::findOrfail($section->parent_id);
-             $all_sections =Sitesection::where('parent_id', '=', Null)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+             $all_sections =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
         }
       
         if(!$parent_of_section)
