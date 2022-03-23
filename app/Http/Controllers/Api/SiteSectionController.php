@@ -64,7 +64,7 @@ class SiteSectionController extends Controller
     public function index(Request $request)
     { 
         $lang=$request->header('locale');
-        $section=sectionResource::collection(Sitesection::where('statues','1')->whereNULL('parent_id')->orderBy('priority','asc')->get());
+        $section=sectionResource::collection(Sitesection::where('statues','1')->where('visible','1')->whereNULL('parent_id')->orderBy('priority','asc')->get());
         if($lang=='ar'){
            $section->map(function($i) { $i->lang = 'ar'; });
         }else{

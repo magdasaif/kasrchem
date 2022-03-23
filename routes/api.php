@@ -80,7 +80,11 @@ Route::apiResource('/products', 'ProductFilterController', array("as" => "api"))
 //---------------------latest products------------------------
 Route::get('/latest_products',[LatestProductController::class,'latest_products']);
 
+// ------------------------common api for all media----------------------------
+Route::apiResource('/media', 'MediaController', array("as" => "api"));
+
 //---------------------posts/article------------------------
+Route::apiResource('/posts', 'PostsController', array("as" => "api"));
 Route::apiResource('/posts', 'PostsController', array("as" => "api"));
 
 //---------------------latest posts------------------------
