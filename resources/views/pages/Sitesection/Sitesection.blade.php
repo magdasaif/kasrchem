@@ -22,13 +22,72 @@
             @endif
 
              @if(Session::has('msg'))
-             <div class="alert alert-danger">
+             <div class="alert alert-danger" style="font-size:15px; color: green;font-weight: bold;">
+            
+              <!--------if section relate with child section----------->
+             
+             {{-- @if (Session::get('type')=='related_section') --}}
+             @if (Session::get('data')&& sizeof(Session::get('data'))!=0)
              {{Session::get('msg')}}
-              <ol> 
-                 @foreach(session::get('data')  as $child_sections)
-                  <li style="color:green;font-size:15px">{{$child_sections}}</li>
-                 @endforeach
+             <ol> 
+                @foreach(session::get('data')  as $child_sections)
+                 <a href={{route('site_section.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px;font-style: oblique;">{{$child_sections->site_name_ar}}</li></a>
+                @endforeach
+              </ol> 
+             @endif
+
+
+             {{-- @if (Session::get('type')=='video') --}}
+             @if (Session::get('data_video')&& sizeof(Session::get('data_video'))!=0)          
+                {{Session::get('msg_video')}}
+             <ol> 
+                @foreach(session::get('data_video')  as $child_sections)
+                 <a href={{route('video.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px;font-style: oblique;">{{$child_sections->title_ar}}</li></a>
+                @endforeach
              </ol>
+             @endif
+
+             {{-- @if (Session::get('type')=='article') --}}
+             @if (Session::get('data_article')&& sizeof(Session::get('data_article'))!=0)  
+             {{Session::get('msg_article')}}
+             <ol> 
+                @foreach(session::get('data_article')  as $child_sections)
+                   <a href={{route('article.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px;font-style: oblique;">{{$child_sections->title_ar}}</li></a>
+                @endforeach
+             </ol>
+             @endif
+
+
+             {{-- @if (Session::get('type')=='photo_gallery') --}}
+             @if (Session::get('data_photo_gallery')&& sizeof(Session::get('data_photo_gallery'))!=0)  
+             {{Session::get('msg_photo_gallery')}}
+             <ol> 
+                @foreach(session::get('data_photo_gallery')  as $child_sections)
+                  <a href={{route('photo_gallery.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px">{{$child_sections->title_ar}}</li></a>
+                @endforeach
+             </ol>
+             @endif
+            
+
+             @if (Session::get('data_release')&& sizeof(Session::get('data_release'))!=0)  
+             {{Session::get('msg_release')}}
+             <ol> 
+                @foreach(session::get('data_release')  as $child_sections)
+                  <a href={{route('release.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px">{{$child_sections->title_ar}}</li></a>
+                @endforeach
+             </ol>
+             @endif
+
+
+             @if (Session::get('data_supllier')&& sizeof(Session::get('data_supllier'))!=0)  
+             {{Session::get('msg_supllier')}}
+             <ol> 
+                @foreach(session::get('data_supllier')  as $child_sections)
+                  <a href={{route('supplier.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px">{{$child_sections->name_ar}}</li></a>
+                @endforeach
+             </ol>
+             @endif
+              <!-------------------------------------------------------------------->
              {{Session::get('msg2')}}
             </div>
             @endif
@@ -78,7 +137,8 @@
                               <td> 
                                 <a href="{{route('site_section.edit',$section->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                    /
-                                   <a   onclick=" check_related_section('{{$section->id}}','{{$section->site_name_ar}}');" title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a> 
+                                   {{-- <a   onclick=" check_related_section('{{$section->id}}','{{$section->site_name_ar}}');" title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a>  --}}
+                                   <a    title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a> 
 
                                   <!--############################ model for delete #################################-->
 
@@ -93,13 +153,19 @@
                                       {{csrf_field()}}
                                     <div class="modal-body">
                                       <!-----------------footer and content from javascript basedon related or not with section-------->
-                                            
+                                      <div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >{{$section-> site_name_ar}}</div>
+                                      <h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3>
+                                       </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
+                                       <input id="del_button" type="submit" value="حذف"  class="btn btn-primary" >  
+                                      </div>  
                                     </form>
                                     </div>
                                     </div>
                                     </div>
                                     <!--#############################################################-->
-                                                                </td>
+                           </td>
 
                             </tr>
                         @endforeach
@@ -111,33 +177,6 @@
           </div>
         </div>
         </div>
-
-
-        <div class="modal fade" id ="Registration">
-          <div class="container">
-            <form role="form" class="center-block" method="POST">
-                  <div class="form-group">
-                      <div class="ct-form-content">
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <label>First Name</label>
-                                  <input type="text" required class="form-control input-lg" value="Kristine" placeholder="">
-                                  <label>Last Name</label>
-                                  <input type="text" required class="form-control input-lg" value="Black" placeholder="">
-                                  <label>Number of Properties</label>
-                                  <input type="text" required class="form-control input-lg" value="15" placeholder="">
-                                  <label>Include contact form?</label>
-                              </div>
-                           </div>
-                          <button type="submit" class="btn btn-success center-block">Save changes</button>
-                      </div>
-                      <div class="ct-form-close"><i class="fa fa-times"></i></div>
-                  </div>
-              </form>
-          </div>
-      </div>
-
-
 
   </section>
 </template>

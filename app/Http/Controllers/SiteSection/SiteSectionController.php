@@ -4,6 +4,14 @@ namespace App\Http\Controllers\SiteSection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SiteSectionRequest;
 use App\Models\Sitesection;
+use App\Models\Section_All_Page;
+use App\Models\Video;
+use App\Models\Article;
+use App\Models\Photo_Gallery;
+use App\Models\Release_Section;
+use App\Models\Supplier_section;
+use App\Models\Release;
+use App\Models\Supplier;
 use App\Traits\SitesectionTrait;
 use Illuminate\Http\Request;
 
@@ -159,8 +167,7 @@ class SiteSectionController extends Controller
             $Sitesections->priority = $request->priority;
             $Sitesections->statues = $request->statues;
             $Sitesections->parent_id=  $parent_id_value ;
-          
-        $Sitesections->save();
+            $Sitesections->save();
 
         //   toastr()->success('تم التعديل بنجاح');
         //   return redirect()->route('site_section.index');
@@ -182,11 +189,29 @@ class SiteSectionController extends Controller
     public function destroy (Request $request,$id)
     { 
         //------check if section relate with other or not------------
-       $site_section_=Sitesection::where('visible', '!=' , 0)->where('parent_id',$id)->pluck('site_name_ar');
-        //  dd($site_section_->count());
-        if( $site_section_->count()== 0)
+        //dd($id);
+       $site_section_=Sitesection::where('visible', '!=' , 0)->where('parent_id',$id)->get(); //case related_section
+       //dd($site_section_);
+       //--------------------------------------------------//
+         $videos_related_id=Section_All_Page::where("sitesection_id",$id)->where("type","videos")->pluck("type_id");
+         $articles_related_id=Section_All_Page::where("sitesection_id",$id)->where("type","articles")->pluck("type_id");
+         $photos_related_id=Section_All_Page::where("sitesection_id",$id)->where("type","photos")->pluck("type_id");
+         //=======
+         $releases_related_id= Release_Section::where("sitesection_id",$id)->pluck("release_id"); 
+         $supllier_related_id= Supplier_section::where("sitesection_id",$id)->pluck("supplier_id");
+         //======
+         //-------------------------------------------------//
+        $videoo= Video::whereIn('id',$videos_related_id)->get();
+        $article= Article::whereIn('id',$articles_related_id)->get();
+        $photo_gallery= Photo_Gallery::whereIn('id',$photos_related_id)->get();
+              //======
+         $releases=Release::whereIn('id',$releases_related_id)->get();
+         $suplliers=Supplier::whereIn('id',$supllier_related_id)->get();
+             //======
+        // dd($photo_gallery->count());
+                  //------------------------------------------
+        if( $site_section_->count()== 0 && $releases_related_id->count()== 0  && $supllier_related_id->count()== 0 && $videos_related_id->count()== 0  && $articles_related_id->count()== 0 && $photos_related_id->count()== 0)
         {
-            // dd($id);
             try
             {
                 $Sitesections=Sitesection::findOrFail($id);
@@ -202,13 +227,27 @@ class SiteSectionController extends Controller
         }
         else
         {
+                return redirect()->back()->with
+                ([
+                'msg'               => " هذا القسم مرتبط باقسام فرعية اخرى",
+                'msg_video'         => " هذا القسم مرتبط  بفيديو ",
+                'msg_article'       => " هذا القسم مرتبط بمقالات ",
+                'msg_photo_gallery' => " هذا القسم مرتبط بمعرض ",
+                'msg_release'      =>"  هذا القسم مرتبط بنشرة",
+                'msg_supllier'      =>"هذا القسم مرتبط بمورد",
 
-             return redirect()->back()->with([
-                 'msg' => " هذا القسم مرتبط باقسام فرعية اخرى",
-                 'data'=>$site_section_,
-                 'msg2'=>' قم بتغييرالقسم اولا واعد المحاول'
-            ]);
-        }
+                'data'              =>$site_section_,
+                'data_video'        =>$videoo,
+                'data_article'      =>$article,
+                'data_photo_gallery'=>$photo_gallery,
+                'data_release'        =>$releases,
+                'data_supllier'        =>$suplliers,
+                // 'type'=>"related_section",
+                'msg2'=>' قم بتغييرالقسم اولا واعد المحاولة'
+                ]);           
+        // }
+    }
+
     }
         //---------------------------------------------------------
       
