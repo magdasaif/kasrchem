@@ -124,7 +124,7 @@ public function edit($id)
     $video = Video::findOrfail($id);
     if(!$video) return redirect()->back();
  //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
-    $sections = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->where('id','!=',$id)->get();
+    $sections = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
     $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
     $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
     $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();

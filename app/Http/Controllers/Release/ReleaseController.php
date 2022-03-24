@@ -188,7 +188,7 @@ class ReleaseController extends Controller
 
         */
         //+++++++++++++++++++++++++ new for unrequired +++++++++++++++++++++++++//
-        $sections = Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id','!=',$id)->get();     
+        $sections = Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();     
        $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
         $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
         $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
