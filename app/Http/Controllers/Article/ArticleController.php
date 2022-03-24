@@ -1,15 +1,16 @@
 <?php
 namespace App\Http\Controllers\Article;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
-
 use App\Models\Sitesection;
+use Illuminate\Http\Request;
 use App\Models\Main_Category;
+
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4; 
+use App\Models\Section_All_Page;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -265,11 +266,8 @@ class ArticleController extends Controller
             $Article->image = $photo_name;
             }
        $Article->save();
-       if(isset($request->site_id)){
-        $Article->rel_section()->sync($request->site_id,['type' => 'articles']);
-    }else{
-        $Article->rel_section()->sync();
-    }
+        $Article->rel_section()->syncWithPivotValues($request->site_id,['type' => 'articles']);
+    
       return redirect()->route('article.index')->with(['success'=>'تم التعديل بنجاح']);
     }
     catch
@@ -289,8 +287,9 @@ class ArticleController extends Controller
         
         try 
         {
-        $Article=Article::find($id);  
-        $Article->delete(); 
+            Section_All_Page::where('type_id',$id)->where('type','articles')->delete();
+            Article::find($id)->delete();
+     
         return redirect()->route('article.index')->with(['success'=>'تم الحذف بنجاح']);
        }
        catch
@@ -304,7 +303,13 @@ class ArticleController extends Controller
     {
       $all_ids = explode(',',$request->delete_all_id);
      // dd($all_ids);
-     Article::whereIn('id',$all_ids)->delete();
+     foreach($all_ids as $id){
+        if($id=='on'){}else{
+         Section_All_Page::where('type_id',$id)->where('type','articles')->delete();
+         Article::find($id)->delete();
+        }
+     }
+    //  Article::whereIn('id',$all_ids)->delete();
      return redirect()->route('article.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 }

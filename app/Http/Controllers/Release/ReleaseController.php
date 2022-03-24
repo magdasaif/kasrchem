@@ -348,8 +348,10 @@ class ReleaseController extends Controller
     $all_ids = explode(',',$request->delete_all_id);
     // dd($all_ids);
     foreach($all_ids as $ids){
+        if($ids=='on'){}else{
         Release_Section::where('release_id',$ids)->delete();
         Release::find($ids)->delete();
+        }
     }
     //Release::whereIn('id',$all_ids)->delete();
     return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);

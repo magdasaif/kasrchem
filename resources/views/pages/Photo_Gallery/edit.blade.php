@@ -40,7 +40,56 @@
 
                  <!----------------------------------------------------->
  
-          
+           <!----------------------------------------------------->
+           <div class="form-group">
+                <label for="exampleInputEmail1">الأقسام</label> 
+                         <?php
+                        $selected_cate=array();
+
+                        foreach ($photo_gallery->rel_section as $selected){
+                          array_push($selected_cate,$selected->id);
+                         }
+                         ?>
+                        
+                <select class="form-control" name="site_id[]"  multiple required oninvalid="this.setCustomValidity('اختر القسم')"  oninput="this.setCustomValidity('')" >
+                        
+                 @foreach ($sections as $sec)
+                 <?php
+                     $margin="0";
+                     $color="#c20620";
+                     $size="15";
+                     $type='supplier_section';
+                     $number=2;
+                     if(in_array($sec->id,$selected_cate)){
+                         $select_or_no='selected';
+                     }else{
+                         $select_or_no='';
+                     }
+
+
+                    $new= [
+                         'childs' => $sec->childs,
+                         'margin'=>$margin+30,
+                         'color'=>'#209c41',
+                         'size'=>$size-1,
+                         'selected_supplier'=>$selected_cate,
+                         'type'=>$type,
+                         'number'=>$number
+                     ];
+                 ?>
+                     <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $sec->id }}" <?php if (collect(old('site_id'))->contains($sec->id)) {echo 'selected';}else{echo $select_or_no;}?>> - {{ $sec->site_name_ar }}</option>
+                     @if(count($sec->childs))
+                         @include('pages.products.manageChild',$new)
+                     @endif
+                 @endforeach
+                 
+             </select>
+       
+            </div>
+            
+
+   
+            <!----------------------------------------------------->
                <!----------------------------------------------------->
               
                <div class="form-group">

@@ -119,7 +119,9 @@ class Photo_GalleryController extends Controller
         }
       
         $Photo_Gallery->save();
-        $Photo_Gallery->rel_section()->sync($request->site_id,['type' => 'photos']);
+        // $Photo_Gallery->rel_section()->sync($request->site_id,['type' => 'photos']);
+        
+        $Photo_Gallery->rel_section()->syncWithPivotValues($request->site_id, ['type' => 'photos']);
 
         return redirect()->route('photo_gallery.index')->with(['success'=>'تم التعديل بنجاح']);
         }

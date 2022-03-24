@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Video;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\VideoRequest;
 use App\Models\Video;
-
 use App\Models\Sitesection;
+use Illuminate\Http\Request;
 use App\Models\Main_Category;
+
 use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
+use App\Models\Section_All_Page;
+use App\Http\Requests\VideoRequest;
+use App\Http\Controllers\Controller;
 
 class VideoController extends Controller
 {
@@ -234,11 +235,8 @@ public function edit($id)
             $Video-> status=$request->status;
 
        $Video->save();
-       if(isset($request->site_id)){
-        $Video->rel_section()->sync($request->site_id,['type' => 'videos']);
-    }else{
-        $Video->rel_section()->sync();
-    }
+        $Video->rel_section()->syncWithPivotValues($request->site_id,['type' => 'videos']);
+   
       return redirect()->route('video.index')->with(['success'=>'تم التعديل بنجاح']);
     }
     catch
@@ -253,8 +251,9 @@ public function edit($id)
         // dd($id);
         try
         {
-            $Video=Video::find($id);
-            $Video->delete();
+            Section_All_Page::where('type_id',$id)->where('type','videos')->delete();
+            Video::find($id)->delete();
+        
             return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
         }
         catch
@@ -267,8 +266,13 @@ public function edit($id)
     public function deleteAll(Request $request)
     {
       $all_ids = explode(',',$request->delete_all_id);
-     // dd($all_ids);
-     Video::whereIn('id',$all_ids)->delete();
+      foreach($all_ids as $id){
+        if($id=='on'){}else{
+         Section_All_Page::where('type_id',$id)->where('type','videos')->delete();
+         Video::find($id)->delete();
+        }
+     }
+    //  Video::whereIn('id',$all_ids)->delete();
      return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 
