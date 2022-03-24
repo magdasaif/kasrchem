@@ -29,7 +29,7 @@ class ArticleController extends Controller
          $sub_Category3   = Sub_Category3::where('visible', '!=' ,0)->get(); 
          $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
          $Main_Cat	= Main_Category::where('visible', '!=' , 0)->get();
-         $sections  = Sitesection::where('visible', '!=' , 0)->get();
+         $sections  = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
          //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
         return view('pages.Article.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
     }
@@ -145,6 +145,7 @@ class ArticleController extends Controller
 
             //++++++++++++++++++++++++++++++++++++++++++//
         $article->save();
+        $article->rel_section()->attach($request->site_id,['type' => 'articles']);
 
             return redirect()->route('article.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }
@@ -175,7 +176,7 @@ class ArticleController extends Controller
         $s = Sitesection::findOrfail($main_categories->section_id);
         */
         //+++++++++++++++++++++++++new for unrequired+++++++++++++++++++++++++//
-            $sections = Sitesection::where('visible', '!=' , 0)->get();
+            $sections = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
             $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
             $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
             $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
@@ -200,8 +201,7 @@ class ArticleController extends Controller
             $Article->sub2_id = $request->sub3;
             $Article->sub3_id=  $request->sub4;*/
             //++++++++++++++++++++++for unrequire category+++++++++++++++++++++++++++//
-              //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
-                    
+              //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//          
               if(!$request->section_id)
               {
                   $Article->site_id= 1;
@@ -265,6 +265,11 @@ class ArticleController extends Controller
             $Article->image = $photo_name;
             }
        $Article->save();
+       if(isset($request->site_id)){
+        $Article->rel_section()->sync($request->site_id,['type' => 'articles']);
+    }else{
+        $Article->rel_section()->sync();
+    }
       return redirect()->route('article.index')->with(['success'=>'تم التعديل بنجاح']);
     }
     catch
