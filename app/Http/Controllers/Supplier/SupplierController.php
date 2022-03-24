@@ -317,13 +317,14 @@ class SupplierController extends Controller
                 
         // dd($all_ids);
         foreach($all_ids as $ids){
-            
-            //to delete supplier with product in table product_supplier when delete supplier and product is soft deleted
-            $deleted_products_id =  Product::onlyTrashed()->pluck('id');
-            Product_supplier::whereIn('product_id',$deleted_products_id)->where('supplier_id',$ids)->delete();
-            
-            Supplier_section::where('supplier_id',$ids)->delete();
-            Supplier::find($ids)->delete();
+            if($id=='on'){}else{
+                //to delete supplier with product in table product_supplier when delete supplier and product is soft deleted
+                $deleted_products_id =  Product::onlyTrashed()->pluck('id');
+                Product_supplier::whereIn('product_id',$deleted_products_id)->where('supplier_id',$ids)->delete();
+                
+                Supplier_section::where('supplier_id',$ids)->delete();
+                Supplier::find($ids)->delete();
+            }
         }
         //Supplier::whereIn('id',$all_ids)->delete();
         return redirect()->route('supplier.index')->with(['success'=>'تم حذف الموردين الغير مرتبطين بمنتجات ']);

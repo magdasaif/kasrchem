@@ -13,6 +13,8 @@ use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 
 use App\Models\Gallery_Photo_Image;
+use App\Models\Section_All_Page;
+
 class Photo_GalleryController extends Controller
 {
     
@@ -24,20 +26,9 @@ class Photo_GalleryController extends Controller
 //-------------------------------------------------------------//
     public function create()
     {
-       // $Main_Cat = Main_Category::withCount('sub_cate2')->get();
-       /*$sub_Category4      = Sub_Category4::get(); 
-        $sub_Category3      = Sub_Category3::get(); 
-        $Sub_Category2      = Sub_Category2::get();
-        $sections           = Sitesection::get();
-       $Main_Cat            = Main_Category::get();*/
-        //+++++++++++++++++++++++++new for unrequired +++++++++++++++++++++++++//
-        $sections = Sitesection::where('visible', '!=' , 0)->get();
-        $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
-        $sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
-        $sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
-        $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
+        $sections  = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
           //+++++++++++++++++++++++++++++++++++++++++++++//
-        return view('pages.Photo_Gallery.add',compact('Main_Cat','sub_Category4','sub_Category3','Sub_Category2','sections'));
+        return view('pages.Photo_Gallery.add',compact('sections'));
     }
 //-------------------------------------------------------------//
     public function store(Photo_Gallery_Request $request)
@@ -54,64 +45,17 @@ class Photo_GalleryController extends Controller
                   ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
                   
               }
-              /* $photo_gallery = new Photo_Gallery
-              ([
-               'main_cate_id' =>  $request->main_category,
-               'sub1_id' =>  $request->sub2,
-               'sub2_id' =>  $request->sub3,
-               'sub3_id' =>  $request->sub4,
-               'title_ar' =>  $request->title_ar,
-               'title_en' =>  $request->title_en,
-               'status' =>  $request->status,
-               'image' =>$photo_name,
-              ]);*/
+             
               //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
             //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
             $photo_gallery = new Photo_Gallery();       
-            if(!$request->section_id)
-            {
-                $photo_gallery->site_id= 1;
-            }
-            else
-            {
-                $photo_gallery->site_id= $request->section_id; 
-            }
 
-           if(!$request->main_category)
-            {
-                $photo_gallery->main_cate_id=1;
-            }
-            else
-            {
-                $photo_gallery->main_cate_id= $request->main_category; 
-            }
-          
-          if(!$request->sub2)
-            {
-                $photo_gallery->sub1_id= 1;
-
-            }
-            else
-            {
-                $photo_gallery->sub1_id= $request->sub2; 
-            }
-
-            if(!$request->sub3)
-            {
-                $photo_gallery->sub2_id=1;
-            }
-            else
-            {
-                $photo_gallery->sub2_id=$request->sub3; 
-            }
-            if(!$request->sub4)
-            {
-                $photo_gallery->sub3_id=1;
-            }
-            else
-            {
-                $photo_gallery->sub3_id= $request->sub4; 
-            }
+             $photo_gallery->site_id= 1;
+             $photo_gallery->main_cate_id=1;
+             $photo_gallery->sub1_id= 1;
+             $photo_gallery->sub2_id=1;
+             $photo_gallery->sub3_id=1;
+           
             $photo_gallery->title_ar=$request->title_ar;
             $photo_gallery->title_en=$request->title_en;
             $photo_gallery->status=$request->status;
@@ -119,7 +63,8 @@ class Photo_GalleryController extends Controller
            
         //++++++++++++++++++++++++++++++++++++++++++//
            $photo_gallery->save();
-   
+           $photo_gallery->rel_section()->attach($request->site_id,['type' => 'photos']);
+
                return redirect()->route('photo_gallery.index')->with(['success'=>'تمت الاضافه بنجاح']);
            }
            catch(\Exception $e){
@@ -133,26 +78,9 @@ class Photo_GalleryController extends Controller
         $photo_gallery = Photo_Gallery::findOrfail($id);
         if(!$photo_gallery) return redirect()->back();
 
-         /*$sections     = Sitesection::get();
-         $Main_Cat = Main_Category::get();
-         $Sub_Category4      = Sub_Category4::get();
-         $Sub_Category3      = Sub_Category3::get();
-         $Sub_Category2      = Sub_Category2::get();
+        $sections = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
 
-         
-         //to retrive value of section
-         $main_categories = Main_Category::findOrfail($photo_gallery->main_cate_id);
-         $s = Sitesection::findOrfail($main_categories->section_id);
-         
-        return view('pages.Photo_Gallery.edit',compact('s','sections','photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
-    */
-     //+++++++++++++++++++++++++new for unrequired +++++++++++++++++++++++++//
-     $sections = Sitesection::where('visible', '!=' , 0)->get();
-     $Main_Cat = Main_Category::where('visible', '!=' , 0)->get();
-     $Sub_Category4 = Sub_Category4::where('visible', '!=' , 0)->get();
-     $Sub_Category3 = Sub_Category3::where('visible', '!=' , 0)->get();
-     $Sub_Category2 = Sub_Category2::where('visible', '!=' , 0)->get();
-     return view('pages.Photo_Gallery.edit',compact('sections','photo_gallery','Main_Cat','Sub_Category2','Sub_Category3','Sub_Category4'));
+     return view('pages.Photo_Gallery.edit',compact('sections','photo_gallery'));
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
@@ -165,62 +93,14 @@ class Photo_GalleryController extends Controller
 
         $validated = $request->validated();
         $Photo_Gallery = Photo_Gallery::findOrFail($id);
-         // $Photo_Gallery->main_cate_id = $request->main_category;
-         
-         /* $Photo_Gallery->main_cate_id = $request->main_cate_id;
-         $Photo_Gallery->sub1_id =  $request->sub2;
-        $Photo_Gallery->sub2_id = $request->sub3;
-        $Photo_Gallery->sub3_id=  $request->sub4;
-        $Photo_Gallery-> title_ar= $request->title_ar;
-        $Photo_Gallery->title_en = $request->title_en;
-        $Photo_Gallery-> status=$request->status;*/
+   
    //++++++++++++++++++++++++++++++++++++++++++//   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
-            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
-                
-            if(!$request->section_id)
-            {
-                $Photo_Gallery->site_id= 1;
-            }
-            else
-            {
-                $Photo_Gallery->site_id= $request->section_id; 
-            }
-
-           if(!$request->main_cate_id)
-            {
-                $Photo_Gallery->main_cate_id=1;
-            }
-            else
-            {
-                $Photo_Gallery->main_cate_id= $request->main_cate_id; 
-            }
-          
-          if(!$request->sub2)
-            {
-                $Photo_Gallery->sub1_id= 1;
-
-            }
-            else
-            {
-                $Photo_Gallery->sub1_id= $request->sub2; 
-            }
-
-            if(!$request->sub3)
-            {
-                $Photo_Gallery->sub2_id=1;
-            }
-            else
-            {
-                $Photo_Gallery->sub2_id=$request->sub3; 
-            }
-            if(!$request->sub4)
-            {
-                $Photo_Gallery->sub3_id=1;
-            }
-            else
-            {
-                $Photo_Gallery->sub3_id= $request->sub4; 
-            }
+             $Photo_Gallery->site_id= 1;
+             $Photo_Gallery->main_cate_id=1;
+             $Photo_Gallery->sub1_id= 1;
+             $Photo_Gallery->sub2_id=1;
+             $Photo_Gallery->sub3_id=1;
+            
             $Photo_Gallery->title_ar=$request->title_ar;
             $Photo_Gallery->title_en=$request->title_en;
             $Photo_Gallery->status=$request->status;
@@ -229,16 +109,18 @@ class Photo_GalleryController extends Controller
         //++++++++++++++++++++++++++++++++++++++++++//
         if($request->image)
         {
-       // $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
-        $folder_name='';
-        // $photo_name= ($request->image)->getClientOriginalName();
-        $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
-        ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
-        
-        $Photo_Gallery->image = $photo_name;
+            // $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
+            $folder_name='';
+            // $photo_name= ($request->image)->getClientOriginalName();
+            $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
+            ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
+            
+            $Photo_Gallery->image = $photo_name;
         }
       
         $Photo_Gallery->save();
+        $Photo_Gallery->rel_section()->sync($request->site_id,['type' => 'photos']);
+
         return redirect()->route('photo_gallery.index')->with(['success'=>'تم التعديل بنجاح']);
         }
         catch
@@ -256,10 +138,11 @@ class Photo_GalleryController extends Controller
            
          try 
          {
-         $Photo_Gallery=Photo_Gallery::find($id);  
-         $Photo_Gallery->delete(); 
-         return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
-        }
+            Section_All_Page::where('type_id',$id)->where('type','photos')->delete();
+            Photo_Gallery::find($id)->delete();
+            
+            return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
+         }
         catch
         (\Exception $e)
         {
@@ -317,7 +200,14 @@ class Photo_GalleryController extends Controller
     {
     $all_ids = explode(',',$request->delete_all_id);
     // dd($all_ids);
-    Photo_Gallery::whereIn('id',$all_ids)->delete();
+    foreach($all_ids as $id){
+        if($id=='on'){}else{
+         Section_All_Page::where('type_id',$id)->where('type','photos')->delete();
+         Photo_Gallery::find($id)->delete();
+        }
+    }
+    // Photo_Gallery::whereIn('id',$all_ids)->delete();
+            
     return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 

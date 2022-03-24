@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Models\Video;
 use App\Models\Article;
+
 use App\Models\Release;
+use Illuminate\Http\Request;
 use App\Models\Photo_Gallery;
+use App\Models\Release_Section;
 use App\Models\Section_All_Page;
 
-use App\Http\Resources\MediaResource;
+use App\Http\Controllers\Controller;
 
+use App\Http\Resources\MediaResource;
 use App\Http\Resources\PostsResource;
 use App\Http\Resources\GalleryResource;
 use App\Http\Resources\ReleaseResource;
@@ -108,13 +109,14 @@ class MediaController extends Controller
              $fetch->map(function($t) { $t->type = 'first_fun'; });
              return response($fetch,200,['OK']);
 
-        }elseif($mediatype=='posts'){
+        }elseif($mediatype=='articles'){
 
             $fetch=PostsResource::collection(Article::select('id',$selected,'image')->whereIn('id',$media_ids)->where('status','1')->paginate($perpage));
             return response($fetch,200,['OK']);
         }elseif($mediatype=='releases'){
 
-            $fetch=ReleaseResource::collection(Release::select('id',$selected,'image','file')->whereIn('id',$media_ids)->where('status','1')->paginate($perpage));
+            $releases_ids=Release_Section::where('sitesection_id',$main_cate_id)->pluck('release_id');
+            $fetch=ReleaseResource::collection(Release::select('id',$selected,'image','file')->whereIn('id',$releases_ids)->where('status','1')->paginate($perpage));
             return response($fetch,200,['OK']);
         }
 
