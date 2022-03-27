@@ -35,7 +35,7 @@ class BrancheController extends Controller
 
     public function store(BranchRequest $request)
     {
-       // dd($request->map_lat);
+       //dd($request->all());
         try{
             //vaildation
            $validated = $request->validated();
@@ -47,9 +47,33 @@ class BrancheController extends Controller
             $branche->address_ar=$request->address_ar;
             $branche->address_en=$request->address_en;
             $branche->status= $request->status;
-            $branche->email= $request->email;
-            $branche->phone= $request->phone;
-            $branche->fax= $request->fax;
+            if( $request->email==null)
+            {
+                $branche->email='';
+            }
+            else
+            {
+              $branche->email= $request->email;
+            }
+
+            if( $request->phone==null)
+            {
+                $branche->phone='';
+            }
+            else
+            {
+                $branche->phone= $request->phone;
+            }
+            
+            if( $request->fax==null)
+            {
+                $branche->fax='';
+            }
+            else
+            {
+                $branche->fax= $request->fax;
+            }
+           
             $branche->latitude= $request->map_lat;
             $branche->longitude= $request->map_long;
 
@@ -80,6 +104,7 @@ class BrancheController extends Controller
     
     public function update(BranchRequest $request)
     {
+       // dd($request->all());
         try{
             //vaildation
            $validated = $request->validated();
@@ -91,9 +116,36 @@ class BrancheController extends Controller
             $branche->address_ar=$request->address_ar;
             $branche->address_en=$request->address_en;
             $branche->status= $request->status;
-            $branche->email= $request->email;
-            $branche->phone= $request->phone;
-            $branche->fax= $request->fax;
+           // $branche->email= $request->email;
+          //  $branche->phone= $request->phone;
+           // $branche->fax= $request->fax;
+           if( $request->email==null)
+           {
+               $branche->email='';
+           }
+           else
+           {
+             $branche->email= $request->email;
+           }
+
+           if( $request->phone==null)
+           {
+               $branche->phone='';
+           }
+           else
+           {
+               $branche->phone= $request->phone;
+           }
+           
+           if( $request->fax==null)
+           {
+               $branche->fax='';
+           }
+           else
+           {
+               $branche->fax= $request->fax;
+           }
+          
             $branche->latitude= $request->map_lat;
             $branche->longitude= $request->map_long;
 

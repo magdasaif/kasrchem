@@ -24,11 +24,11 @@ class BranchRequest extends FormRequest
         'name_en' => 'required|unique:branches,name_en,'.$this->id,
         'address_ar' => 'required',
         'address_en' => 'required',
-        'email' => 'required|email|unique:branches,email,'.$this->id,
-        //regex:/(01)[0-9]{9}/
-        'phone' => 'required|numeric',
-        'fax' => 'required|numeric',
-        'status' => 'required',
+        'email' => 'nullable|email',
+       // 'email' => 'nullable|email|unique:branches,email,'.$this->id,
+       'phone' => 'nullable|regex:/(01)[0-9]{9}/|min:11',
+       //'fax' => 'nullable|min:11|numeric',
+       'fax' => 'nullable|regex:/(01)[0-9]{9}/|min:11',
         'map_long' => 'required',
         'map_lat' => 'required',
           
@@ -41,13 +41,16 @@ class BranchRequest extends FormRequest
         'name_en.required' => 'اسم الفرع بالانجليزية مطلوب',
         'address_ar.required' =>'عنوان الفرع بالعربية مطلوب',
         'address_en.required' =>'عنوان الفرع بالانجليزية مطلوب',
-        'status.required' =>'الحالة مطلوبة',
         'map_long.required' =>'قم بتحديد الموقع ع الخريطه',
         'map_lat.required' =>'قم بتحديد الموقع ع الخريطه',
-        'email.required' => 'البريد الالكترونى مطلوب',
-        'email.email' => 'تاكد من ادخال بريد الكترونى بالشكل المناسب',
-        'phone.numeric' =>'تاكد من ان الهاتف رقم',
-        'fax.numeric' =>'تاكد من ان الفاكس رقم',
+         'email.email'=>'ادخل الميل بالشكل المناسب',
+       // 'email.unique'=>'هذا الميل موجو مسبقا',
+       // 'phone.not_regex' =>'تاكد من ان الهاتف رقم',
+        'phone.regex' =>'تاكد من ان الهاتف بالشكل المناسب بحيث يبدا ب 01',
+        'phone.min' =>'رقم الهاتف على الاقل 11 رقم',
+        //'fax.numeric' =>'تاكد من ان الفاكس رقم',
+        'fax.regex' =>'تاكد من ان الفاكس بالشكل المناسب بحيث يبدا ب 01',
+        'fax.min' =>'رقم الفاكـــس على الاقل 11 رقم',
         ];
     }
 }

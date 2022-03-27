@@ -84,7 +84,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">البريد الالكترونى</label>
-                    <input type="text" class="form-control" name="email" value="{{$branch->email}}" required oninvalid="this.setCustomValidity('قم بادخال البريد الالكترونى')">
+                    <input type="text" class="form-control" name="email" value="{{$branch->email}}" >
                      @error('email')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -92,7 +92,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> الهاتف</label>
-                    <input type="text" class="form-control" name="phone" value="{{$branch->phone}}" required oninvalid="this.setCustomValidity('قم بادخال رقم التليفون')">
+                    <input type="text" class="form-control" name="phone" value="{{$branch->phone}}" >
                      @error('phone')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -100,7 +100,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> الفاكس</label>
-                    <input type="text" class="form-control" name="fax" value="{{$branch->fax}}" required oninvalid="this.setCustomValidity('قم بادخال رقم الفاكس')">
+                    <input type="text" class="form-control" name="fax" value="{{$branch->fax}}" >
                      @error('fax')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
