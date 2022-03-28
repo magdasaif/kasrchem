@@ -12,8 +12,8 @@ class CreateSitesectionsTable extends Migration
             $table->id()->start_from(1);            
             $table->unsignedBigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('site_sections')->onDelete('cascade');
-            $table->string('site_name_ar');
-            $table->string('site_name_en');
+            $table->text('site_name_ar');
+            $table->text('site_name_en');
              $table->integer('priority');
             $table->integer('statues');
             $table->string('image');

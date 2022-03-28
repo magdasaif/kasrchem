@@ -65,7 +65,7 @@
                                     ];
                  
                               ?>
-                                <option style="color:{{$color}}"  value="{{$xx->id}}">-{{$xx->site_name_ar}}</option>
+                                <option style="color:<?php echo $color;?>"  value="{{$xx->id}}">-{{$xx->site_name_ar}}</option>
                                 @if(count($xx->childs))
                                    @include('pages.products.manageChild',$new)
                                 @endif
@@ -81,7 +81,8 @@
 
                         <div class="form-group">
                             <label for="Name"  class="mr-sm-2">اسم القسم بالعربية:</label>
-                            <input id="site_name_ar" type="text" name="site_name_ar"class="form-control" value="{{ $section->site_name_ar }}" required>
+                            <!-- <input id="site_name_ar" type="text" name="site_name_ar"class="form-control" value="{{ $section->site_name_ar }}" required> -->
+                            <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالعربيه"  name="site_name_ar"  required >{{ $section->site_name_ar }}</textarea>
 
                             @error('site_name_ar')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -90,7 +91,9 @@
 
                         <div class="form-group">
                             <label for="Name"  class="mr-sm-2">اسم القسم بالانجليزية:</label>
-                            <input id="site_name_en" type="text" name="site_name_en"class="form-control" value="{{ $section->site_name_en}}" required>
+                            <!-- <input id="site_name_en" type="text" name="site_name_en"class="form-control" value="{{ $section->site_name_en}}" required> -->
+                            <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالانجليزية"  name="site_name_en"  required >{{ $section->site_name_en}}</textarea>
+
 
 
                             @error('site_name_en')

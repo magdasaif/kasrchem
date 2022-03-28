@@ -22,7 +22,8 @@ class sectionResource extends JsonResource
         $path=storage_path().'/app/public/site_sections/site_section_image/';
         return [
             'id'=>$this->id,
-            'name' =>$section_name,
+            // 'name' =>$section_name,
+            'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $section_name),
            // 'image' => $path.$this->image,
             'image' => asset('storage/site_sections/site_section_image/' . $this->image),
              
