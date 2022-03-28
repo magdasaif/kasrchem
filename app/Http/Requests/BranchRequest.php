@@ -26,12 +26,11 @@ class BranchRequest extends FormRequest
         'address_en' => 'required',
         'email' => 'nullable|email',
        // 'email' => 'nullable|email|unique:branches,email,'.$this->id,
-       'phone' => 'nullable|regex:/(01)[0-9]{9}/|min:11',
+       'phone' => 'nullable|regex:/(0)[0-9]{9}/|min:10|max:14',
        //'fax' => 'nullable|min:11|numeric',
-       'fax' => 'nullable|regex:/(01)[0-9]{9}/|min:11',
+       'fax' => 'nullable|regex:/(0)[0-9]{9}/|min:10|max:14',
         'map_long' => 'required',
-        'map_lat' => 'required',
-          
+        'map_lat' => 'required',         
         ];
     }
     public function messages()
@@ -45,12 +44,15 @@ class BranchRequest extends FormRequest
         'map_lat.required' =>'قم بتحديد الموقع ع الخريطه',
          'email.email'=>'ادخل الميل بالشكل المناسب',
        // 'email.unique'=>'هذا الميل موجو مسبقا',
-       // 'phone.not_regex' =>'تاكد من ان الهاتف رقم',
-        'phone.regex' =>'تاكد من ان الهاتف بالشكل المناسب بحيث يبدا ب 01',
-        'phone.min' =>'رقم الهاتف على الاقل 11 رقم',
+        'phone.regex' =>'  تاكد من ان الهاتـف بالشكل المناسب بحيث يبدا ب 0 ',
+        'phone.min' =>'تاكد من ان الهاتـف بالشكل المناسب بحيث ألا  يقل عن 10 ارقام',
+        'phone.max' =>' تاكد من ان الهاتـف بالشكل المناسب بحيث لا يزيد عن14رقم',
         //'fax.numeric' =>'تاكد من ان الفاكس رقم',
-        'fax.regex' =>'تاكد من ان الفاكس بالشكل المناسب بحيث يبدا ب 01',
-        'fax.min' =>'رقم الفاكـــس على الاقل 11 رقم',
+       //'fax.regex' =>'  تاكد من ان الفاكس بالشكل المناسب بحيث يبدا ب 0ولايقل عن 10 ارقام ولا يزيد عن14  ',
+       //'fax.min' =>'رقم الفاكـــس على الاقل 11 رقم',
+       'fax.regex' =>'  تاكد من ان الفاكس بالشكل المناسب بحيث يبدا ب 0 ',
+       'fax.min' =>'تاكد من ان الفاكس بالشكل المناسب بحيث ألا يقل عن 10 ارقام',
+       'fax.max' =>' تاكد من ان الفاكس بالشكل المناسب بحيث لا يزيد عن14رقم',
         ];
     }
 }

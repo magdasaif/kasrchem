@@ -63,8 +63,15 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$branche->name_ar}}</td>
-                            <td>{{$branche->phone}}</td>
+                            @if($branche->phone=='')<td><span style="color: red;">لا يوجد رقم للهاتف</span></td> 
+                             @else
+                             <td>{{$branche->phone}}</td>
+                             @endif
+                            @if($branche->email=='') <td><span style="color: red;">لا يوجد ميل</span></td> 
+                            @else
                             <td>{{$branche->email}}</td>
+                           @endif
+                           
                             <td><?php if($branche->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                         
                             <td>
