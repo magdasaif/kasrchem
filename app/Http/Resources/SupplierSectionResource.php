@@ -35,7 +35,8 @@ class SupplierSectionResource extends JsonResource
        
         return [
             'id'=>$this->section_id,
-            'name' =>$name,
+            // 'name' =>$name,
+            'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $name),
             'supplier' =>$supplier,
         ];
     }

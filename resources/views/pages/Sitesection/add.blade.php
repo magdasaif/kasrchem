@@ -55,7 +55,7 @@
                                         'site_id'=>$site->id,
                                     ];
                                      ?>
-                                    <option style="color:{{$color}}"  value="{{$site->id}}">-{{$site->site_name_ar}}</option>
+                                    <option style="color:<?php echo $color;?>"  value="{{$site->id}}">-{{$site->site_name_ar}}</option>
                                         @if(count($site->childs))
                                            @include('pages.products.manageChild',$new)
                                         @endif
@@ -66,7 +66,9 @@
 
                                 <div class="form-group">
                                     <label for="site_name_ar">اسم القسـم بالعربيه</label>
-                                    <input type="text" class="form-control" id="site_name_ar" aria-describedby="site_name_ar" placeholder="ادخل اسم القسـم بالعربيه" name="site_name_ar" required>
+                                    <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالعربيه"  name="site_name_ar"  required >{!! old('site_name_ar')!!}</textarea>
+
+                                    <!-- <input type="text" class="form-control" id="site_name_ar" aria-describedby="site_name_ar" placeholder="ادخل اسم القسـم بالعربيه" name="site_name_ar" required> -->
                                     @error('site_name_ar')
                                     <small class="form-text text-danger">{{$message}}</small>
                                     @enderror
@@ -74,7 +76,9 @@
 
                                 <div class="form-group">
                                     <label for="site_name_en">اسم القسم بالانجليزيه</label>
-                                    <input type="text" class="form-control" id="site_name_en" aria-describedby="site_name_en" placeholder="ادخل اسم القسـم بالانجليزية" name="site_name_en" required>
+                                    <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالانجليزية"  name="site_name_en"  required >{!! old('site_name_en')!!}</textarea>
+
+                                    <!-- <input type="text" class="form-control" id="site_name_en" aria-describedby="site_name_en" placeholder="ادخل اسم القسـم بالانجليزية" name="site_name_en" required> -->
                                     @error('site_name_en')
                                     <small class="form-text text-danger">{{$message}}</small>
                                     @enderror
