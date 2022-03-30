@@ -25,7 +25,7 @@ class PartnerRequest extends FormRequest
     {
         return [
             'name_ar'=>'required',
-            'name_en'=>'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu',
+            'name_en'=>'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu',
             
         ];
     }

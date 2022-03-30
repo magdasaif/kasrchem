@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest
 
            
             'name_ar'=>'required|unique:products,name_ar,'.$this->id,
-            'name_en'=>'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu|unique:products,name_en,'.$this->id,
+            'name_en'=>'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu|unique:products,name_en,'.$this->id,
             'desc_ar'=>'required',
             'desc_en'=>'required',
             'sort'=>'integer',

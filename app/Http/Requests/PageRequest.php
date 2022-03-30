@@ -16,7 +16,7 @@ class PageRequest extends FormRequest
         return [
      
         'title_ar' => 'required',
-        'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu',
+        'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu',
         'description_ar' => 'required|max:150',
         'description_en' => 'required|max:150',
         'content_ar' => 'required',

@@ -30,7 +30,7 @@ class VideoRequest extends FormRequest
             // 'sub4' => 'required',
 
              'title_ar' => 'required',
-             'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu',
+             'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu',
              'link' => 'required',
              'status' => 'required',
 

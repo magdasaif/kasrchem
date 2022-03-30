@@ -21,7 +21,7 @@ class BranchRequest extends FormRequest
         return [
      
         'name_ar' => 'required|unique:branches,name_ar,'.$this->id,
-        'name_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu|unique:branches,name_en,'.$this->id,
+        'name_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu|unique:branches,name_en,'.$this->id,
         'address_ar' => 'required',
         'address_en' => 'required',
         'email' => 'nullable|email',
