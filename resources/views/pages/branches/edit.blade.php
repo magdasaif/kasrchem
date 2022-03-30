@@ -53,7 +53,7 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$branch->name_en}}" placeholder="Enter name" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$branch->name_en}}" placeholder="Enter name" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
                     @error('name_en')
