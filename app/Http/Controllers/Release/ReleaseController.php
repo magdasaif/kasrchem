@@ -14,8 +14,13 @@ use App\Models\Sub_Category2;
 use App\Models\Sub_Category3;
 use App\Models\Sub_Category4;
 
+
+
+use App\Traits\TableAutoIncreamentTrait;
+
 class ReleaseController extends Controller
 {
+    use TableAutoIncreamentTrait;
     public function index()
     {
         $Rel=Release::orderBy('id','desc')->get();
@@ -333,6 +338,9 @@ class ReleaseController extends Controller
 
         Release_Section::where('release_id',$id)->delete();
         Release::find($id)->delete();
+
+        //call trait to handel aut-increament
+        $this->refreshTable('releases');
                 
         return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
        }
@@ -353,6 +361,10 @@ class ReleaseController extends Controller
         Release::find($ids)->delete();
         }
     }
+
+       //call trait to handel aut-increament
+       $this->refreshTable('releases');
+    
     //Release::whereIn('id',$all_ids)->delete();
     return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
     }
