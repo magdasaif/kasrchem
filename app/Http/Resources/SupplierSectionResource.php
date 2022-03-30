@@ -24,6 +24,7 @@ class SupplierSectionResource extends JsonResource
                             ->join('supplier_sections', 'supplier_sections.supplier_id', '=', 'suppliers.id')
                             ->where('supplier_sections.sitesection_id',$this->section_id)
                             ->where('suppliers.parent_id',0)
+                            ->orderBy('suppliers.sort','asc')
                             ->get();
 
              $supplier=SupplierResource2::collection($all);

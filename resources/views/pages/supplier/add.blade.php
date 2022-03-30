@@ -129,6 +129,17 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <hr>
+                 <!----------------------------------------------------->
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الترتيب </label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
              <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">الصور الفرعيه</label>

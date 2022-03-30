@@ -18,7 +18,7 @@ class SupplierController extends Controller
   
     public function index()
     {
-        $Supplier=Supplier::orderBy('id','desc')->get();
+        $Supplier=Supplier::orderBy('sort','asc')->get();
         return view('pages.supplier.Show',compact('Supplier'));
     }
 // //-------------------------------------------------------------//
@@ -75,6 +75,7 @@ class SupplierController extends Controller
                'parent_id'=>  $request->supplier_or_sub ,
                'type'=> $ttype,
                'logo' => $photo_name,
+               'sort'=>  $request->sort,
               ]);
              // dd('done');
 
@@ -156,7 +157,7 @@ class SupplierController extends Controller
         $Supplier->description_en = $request->description_en;
         $Supplier->parent_id=  $request->supplier_or_sub ;
         $Supplier->type=$ttype;
-        
+        $Supplier->sort= $request->sort;
       
 
         if($request->logo)
