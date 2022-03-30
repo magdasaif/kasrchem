@@ -149,26 +149,7 @@
               
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="description_ar"> وصف المورد بالعربية  </label>
-                    <textarea  class="form-control tinymce-editor" name="description_ar" id="content_ar" placeholder="ادخل وصف المورد بالعربية " >{!!$Supplier->description_ar!!}</textarea>
-                    
-                    @error('description_ar')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-              
-               <!----------------------------------------------------->
-               <div class="form-group">
-                    <label for="description_en">وصف المورد بالانجليزية</label>
-                    <textarea  class="form-control tinymce-editor" name="description_en" id="description_en" placeholder="ادخل وصف المورد بالانجليزية" >{!!$Supplier->description_en!!}</textarea>
-                    
-                    @error('description_en')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-              <!----------------------------------------------------->
-            <div class="form-group">
-                    <label for="logo">الصورة</label>
+                    <label for="logo">اللوجــو</label>
                    <center> <img id="previewImg"  style="width:30%;" src="<?php echo asset("storage/supplier/supplier_no_$Supplier->id/{$Supplier->logo}")?>" class="uploaded-img"></center>
                    <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
@@ -187,6 +168,37 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+               <!----------------------------------------------------->
+               <hr>
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> الترتيب</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="{{$Supplier->sort}}">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
+               <!----------------------------------------------------->
+               <div class="form-group">
+                    <label for="description_ar"> وصف المورد بالعربية  </label>
+                    <textarea  class="form-control tinymce-editor" name="description_ar" id="content_ar" placeholder="ادخل وصف المورد بالعربية " >{!!$Supplier->description_ar!!}</textarea>
+                    
+                    @error('description_ar')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+              
+               <!----------------------------------------------------->
+               <div class="form-group">
+                    <label for="description_en">وصف المورد بالانجليزية</label>
+                    <textarea  class="form-control tinymce-editor" name="description_en" id="description_en" placeholder="ادخل وصف المورد بالانجليزية" >{!!$Supplier->description_en!!}</textarea>
+                    
+                    @error('description_en')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+              <!----------------------------------------------------->
+
    <!----------------------------------------------------->
                
                 <input type="hidden" name="id" value="{{$Supplier->id}}">

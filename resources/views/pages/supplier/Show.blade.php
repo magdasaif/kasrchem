@@ -56,6 +56,7 @@
                         <th>#</th>
                         <th>الصورة</th>
                         <th>الاسم</th>
+                        <th>الترتيب</th>
                         <th>الاجراءات</th>
                         <th ><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                         </tr>
@@ -68,6 +69,7 @@
                             <td>{{ $i }}</td>
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/supplier/supplier_no_$Supp->id/{$Supp->logo}")?> alt="" ></td>
                             <td>{{$Supp->name_ar}}</td>
+                            <td>{{$Supp->sort}}</td>
                             <td style="font-weight: bold;font-size: 17px;"> 
                              <a href="{{route('supplier.edit',$Supp->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                              /
