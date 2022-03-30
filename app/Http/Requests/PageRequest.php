@@ -16,7 +16,7 @@ class PageRequest extends FormRequest
         return [
      
         'title_ar' => 'required',
-        'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}-][a-zA-Z0-9_@.\s\#&+(){}-]+$/uu',
+        'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu',
         'description_ar' => 'required|max:150',
         'description_en' => 'required|max:150',
         'content_ar' => 'required',
@@ -31,7 +31,7 @@ class PageRequest extends FormRequest
         return $messages = [
         'title_ar.required' =>'عنوان الصفحة بالعربية مطلوب',
         'title_en.required' => 'عنوان الصفحة بالانجليزية مطلوب',
-        'title_en.regex' => '  يجب ان يكون عنوان الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط',
+        'title_en.regex' => '  يجب ان يكون عنوان الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط وان لا يبدأ برقم',
 
         'description_ar.required' =>'وصف الصفحة بالعربية مطلوب',
         'description_en.required' => 'وصف الصفحة بالانجليزية مطلوب',

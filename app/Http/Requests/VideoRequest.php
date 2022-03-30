@@ -30,7 +30,7 @@ class VideoRequest extends FormRequest
             // 'sub4' => 'required',
 
              'title_ar' => 'required',
-             'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}-][a-zA-Z0-9_@.\s\#&+(){}-]+$/uu',
+             'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu',
              'link' => 'required',
              'status' => 'required',
 
@@ -47,7 +47,7 @@ class VideoRequest extends FormRequest
 
              'title_ar.required' =>'عنوان الفيديو بالعربية مطلوب',
              'title_en.required' => 'عنوان الفيديو بالانجليزية مطلوب',
-             'title_en.regex' => '  يجب ان يكون عنوان الفيديو  باللغة الانجليزية وايضا لا يكون ارقام فقط',
+             'title_en.regex' => '  يجب ان يكون عنوان الفيديو  باللغة الانجليزية وايضا لا يكون ارقام فقط وان لا يبدأ برقم',
              'link.required' =>'رابط الفيديو مطلوب',
              'status.required' =>'الحالة مطلوبة',
              

@@ -14,7 +14,7 @@ class Photo_Gallery_Request extends FormRequest
     {
         return [
           'title_ar' => 'required',
-          'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}-][a-zA-Z0-9_@.\s\#&+(){}-]+$/uu',
+          'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,-][a-zA-Z0-9_@.\s\#&+(){}:,-]+$/uu',
            'status' => 'required',
           
         ];
@@ -24,7 +24,7 @@ class Photo_Gallery_Request extends FormRequest
         return $messages = [
              'title_ar.required' =>'اسم المعرض بالعربية مطلوب',
              'title_en.required' => '  اسم المعرض  بالانجليزية مطلوب',
-             'title_en.regex' => '  يجب ان يكون اسم المعرض باللغة الانجليزية وايضا لا يكون ارقام فقط',
+             'title_en.regex' => '  يجب ان يكون اسم المعرض باللغة الانجليزية وايضا لا يكون ارقام فقط وان لا يبدأ برقم',
              'status.required' =>'الحالة مطلوبة',
         ];
     }
