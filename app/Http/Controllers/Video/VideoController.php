@@ -14,9 +14,11 @@ use App\Models\Section_All_Page;
 use App\Http\Requests\VideoRequest;
 use App\Http\Controllers\Controller;
 
+use App\Traits\TableAutoIncreamentTrait;
 class VideoController extends Controller
 {
-
+    use TableAutoIncreamentTrait;
+    
     public function index()
     {
         $Vid=Video::orderBy('id','desc')->get();
@@ -43,6 +45,10 @@ class VideoController extends Controller
       //dd($request->all());
        try{
          $validated = $request->validated();
+
+         //call trait to handel aut-increament
+          $this->refreshTable('videos');
+          
              $video= new Video();
             
 //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
@@ -253,7 +259,10 @@ public function edit($id)
         {
             Section_All_Page::where('type_id',$id)->where('type','videos')->delete();
             Video::find($id)->delete();
-        
+
+            //call trait to handel aut-increament
+            $this->refreshTable('videos');
+
             return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
         }
         catch
@@ -272,6 +281,9 @@ public function edit($id)
          Video::find($id)->delete();
         }
      }
+      //call trait to handel aut-increament
+      $this->refreshTable('videos');
+      
     //  Video::whereIn('id',$all_ids)->delete();
      return redirect()->route('video.index')->with(['success'=>'تم الحذف بنجاح']);
     }

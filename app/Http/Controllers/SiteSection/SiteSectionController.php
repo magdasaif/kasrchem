@@ -45,6 +45,9 @@ class SiteSectionController extends Controller
             //vaildation
            $validated = $request->validated();
 
+           //call trait to handel aut-increament
+            $this->refreshTable('site_sections');
+     
            if($request->image){
                $folder_name='site_section_image';
                 $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());

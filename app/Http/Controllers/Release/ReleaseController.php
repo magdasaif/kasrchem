@@ -47,6 +47,9 @@ class ReleaseController extends Controller
     //--------------------------------------------
     public function store(ReleaseRequest $request)
     {
+         //call trait to handel aut-increament
+        $this->refreshTable('releases');
+
         //--------get last id and if it the first make last_id=1---------//
         $last_id=Release::pluck("id")->last();
          if($last_id=='')

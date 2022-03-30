@@ -24,8 +24,11 @@ use Illuminate\Support\Facades\DB;
 
 //use Illuminate\Support\Facades\Schema;
 
+use App\Traits\TableAutoIncreamentTrait;
 class ProductController extends Controller
 {
+    use TableAutoIncreamentTrait;
+    
     public function index()
     {
          $title='المنتجات';
@@ -76,6 +79,9 @@ class ProductController extends Controller
             //vaildation
            $validated = $request->validated();
 
+            //call trait to handel aut-increament
+            $this->refreshTable('products');
+       
            //$request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
            if($request->image){
                 $last_id = Product::withTrashed()->orderBy('id', 'desc')->first();
@@ -334,6 +340,10 @@ class ProductController extends Controller
         
       //  Storage::disk('products')->delete('products/product_no_'.$request->product_id.'/'.$request->image_name);
         Product_attachment::findOrfail($request->image_id)->delete();
+
+        //call trait to handel aut-increament
+         $this->refreshTable('products_attachments');
+     
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
     // --------------end products images funcrion -----------------------
@@ -401,6 +411,10 @@ class ProductController extends Controller
         
        
            Product_attachment::findOrfail($request->file_id)->delete();
+
+            //call trait to handel aut-increament
+            $this->refreshTable('products_attachments');
+         
            return redirect()->back()->with(['success'=>'تم الحذف']);
        }
  // --------------end products files funcrion -----------------------
@@ -634,6 +648,10 @@ class ProductController extends Controller
        // dd($product_id);
         Product::where('id',$product_id)->delete(); //soft_delete
         //Product::where('id',$id)->forceDelete();//hard delete
+
+         //call trait to handel aut-increament
+        // $this->refreshTable('products');
+         
         return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
       
     }
@@ -651,6 +669,10 @@ public function deleteAll(Request $request)
   $all_ids = explode(',',$request->delete_all_id);
  // dd($all_ids);
  Product::whereIn('id',$all_ids)->delete();
+
+  //call trait to handel aut-increament
+  //$this->refreshTable('products');
+  
  return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
 }
 }

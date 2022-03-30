@@ -8,13 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Partner;
 use App\Http\Requests\PartnerRequest;
 
+use App\Traits\TableAutoIncreamentTrait;
 class PartnerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use TableAutoIncreamentTrait;
+   
     public function index()
     {
         $title='الشركاء';
@@ -33,18 +31,16 @@ class PartnerController extends Controller
          return view('pages.partners.add',compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(PartnerRequest $request)
     {
         try{
             //vaildation
            $validated = $request->validated();
-            
+
+            //call trait to handel aut-increament
+             $this->refreshTable('partners');
+    
            if($request->image){
                 $folder_name='';
                 $photo_name= ($request->image)->getClientOriginalName();
@@ -123,6 +119,10 @@ class PartnerController extends Controller
     {
       //  dd($id);
         Partner::findOrfail($id)->delete();
+
+        //call trait to handel aut-increament
+        $this->refreshTable('partners');
+        
         return redirect()->route('partner.index')->with(['success'=>'تم الحذف ']);
 
     }
@@ -133,6 +133,10 @@ class PartnerController extends Controller
     $all_ids = explode(',',$request->delete_all_id);
    // dd($all_ids);
    Partner::whereIn('id',$all_ids)->delete();
+
+    //call trait to handel aut-increament
+    $this->refreshTable('partners');
+    
    return redirect()->route('partner.index')->with(['success'=>'تم الحذف بنجاح']);
   }
 

@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ImageRequest;
 use App\Http\Controllers\Controller;
 
+use App\Traits\TableAutoIncreamentTrait;
 class PageController extends Controller
 {
+    use TableAutoIncreamentTrait;
+    
     // public function show($id)
     // {}
     public function index()
@@ -32,7 +35,10 @@ class PageController extends Controller
        
        try{
             $validated = $request->validated();
-            
+
+            //call trait to handel aut-increament
+            $this->refreshTable('pages');
+     
             $page = new Page
             ([
             
@@ -137,6 +143,9 @@ class PageController extends Controller
             //remove page
             Page::findOrfail($id)->delete();
             
+            //call trait to handel aut-increament
+            $this->refreshTable('pages');
+         
             return redirect()->route('page.index')->with(['success'=>'تم الحذف بنجاح']);
         }
        catch(\Exception $e)
@@ -149,7 +158,12 @@ class PageController extends Controller
     {
       $all_ids = explode(',',$request->delete_all_id);
      // dd($all_ids);
+
      Page::whereIn('id',$all_ids)->delete();
+
+     //call trait to handel aut-increament
+     $this->refreshTable('pages');
+                 
      return redirect()->route('page.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 
