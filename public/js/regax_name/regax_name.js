@@ -23,8 +23,7 @@ window.onload=function()
         //    {
         //     document.getElementById('error_name').style.display = 'none'; //if enter char and number or char only
         //     $(':button[type="submit"]').prop('disabled', false);//make submit enabl
-        //    }
-      //  ===========================================
+        //    } 
             //===========================================
             //alert(text);
             let arabic =  /[\u0600-\u06FF]/;
@@ -66,7 +65,6 @@ function check_regax_name_ar()
    
     //  ===========================================       
 }
-
 
 
 //---------------//Allow Arabic Characters only-----------------------//
