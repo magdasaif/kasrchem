@@ -20,7 +20,7 @@ class ReleaseRequest extends FormRequest
     {
         return [
           'title_ar' => 'required',
-          'title_en' => 'required',
+          'title_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}-][a-zA-Z0-9_@.\s\#&+(){}-]+$/uu',
            'status' => 'required',
           
         ];
@@ -30,6 +30,7 @@ class ReleaseRequest extends FormRequest
         return $messages = [
              'title_ar.required' =>'اسم النشرة بالعربية مطلوبة',
              'title_en.required' => '  اسم النشرة  بالانجليزية مطلوبة',
+             'title_en.regex' => '  تاكد من صيغه الاسم',
              'status.required' =>'الحالة مطلوبة',
         ];
     }
