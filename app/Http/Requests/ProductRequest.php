@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest
 
            
             'name_ar'=>'required|unique:products,name_ar,'.$this->id,
-            'name_en'=>'required|unique:products,name_en,'.$this->id,
+            'name_en'=>'required|regex:/^[a-zA-Z_@.\s\#&+(){}-][a-zA-Z0-9_@.\s\#&+(){}-]+$/uu|unique:products,name_en,'.$this->id,
             'desc_ar'=>'required',
             'desc_en'=>'required',
             'sort'=>'integer',
@@ -72,6 +72,7 @@ class ProductRequest extends FormRequest
             // 'sub4.required'=>'تاكد من اختيار نوع فرعى',
              'name_ar.required'=>'تاكد من ادخال اسم المنتج باللغه العربيه ',
              'name_en.required'=>'تاكد من ادخال اسم المنتج باللغه الانجليزيه ',
+             'name_en.regex' => '  يجب ان يكون اسم المنتج باللغة الانجليزية وايضا لا يكون ارقام فقط',
              'name_ar.unique'=>'اسم المنتج باللغه العربيه مُضاف مسبقا... قم بادخال اسم اخر ',
              'name_en.unique'=>'اسم المنتج باللغه الانجليزيه مُضاف مسبقا... قم بادخال اسم اخر ',
         ];

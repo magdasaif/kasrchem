@@ -25,8 +25,17 @@ class PartnerRequest extends FormRequest
     {
         return [
             'name_ar'=>'required',
-            'name_en'=>'required',
+            'name_en'=>'required|regex:/^[a-zA-Z_@.\s\#&+(){}-][a-zA-Z0-9_@.\s\#&+(){}-]+$/uu',
             
+        ];
+    }
+    public function messages()
+    {
+        return $messages = [
+        'name_ar.required' =>'اسم الشريك بالعربية مطلوب',
+        'name_en.required' => 'اسم الشريك بالانجليزية مطلوب',
+        'name_en.regex' => '  يجب ان يكون اسم الشريك باللغة الانجليزية وايضا لا يكون ارقام فقط',
+      
         ];
     }
 }
