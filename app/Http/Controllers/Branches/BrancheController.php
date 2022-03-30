@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Branche;
 use App\Http\Requests\BranchRequest;
-
+use App\Traits\TableAutoIncreamentTrait;
 class BrancheController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use TableAutoIncreamentTrait;
+
     public function index()
     {
         $title='قائمه الفروع';
@@ -22,11 +19,6 @@ class BrancheController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $title='اضافه الفروع';
@@ -39,7 +31,10 @@ class BrancheController extends Controller
         try{
             //vaildation
            $validated = $request->validated();
-           
+
+           //call trait to handel aut-increament
+            $this->refreshTable('branches');
+        
             $branche =new Branche();
 
             $branche->name_ar=$request->name_ar;
@@ -163,6 +158,10 @@ class BrancheController extends Controller
     public function destroy($id)
     {
         Branche::findOrfail($id)->delete();
+
+        //call trait to handel aut-increament
+         $this->refreshTable('branches');
+         
         return redirect()->route('branches.index')->with(['success'=>'تم الحذف بنجاح']);
 
     }
@@ -173,6 +172,10 @@ class BrancheController extends Controller
       $all_ids = explode(',',$request->delete_all_id);
      // dd($all_ids);
      Branche::whereIn('id',$all_ids)->delete();
+     
+        //call trait to handel aut-increament
+        $this->refreshTable('branches');
+        
      return redirect()->route('branches.index')->with(['success'=>'تم الحذف بنجاح']);
     }
     
