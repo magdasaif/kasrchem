@@ -11,13 +11,22 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('title_ar');
-            $table->string('title_en');
+            
+            $table->string('name_ar');//title_ar
+            $table->string('name_en'); //title_en
+            
             $table->longText('description_ar');
             $table->longText('description_en');
+
             $table->longText('content_ar');
             $table->longText('content_en');
+
+            $table->integer('sort');
+            
             $table->integer('status');
+            
+            $table->SoftDeletes();//column of deleted_at
+
             $table->timestamps();
         });
     }

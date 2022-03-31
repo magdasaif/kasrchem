@@ -15,5 +15,10 @@ class Sitesection extends Model
     public function childs() {
         return $this->hasMany('App\Models\Sitesection','parent_id','id')->where('visible', '!=',0);
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
     
 }

@@ -13,6 +13,8 @@ class CreateReleasesSectionsTable extends Migration
      */
     public function up()
     {
+        //convert to deal with section_all_pages******************************
+        
         Schema::create('releases_sections', function (Blueprint $table) {
             $table->id();
 

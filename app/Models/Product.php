@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product_attachment;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+use App\Models\Image;
 class Product extends Model
 {
     use HasFactory;
@@ -21,56 +23,9 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Supplier','products_suppliers');
     }
 
-    
-    // //relation with main_category table
-    // // public function ProductMainCategory()
-    // // {
-    // //     return $this->belongsTo('App\Models\Main_category', 'main_cate_id');
-    // // }
-
-    // public function relation_with_main_category()
-    // {
-    //     return $this->belongsTo('App\Models\Main_Category', 'main_cate_id');
-    // }
-
-
-    // public function relation_with_sub2_category()
-    // {
-    //     return $this->belongsTo('App\Models\Sub_Category2', 'sub2_id');
-    // }
-
-
-    // public function relation_with_sub3_category()
-    // {
-    //     return $this->belongsTo('App\Models\Sub_Category3', 'sub3_id');
-    // }
-
-    // public function relation_with_sub4_category()
-    // {
-    //     return $this->belongsTo('App\Models\Sub_Category4', 'sub4_id');
-    // }
-
-
-    
-    // public function relation_with_site()
-    // {
-    //     return $this->belongsTo('App\Models\Sitesection', 'site_id');
-    // }
-
-    
-   /* public function images()
+    public function images()
     {
-        return $this->hasMany(Product_attachment::class,'product_id')->where('type', 'image');
+        return $this->morphMany(Image::class, 'imageable');
     }
-
-    public function attachments()
-    {
-        return $this->hasMany(Product_attachment::class,'product_id')->where('type', 'file');
-    }
-
-    public function features()
-    {
-        return $this->hasMany(Product_Feature::class,'product_id');
-    }*/
 
 }

@@ -18,12 +18,14 @@ class CreatePartnersTable extends Migration
 
             $table->string('name_ar');
             $table->string('name_en');
+            
+            $table->integer('sort');
 
             $table->integer('status');
 
-            $table->string('image');
+            // $table->string('image');
             $table->string('external_link');
-
+            $table->SoftDeletes();//column of deleted_at
             $table->timestamps();
         });
     }

@@ -17,11 +17,17 @@ class CreateSuppliersTable extends Migration
             $table->id();
             $table->string('name_ar');
             $table->string('name_en');
-            $table->string('logo');
+            // $table->string('logo');
             $table->longText('description_ar');
             $table->longText('description_en');
             $table->integer('parent_id');
             $table->string('type');
+
+            $table->integer('sort');
+            $table->integer('status');
+
+            $table->SoftDeletes();//column of deleted_at
+            
             $table->timestamps();
         });
     }

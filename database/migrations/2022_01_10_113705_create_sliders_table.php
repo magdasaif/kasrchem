@@ -15,9 +15,10 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->integer('priority');
+            $table->integer('sort');//priority
             $table->integer('status');
-            $table->string('image');
+            // $table->string('image');
+            $table->SoftDeletes();//column of deleted_at
             $table->timestamps();
         });
     }

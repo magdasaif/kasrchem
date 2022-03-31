@@ -29,9 +29,9 @@ class ProductController extends Controller
     public function index()
     {
          $title='المنتجات';
-      //  $products = Product::orderBy('sort','asc')->get();
-       // $products=Product::orderBy('sort','asc')->get();
+     
        $products=Product::withoutTrashed()->orderBy('sort','asc')->get();
+       
        
         return view('pages.products.show',compact('products','title'));
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Social extends Model
 {
     use HasFactory;
-    public $fillable=['id','name','link','icon','status'];
+    // public $fillable=['id','name','link','icon','status'];
+    protected $guarded=[];
     public $timestamps = true;
 }

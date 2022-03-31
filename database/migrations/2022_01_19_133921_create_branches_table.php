@@ -31,9 +31,11 @@ class CreateBranchesTable extends Migration
 
             $table->double('latitude');
             $table->double('longitude');
-            
-            $table->integer('status');
 
+            $table->integer('sort');
+            $table->integer('status');
+            
+            $table->SoftDeletes();//column of deleted_at
             $table->timestamps();
         });
     }
