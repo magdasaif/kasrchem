@@ -6,8 +6,11 @@ use App\Models\Slider;
 use App\Http\Requests\SliderRequest;
 use Illuminate\Http\Request;
 
+use App\Traits\TableAutoIncreamentTrait;
 class SliderController extends Controller
 {
+    use TableAutoIncreamentTrait;
+    
      public function index()
     {
         $Slider=Slider::orderBy('priority','asc')->get();
@@ -24,6 +27,10 @@ class SliderController extends Controller
       
     try{
             $validated = $request->validated();
+
+            //call trait to handel aut-increament
+            $this->refreshTable('sliders');
+     
             $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315','image requires']);
            if($request->image)
            {
@@ -98,7 +105,11 @@ class SliderController extends Controller
          try 
          {
          $Slider=Slider::find($id);  
-         $Slider->delete(); 
+         $Slider->delete();
+
+          //call trait to handel aut-increament
+          $this->refreshTable('sliders');
+          
          return redirect()->route('slider.index')->with(['success'=>'تم الحذف بنجاح']);
         }
         catch
@@ -112,6 +123,10 @@ class SliderController extends Controller
       $all_ids = explode(',',$request->delete_all_id);
      // dd($all_ids);
      Slider::whereIn('id',$all_ids)->delete();
+
+     //call trait to handel aut-increament
+     $this->refreshTable('sliders');
+     
      return redirect()->route('slider.index')->with(['success'=>'تم الحذف بنجاح']);
     }
 }

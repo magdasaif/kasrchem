@@ -21,7 +21,7 @@ class BranchRequest extends FormRequest
         return [
      
         'name_ar' => 'required|unique:branches,name_ar,'.$this->id,
-        'name_en' => 'required|unique:branches,name_en,'.$this->id,
+        'name_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu|unique:branches,name_en,'.$this->id,
         'address_ar' => 'required',
         'address_en' => 'required',
         'email' => 'nullable|email',
@@ -38,6 +38,8 @@ class BranchRequest extends FormRequest
         return $messages = [
         'name_ar.required' =>'اسم الفرع بالعربية مطلوب',
         'name_en.required' => 'اسم الفرع بالانجليزية مطلوب',
+        'name_en.regex' => '  يجب ان يكون اسم الفرع  باللغة الانجليزية وايضا لا يكون ارقام فقط وان لا يبدأ برقم',
+
         'address_ar.required' =>'عنوان الفرع بالعربية مطلوب',
         'address_en.required' =>'عنوان الفرع بالانجليزية مطلوب',
         'map_long.required' =>'قم بتحديد الموقع ع الخريطه',

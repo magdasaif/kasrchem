@@ -11,8 +11,35 @@
 |
 */
 
+use App\Models\User;
+use Yajra\DataTables\DataTables;
+// use App\Http\Controllers\Products\ProductNewController; 
+
+
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
+// Route::get('try', function () {
+//             $data = User::latest()->get();
+//             dd($data);
+//             return DataTables::of($data)
+//                 ->addIndexColumn()
+//                 ->addColumn('action', function($row){
+//                     $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+//                     return $actionBtn;
+//                 })
+//                 ->rawColumns(['action'])
+//                 ->make(true);
+    
+// })->name('try'); 
+
+
+// Route::get('data_try', function () {
+//     return view('pages.product_new.try');
+    
+// });
 
 Route::get('/', function () {
     return view('welcome');
@@ -94,8 +121,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace'=>'Products'],function(){
         Route::resource('products', 'ProductController');       
         Route::post('delete_all_product', 'ProductController@deleteAll')->name('delete_all_product');
+
+        Route::get('product_datatable', 'ProductNewController@yajra_data')->name('product_datatable');
+
+        Route::get('Product2/list','ProductNewController@getdata')->name('Product2_list');
+        Route::delete('/Product2/bulk_delete/{ids}', [ProductNewController::class,'bulkDelete'])->name('product2.bulk_delete');
+       
+   /********************************* Product Routes ************************************/
+   Route::resource('Product2', ProductNewController::class)->except(['show']);
+   
+
+    Route::delete('/Product2/bulk_delete/{ids}', [ProductNewController::class,'bulkDelete'])->name('product2.bulk_delete');
+    /********************************* End Product Routes ************************************/
+    // Route::resource('Product2', 'ProductNewController')->except(['show']);
+    // Route::get('/Product2/data','ProductNewController@data');
+    // Route::delete('/Product2/bulk_delete/{ids}', 'ProductNewController@bulkDelete');
+
+
+
     });
     //----------------------------add product with livewire---------------------------------
+    // Route::get('product_datatable', 'ProductNewController@yajra_data')->name('product_datatable');
 
     //form repeat routes
     Route::get('add/{id}','Products\ProductController@add');
@@ -132,6 +178,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace'=>'Partners'],function(){
         Route::resource('partner', 'PartnerController');
         Route::post('delete_all_partner', 'PartnerController@deleteAll')->name('delete_all_partner');
+
+        Route::get('partner_datatable', 'PartnerController@yajra_data')->name('partner_datatable');
+
     });
     //----------------------------release-------------------------------------------------
     Route::group(['namespace'=>'Release'],function(){
@@ -221,4 +270,10 @@ Route::get('/docs', function () {
 });
 //------------------------------------------------------------------------------//
 
-  
+Route::get('datatables.data', 'DatatablesController@anyData')->name('datatables.data');
+Route::get('datatables.index', 'DatatablesController@getIndex')->name('datatables.index');
+
+Route::controller('datatables', 'DatatablesController', [
+    'anyData'  => 'datatables.data',
+    'getIndex' => 'datatables',
+]);

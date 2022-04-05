@@ -1,4 +1,5 @@
 @extends('layouts.master')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
@@ -66,27 +67,25 @@
                         <?php $i++;?>
                         <tr>
                             <td>{{$i}}</td>
-
-                            <!-- <td>{{$product->code}}</td> -->
                             <td>{{$product->name_ar}}</td>
-                            <!-- <td>
-                              <?php
-                            //    $name1= str_replace('&lt;', '<',($product->name_ar));
-                            //    $name2= str_replace('&gt;', '>',($name1));
-                            //    echo $name2;
-                              ?>
-                            </td> -->
-                            <!-- <td>{{$product->price}}</td> -->
-                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_$product->id/$product->image")?>"></td>
+
+                            @if(sizeof($product->mainImages())>0)
+                              @foreach($product->mainImages() as $main) 
+                                  <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_".$product->id."/".$main->filename)?>"></td>
+                              @endforeach
+                            @else
+                            <td></td>
+                            @endif
+                              
                             <td>{{$product->sort}}</td>
                             <td><?php if($product->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
 
                             <!-- <td><?php if($product->availabe_or_no==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td> -->
 
                             <td>
-                                <a href="{{ url('img/'.$product->id) }}"><button type="button" class="btn btn-sm btn-warning" > الصور</button></a>
+                                <a href="{{ url('img/'.encrypt($product->id)) }}"><button type="button" class="btn btn-sm btn-warning" > الصور</button></a>
 
-                               <a href="{{url('products_files/'.$product->id)}}"> <button type="button" class="btn btn-sm btn-primary" > الملفات</button></a>
+                               <a href="{{url('products_files/'.encrypt($product->id))}}"> <button type="button" class="btn btn-sm btn-primary" > الملفات</button></a>
                             </td>
 
 
@@ -103,7 +102,7 @@
                               <div class="card-header" >
                                 <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                               </div>
-                              <form class="delete" action="{{route('product_delete',$product->id)}}" method="GET">
+                              <form class="delete" action="{{route('product_delete',encrypt($product->id))}}" method="GET">
                               @method('POST')
                              {{csrf_field()}}
                               <div class="modal-body">

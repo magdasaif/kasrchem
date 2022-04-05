@@ -137,7 +137,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="name_en">اسم المورد بالانجليزية*</label>
-                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية" name="name_en"  value="{{$Supplier->name_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية" name="name_en"  value="{{$Supplier->name_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);" oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
                     @error('name_en')
@@ -147,6 +147,37 @@
                
               
               
+               <!----------------------------------------------------->
+               <div class="form-group">
+                    <label for="logo">اللوجــو</label>
+                   <center> <img id="previewImg"  style="width:30%;" src="<?php echo asset("storage/supplier/supplier_no_$Supplier->id/{$Supplier->logo}")?>" class="uploaded-img"></center>
+                   <br>
+                    <center><button type="button" id="btn_image" class="btn btn-primary" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"></path>
+                    </svg>
+                    تعديل الصورة
+                    </button></center>
+                    <input type="hidden" name="deleted_image" value="{{$Supplier->logo}}">
+
+                   <input type="file" class="form-control" name="logo" id="my_file" accept="image/*" style="display: none;" >
+                   <span style="color:red"> يجب اختيار صوره اقصى احداثياتها [300*300]</span>
+
+                   @error('logo')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+               <!----------------------------------------------------->
+               <hr>
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> الترتيب</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="{{$Supplier->sort}}">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="description_ar"> وصف المورد بالعربية  </label>
@@ -167,26 +198,7 @@
                     @enderror
                 </div>
               <!----------------------------------------------------->
-            <div class="form-group">
-                    <label for="logo">الصورة</label>
-                   <center> <img id="previewImg"  style="width:30%;" src="<?php echo asset("storage/supplier/supplier_no_$Supplier->id/{$Supplier->logo}")?>" class="uploaded-img"></center>
-                   <br>
-                    <center><button type="button" id="btn_image" class="btn btn-primary" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"></path>
-                    </svg>
-                    تعديل الصورة
-                    </button></center>
-                    <input type="hidden" name="deleted_image" value="{{$Supplier->logo}}">
 
-                   <input type="file" class="form-control" name="logo" id="my_file" accept="image/*" style="display: none;" >
-                   <span style="color:red"> يجب اختيار صوره اقصى احداثياتها [300*300]</span>
-
-                   @error('logo')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
    <!----------------------------------------------------->
                
                 <input type="hidden" name="id" value="{{$Supplier->id}}">

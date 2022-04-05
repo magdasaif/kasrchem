@@ -12,13 +12,16 @@ use App\Http\Requests\Supplier_Request;
 use App\Models\Product;
 use App\Models\Supplier_section;
 
+use App\Traits\TableAutoIncreamentTrait;
 class SupplierController extends Controller
 {
+    use TableAutoIncreamentTrait;
+    
     // public $fillable = ['name_ar','name_en','logo','description_ar','description_en'];
   
     public function index()
     {
-        $Supplier=Supplier::orderBy('id','desc')->get();
+        $Supplier=Supplier::orderBy('sort','asc')->get();
         return view('pages.supplier.Show',compact('Supplier'));
     }
 // //-------------------------------------------------------------//
@@ -36,6 +39,10 @@ class SupplierController extends Controller
        
          try{
             $validated = $request->validated();
+
+            //call trait to handel aut-increament
+            $this->refreshTable('suppliers');
+        
              $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=300,max_height=300',]);
               if($request->logo)
               {
@@ -75,6 +82,7 @@ class SupplierController extends Controller
                'parent_id'=>  $request->supplier_or_sub ,
                'type'=> $ttype,
                'logo' => $photo_name,
+               'sort'=>  $request->sort,
               ]);
              // dd('done');
 
@@ -156,7 +164,7 @@ class SupplierController extends Controller
         $Supplier->description_en = $request->description_en;
         $Supplier->parent_id=  $request->supplier_or_sub ;
         $Supplier->type=$ttype;
-        
+        $Supplier->sort= $request->sort;
       
 
         if($request->logo)
@@ -230,6 +238,12 @@ class SupplierController extends Controller
                     
                     Supplier_section::where('supplier_id',$id)->delete();
                     Supplier::find($id)->delete();
+
+                    //call trait to handel aut-increament
+                    $this->refreshTable('suppliers');
+                    $this->refreshTable('supplier_images');
+                    $this->refreshTable('supplier_sections');
+          
                     
                     return redirect()->route('supplier.index')->with(['success'=>'تم الحذف بنجاح']);
                 }
@@ -285,6 +299,10 @@ class SupplierController extends Controller
         }
        
         Supplier_image::findOrfail($id)->delete();
+        
+         //call trait to handel aut-increament
+         $this->refreshTable('supplier_images');
+         
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
 // //--------------------------------------------------------------------------
@@ -313,7 +331,8 @@ class SupplierController extends Controller
                 }
             }
         }
-        
+
+         
                 
         // dd($all_ids);
         foreach($all_ids as $ids){
@@ -326,6 +345,12 @@ class SupplierController extends Controller
                 Supplier::find($ids)->delete();
             }
         }
+
+        //call trait to handel aut-increament
+        $this->refreshTable('suppliers');
+        $this->refreshTable('supplier_images');
+        $this->refreshTable('supplier_sections');
+        
         //Supplier::whereIn('id',$all_ids)->delete();
         return redirect()->route('supplier.index')->with(['success'=>'تم حذف الموردين الغير مرتبطين بمنتجات ']);
             

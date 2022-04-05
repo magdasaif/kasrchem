@@ -2,49 +2,52 @@
 
 namespace App\Http\Controllers\Partners;
 
-use App\Http\Controllers\Controller;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 
-use App\Models\Partner;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PartnerRequest;
+
+use App\Traits\TableAutoIncreamentTrait;
+use App\Http\Interfaces\PartnerInterface;
 
 class PartnerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use TableAutoIncreamentTrait;
+   
+    protected $xx;
+    public function __construct(PartnerInterface $y) {
+        $this->xx = $y;
+    }
+    
     public function index()
     {
-        $title='الشركاء';
-        $partners=Partner::orderBy('id','desc')->get();
-         return view('pages.partners.show',compact('partners','title'));
+        return $this->xx->index();
+       
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function yajra_data(Request $request)
+    {
+        //dd('ffff');
+        return $this->xx->yajra_data($request);
+       
+    }
     public function create()
     {
         $title='اضافه شريك';
          return view('pages.partners.add',compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(PartnerRequest $request)
     {
         try{
             //vaildation
            $validated = $request->validated();
-            
+
+            //call trait to handel aut-increament
+             $this->refreshTable('partners');
+    
            if($request->image){
                 $folder_name='';
                 $photo_name= ($request->image)->getClientOriginalName();
@@ -123,6 +126,10 @@ class PartnerController extends Controller
     {
       //  dd($id);
         Partner::findOrfail($id)->delete();
+
+        //call trait to handel aut-increament
+        $this->refreshTable('partners');
+        
         return redirect()->route('partner.index')->with(['success'=>'تم الحذف ']);
 
     }
@@ -133,6 +140,10 @@ class PartnerController extends Controller
     $all_ids = explode(',',$request->delete_all_id);
    // dd($all_ids);
    Partner::whereIn('id',$all_ids)->delete();
+
+    //call trait to handel aut-increament
+    $this->refreshTable('partners');
+    
    return redirect()->route('partner.index')->with(['success'=>'تم الحذف بنجاح']);
   }
 

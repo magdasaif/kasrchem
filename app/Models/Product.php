@@ -28,4 +28,28 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
+    public function scopeMainImages()
+    {
+        return $this->images->where('image_or_file','1')->where('main_or_sub','1');
+    }
+    
+    public function scopeSubImages()
+    {
+        return $this->images->where('image_or_file','1')->where('main_or_sub','2');
+    }
+
+    public function scopeMainFile()
+    {
+        return $this->images->where('image_or_file','2')->where('main_or_sub','1');
+    }
+    
+    public function scopeSubFiles()
+    {
+        return $this->images->where('image_or_file','2')->where('main_or_sub','2');
+    }
+
+    // public function scopeAllFiles($query,$main_or_sub)
+    // {
+    //     return $query->where('image_or_file','2')->where('main_or_sub',$main_or_sub);
+    // }
 }

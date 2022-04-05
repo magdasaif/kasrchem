@@ -193,7 +193,77 @@
 </div> @endauth
 @endif
       <!------------------------------------------------------------------------->
+
+<center>
+
+<span class="title">اللون :</span>
+                            <!--  -->
+                            
+      <span class="title">اللون :</span>
+        <ul class="colors" id="list_id">
+            
+            <li name="Color" id="1" class="color">
+                <span style="background-color:aqua"> aqua</span>
+            </li>
+            
+            <li name="Color" id="2" class="color">
+                <span style="background-color:gold"> gold</span>
+            </li>
+            
+        </ul>
+
+
+        <ul id='myid'>
+            <li id='1'>First</li>
+            <li id='2'>Second</li>
+            <li id='3'>Third</li>
+            <li id='4'>Fourth</li>
+            <li id='5'>Fifth</li>
+        </ul>
+
+</center>
+                            
       </body>
 </html>
 
+
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script>
+  
+        $(document).ready(function() {
+
+
+            $("#list_id li").click(function() {
+                     alert(this.id); // id of clicked li by directly accessing DOMElement property
+               
+                var ColorId = this.id;
+                alert(ColorId);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+
+                if (ColorId) {
+                    $.ajax({
+                        url: "{{ URL::to('Color') }}/" + ColorId,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="Size"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="Size"]').append('<option value="' +
+                                    value + '">' + value + '</option>');
+                            });
+                        },
+                    });
+                } else {
+                    console.log('AJAX load did not work');
+                }
+            });
+        });
+    </script>
+
+    
 @endsection

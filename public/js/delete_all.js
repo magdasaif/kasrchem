@@ -13,6 +13,7 @@
     });
     
      function checkAll(name,elem){
+        // alert('rrrr');
         var checkboxes = document.getElementsByClassName(name);
         var leng = checkboxes.length;
         

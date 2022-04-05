@@ -12,8 +12,10 @@ use App\Models\Section_All_Page;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 
+use App\Traits\TableAutoIncreamentTrait;
 class ArticleController extends Controller
 {
+  use TableAutoIncreamentTrait;
   
     public function index()
     {
@@ -65,6 +67,11 @@ class ArticleController extends Controller
        //dd($request->all());
        try{
          $validated = $request->validated();
+
+            //call trait to handel aut-increament
+            $this->refreshTable('articles');
+
+     
           $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
            if($request->image)
            {
@@ -289,6 +296,10 @@ class ArticleController extends Controller
         {
             Section_All_Page::where('type_id',$id)->where('type','articles')->delete();
             Article::find($id)->delete();
+
+            //call trait to handel aut-increament
+            $this->refreshTable('articles');
+       
      
         return redirect()->route('article.index')->with(['success'=>'تم الحذف بنجاح']);
        }
@@ -309,6 +320,9 @@ class ArticleController extends Controller
          Article::find($id)->delete();
         }
      }
+     //call trait to handel aut-increament
+     $this->refreshTable('articles');
+     
     //  Article::whereIn('id',$all_ids)->delete();
      return redirect()->route('article.index')->with(['success'=>'تم الحذف بنجاح']);
     }

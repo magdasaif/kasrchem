@@ -36,6 +36,12 @@ class Photo_GalleryController extends Controller
          //dd($request->all());
          try{
             $validated = $request->validated();
+
+             //call trait to handel aut-increament
+             $this->refreshTable('gallery_photo_images');
+             $this->refreshTable('photo_gallerys');
+
+             
              $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
               if($request->image)
               {
@@ -142,7 +148,11 @@ class Photo_GalleryController extends Controller
          {
             Section_All_Page::where('type_id',$id)->where('type','photos')->delete();
             Photo_Gallery::find($id)->delete();
-            
+
+            //call trait to handel aut-increament
+            $this->refreshTable('gallery_photo_images');
+            $this->refreshTable('photo_gallerys');
+     
             return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
          }
         catch
@@ -194,6 +204,10 @@ class Photo_GalleryController extends Controller
            }
     
         Gallery_Photo_Image::findOrfail($id)->delete();
+
+        //call trait to handel aut-increament
+        $this->refreshTable('gallery_photo_images');
+     
         return redirect()->back()->with(['success'=>'تم الحذف']);
     }
 //--------------------------------------------------------------------------
@@ -208,6 +222,10 @@ class Photo_GalleryController extends Controller
          Photo_Gallery::find($id)->delete();
         }
     }
+     //call trait to handel aut-increament
+     $this->refreshTable('gallery_photo_images');
+     $this->refreshTable('photo_gallerys');
+     
     // Photo_Gallery::whereIn('id',$all_ids)->delete();
             
     return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);

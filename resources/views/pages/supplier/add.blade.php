@@ -112,7 +112,7 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="name_en">اسم المورد بالانجليزية*</label>
-                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية"  value="{{ old('name_en') }}" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);" pattern="^(?=.*[a-zA-Z\s])[a-zA-Z0-9\s]+$" oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم المورد بالانجليزية"  value="{{ old('name_en') }}" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المورد باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
                     @error('name_en')
@@ -129,6 +129,17 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <hr>
+                 <!----------------------------------------------------->
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الترتيب </label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
              <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">الصور الفرعيه</label>

@@ -58,7 +58,7 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
       $lang=$request->header('locale');
-      $Supplier=SupplierResource::collection(Supplier::where('parent_id','0')->get());
+      $Supplier=SupplierResource::collection(Supplier::where('parent_id','0')->orderBy('sort','asc')->get());
       if($lang=='ar'){
         $Supplier->map(function($i) { $i->lang = 'ar'; });
      }else{

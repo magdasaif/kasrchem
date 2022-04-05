@@ -31,7 +31,7 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body">
-            <form method="POST" action="{{url('add_products_files',$product_id)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{url('add_products_files',encrypt($product_id))}}" enctype="multipart/form-data">
 
                 {{method_field('POST')}}
                 @csrf
@@ -40,9 +40,9 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">ملفات المنتج </label>
 
-                    <input type="file" class="form-control" name="ffff[]" accept=".pdf" multiple required>
+                    <input type="file" class="form-control" name="product_files[]" accept=".pdf" multiple required>
 
-                    @error('ffff')
+                    @error('product_files')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
 
@@ -57,7 +57,7 @@
             <div class="row">
             @foreach($Product_files as $file)            
                  <div class="col">
-                   <embed src="<?php echo asset("storage/products/product_no_$product_id/$file->path")?>"  accept="application/pdf,application/vnd.ms-excel"/>
+                   <embed src="<?php echo asset("storage/products/product_no_$product_id/$file->filename")?>"  accept="application/pdf,application/vnd.ms-excel"/>
                     <!-- <br><center><button type="button" class="btn btn-danger" ><a href="{{url('delete_products_files/'.$file->id)}}"> حذف</a></button></center> -->
                     <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$file->id}}" style="margin-right: 55px;" > حذف</button>
                 </div>
@@ -82,7 +82,7 @@
                                     <div class="modal-footer">
 
                                         <input type="hidden" name="product_id" value="{{$product_id}}">
-                                        <input type="hidden" name="file_name" value="{{$file->path}}">
+                                        <input type="hidden" name="file_name" value="{{$file->filename}}">
                                         <input type="hidden" name="file_id" value="{{$file->id}}">
 
                                         
