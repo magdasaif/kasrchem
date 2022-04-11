@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //-------------------------Products----------------------------------------------------
     Route::group(['namespace'=>'Products'],function(){
-        Route::resource('products', 'ProductController')->middleware('imageOptimize');       
+        Route::resource('products', 'ProductController');       
         Route::post('delete_all_product', 'ProductController@deleteAll')->name('delete_all_product');
 
         Route::get('product_datatable', 'ProductNewController@yajra_data')->name('product_datatable');
