@@ -39,10 +39,10 @@
             
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
+                 <!---------------------------name_ar-------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالعربيه</label>
-                    <input type="text" class="form-control"  aria-describedby="emailHelp" value="{{old('name_ar')}}" placeholder="Enter name" name="name_ar" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <input type="text" class="form-control"  aria-describedby="emailHelp" value="{{old('name_ar')}}" placeholder="اسم الفرع بالعربية" name="name_ar" id="regax_name_ar" onkeyup="check_regax_name_ar();"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
 
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم الفرع باللغة العربية وايضا لا يكون ارقام فقط</span>
 
@@ -50,40 +50,33 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-                
-                <div class="form-group">
+                 <!---------------------------name_en-------------------------->
+                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم الفرع بالانجليزيه</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('name_en')}}" placeholder="Enter name" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
-
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('name_en')}}" placeholder="اسم الفرع بالانجليزية" name="name_en" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم الفرع باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
                     @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-                <hr>
-
-                <div class="form-group">
+                 <!---------------------------address_ar-------------------------->
+                 <div class="form-group">
                     <label for="exampleInputEmail1">عنوان الفرع بالعربيه</label>
-                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter address" name="address_ar" required>{{old('address_ar')}}</textarea>
+                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="عنوان الفرع بالعربية" name="address_ar" required>{{old('address_ar')}}</textarea>
                     @error('address_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-                
-                <div class="form-group">
+                 <!---------------------------address_en-------------------------->
+               <div class="form-group">
                     <label for="exampleInputEmail1">عنوان الفرع بالانجليزيه</label>
-                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter address" name="address_en" required>{{old('address_en')}}</textarea>
+                    <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="عنوان الفرع بالانجليزيه" name="address_en" required>{{old('address_en')}}</textarea>
                     @error('address_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-                <hr>
-                
+                 <!---------------------------email-------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">البريد الالكترونى</label>
                     <input type="text" class="form-control" name="email" value="{{old('email')}}"  >
@@ -91,7 +84,7 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                
+                <!---------------------------phone-------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1"> الهاتف</label>
                     <input type="text" class="form-control" name="phone" value="{{old('phone')}}"  >
@@ -99,40 +92,24 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                
-                <div class="form-group">
+                 <!---------------------------sort-------------------------->
+                     <div class="form-group">
                     <label for="exampleInputEmail1"> الفاكس</label>
                     <input type="text" class="form-control" name="fax" value="{{old('fax')}}"  >
                      @error('fax')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <br>
-                <hr>
+                 <!---------------------------sort-------------------------->
+                 <div class="form-group">
+                    <label for="sort">الترتيب*</label>
+                    <input type="number" class="form-control" id="sort" aria-describedby="sort" placeholder="ادخل الترنيب" name="sort"  value="{{ old('sort') }}"  required oninvalid="this.setCustomValidity('قم بادحال الترتيب')"  oninput="this.setCustomValidity('')">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div> 
+              <!---------------------------status-------------------------->
 
-                <div class="form-group">
-                   <!-- <div id="map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.7108075704655!2d30.83655031457593!3d29.320157559377936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1459793cff58fb35%3A0x79bae666057d7920!2sFayoum%20University!5e0!3m2!1sen!2seg!4v1642668929461!5m2!1sen!2seg" width="450" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
-                   <!-- </div> -->
-                   <div class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <label for="exampleInputEmail1">خطوط الطول</label>
-                                <input type="text" name="map_long" id="map_long" class="form-control MapLon" value="{{old('map_long')}}" required>
-                             </div>
-                            <div class="col-sm">
-                                <label for="exampleInputEmail1">دوائر العرض</label>
-                                <input type="text" name="map_lat" id="map_lat" class="form-control MapLat" value="{{old('map_lat')}}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-                   <center><div id="map_canvas" style="height: 350px;width:70%;margin: 0.6em;"></div></center>
-
-                   
-                </div>
-                
-                <br>
                 <div class="form-group">
                     <label for="exampleInputEmail1">الحالة</label>
                     <select class="form-control" name="status">
@@ -140,9 +117,33 @@
                             <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
                     </select>
                 </div>
+              <!----------------------------------------------------->
+                <hr>
 
-            
-                <div class="modal-footer">
+                <div class="form-group">
+                   <!-- <div id="map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.7108075704655!2d30.83655031457593!3d29.320157559377936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1459793cff58fb35%3A0x79bae666057d7920!2sFayoum%20University!5e0!3m2!1sen!2seg!4v1642668929461!5m2!1sen!2seg" width="450" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                   <!-- </div> -->
+                   <div class="container">
+                       <!-- <div id="map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.7108075704655!2d30.83655031457593!3d29.320157559377936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1459793cff58fb35%3A0x79bae666057d7920!2sFayoum%20University!5e0!3m2!1sen!2seg!4v1642668929461!5m2!1sen!2seg" width="450" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                   <!-- </div> -->
+                   <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="exampleInputEmail1">خطوط الطول</label>
+                                <input type="text" name="longitude" id="map_long" class="form-control MapLon" value="{{old('longitude')}}" required>
+                             </div>
+                            <div class="col-sm">
+                                <label for="exampleInputEmail1">دوائر العرض</label>
+                                <input type="text" name="latitude" id="map_lat" class="form-control MapLat" value="{{old('latitude')}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                   <center><div id="map_canvas" style="height: 350px;width:70%;margin: 0.6em;"></div></center>
+                </div>
+               <!----------------------------------------------------->
+              <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">اضافه</button>
                 </div>
                 </form>

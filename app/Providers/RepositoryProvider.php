@@ -23,6 +23,8 @@ class RepositoryProvider extends ServiceProvider
          $this->app->bind('App\Http\Interfaces\ReleaseInterface','App\Http\Repositories\ReleaseRepository' );
          //=======================================SocialInterface=============================================//
           $this->app->bind('App\Http\Interfaces\SocialInterface','App\Http\Repositories\SocialRepository');
+        //=======================================BrancheInterface=============================================//
+        $this->app->bind('App\Http\Interfaces\BrancheInterface','App\Http\Repositories\BrancheRepository');
 
         //  $this->app->bind(ProductInterface::class, ProductRepository::class);
     }

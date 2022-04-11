@@ -75,7 +75,7 @@
                             <td><?php if($branche->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                         
                             <td>
-                                <a href="{{url('branches/'.$branche ->id.'/edit/')}}"  title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{url('branches/'.encrypt($branche ->id).'/edit/')}}"  title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
                                 /
                                 <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$branche->id}}" data-toggle="modal" data-target="#delete{{$branche->id}}"> <i class="fa fa-trash red"></i></a>
 						 <!--############################ model for delete #################################-->     
@@ -85,7 +85,7 @@
                                 <div class="card-header">
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('branches.destroy',$branche->id)}}"  method="post">
+                                <form action="{{route('branches.destroy',encrypt($branche ->id))}}"  method="post">
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">
@@ -104,7 +104,7 @@
                             </div>
             <!--#############################################################-->
                             </td>
-                            <td><input type="checkbox" value="{{$branche->id}}" class="box1" onclick="javascript:check();"></td>
+                            <td><input type="checkbox" name="row_checkbox" value="{{$branche->id}}" class="box1" onclick="javascript:check();"></td>
 
                         </tr>
 
