@@ -14,13 +14,19 @@ Trait ImageTrait{
 
     //-------------------handel name of image ,then store it in disk-------------------------
     function storeImage($imageData){
+
         $photo_name= str_replace(' ', '_',($imageData['image_name'])->getClientOriginalName());
         ($imageData['image_name'])->storeAs($imageData['folder_name'],$photo_name,$disk=$imageData['disk_name']);
-        return  $photo_name;
+
+        //optimize image
+     //   $imageData['model']->addMedia($imageData['image_name'])->toMediaCollection('media');
+
+         return  $photo_name;
     }
 
     //--------------------------unlink image from disk----------------------------------------
     function unLinkImage($imageData){
+        
         if(file_exists($imageData['path'])){
             unlink($imageData['path']);
         }

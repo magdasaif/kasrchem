@@ -67,11 +67,6 @@ class ProductController extends Controller
         return $this->xx->delete_products_files($request);
     }
 
-    
-    public function yajra_data(Request $request){
-      //  dd('ddddd');
-        return $this->xx->yajra_data($request);
-    }
     public function edit($id){
         return $this->xx->edit($id);
     }
@@ -85,4 +80,9 @@ class ProductController extends Controller
     public function deleteAll(Request $request){
         return $this->xx->bulkDelete($request);
     }
+    
+    public function yajra_data(Request $request){
+        //  dd('ddddd');
+          return $this->xx->yajra_data($request);
+      }
 }

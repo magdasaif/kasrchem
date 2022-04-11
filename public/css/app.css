@@ -5127,8 +5127,10 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  /* background-color: #007bff;
+  border-color: #007bff; */
+  background-color: #009879!important;
+    border-color: #009879!important;
 }
 
 .page-item.disabled .page-link {
@@ -57150,7 +57152,8 @@ input[type=button].btn-block {
 }
 
 .pagination {
-  display: flex;
+ /* display: flex; */
+ display:inline-flex!important;
   padding-left: 0;
   list-style: none;
   border-radius: 0.25rem;
@@ -70789,4 +70792,3 @@ font-weight: bold;
     color: #fff;
     /* margin-left: 50px; */
 }
-

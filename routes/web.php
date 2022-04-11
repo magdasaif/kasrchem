@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //-------------------------Products----------------------------------------------------
     Route::group(['namespace'=>'Products'],function(){
-        Route::resource('products', 'ProductController');       
+        Route::resource('products', 'ProductController')->middleware('imageOptimize');       
         Route::post('delete_all_product', 'ProductController@deleteAll')->name('delete_all_product');
 
         Route::get('product_datatable', 'ProductNewController@yajra_data')->name('product_datatable');
@@ -128,10 +128,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/Product2/bulk_delete/{ids}', [ProductNewController::class,'bulkDelete'])->name('product2.bulk_delete');
        
    /********************************* Product Routes ************************************/
-   Route::resource('Product2', ProductNewController::class)->except(['show']);
-   
-
-    Route::delete('/Product2/bulk_delete/{ids}', [ProductNewController::class,'bulkDelete'])->name('product2.bulk_delete');
+         Route::resource('Product2', ProductNewController::class)->except(['show']);
+        Route::delete('/Product2/bulk_delete/{ids}', [ProductNewController::class,'bulkDelete'])->name('product2.bulk_delete');
     /********************************* End Product Routes ************************************/
     // Route::resource('Product2', 'ProductNewController')->except(['show']);
     // Route::get('/Product2/data','ProductNewController@data');
@@ -158,7 +156,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //-------------------product images routes (show/add/delete)-------------------
     Route::get('img/{id}','Products\ProductController@products_images');
-    Route::post('add_product_images/{id}','Products\ProductController@add_product_images');
+    Route::post('add_product_images/{id}','Products\ProductController@add_product_images')/*->middleware('imageOptimize')*/;
     Route::get('delete_product_images/{id}','Products\ProductController@delete_product_images');
 
     //------------------- product files routes (show/add/delete)-------------------

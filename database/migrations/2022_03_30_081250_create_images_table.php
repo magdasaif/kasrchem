@@ -19,7 +19,7 @@ class CreateImagesTable extends Migration
             $table->string('imageable_type');
             $table->integer('imageable_id');
             
-            $table->enum('iamge_or_file',['1','2']);//1 for image,2 for file
+            $table->enum('image_or_file',['1','2']);//1 for image,2 for file
             $table->enum('main_or_sub',['1','2']);//1 for main,2 for sub
 
             $table->string('filename');

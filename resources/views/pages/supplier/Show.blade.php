@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم :الموردين</title>
+<title>لوحة التحكم : {{$title}}</title>
  @endsection
 @section('content')
 <template>
@@ -9,33 +9,12 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-            
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-
-                    @if(Session::has('data'))
-                        <ol> 
-                            @foreach(session::get('data')  as $d)
-                             <li style="color:green;font-size:15px">{{$d}}</li>
-                            @endforeach
-                         </ol>
-                    @endif
-            
-                </div>
-            @endif
-
-         
-            
+          
+        @include('layouts.messages')
+        
             <div class="card">
               <div class="card-header" >
-              <h3 class="card-title"> الموردين</h3>
+              <h3 class="card-title"> {{$title}}</h3>
 
                 <div class="card-tools">
 
@@ -63,17 +42,25 @@
                     </thead>
                     <tbody>
                          <?php $i = 0;?>
-                        @foreach($Supplier as $Supp)
+                        @foreach($suppliers as $Supp)
                             <tr>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/supplier/supplier_no_$Supp->id/{$Supp->logo}")?> alt="" ></td>
+                            @if(sizeof($Supp->mainImages())>0)
+                              @foreach($Supp->mainImages() as $main) 
+                                  <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/supplier/supplier_no_".$Supp->id."/".$main->filename)?>"></td>
+                              @endforeach
+                            @else
+                            <td></td>
+                            @endif
+
                             <td>{{$Supp->name_ar}}</td>
                             <td>{{$Supp->sort}}</td>
+                            
                             <td style="font-weight: bold;font-size: 17px;"> 
-                             <a href="{{route('supplier.edit',$Supp->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+                             <a href="{{route('supplier.edit',encrypt($Supp->id))}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                              /
-                             <a href="{{ url('show_supplier_images/'.$Supp->id) }}"  title="صور المورد"><i class="fa fa-camera yellow"></i></a>
+                             <a href="{{ url('show_supplier_images/'.encrypt($Supp->id)) }}"  title="صور المورد"><i class="fa fa-camera yellow"></i></a>
 
                              &nbsp; / &nbsp;
                                 <a  title="حذف" data-catid="{{$Supp->id}}" data-toggle="modal" data-target="#delete{{$Supp->id}}"> <i class="fa fa-trash red del"></i></a> 
@@ -86,7 +73,7 @@
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form class="delete" action="{{ route('supplier.destroy',$Supp->id) }}" method="POST">
+                                <form class="delete" action="{{ route('supplier.destroy',encrypt($Supp->id)) }}" method="POST">
                                 <div class="modal-body">
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
@@ -119,7 +106,7 @@
                         @endforeach
 
                     </tbody>
-							
+                    <center> {{ $suppliers->links('layouts.paginationlinks')}}</center>
 			 <!--#############################################################-->
 
 		</table>

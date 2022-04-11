@@ -1,106 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 use App\Models\SiteInfo;
 use App\Http\Requests\SettingRequest;
+use App\Http\Interfaces\SiteInfoInterface;
 
 class SettingController extends Controller
 {
+    protected $xx;
+    public function __construct(SiteInfoInterface $y) {
+        $this->xx = $y;
+    }
     
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
-   
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-
     public function edit()
     {
-        $title='اعدادت الموقع';
-        $info=SiteInfo::first();
-        //return $info;
-         
-       return view('pages.setting',compact('info','title'));
+        return $this->xx->edit();
     }
 
   
     public function update(SettingRequest $request)
     {
-       // dd($request->all());
-           //dd($request->all());
-
-           
-       try
-       {
-
-          // $validated = $request->validated();
-
-          $info = SiteInfo::first();
-
-           $info-> site_name_ar= $request->site_name_ar;
-           $info-> site_name_en= $request->site_name_en;
-           $info-> site_desc_ar= $request->site_desc_ar;
-           $info-> site_desc_en= $request->site_desc_en;
-
-           $info-> site_mail= ($request->site_mail)?$request->site_mail:'';
-           $info-> site_phone= ($request->site_phone)?$request->site_phone:'';
-           $info-> site_fax= ($request->site_fax)?$request->site_fax:'';
-           $info-> site_whatsapp= ($request->site_whatsapp)?$request->site_whatsapp:'';
-           
-           $info-> ios_link= ($request->ios_link)?$request->ios_link:'';
-           $info-> android_link= ($request->android_link)?$request->android_link:'';
-          
-
-           if($request->site_logo)
-           {
-
-            //-----------------لو مفيش صورة يحذفها اصلا-------------------//
-            // dd($request->deleted_image);
-            if($request->deleted_image!=null)
-            {
-                if(file_exists(storage_path().'/app/public/setting/'.$request->deleted_image)){
-                  $image_path=storage_path().'/app/public/setting/'.$request->deleted_image;
-                  unlink($image_path);
-                }
-             }
-            //----------------- //----------------- //-----------------
-            $folder_name='';
-             $photo_name= str_replace(' ', '_',($request->site_logo)->getClientOriginalName());
-            //$photo_name='logo.jpg';
-          // dd($photo_name);
-            ($request->site_logo)->storeAs($folder_name,$photo_name,$disk="setting");
-            
-
-          // ($request->site_logo)->move($disk="site_logo", $photo_name);
-                $info->site_logo = $photo_name;
-             }
-
-             $info->save();
-
-            //return redirect()->route('settings/edit')->with(['success'=>'تم التعديل بنجاح']);
-            return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
-       }
-       catch
-       (\Exception $e)
-       {
-            return redirect()->route('settings/edit')->withErrors(['error' => $e->getMessage()]);
-       }
+        return $this->xx->update($request);
     }
 
 }

@@ -1,32 +1,18 @@
 @extends('layouts.master')
 @section('title')
-<title> لوحة التحكم :اضافة مورد</title>
+<title>لوحة التحكم : {{$title}}</title>
 @endsection
 
 @section('content')
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+           
           <div class="col-12">
-        
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header" >
-                <h3 class="card-title"  > اضافة مورد</h3>
+                <h3 class="card-title"  >{{$title}}</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('supplier.index')}}" class="aa"> <li class="fas fa-users" ><span>  قائمة الموردين </span></li></a>
@@ -54,11 +40,11 @@
                                 'color'=>'#209c41',
                                 'number'=>2,
                                 'type'=>"supplier_section",
-                                'main_id'=>$section->id,//pramiry key of supplier we edit on it
+                                'main_id'=>$section->id,//pramiry key of section 
                                 'parent_id'=>'0',
                             ];
                         ?>
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $section->id }}" <?php if (collect(old('section_id'))->contains($section->id)) {echo 'selected';}?> > - {{ $section->site_name_ar }}</option>
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $section->id }}" <?php if (collect(old('section_id'))->contains($section->id)) {echo 'selected';}?> > - {{ $section->name_ar }}</option>
                             @if(count($section->childs))
                                 @include('pages.products.manageChild',$new)
                             @endif
@@ -86,14 +72,13 @@
                                 'color'=>'#209c41',
                                 'number'=>2,
                                 'type'=>"supplier",
-                                'main_id'=>'',//pramiry key of supplier we edit on it
-                               // 'main_id'=>$supplier->id,//pramiry key of supplier we edit on it
+                                'main_id'=>'',
                                 'parent_id'=>'',
                             ];
                         ?>
                             <option style="color:<?php echo $color;?>"  value="{{$supplier->id}}"  >- {{$supplier->name_ar}}</option>
                             @if(count($supplier->childs))
-                                @include('pages.products.manageChild',$new)
+                                @include('pages.manageChild',$new)
                             @endif
                         @endforeach
                     </select>
@@ -120,15 +105,24 @@
                     @enderror
                 </div>
                  <!----------------------------------------------------->
-                <div class="form-group">
-                    <label for="logo">اللوجــو*</label>
-                    <input type="file" class="form-control" name="logo" accept="image/*" required  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
-                    <span style="color:red"> يجب اختيار صوره اقصى احداثياتها [300*300]</span>
+                <div class="row">
+                    <div class="col-lg-12">
+                       <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width: 200px;height: 200px;" alt="" id="previewImg"></center>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>صورة المنتج الاساسية:  <span style="color:rgb(199, 8, 8)">*</span></label>
+                            <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >
+                            <span style="color:red"> يجب اختيار صوره اقصى احداثياتها [300*300]</span>
 
-                    @error('logo')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+                        </div>
+                        @error('image')
+                             <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    
                 </div>
+                    
                 <hr>
                  <!----------------------------------------------------->
 
@@ -140,6 +134,14 @@
                     @enderror
                 </div>
                 <hr>
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الحالة</label>
+                    <select class="form-control" name="status" style="height: 50px;">
+                            <option value="1" {{ old('status') == '1' ? "selected" : "" }}>مُفعل</option>
+                            <option value="0" {{ old('status') == '0' ? "selected" : "" }}>غير مُفعل</option>
+                    </select>
+                </div>
              <!----------------------------------------------------->
                 <div class="form-group">
                     <label for="exampleInputEmail1">الصور الفرعيه</label>
@@ -187,5 +189,7 @@
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
+
 
 @endsection

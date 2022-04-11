@@ -12,7 +12,13 @@ class RepositoryProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('App\Http\Interfaces\ProductInterface','App\Http\Repositories\ProductRepository');
+        $this->app->bind('App\Http\Interfaces\SiteInfoInterface','App\Http\Repositories\SiteInfoRepository');
+
+
+
+        $this->app->bind('App\Http\Interfaces\SupplierInterface','App\Http\Repositories\SupplierRepository');
         $this->app->bind('App\Http\Interfaces\PartnerInterface','App\Http\Repositories\PartnerRepository');
+
         
         //  $this->app->bind(ProductInterface::class, ProductRepository::class);
     }

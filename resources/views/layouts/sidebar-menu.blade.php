@@ -12,7 +12,7 @@
       @can('isAdmin')
 
    <!-------------------------------supplier------------------------------------------->
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview" style="display:none">
         <a href="#" class="nav-link">
         <i class="nav-icon fas fa-users  green"></i>
           <p  class="ttitle"> الموردين</p> 

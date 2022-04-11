@@ -11,8 +11,8 @@ use App\Models\Supplier;
 use App\Traits\ImageTrait;
 
 use App\Models\Sitesection;
-use Yajra\DataTables\DataTables;
 
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\ProductInterface;
@@ -21,65 +21,36 @@ class ProductRepository implements ProductInterface{
 
     use TableAutoIncreamentTrait;
     use ImageTrait;
-    
-    public function index()
-    {
-        //*-----------------------------*
-        //*----get all products data----*
-        //*-----------------------------*
-        
+
+    //******************************get all products data*****************************/
+    public function index(){
         $data['title']      ='المنتجات';
-        $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->get();
+        // $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->get();
+        $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->paginate(10);
        return view('pages.products.show',$data);
     }
 
+    //******************************show product add form*****************************/
     public function create(){
-        
-        //*-----------------------------*
-        //*----show product add form ---*
-        //*-----------------------------*
-        
         $data['title']       ='اضافه منتج';
-        $data['sections']    = Sitesection::where('visible', '!=' , 0)->get();
-        $data['suppliers']   = Supplier::where('parent_id', '=', 0)->get();
+        $data['suppliers']   = Supplier::withoutTrashed()->whereNull('parent_id')->get();
+        $data['sections']   = Sitesection::where('visible', '!=' , 0)->whereNull('parent_id')->get();
         //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
        return view('pages.products.add',$data);
     }
-    
-    public function store($request){
-        //*--------------------------------*
-        //*----store product data in db----*
-        //*--------------------------------*
 
-        //to handel multiple insertion
+    //******************************store product data in db*****************************/
+    public function store($request){
+       //to handel multiple insertion
         DB::beginTransaction();
         try{
             //vaildation
-           $validated = $request->validated();
+           //$validated = $request->validated();
 
             //call trait to handel aut-increament
             $this->refreshTable('products');
-       
-           if($request->image){
-               //get last id of product to create folder named with this id +1
-               //$this->getTableLastId('Product')
-            
-               // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'product_no_'. $this->getTableLastId('Product'),
-                    'disk_name'     => 'products',
-                ];
-                
-               //call to storeImage fun to save image in disk and return back with photo name
-               $photo_name=$this->storeImage($imageData);
-                
-           }else{
-               $photo_name='';
-           }
-           
+    
             $product =new Product();
-
 
             $product->name_ar=$request->name_ar;
             $product->name_en=$request->name_en;
@@ -90,10 +61,34 @@ class ProductRepository implements ProductInterface{
             (isset($request->video_link))? $product->video_link= $request->video_link:$product->video_link='' ;
             (isset($request->link))? $product->link= $request->link:$product->link='' ;
             $product->save();
+            
+            $product->rel_section()->attach($request->site_id,['type' => 'products']);
 
             //attach products with supplier
-             $product->suppliers()->attach($request->supplier_id);
+            // $product->suppliers()->attach($request->supplier_id);
 
+            if($request->image){
+                //get last id of product to create folder named with this id +1
+                //$this->getTableLastId('Product')
+             
+                // handel image array to pass image data to trait function
+                 $imageData=[
+                     'image_name'    => $request->image,
+                     'folder_name'   => 'product_no_'. $product->id,
+                     'disk_name'     => 'products',
+                     'model'         =>$product,
+                 ];
+                 
+                //call to storeImage fun to save image in disk and return back with photo name
+                $photo_name=$this->storeImage($imageData);
+
+                //optimize image
+                $product->addMedia($request->image)->toMediaCollection('media');
+                 
+            }else{
+                $photo_name='';
+            }
+            
              //start morph image for product main image
              $image =new Image();
              $image->imageable_type='App\Models\Product';
@@ -109,8 +104,9 @@ class ProductRepository implements ProductInterface{
                     // handel image array to pass image data to trait function
                     $imageData=[
                         'image_name'    => $photo,
-                        'folder_name'   => 'product_no_'. $this->getTableLastId('Product'),
+                        'folder_name'   => 'product_no_'. $product->id,
                         'disk_name'     => 'products',
+                        'model'         =>$product,
                     ];
                     
                     //call to storeImage fun to save image in disk and return back with photo name
@@ -132,12 +128,12 @@ class ProductRepository implements ProductInterface{
 
                      // handel image array to pass image data to trait function
                      $imageData=[
-                        'image_name'    => $file,
-                        'folder_name'   => 'product_no_'. $this->getTableLastId('Product'),
+                        'file_name'    => $file,
+                        'folder_name'   => 'product_no_'. $product->id,
                         'disk_name'     => 'products',
                     ];
                     //call to storeImage fun to save image in disk and return back with photo name
-                    $file_name=$this->storeImage($imageData);
+                    $file_name=$this->storeFile($imageData);
                                 
                     //start morph image for product sub images
                     Image::create([
@@ -153,7 +149,7 @@ class ProductRepository implements ProductInterface{
             }
 
             DB::commit();
-            toastr()->success('تمت الاضافه بنجاح');
+             toastr()->success('تمت الاضافه بنجاح');
              return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
             //  return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
 
@@ -161,12 +157,10 @@ class ProductRepository implements ProductInterface{
 
             DB::rollback();
             toastr()->error('حدث خطا اثناء الاضافه');
-            return redirect()->back();
-
-         //   return redirect()->back()->with(['error'=>$e->getMessage()]);
+          //  return redirect()->back();
+            return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء الاضافه']);
         }
     }
-
 //******************************start product images  ******************************/
     //------------------------show images--------------------------------------//
     public function products_images($product_id)
@@ -337,6 +331,174 @@ class ProductRepository implements ProductInterface{
 
 //******************************end product files  *****************************/
 
+    //******************************show product edit form *****************************/
+    public function edit($id){
+        $real_id=decrypt($id);
+        $data['title']      ='تعديل منتج';
+        $data['product']    = Product::findOrfail($real_id);
+        $data['suppliers']  = Supplier::withoutTrashed()->whereNull('parent_id')->get();
+        $data['sections']   = Sitesection::where('visible', '!=' , 0)->whereNull('parent_id')->get();
+
+        //-----------------------------------//
+        return view('pages.products.edit',$data);
+    }
+    
+    //******************************update product data in db*****************************/
+    public function update($request) {
+        
+        //dd($request->all());
+           if(($request->add_as_new)=='on'){
+               return $this->store($request);
+           }else{
+
+                //to handel multiple insertion
+                DB::beginTransaction();
+        
+               try{
+                   //vaildation
+                //$validated = $request->validated();
+                
+                $real_id=decrypt($request->id);
+                $product =Product::findOrfail($real_id);
+                if($request->image){
+
+                    if($request->deleted_image){
+                      //  dd('1');
+                        // handel image array to pass image path to trait function
+                        $imageData=[
+                            'path'=>storage_path().'/app/public/products/product_no_'.$real_id.'/'.$request->deleted_image,
+                        ];
+                        //call to unLinkImage fun to delete old image from disk 
+                        $this->unLinkImage($imageData);
+                    }
+                    
+                    // handel image array to pass image data to trait function
+                    $imageData=[
+                        'image_name'    => $request->image,
+                        'folder_name'   => 'product_no_'. $real_id,
+                        'disk_name'     => 'products',
+                        'model'         =>  $product,
+                    ];
+                    
+                    //call to storeImage fun to save image in disk and return back with photo name
+                    $photo_name=$this->storeImage($imageData);
+
+                    //start morph image for product sub images
+                    $img=Image::find($request->image_id);
+
+                    if($img){
+
+                        $img->filename=$photo_name;
+                        $img->save();
+
+                    }else{
+                        if($request->image){
+                            //get last id of product to create folder named with this id +1
+                            //$this->getTableLastId('Product')
+                         
+                            // handel image array to pass image data to trait function
+                             $imageData=[
+                                 'image_name'    => $request->image,
+                                 'folder_name'   => 'product_no_'. $product->id,
+                                 'disk_name'     => 'products',
+                                 'model'         =>  $product,
+                             ];
+                             
+                            //call to storeImage fun to save image in disk and return back with photo name
+                            $photo_name=$this->storeImage($imageData);
+
+                             //start morph image for product main image
+                            $image =new Image();
+                            $image->imageable_type='App\Models\Product';
+                            $image->imageable_id=$product->id;
+                            $image->image_or_file='1';//image
+                            $image->main_or_sub='1'; //main image
+                            $image->filename=$photo_name;
+                            $image->save();
+                         
+                            //optimize image
+                            $product->addMedia($request->image)->toMediaCollection('media');
+                             
+                        }
+                     }
+                  
+                    // dd('2');
+
+                     //optimize image
+                      //  $product->addMedia($request->image)->toMediaCollection('media');
+                
+                    //$product->mainImages()->filename=$photo_name;////////هنا عايزاه يعدل ع الصوره الاساسيه بس 
+                    
+                }
+            
+                   $product->name_ar=$request->name_ar;
+                   $product->name_en=$request->name_en;
+   
+                   $product->description_ar=$request->description_ar;
+                   $product->description_en=$request->description_en;
+                   $product->sort= $request->sort;
+
+                   (isset($request->video_link))? $product->video_link= $request->video_link:'';
+                   (isset($request->link))? $product->link= $request->link:'' ;
+
+                    $product->status= $request->status;
+   
+                   $product->save();
+   
+                   //attach products with supplier
+                //    if(isset($request->supplier_id)){
+                //          $product->suppliers()->sync($request->supplier_id);
+                //    }else{
+                //        $product->suppliers()->sync();
+                //    }
+                
+                   if(isset($request->site_id)){
+                         $product->rel_section()->sync($request->site_id);
+                   }else{
+                       $product->rel_section()->sync();
+                   }
+
+                    DB::commit();
+                    toastr()->success('تمت التعديل بنجاح');
+                    return redirect()->route('products.index')->with(['success'=>'تمت التعديل بنجاح']);
+               }catch(\Exception $e){
+                  DB::rollBack();
+                  // dd($e->getMessage());
+                  toastr()->error(' حدث خطااثناء التعديل');
+                  return redirect()->back()->withErrors(['error' => ' حدث خطااثناء التعديل']);
+   
+               }
+           }
+       }
+
+    //******************************softdelete single product*****************************/
+    public function destroy($id){
+        try{
+            $real_id=decrypt($id);
+            Product::where('id',$real_id)->delete(); //soft_delete
+            //Product::where('id',$id)->forceDelete();//hard delete
+            toastr()->success('تم الحذف بنجاح');
+            return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
+        }catch(\Exception $e){
+            toastr()->error('حدث خطا اثناء الحذف');
+            return redirect()->back();
+        }
+    }
+
+    //******************************softdelete selected product*****************************/
+    public function bulkDelete($request){
+        try{
+            $all_ids = explode(',',$request->delete_all_id);
+            // dd($all_ids);
+            Product::whereIn('id',$all_ids)->delete();
+            toastr()->success('تم الحذف بنجاح');
+            return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
+        }catch(\Exception $e){
+            toastr()->error('حدث خطا اثناء الحذف');
+            return redirect()->back();
+        }
+    }
+
     public function yajra_data($request){
         // dd("ffff");
         //if ($request->ajax()) {
@@ -409,29 +571,6 @@ class ProductRepository implements ProductInterface{
     //         ->toJson();
     // }
 
- 
     
-    public function edit($id){
-
-    }
-    public function update($request){
-
-    }
-    public function destroy($id){
-        
-        $real_id=decrypt($id);
-        Product::where('id',$real_id)->delete(); //soft_delete
-        //Product::where('id',$id)->forceDelete();//hard delete
-        toastr()->success('تم الحذف بنجاح');
-        return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
-    }
-    
-    public function bulkDelete($request){
-        $all_ids = explode(',',$request->delete_all_id);
-        // dd($all_ids);
-        Product::whereIn('id',$all_ids)->delete();
-        toastr()->success('تم الحذف بنجاح');
-        return redirect()->route('products.index')->with(['success'=>'تم الحذف بنجاح']);
-    }
 }
 ?>

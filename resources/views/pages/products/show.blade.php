@@ -1,5 +1,4 @@
 @extends('layouts.master')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
@@ -18,9 +17,13 @@
                 </div>
             @endif
 
-            @if(Session::has('error'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
-                {{Session::get('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
 
@@ -68,6 +71,7 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$product->name_ar}}</td>
+                            <!-- <td><img src="{{$product->getFirstMediaUrl('media','thumb')}}"></td> -->
 
                             @if(sizeof($product->mainImages())>0)
                               @foreach($product->mainImages() as $main) 
@@ -90,7 +94,7 @@
 
 
                             <td>
-                                <a href="{{route('products.edit',$product->id)}}" title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{route('products.edit',encrypt($product->id))}}" title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
                                 /
                                 <a  title="حذف" data-catid="{$product->id}}" data-toggle="modal" data-target="#delete{{$product->id}}"> <i class="fa fa-trash red del"></i></a> 
 
@@ -134,7 +138,10 @@
                     </tbody>
            <!--#############################################################-->
 
-		</table>
+		          </table>
+              <br>
+              <center> {{ $products->links('layouts.paginationlinks')}}</center>
+
             </div>
 
           </div>
@@ -147,6 +154,8 @@
         </div>
   </section>
 </template>
+
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('/js/delete_all.js') }}"></script>
+
 @endsection

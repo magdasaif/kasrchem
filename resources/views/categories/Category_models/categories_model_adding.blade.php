@@ -366,7 +366,7 @@
                         ?>
                             <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;"  value="{{$supplier->id}}"  {{ old('supplier_or_sub') == '0' ? "selected" : "" }}> {{$supplier->name_ar}}</option>
                             @if(count($supplier->childs))
-                                @include('pages.products.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','$size'=>$size-4,'type'=>$type,'number'=>$number])
+                                @include('pages.manageChild',['childs' => $supplier->childs,'margin'=>$margin+30,'color'=>'#209c41','$size'=>$size-4,'type'=>$type,'number'=>$number])
                             @endif
                         @endforeach
                     </select>

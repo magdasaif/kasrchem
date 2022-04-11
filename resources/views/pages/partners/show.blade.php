@@ -28,9 +28,6 @@
 
                 <div class="card-tools">
 
-                <!-- livewire add form
-                <button type="button" class="btn btn-info" ><a href="{{url('add_product')}}"> اضافه</a></button> -->
-
                    <button type="button" class="btn btn-sm bbtn">
                         <a href="{{route('partner.create')}}" class="aa"> <li class="fa fa-plus-square" ><span> اضافه </span></li></a>
                         </button>
@@ -61,14 +58,14 @@
                         <tr>
                             <td>{{$i}}</td>
 
-                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/$partner->image")?>"></td>
+                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/$partner->image->filename")?>"></td>
 
                             <td>{{$partner->name_ar}}</td>
                             <td><?php if($partner->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                            
 
                             <td>
-                                <a href="{{url('partner/'.$partner ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{url('partner/'.encrypt($partner ->id).'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                 /
                                 <a href="#"  style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$partner->id}}" data-toggle="modal" data-target="#delete{{$partner->id}}"> <i class="fa fa-trash red"></i></a>
 							  <!--############################ model for delete #################################-->     
@@ -78,7 +75,7 @@
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('partner.destroy',$partner->id)}}"  method="post">
+                                <form action="{{route('partner.destroy',encrypt($partner->id))}}"  method="post">
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">
@@ -109,6 +106,8 @@
                 <!--#############################################################-->
 
 		</table>
+        <br>
+              <center> {{ $partners->links('layouts.paginationlinks')}}</center>
             </div>
           
           </div>

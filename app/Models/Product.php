@@ -2,16 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use App\Models\Image;
-class Product extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Product extends Model implements HasMedia
 {
     use HasFactory;
     use SoftDeletes;
+
+    use InteractsWithMedia;
+    
     protected $dates = ['deleted_at'];
 
     protected $table = 'products';
@@ -22,6 +30,12 @@ class Product extends Model
     public function suppliers(){
         return $this->belongsToMany('App\Models\Supplier','products_suppliers');
     }
+
+    //relation with media pivot table section_all_pages
+     public function rel_section()
+     {
+         return $this->belongsToMany('App\Models\Sitesection','section_all_pages','type_id','sitesection_id')->withTimestamps(); 
+     }
 
     public function images()
     {
@@ -48,8 +62,26 @@ class Product extends Model
         return $this->images->where('image_or_file','2')->where('main_or_sub','2');
     }
 
-    // public function scopeAllFiles($query,$main_or_sub)
-    // {
-    //     return $query->where('image_or_file','2')->where('main_or_sub',$main_or_sub);
+    //this for media library package
+    // public static function last(){
+    //    // return Media::all()->last();
+    //      return Static::all()->last();
     // }
+    
+    // public function scopeAllMedia(){
+    //    // return Media::all()->last();
+    //    return $this->belongsToMany(Media::class,'media');
+    // }
+
+    //this for image optimization package 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(200)
+              ->height(120);
+
+        $this->addMediaConversion('logo')
+              ->width(90)
+              ->height(90);
+    }
 }

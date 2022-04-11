@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @toastr_css
+
 @section('title')
 <title>لوحة التحكم : {{$title}}</title>
  @endsection
@@ -42,14 +43,16 @@
             <form method="POST" action="{{route('products.store')}}" enctype="multipart/form-data">
              @csrf
             <!----------------------------------------------------->
-                <div class="form-group">
+            @include('pages.Sitesection.tree_view_section_adding')
+            <!----------------------------------------------------->
+                <div class="form-group" style="display:none">
                     <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
                     <br>
                     <center>
                             <span style="color:#d54646;font-weight: bold;"> لاضافه مورد</span>
                             <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#SupplierModel" style="margin-right: 23px;font-weight: bold;"></i>
                     </center>
-                    <select class="form-control" name="supplier_id[]"  multiple required>
+                    <select class="form-control" name="supplier_id[]"  multiple >
                         @foreach ($suppliers as $supplier)
                         <?php
                             $margin="0";
@@ -67,14 +70,16 @@
                         ?>
                             <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>> - {{ $supplier->name_ar }}</option>
                             @if(count($supplier->childs))
-                                @include('pages.products.manageChild',$new)
+                                @include('pages.manageChild',$new)
                             @endif
                         @endforeach
                     </select>
+
+                    <hr>
                 </div>
 
                 
-                <hr>
+                
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
@@ -116,17 +121,28 @@
                 </div>
 
                 <hr>
+                <div class="row">
 
-                <div class="form-group">
-                    <label for="exampleInputEmail1">صورة المنتج الاساسية *</label>
+                    <div class="col-lg-12">
+                       <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                    </div>
 
-                    <input type="file" class="form-control" name="image" accept="image/*" required>
-
-                    @error('image')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>صورة المنتج الاساسية:  <span style="color:rgb(199, 8, 8)">*</span></label>
+                            <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
+                        </div>
+                        @error('image')
+                             <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                   
                 </div>
 
+                                            
+
+
+                
                 <div class="form-group">
                     <label for="exampleInputEmail1">صور المنتج الفرعيه</label>
 
@@ -215,4 +231,6 @@
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
+
 @endsection

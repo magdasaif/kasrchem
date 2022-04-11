@@ -8,7 +8,7 @@
         <div class="container-fluid">
         <div class="row ">
             
-                <!-- <div class="col-12 col-sm-6 col-md-4">
+                <div class="col-12 col-sm-6 col-md-4">
                    <a href="{{route('site_section.index')}}">
                        <div class="info-box">
                             <span class="info-box-icon bg-info elevation-1"><i class="nav-icon fas fa fa-sitemap"></i></span>
@@ -23,27 +23,11 @@
                         </div>
                     </a>
                   
-                </div> -->
+                </div>
 
                 <!-- fix for small devices only -->
                  <div class="clearfix hidden-md-up"></div>
-                 
-                <!-- <div class="col-12 col-sm-6 col-md-4">
-                   <a href="{{route('categories.index')}}">
-                       <div class="info-box">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="nav-icon fas fa fa-cubes"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text" style="color: #009879;font-size: 20px;font-weight: bold;"> التصنيفات الرئيسيه</span>
-                                <span class="info-box-number" style="font-size:20px;">
-                                {{$sub1}}
-                                </span>
-                            </div>
-                           
-                        </div>
-                    </a>
-                   
-                </div> -->
+                
 
                  <!-- fix for small devices only -->
                  <div class="clearfix hidden-md-up"></div>
@@ -208,27 +192,6 @@
                     <!-- /.info-box -->
                 </div>
 
-
-                  <!-- fix for small devices only -->
-                  <div class="clearfix hidden-md-up"></div>
-  
-                    <div class="col-12 col-sm-6 col-md-4">
-                    <a href="{{route('supplier.index')}}">
-                        <div class="info-box">
-                                <span class="info-box-icon bg-success elevation-1"><i class="nav-icon fas fa-users "></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text" style="color: #009879;font-size: 20px;font-weight: bold;"> الموردين</span>
-                                    <span class="info-box-number" style="font-size:20px;">
-                                    {{$supplier}}
-                                    </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                        </a>
-                        <!-- /.info-box -->
-                    </div>
-  
             </div>
            
         </div><!--/. container-fluid -->

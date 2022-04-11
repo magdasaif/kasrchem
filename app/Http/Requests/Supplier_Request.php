@@ -14,13 +14,14 @@ class Supplier_Request extends FormRequest
 
     public function rules()
     {
+        if(isset($this->id)){$cond=decrypt($this->id);}else{$cond='';}
         return [
      
-        'name_ar' => 'required|unique:suppliers,name_ar,'.$this->id,
-        'name_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu|unique:suppliers,name_en,'.$this->id,
+        'name_ar' => 'required|unique:suppliers,name_ar,'.$cond,
+        'name_en' => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu|unique:suppliers,name_en,'.$cond,
         'description_ar' => 'required',
         'description_en' => 'required',
-        'logo' => 'image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=300,max_height=300'. $this->id,
+        'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=300,max_height=300'. $cond,
 
         ];
     }
@@ -34,7 +35,7 @@ class Supplier_Request extends FormRequest
         'description_en.required' =>'وصف المورد  بالانجليزية مطلوب',
         'name_ar.unique'=>'اسم المورد باللغه العربيه مُضاف مسبقا... قم بادخال اسم اخر ',
         'name_en.unique'=>'اسم المورد باللغه الانجليزيه مُضاف مسبقا... قم بادخال اسم اخر ',
-        'logo.dimensions'=>'اقصى احداثيات يمكنك رفعها 300*300'
+        'image.dimensions'=>'اقصى احداثيات يمكنك رفعها 300*300'
         ];
     }
 }

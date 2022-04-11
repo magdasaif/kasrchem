@@ -1,147 +1,46 @@
 <?php
 
 namespace App\Http\Controllers\Supplier;
+use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Sitesection;
 use Illuminate\Http\Request;
 use App\Models\Supplier_image;
 use App\Models\Product_supplier;
-use Illuminate\Support\Facades\DB;
+use App\Models\Supplier_section;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Supplier_Request;
-use App\Models\Product;
-use App\Models\Supplier_section;
 
 use App\Traits\TableAutoIncreamentTrait;
+use App\Http\Interfaces\SupplierInterface;
+
 class SupplierController extends Controller
 {
     use TableAutoIncreamentTrait;
     
-    // public $fillable = ['name_ar','name_en','logo','description_ar','description_en'];
-  
-    public function index()
-    {
-        $Supplier=Supplier::orderBy('sort','asc')->get();
-        return view('pages.supplier.Show',compact('Supplier'));
+    protected $xx;
+    public function __construct(SupplierInterface $y) {
+        $this->xx = $y;
     }
+    
+    public function index(){
+       return  $this->xx->index();
+    }
+    
 // //-------------------------------------------------------------//
     public function create()
     {
-       // $sections= Sitesection::whereNull('parent_id')->get();
-        $sections= Sitesection:: where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
-        $suppliers= Supplier::where('parent_id', '=', 0)->get();
-        return view('pages.supplier.add',compact('suppliers','sections'));
+        return  $this->xx->create();
     }
 // //-------------------------------------------------------------//
     public function store(Supplier_Request $request)
     {
-        DB::beginTransaction();
-       
-         try{
-            $validated = $request->validated();
-
-            //call trait to handel aut-increament
-            $this->refreshTable('suppliers');
-        
-             $request->validate(['logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=300,max_height=300',]);
-              if($request->logo)
-              {
-
-                $last_id = Supplier::orderBy('id', 'desc')->first();
-                if($last_id){
-                    $new_id = $last_id->id + 1;
-                }else{
-                    $new_id=1;
-                }
-                $folder_name='supplier_no_'. $new_id;
-
-                
-               //  $folder_name='';
-                //  $photo_name= ($request->logo)->getClientOriginalName();
-                $photo_name= str_replace(' ', '_',($request->logo)->getClientOriginalName());
-                  ($request->logo)->storeAs($folder_name,$photo_name,$disk="supplier");
-                  
-              }
-               
-
-              //-----------------------------------//
-              if($request->supplier_or_sub==0)
-              {
-                $ttype="supplier";
-              }
-              else
-              {
-                $ttype="sub_supplier";
-              }
-               $Supplier = new Supplier
-              ([
-               'name_ar' =>  $request->name_ar,
-               'name_en' =>  $request->name_en,
-               'description_ar' =>  $request->description_ar,
-               'description_en' =>  $request->description_en,
-               'parent_id'=>  $request->supplier_or_sub ,
-               'type'=> $ttype,
-               'logo' => $photo_name,
-               'sort'=>  $request->sort,
-              ]);
-             // dd('done');
-
-           $Supplier->save();
-//dd($request->all());
-           $Supplier->sup_sections()->attach($request->section_id);
-           
-           if(!empty($request->photos)){
-            foreach($request->photos as $photo){
-
-                $folder_name0='supplier_no_'. $new_id;
-                // dd($last_id->id,$folder_name);
-                 $photo_name0= str_replace(' ', '_',($photo)->getClientOriginalName());
-                ($photo)->storeAs($folder_name0,$photo_name0,$disk="supplier");
-
-                Supplier_image::create([
-                    'supplier_id'=>Supplier::latest()->first()->id,
-                    'image'=>$photo_name0,
-                    
-                ]);
-            }
-        }
-
-        DB::commit();
-           if ($request->supplier_model==1)
-           {
-              //return redirect()->route('video.create')->with(['success'=>'تمت اضافة التصنيف الفرعى بنجاح']);
-              return redirect()->back()->with(
-                  [
-                     'success'=>'تمت اضافة المورد بنجاح',
-                     'section_id'   =>$request->section_id,
-                     'cate_id'      =>$request->cate_id,
-                     'sub2_id'      => $request->sub2_id,
-                     'sub3_id'      => $request->sub3_id,
-                     'sub4_id'      => $request->sub4_id,
-                     'supplier_id'  => $Supplier->id,
-                  ]
-              );
-             
-           }else{
-               return redirect()->route('supplier.index')->with(['success'=>'تمت الاضافه بنجاح']);
-           }
-        }
-        catch(\Exception $e){
-            DB::rollback();
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }
+        return  $this->xx->store($request);
     }
 // //-------------------------------------------------------------//
     public function edit($id)
     {
-       
-        $Supplier = Supplier::findOrfail($id);  //data of edited supplier
-        $all_suppliers = Supplier::where('parent_id',0)->where('id','!=',$id)->get();
-       // $all_sections = Sitesection::whereNull('parent_id')->where('id','!=',$id)->get();
-       $all_sections =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
-        
-        // return view('pages.supplier.edit',compact('Supplier','parent_of_supplier','first_select','all_suppliers'));
-        return view('pages.supplier.edit',compact('Supplier','all_suppliers','all_sections'));
+        return  $this->xx->edit($id);
     }
 // //-------------------------------------------------------------//
     public function update(Supplier_Request $request, $id)

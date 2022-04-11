@@ -23,7 +23,6 @@ class PartnerController extends Controller
     public function index()
     {
         return $this->xx->index();
-       
     }
 
     public function yajra_data(Request $request)

@@ -13,7 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact =Contact::orderBy('id','desc')->get();
+        $contact =Contact::orderBy('id','desc')->paginate(10);
         return view('pages.contact_us',compact('contact'));
     }
 

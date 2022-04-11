@@ -21,6 +21,8 @@
         "nuwave/lighthouse": "^5.42",
         "protonemedia/laravel-cross-eloquent-search": "2.0",
         "protonemedia/laravel-paddle": "^2.2",
+        "spatie/laravel-image-optimizer": "^1.6",
+        "spatie/laravel-medialibrary": "^9.12",
         "symfony/mailer": "^5.4",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "^9.19",

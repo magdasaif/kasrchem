@@ -9,9 +9,9 @@ use App\Http\Interfaces\PartnerInterface;
 class PartnerRepository implements PartnerInterface{
     
     public function index(){
-        $title='الشركاء';
-        $partner=Partner::orderBy('id','desc')->get();
-         return view('pages.partners.show_yajra',compact('partner','title'));
+        $data['title']  ='الشركاء';
+        $data['partner']=Partner::withoutTrashed()->orderBy('id','desc')->paginate(10);
+         return view('pages.partners.show',$data);
     }
 
     public function yajra_data($request){
