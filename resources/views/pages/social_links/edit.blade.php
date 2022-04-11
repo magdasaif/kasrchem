@@ -43,7 +43,7 @@
  <!--#############################################################-->
         <div class="modal-body">
             
-            <form method="POST" action="{{route('social.update',$social->id)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('social.update',encrypt($social ->id))}}" enctype="multipart/form-data">
             {{method_field('PATCH')}}
 
                 @csrf
@@ -66,7 +66,7 @@
                     @enderror
                 </div>
                 
-                <input type="hidden" name="id" value="{{$social->id}}">
+                <input type="hidden" name="id" value="{{encrypt($social ->id)}}">
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">الحالة</label>
@@ -76,13 +76,12 @@
                     </select>
                 </div>
 
-                <hr>
-
+               
                 <div class="form-group">
                     <label for="exampleInputEmail1">  الايقون</label>
                     <i class="{{$social->icon}}" style="margin-right: 25px;"></i>
                     <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter icon" name="icon" value="{{$social->icon}}" required oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')"> -->
-                    <input type="text" class="form-control" name="icon"  required value="{{ $social->icon}}" required  oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')" placeholder="Select icon" data-fa-browser />
+                    <input type="text" class="form-control" name="icon"   value="{{ $social->icon}}"  placeholder="Select icon" data-fa-browser />
 
                     <!-- Button tag -->
                     <!-- <button class="btn btn-secondary" role="iconpicker"></button> -->

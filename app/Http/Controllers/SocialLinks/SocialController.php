@@ -1,55 +1,40 @@
 <?php
 
 namespace App\Http\Controllers\SocialLinks;
-
+use App\Http\Interfaces\SocialInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Social;
 use App\Http\Requests\SocialRequest;
+use App\Traits\TableAutoIncreamentTrait;
 
 class SocialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $title='وسائل التواصل';
-        $socialLinks=Social::orderBy('id','desc')->get();
-        return view('pages.social_links.show',compact('title','socialLinks'));
+    use TableAutoIncreamentTrait; //trait to  trueAutoIncreament if delete record
+     protected $xx;    //variable to use  interface functions
 
+     //---------construct to relate interface with controller----------
+     public function __construct(SocialInterface $y) 
+    {
+        return $this->xx = $y;
     }
+      //-------------------show release function-----------------------
+      public function index()
+      {
+          return $this->xx->index();
+      }
+//--------------------------------------------------
 
     public function create()
     {
-        $title=' اضافه رابط';
-        return view('pages.social_links.add',compact('title'));
+        return $this->xx->create();
+       
     }
 
     public function store(SocialRequest $request)
     {
-        try{
-            //vaildation
-           $validated = $request->validated();
-           
-            $social =new Social();
-
-            $social->name=$request->name;
-            $social->link=$request->link;
-            $social->icon=$request->icon;
-            $social->status= $request->status;
-
-            $social->save();
-
-
-            //toastr()->success('تمت الاضافه بنجاح');
-
-            return redirect()->route('social.index')->with(['success'=>'تمت الاضافه بنجاح']);
-        }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+        return $this->xx->store($request);
+        
     }
 
    
@@ -60,46 +45,24 @@ class SocialController extends Controller
 
     public function edit($id)
     {
-        $title=' تعديل رابط';
-        $social= Social::findOrfail($id);
-        return view('pages.social_links.edit',compact('title','social'));
+        return $this->xx->edit($id);
+       
     }
 
     public function update(SocialRequest $request)
     {
-        try{
-            //vaildation
-           $validated = $request->validated();
-           
-            $social =Social::findOrfail($request->id);
-
-            $social->name=$request->name;
-            $social->link=$request->link;
-            $social->icon=$request->icon;
-            $social->status= $request->status;
-
-            $social->save();
-
-
-            //toastr()->success('تمت الاضافه بنجاح');
-
-            return redirect()->route('social.index')->with(['success'=>'تمت الاضافه بنجاح']);
-        }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+        return $this->xx->update($request);
+        
     }
 
     public function destroy($id)
     {
-        Social::findOrfail($id)->delete();
-        return redirect()->route('social.index')->with(['success'=>'تم الحذف بنجاح']);
+        return $this->xx->destroy($id);
 
     }
     public function deleteAll(Request $request)
     {
-      $all_ids = explode(',',$request->delete_all_id);
-     // dd($all_ids);
-     Social::whereIn('id',$all_ids)->delete();
-     return redirect()->route('social.index')->with(['success'=>'تم الحذف بنجاح']);
+        return $this->xx->bulkDelete($request);
+     
     }
 }

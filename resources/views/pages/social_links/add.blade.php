@@ -75,11 +75,10 @@
                     </select>
                 </div>
 
-                <hr>
                 <div class="form-group">
                     <label for="exampleInputEmail1">  الايقون</label>
                     <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="type icon class" name="icon" value="{{old('icon')}}"  required  oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')"> -->
-                    <input type="text" class="form-control" name="icon"  value="{{old('icon')}}" required   oninvalid="this.setCustomValidity('قم بادخال الايقونة')"  oninput="this.setCustomValidity('')" placeholder="Select icon" data-fa-browser />
+                    <input type="text" class="form-control" name="icon"  value="{{old('icon')}}" placeholder="Select icon" data-fa-browser />
 
                     <!-- Button tag -->
                     <!-- <button class="btn btn-secondary" role="iconpicker"></button> -->

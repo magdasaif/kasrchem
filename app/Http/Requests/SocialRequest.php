@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SocialRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
@@ -18,11 +13,12 @@ class SocialRequest extends FormRequest
 
     public function rules()
     {
+        if(isset($this->id)){$cond=decrypt($this->id);}else{$cond='';}
         return [
      
-        'name' => 'required',
-        'link' => 'required',
-        'icon' => 'required', 
+        'name'   => 'required|unique:socials,name,'.$cond,
+        'link'   => 'required|url',
+        'icon'   => 'required', 
         'status' => 'required',
           
         ];
@@ -31,8 +27,11 @@ class SocialRequest extends FormRequest
     {
         return $messages = [
         'name.required' =>'اسم الرابط مطلوب',
-        'link.required' =>'لينك الرابط مطلوب',
+        'name.unique' =>'اسم الرابط مسجل مسبقا ...قم بادخال اسم اخر',
+        'link.required' =>' الرابط مطلوب',
+        'link.url' =>' قم بادخال الرابط بالشكل المناسب',
         'icon.required' =>' الايقون مطلوب',
+        'status.required' =>' الحالة مطلوبة',
        
         ];
     }

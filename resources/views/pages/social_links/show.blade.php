@@ -119,18 +119,21 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
+        @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
 
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
-          
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
             <div class="card">
               <div class="card-header" >
@@ -174,17 +177,17 @@
                             <td><?php if($social->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                             
                             <td>
-                                <a href="{{url('social/'.$social ->id.'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{url('social/'.encrypt($social ->id).'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                 /
-                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$social->id}}" data-toggle="modal" data-target="#delete{{$social->id}}"> <i class="fa fa-trash red"></i></a>
+                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$social ->id}}" data-toggle="modal" data-target="#delete{{$social ->id}}"> <i class="fa fa-trash red"></i></a>
                               <!--############################ model for delete #################################-->     
-                         <div class="modal modal-danger fade" id="delete{{$social->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                         <div class="modal modal-danger fade" id="delete{{$social ->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('social.destroy',$social->id)}}"  method="post">
+                                <form action="{{route('social.destroy',encrypt($social ->id))}}"  method="post">
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">
@@ -203,7 +206,7 @@
                             </div>
                            <!--#############################################################-->
                             </td>
-                            <td ><input type="checkbox" value="{{$social->id}}" class="box1" onclick="javascript:check();"></td>
+                            <td ><input type="checkbox"  name="row_checkbox" value="{{$social->id}}" class="box1" onclick="javascript:check();"></td>
 
                         </tr>
 
