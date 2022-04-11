@@ -181,9 +181,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
     //----------------------------release-------------------------------------------------
+    //----------------------------release-------------------------------------------------
     Route::group(['namespace'=>'Release'],function(){
-        Route::resource('release', 'ReleaseController');
+        Route::resource('release', 'ReleaseController')->except(['show']);
         Route::post('delete_all_release', 'ReleaseController@deleteAll')->name('delete_all_release');
+        Route::get('release/list','ReleaseController@getdata')->name('release_datatable');
 
     });
     //----------------------------release-------------------------------------------------

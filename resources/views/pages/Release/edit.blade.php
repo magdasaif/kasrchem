@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم : تعديل النشرة</title>
+<title>لوحة التحكم : {{$title}}</title>
  @endsection
 @section('content')
 <section class="content">
@@ -8,12 +8,13 @@
         <div class="row">
           
           <div class="col-12">
-          @if(Session::has('success'))
+         <!--=================start success msg ===========================-->
+         @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
-
+           <!--=================start error msg ===========================-->
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -22,7 +23,8 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+          @endif
+           <!--=================start card-header===========================-->
 
             <div class="card">
               <div class="card-header">
@@ -33,92 +35,91 @@
                     </button>
                 </div>
                </div>
- <!--#############################################################-->
- <div class="modal-body">
+           <!--=================end card-header===========================-->
+           <!--=================start modal-body===========================-->
+            <div class="modal-body">
             
-            <form method="POST"  action="{{route('release.update',$release->id)}}" enctype="multipart/form-data">
+            <form method="POST"  action="{{route('release.update',encrypt($releases->id))}}" enctype="multipart/form-data">
                 {{method_field('PATCH')}}
                 @csrf
-                 <!----------------------------------------------------->
-               <!----------------------------------------------------->
-               <hr>
+             <!--========================tree_view_section_adding================================-->
+               
                <div class="form-group">
-                   <label for="exampleInputEmail1">الأقسام</label> 
-                            <?php
-                           $selected_supplier=array();
-
-                           foreach ($release->rel_section as $supplier_select){
-                             array_push($selected_supplier,$supplier_select->id);
-                            }
-                            ?>
-                           
-                   <select class="form-control" name="site_id[]"  multiple required oninvalid="this.setCustomValidity('اختر القسم')"  oninput="this.setCustomValidity('')" >
-                           
-                    @foreach ($sections as $sec)
+                   <label for="exampleInputEmail1">الأقسام*</label> 
                     <?php
-                        $margin="0";
-                        $color="#c20620";
-                        $size="15";
-                        $type='supplier_section';
-                        $number=2;
-                        if(in_array($sec->id,$selected_supplier)){
-                            $select_or_no='selected';
-                        }else{
-                            $select_or_no='';
+                        $selected_supplier=array();
+                        foreach ($releases->rel_section as $supplier_select)
+                        {
+                            array_push($selected_supplier,$supplier_select->id);
                         }
-
-
-                       $new= [
-                            'childs' => $sec->childs,
-                            'margin'=>$margin+30,
-                            'color'=>'#209c41',
-                            'size'=>$size-1,
-                            'selected_supplier'=>$selected_supplier,
-                            'type'=>$type,
-                            'number'=>$number
-                        ];
-                    ?>
-                        <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $sec->id }}" <?php if (collect(old('site_id'))->contains($sec->id)) {echo 'selected';}else{echo $select_or_no;}?>> - {{ $sec->site_name_ar }}</option>
-                        @if(count($sec->childs))
-                            @include('pages.products.manageChild',$new)
-                        @endif
+                     ?>
+                    <select class="form-control" name="site_id[]"  multiple required oninvalid="this.setCustomValidity('اختر القسم')"  oninput="this.setCustomValidity('')" >
+                   @foreach ($sections as $sec)
+                        <?php
+                            $margin="0";
+                            $color="#c20620";
+                            $size="15";
+                            $type='supplier_section';
+                            $number=2;
+                            if(in_array($sec->id,$selected_supplier))
+                            {
+                                $select_or_no='selected';
+                            }
+                            else
+                            {
+                                $select_or_no='';
+                            }
+                           $new=[
+                                    'childs'             =>  $sec->childs,
+                                    'margin'             =>  $margin+30,
+                                    'color'              =>  '#209c41',
+                                    'size'               =>   $size-1,
+                                    'selected_supplier'  => $selected_supplier,
+                                    'type'=>$type,
+                                    'number'=>$number
+                                ];
+                        ?>
+                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $sec->id }}" <?php if (collect(old('site_id'))->contains($sec->id)) {echo 'selected';}else{echo $select_or_no;}?>> - {{ $sec->name_ar }}</option>
+                                @if(count($sec->childs))
+                                    @include('pages.products.manageChild',$new)
+                                @endif
                     @endforeach
                     
                 </select>
-          
-               </div>
-               
-
-      
-               <!----------------------------------------------------->
-              
-               <div class="form-group">
-                    <label for="title_ar">اسم النشرة </label>
-                    <input type="text" class="form-control" aria-describedby="title_ar" placeholder=" ادخل اسم النشرة بالعربية" name="title_ar" value="{{$release->title_ar}}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
-
+                </div>
+                <!--------------------------name_ar--------------------------->
+                <div class="form-group">
+                    <label for="title_ar">اسم النشرة *</label>
+                    <input type="text" class="form-control" aria-describedby="name_ar" placeholder=" ادخل اسم النشرة بالعربية" name="name_ar" value="{{$releases->name_ar}}" id="regax_name_ar" onkeyup="check_regax_name_ar();"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم التصنيف باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم النشرة باللغة العربية وايضا لا يكون ارقام فقط</span>
-
-                    @error('title_ar')
+                    @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
-               <!----------------------------------------------------->
+                <!----------------------------name_en------------------------->
                <div class="form-group">
-                    <label for="title_en">اسم النشرة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم النشرة بالانجليزية" name="title_en"  value="{{$release->title_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم النشرة باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
-
+                    <label for="name_en">اسم النشرة بالانجليزية*</label>
+                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم النشرة بالانجليزية" name="name_en"  value="{{$releases->name_en}}" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم النشرة باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم النشرة باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
-
-                    @error('title_en')
+                    @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-               <!----------------------------------------------------->
-               
-               <div class="form-group">
-                    <label for="image">صورة النشرة</label>
-                    <center><img id="previewImg" style="width: 30%;"src=<?php echo asset("storage/release/release_$release->id/{$release->image}")?> alt="" ></center>
+               <!----------------------------image------------------------->
+                <div class="form-group">
+                    <label for="image">صورة النشرة*</label>
+
+
+                    @if(sizeof($releases->mainImage())>0)
+                    @foreach($releases->mainImage() as $xx)
+                        <center><img id="previewImg" style="width: 30%;"src=<?php echo asset("storage/releases/release_no_$releases->id/{$xx->filename}")?> alt="" ></center>
+                        <input type="hidden" name="morph_image_id" value="{{$xx->id}}">
+                        <input type="hidden" name="old_image" value="{{$xx->filename}}">
+                        @endforeach
+                     @else
+                     <center><img id="previewImg" style="width: 30%;" src="" alt="" ></center>
+
+                     @endif
                     <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
@@ -127,15 +128,25 @@
                     </svg>
                     تعديل الصورة
                     </button></center>
-                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" >
+                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" onchange="readURL(this);" >
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-              <!----------------------------------------------------->
+              <!----------------------------file------------------------->
               <div class="form-group">
-                    <label for="image">ملف النشرة</label>
-                   <center> <embed  id="previewfile" src="<?php echo asset("storage/release/release_$release->id/{$release->file}")?>" width="30%"  accept="application/pdf,application/vnd.ms-excel"/></center>
+                    <label for="image">ملف النشرة*</label>
+
+                    @if(sizeof($releases->mainFile())>0)
+                      @foreach($releases->mainFile() as $xx)
+                        <center> <embed  id="previewfile" src="<?php echo asset("storage/releases/release_no_$releases->id/{$xx->filename}")?>" width="30%"  accept="application/pdf,application/vnd.ms-excel"/></center>
+                        <input type="hidden" name="morph_file_id" value="{{$xx->id}}">
+                        <input type="hidden" name="old_file" value="{{$xx->filename}}">
+                        @endforeach
+                       @else
+                       <center> <embed  id="previewfile" src="" alt="لا يوجد فايل" width="30%"  accept="application/pdf,application/vnd.ms-excel"/></center>
+                     @endif
+
                    <br>
                     <center><button type="button" id="btn_file" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
@@ -144,20 +155,32 @@
                     </svg>
                     تعديل ملف النشرة
                     </button></center>
+                    
                     <input type="file" class="form-control" name="filee"  id="my_filee"  style="display: none;"  accept="application/pdf,application/vnd.ms-excel">
                     @error('file')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-              <!----------------------------------------------------->
+                <!---------------------------sort-------------------------->
                 <div class="form-group">
-                    <label for="image">الحالة</label>
+                    <label for="sort">الترتيب*</label>
+                    <input type="number" class="form-control" id="sort" aria-describedby="sort" placeholder="ادخل الترنيب" name="sort"  value="{{$releases->sort}}"  required oninvalid="this.setCustomValidity('قم بادحال الترتيب')"  oninput="this.setCustomValidity('')">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+              <!--------------------------status--------------------------->
+                <div class="form-group">
+                    <label for="image">الحالة*</label>
                     <select class="form-control" name="status">
-                            <option value="1" <?php if($release->status==1){echo'selected';}?> >مُفعل</option>
-                            <option value="0" <?php if($release->status==0){echo'selected';}?> >غير مُفعل</option>
+                            <option value="1" <?php if($releases->status==1){echo'selected';}?> >مُفعل</option>
+                            <option value="0" <?php if($releases->status==0){echo'selected';}?> >غير مُفعل</option>
                     </select>
                 </div>
-               
+             <!--------------------------------------------------------->
+           
+          <input type="hidden" name="release_id" value="{{encrypt($releases->id)}}">
+
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
@@ -179,4 +202,5 @@
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection
