@@ -66,9 +66,9 @@ return [
             'root' => storage_path('app/public/partners'),
         ],
         
-        'release' => [
+        'releases' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/release'),
+            'root' => storage_path('app/public/releases'),
         ],
 
         'photo_gallery' => [
@@ -113,9 +113,16 @@ return [
             'visibility' => 'public',
         ],
 
+        // 'media' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/public/media'),
+        // ],
+
         'media' => [
             'driver' => 'local',
             'root' => storage_path('app/public/media'),
+            'url' => env('APP_URL').':8000/storage/media',
+            'visibility' => 'public',
         ],
         
         's3' => [

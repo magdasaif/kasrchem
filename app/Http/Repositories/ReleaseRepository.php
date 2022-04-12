@@ -2,24 +2,23 @@
 
 namespace App\Http\Repositories;
 use App\Http\Interfaces\ReleaseInterface;
+use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Models\Release;
 use App\Models\Sitesection;
-
-use Yajra\DataTables\DataTables;
-use App\Traits\ImageTrait;
-use toastr;
 use App\Models\Image;
+use App\Traits\ImageTrait;
 use App\Models\Section_All_Page;
-use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
+use toastr;
+
 class ReleaseRepository implements ReleaseInterface{
     use TableAutoIncreamentTrait;
     use ImageTrait;
     //----------------------show release function----------------------------------//
     public function index()
     {
-        $data['releases']= Release::orderBy('id','desc')->get();
-        
+        $data['releases']= Release::withoutTrashed()->orderBy('sort','asc')->paginate(10);
         $data['title']='النشرات';
         return view('pages.Release.Show', $data);
     }
@@ -35,7 +34,7 @@ class ReleaseRepository implements ReleaseInterface{
     //---------------------------------------------------------//
     public function store($request)
     {
-        //dd($request->all());
+       //dd($request->all());
         
         DB::beginTransaction(); //to handel multiple insertion
         try
@@ -60,6 +59,8 @@ class ReleaseRepository implements ReleaseInterface{
             //============================image===========================================//
             if($request->image)
             {
+                
+                   //---------------------------------2-----------------------------
                 // handel image array to pass image_data to ImageTrait function
                 $imageData=
                 [
@@ -77,13 +78,11 @@ class ReleaseRepository implements ReleaseInterface{
                 $image->image_or_file='1';//image
                 $image->main_or_sub='1'; //main image
                 $image->filename=$photo_name;
-               // $image->save();
+                $image->save();
+                       //-----------2-relate image with media with collection name "releases"---------------
+               $releases->addMedia($request->image)->toMediaCollection('releases');
+
             }
-            else
-            {
-                $photo_name='';
-            }
-            $image->save();
         //============================files===========================================//
           if($request->file)
             {
@@ -106,25 +105,19 @@ class ReleaseRepository implements ReleaseInterface{
                 $file->image_or_file='2';//file
                 $file->main_or_sub='1'; //main file
                 $file->filename=$file_name;
-               // $file->save();
+                $file->save();
             }
-            else
-            {
-                $file_name='';
-            }
-            $file->save();
         //=======================================================================================//
             DB::commit();
-            return redirect()->route('release.index')->with(['success'=>'تمت الاضافه بنجاح']);
-
-          //  return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
-          //  toastr()->success('تمت الاضافه بنجاح');
+            toastr()->success('تمت الاضافه بنجاح');
+            return redirect()->route('release.index');
         }
         catch(\Exception $e)
         {
             DB::rollback();
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
-        }
+            toastr()->error('حدث خطا اثناء الاضافه');
+            return redirect()->back();       
+         }
     }
     //---------------------------------------------------------//
     public function edit($id)
@@ -156,7 +149,10 @@ class ReleaseRepository implements ReleaseInterface{
         //============================image===========================================//
             if($request->image)
             {
+               
+                 //-------------1--- unlink old image----------------------
                 if($request->old_image){
+                    //هيحذفها لو هى موجودة فى الفولدر
                     //------------call to unLinkImage fun that unLink old_image in disk----------------
                     $imageData= 
                     [
@@ -164,7 +160,7 @@ class ReleaseRepository implements ReleaseInterface{
                     ];
                     $this->unLinkImage($imageData);
                 }
-                  //----------------------------------------------------------------------------------
+                  //----------------------------store in disk------------------------------------------------------
                 // handel image array to pass image_data to ImageTrait function
                 $imageData=
                 [
@@ -180,6 +176,8 @@ class ReleaseRepository implements ReleaseInterface{
                 $morphic_image=Image::findOrFail($request->morph_image_id);
                 $morphic_image->filename=$photo_name;
                 $morphic_image->save();
+                  //-----------3-relate image with media with collection name "releases"---------------
+                  $releases->addMedia($request->image)->toMediaCollection('releases');
             }
         //============================files===========================================//
         if($request->filee)
@@ -209,15 +207,17 @@ class ReleaseRepository implements ReleaseInterface{
            $morphic_file->save();
         
     //=======================================================================================//
-        
+        }
          DB::commit();
-         return redirect()->route('release.index')->with(['success'=>'تم التعديل بنجاح']);
+         toastr()->success('تمت التعديل بنجاح');
+         return redirect()->route('release.index');
        }
-    }
+   
     catch(\Exception $e)
     {
         DB::rollback();
-         return redirect()->back()->with(['error' => $e->getMessage()]);
+        toastr()->error(' حدث خطااثناء التعديل');
+        return redirect()->back();   
     }
    }
     //---------------------soft delete------------------------------------//
@@ -231,18 +231,19 @@ class ReleaseRepository implements ReleaseInterface{
             Release::find($real_id)->delete();
           //call trait to handel aut-increament
             $this->refreshTable('releases');
-                
-        return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
+            toastr()->success(' تم الحذف بنجاح');
+             return redirect()->route('release.index');
        }
        catch
        (\Exception $e)
        {
-           return redirect()->back()->with(['error' => $e->getMessage()]);
-       }
+        toastr()->error(' حدث خطااثناء الحذف');
+        return redirect()->back();  
+         }
 
     }
     //---------------------------------------------------------//
-    public function deleteAll($request)
+    public function bulkDelete($request)
     {
         //DD($request->delete_all_id);
         $all_ids = explode(',',$request->delete_all_id);
@@ -258,7 +259,8 @@ class ReleaseRepository implements ReleaseInterface{
         //-----------------------------------------------------
             //call trait to handel aut-increament
             $this->refreshTable('releases');
-            return redirect()->route('release.index')->with(['success'=>'تم الحذف بنجاح']);
+            toastr()->success(' تم الحذف بنجاح');
+            return redirect()->route('release.index');
     }
     //---------------------------------------------------------//
     public function yajra_data($request)

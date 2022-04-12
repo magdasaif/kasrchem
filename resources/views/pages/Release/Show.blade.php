@@ -50,6 +50,7 @@
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
                 <table id="datatable" class="table table-hover styled-table">
+              
             <!--#############################################################-->
                     <thead>
                         <tr  style="color: #17899b;" >
@@ -70,7 +71,6 @@
                             <tr>
                             <?php $i++; ?>
                             <td> {{$i}}</td>
-
                             @if(sizeof($release->mainImage())>0)
                             @foreach($release->mainImage() as $xx)
                             <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/releases/release_no_$release->id/{$xx->filename}")?> alt="" ></td>

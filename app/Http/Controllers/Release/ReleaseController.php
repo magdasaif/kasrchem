@@ -39,7 +39,7 @@ class ReleaseController extends Controller
         return $this->data->edit($id);
     }
    //--------------------------------------------
-    public function update(Request $request)
+    public function update(ReleaseRequest $request)
     {
         return $this->data->update($request);
     }
@@ -51,7 +51,7 @@ class ReleaseController extends Controller
     //--------------------------------------------
     public function deleteAll(Request $request)
     {
-        return $this->data->deleteAll($request);
+        return $this->data->bulkDelete($request);
     }
 
 }
