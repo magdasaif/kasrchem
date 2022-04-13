@@ -10,6 +10,7 @@ foreach($childs as $child){
       //product have multiple suppliers (parent&childs)
       //supplier have multiple sections (parent&childs)
       //release have multiple sections (parent&childs)
+    
       
         //to check if you come from add or edit form
         if(isset($multi_selected)){//edit
@@ -47,7 +48,7 @@ foreach($childs as $child){
         @if($child->id!=$main_id)
             <option  style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $child->id }}" <?php echo $select_or_no;?>> <?php echo $extra;?> {{ $child->name_ar }}</option>
             @if(count($child->childs))
-                @include('pages.manageChild',$new)
+            @include('pages.manageChild',$new)
             @endif 
         @endif
      

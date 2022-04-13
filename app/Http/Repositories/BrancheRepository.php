@@ -5,6 +5,7 @@ use App\Http\Interfaces\BrancheInterface;
 use App\Models\Branche;
 use Yajra\DataTables\DataTables;
 use App\Traits\TableAutoIncreamentTrait;
+use toastr;
 class BrancheRepository implements BrancheInterface{
     use TableAutoIncreamentTrait;
     //--------------------------------------------------------//
@@ -52,13 +53,14 @@ class BrancheRepository implements BrancheInterface{
            
             $branche->latitude= $request->latitude;
             $branche->longitude= $request->longitude;
-
             $branche->save();
-            return redirect()->route('branches.index')->with(['success'=>'تمت الاضافه بنجاح']);
+            toastr()->success('تمت الاضافه بنجاح');
+            return redirect()->route('branches.index');
         }
         catch(\Exception $e)
         {
-            return redirect()->back()->withErrors(['error' =>'حدث خطا اثناء الاضافه']);
+            toastr()->error('حدث خطا اثناء الاضافه');
+            return redirect()->back();   
         }
     }
     //--------------------------------------------------------//
@@ -75,7 +77,6 @@ class BrancheRepository implements BrancheInterface{
         try{
             $real_id=decrypt($request->id);
             $branche =Branche::findOrfail($real_id);
-
             $branche->name_ar=$request->name_ar;
             $branche->name_en=$request->name_en;
             $branche->address_ar=$request->address_ar;
@@ -88,21 +89,33 @@ class BrancheRepository implements BrancheInterface{
             $branche->latitude= $request->latitude;
             $branche->longitude= $request->longitude;
             $branche->save();
-            return redirect()->route('branches.index')->with(['success'=>'تم التعديل بنجاح']);
+            toastr()->success('تم التعديل بنجاح');
+            return redirect()->route('branches.index');
         }
         catch(\Exception $e)
-        {
-            return redirect()->back()->withErrors([ 'error' =>'حدث خطا اثناء التعديل']);
+        {   
+             toastr()->error('حدث خطا اثناء التعديل');
+            return redirect()->back();
         }
     }
     //--------------------------------------------------------//
     public function destroy($id)
     {
-        $real_id=decrypt($id);
-        Branche::findOrfail($real_id)->delete();
-          //call trait to handel aut-increament
-          $this->refreshTable('branches');
-        return redirect()->route('branches.index')->with(['success'=>'تم الحذف بنجاح']);
+        try
+        {
+            $real_id=decrypt($id);
+            Branche::findOrfail($real_id)->delete();
+            //call trait to handel aut-increament
+            $this->refreshTable('branches');
+            toastr()->success('تم الحذف بنجاح');
+            return redirect()->route('branches.index');
+       }
+        catch
+        (\Exception $e)
+        {
+            toastr()->error('حدث خطا اثناء الحذف');
+            return redirect()->back();
+        }
     }
     //--------------------------------------------------------//
     public function bulkDelete($request)
@@ -112,7 +125,8 @@ class BrancheRepository implements BrancheInterface{
          Branche::whereIn('id',$all_ids)->delete();
        //call trait to handel aut-increament
          $this->refreshTable('branches');
-          return redirect()->route('branches.index')->with(['success'=>'تم الحذف بنجاح']);
+         toastr()->success('تم الحذف بنجاح');
+         return redirect()->route('branches.index');
     }
     //--------------------------------------------------------//
 }
