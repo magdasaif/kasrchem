@@ -31,7 +31,8 @@ class BranchRequest extends FormRequest
        //'fax' => 'nullable|min:11|numeric',
        'fax' => 'nullable|regex:/(0)[0-9]{9}/|min:10|max:14',
         'longitude' => 'required',
-        'latitude' => 'required',         
+        'latitude' => 'required',  
+               
         ];
     }
     public function messages()
