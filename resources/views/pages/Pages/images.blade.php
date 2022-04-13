@@ -37,7 +37,7 @@
  <!--#############################################################-->
  <div class="modal-body">
             
-            <form method="POST" action="{{url('add_page_images',$page_id)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{url('add_page_images',encrypt($page_id))}}" enctype="multipart/form-data">
 
                 {{method_field('POST')}}
                 @csrf
@@ -53,7 +53,7 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
 
-                    <input type="hidden" value="{{$page_id}}" name="page_id">
+                    <input type="hidden" value="{{encrypt($page_id)}}" name="page_id">
                 </div>
                 <center> <button type="submit" class="btn btn-primary">حفظ الصور</button></center>
                 <br>
@@ -63,7 +63,7 @@
             <div class="row">
             @foreach($Pages_images as $image)
                  <div class="col">
-                    <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/pages/page_no_$page_id/$image->image")?>">
+                    <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/pages/page_no_$page_id/$image->filename")?>">
                     <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$image->id}}" style="margin-right: 55px;"> حذف</button>
 
                 </div>
@@ -77,7 +77,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{url('delete_page_images/'.$image->id)}}"  method="POST">
+                                <form action="{{url('delete_page_images/'.encrypt($image->id))}}"  method="POST">
                                 @method('GET')
                                 {{csrf_field()}}
                                     <div class="modal-body">
@@ -88,8 +88,8 @@
                                     </div>
                                     <div class="modal-footer">
 
-                                        <input type="hidden" name="page_id" value="{{$page_id}}">
-                                        <input type="hidden" name="image_name" value="{{$image->image}}">
+                                        <input type="hidden" name="page_id" value="{{encrypt($page_id)}}">
+                                        <input type="hidden" name="image_name" value="{{$image->filename}}">
                                         <input type="hidden" name="image_id" value="{{$image->id}}">
 
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>

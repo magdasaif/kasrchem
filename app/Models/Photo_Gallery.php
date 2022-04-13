@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Photo_Gallery extends Model
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Photo_Gallery extends Model implements HasMedia
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory,SoftDeletes,InteractsWithMedia;
     protected $dates = ['deleted_at'];
     protected $guarded=[];
     // public $fillable = ['main_cate_id','sub1_id','sub2_id','sub3_id','title_ar','title_en','image','status'];
@@ -24,6 +28,28 @@ class Photo_Gallery extends Model
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function scopeMainImages()
+    {
+        return $this->images->where('image_or_file','1')->where('main_or_sub','1');
+    }
+    
+    public function scopeSubImages()
+    {
+        return $this->images->where('image_or_file','1')->where('main_or_sub','2');
+    }
+    
+    //this for image optimization package 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+                ->width(200)
+                ->height(120);
+
+        $this->addMediaConversion('logo')
+                ->width(90)
+                ->height(90);
     }
     
 }

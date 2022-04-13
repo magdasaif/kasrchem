@@ -11,7 +11,7 @@
   
 
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
- 
+  @toastr_css
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -59,6 +59,8 @@
   {{-- Main Footer --}}
   @include('layouts.footer')
 
+  @toastr_js
+@toastr_render
   <script>
 // form repeater Initialization
 $('.repeater-default').repeater({

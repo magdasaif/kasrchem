@@ -13,12 +13,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+
 class Product extends Model implements HasMedia
 {
-    use HasFactory;
-    use SoftDeletes;
-
-    use InteractsWithMedia;
+    use HasFactory,SoftDeletes,InteractsWithMedia;
     
     protected $dates = ['deleted_at'];
 

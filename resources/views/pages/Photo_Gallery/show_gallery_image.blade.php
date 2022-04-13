@@ -1,28 +1,17 @@
 @extends('layouts.master')
 @section('title')
-<title> لوحة التحكم :اضافةصور لمعرض</title>
+<title> لوحة التحكم :{{$title}}</title>
 @endsection
 @section('content')
 <template>
 <section class="content">
     <div class="container-fluid">
         <div class="">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-               <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                  </div>
-            @endif
           <div class="col-12">
-        
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">  اضافه صور المعرض</h3>
+                <h3 class="card-title">  {{$title}}</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('photo_gallery.index')}}" class="aa"> <li class="fa fa-camera" ><span> قائمه المعارض </span></li></a>
@@ -33,7 +22,7 @@
           <div class="modal-body">
             
                  <!--------------------form_add_gallery----------------------------------->
-            <form method="POST" action="{{url('add_gallery_images',$id)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{url('add_gallery_images',encrypt($id))}}" enctype="multipart/form-data">
 
                 {{method_field('POST')}}
                 @csrf
@@ -41,10 +30,9 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صور المعرض</label>
+                    <input type="file" class="form-control" name="photos[]" accept="image/*" multiple required>
 
-                    <input type="file" class="form-control" name="image[]" accept="image/*" multiple required>
-
-                    @error('image')
+                    @error('photos')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
 
@@ -58,7 +46,7 @@
             <div class="row">
             @foreach($Gallery_Photo as $xx)
             <div class="col">
-                  <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/photo_gallery/gallery_photo_images_no_$id/{$xx->image}")?>">
+                  <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/photo_gallery/gallery_photo_images_no_$id/{$xx->filename}")?>">
                   <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$xx->id}}" style="margin-right: 55px;" > حذف</button> 
                 </div>
                 
@@ -73,7 +61,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{url('delete_gallery_images/'.$xx->id)}}"  method="POST">
+                                <form action="{{url('delete_gallery_images/'.encrypt($xx->id))}}"  method="POST">
                                 @method('GET')
                                 {{csrf_field()}}
                                     <div class="modal-body">
@@ -82,7 +70,7 @@
                                              </h3>
 
                                     </div>
-                                    <input type="hidden" name="deleted_image" value="{{$xx->image}}">
+                                    <input type="hidden" name="deleted_image" value="{{$xx->filename}}">
                                     <input type="hidden" value="{{$id}}" name="gallery_id">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>

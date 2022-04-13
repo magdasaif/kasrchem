@@ -36,7 +36,27 @@
       </li>
 <!----------------------------products---------------------------------------------->
      
-
+    <!------------------------------اقسام الموقع-------------------------------------------->
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa fa-sitemap green"></i>
+          <p  class="ttitle">اقسام الموقع</p> <i class="left fas fa-angle-right" style="margin-right: 33%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('site_section.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p  class="ttitle"> اضافه قسم </p>
+              </a>
+          </li>
+          <li>
+              <a href="{{route('site_section.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-sitemap orange"></i>
+                  <p>قائمه الاقسام </p>
+              </a>
+          </li>
+         </ul>
+      </li>
 
       <!----------------------------products new---------------------------------------------->
       <li class="nav-item has-treeview">

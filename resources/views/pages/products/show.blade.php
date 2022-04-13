@@ -71,7 +71,7 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$product->name_ar}}</td>
-                            <!-- <td><img src="{{$product->getFirstMediaUrl('media','thumb')}}"></td> -->
+                            <!-- <td><img src="{{$product->getFirstMediaUrl('product')}}"></td> -->
 
                             @if(sizeof($product->mainImages())>0)
                               @foreach($product->mainImages() as $main) 
@@ -129,7 +129,7 @@
                               </div>
                               <!--#############################################################-->
                               </td>
-                              <td><input type="checkbox" value="{{$product->id}}" class="box1" onclick="javascript:check();"></td>
+                              <td><input type="checkbox" name="row_checkbox" value="{{$product->id}}" class="box1" onclick="javascript:check();"></td>
 
                         </tr>
 

@@ -1,234 +1,69 @@
 <?php
 
 namespace App\Http\Controllers\Photo_Gallery;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Interfaces\GalleryInterface;
 use App\Http\Requests\Photo_Gallery_Request;
-use App\Models\Photo_Gallery;
-
-use App\Models\Sitesection;
-use App\Models\Main_Category;
-use App\Models\Sub_Category2;
-use App\Models\Sub_Category3;
-use App\Models\Sub_Category4;
-
-use App\Models\Gallery_Photo_Image;
-use App\Models\Section_All_Page;
 
 class Photo_GalleryController extends Controller
 {
+
+    protected $xx;
+    public function __construct(GalleryInterface $y) {
+        $this->xx = $y;
+    }
     
     public function index()
     {
-        $Photo_Gal=Photo_Gallery::orderBy('id','desc')->get();
-        return view('pages.Photo_Gallery.Show',compact('Photo_Gal'));
+        return $this->xx->index();
     }
-//-------------------------------------------------------------//
     public function create()
     {
-        $sections  = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
-          //+++++++++++++++++++++++++++++++++++++++++++++//
-        return view('pages.Photo_Gallery.add',compact('sections'));
+        return $this->xx->create();
     }
-//-------------------------------------------------------------//
+    
     public function store(Photo_Gallery_Request $request)
     {
-         //dd($request->all());
-         try{
-            $validated = $request->validated();
-
-             //call trait to handel aut-increament
-             $this->refreshTable('gallery_photo_images');
-             $this->refreshTable('photo_gallerys');
-
-             
-             $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
-              if($request->image)
-              {
-                 $folder_name='';
-                //  $photo_name= ($request->image)->getClientOriginalName();
-                $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
-                  ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
-                  
-              }
-             
-              //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
-            //---"!$request"=> علشان لو ظاهر جزء اضف تصنيف يحفظ بالقيمة 1 كانه مختارش حاجة++++++++++//
-            $photo_gallery = new Photo_Gallery();       
-
-             $photo_gallery->site_id= 1;
-             $photo_gallery->main_cate_id=1;
-             $photo_gallery->sub1_id= 1;
-             $photo_gallery->sub2_id=1;
-             $photo_gallery->sub3_id=1;
-           
-            $photo_gallery->title_ar=$request->title_ar;
-            $photo_gallery->title_en=$request->title_en;
-            $photo_gallery->status=$request->status;
-            $photo_gallery->image=$photo_name;
-           
-        //++++++++++++++++++++++++++++++++++++++++++//
-           $photo_gallery->save();
-           $photo_gallery->rel_section()->attach($request->site_id,['type' => 'photos']);
-
-               return redirect()->route('photo_gallery.index')->with(['success'=>'تمت الاضافه بنجاح']);
-           }
-           catch(\Exception $e){
-               return redirect()->back()->with(['error'=>$e->getMessage()]);
-           }
+        return  $this->xx->store($request);
     }
-//-------------------------------------------------------------//
+
     public function edit($id)
     {
-       
-        $photo_gallery = Photo_Gallery::findOrfail($id);
-        if(!$photo_gallery) return redirect()->back();
-
-        $sections = Sitesection::where('visible', '!=' , 0)->where('parent_id', '=', Null)->get();
-
-     return view('pages.Photo_Gallery.edit',compact('sections','photo_gallery'));
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-
-}
-//-------------------------------------------------------------//
-    public function update(Photo_Gallery_Request $request, $id)
-    {
-     // dd( $request->all());
-      try {
-
-        $validated = $request->validated();
-        $Photo_Gallery = Photo_Gallery::findOrFail($id);
-   
-   //++++++++++++++++++++++++++++++++++++++++++//   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//            
-             $Photo_Gallery->site_id= 1;
-             $Photo_Gallery->main_cate_id=1;
-             $Photo_Gallery->sub1_id= 1;
-             $Photo_Gallery->sub2_id=1;
-             $Photo_Gallery->sub3_id=1;
-            
-            $Photo_Gallery->title_ar=$request->title_ar;
-            $Photo_Gallery->title_en=$request->title_en;
-            $Photo_Gallery->status=$request->status;
-         
-           
-        //++++++++++++++++++++++++++++++++++++++++++//
-        if($request->image)
-        {
-            // $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',]);
-            $folder_name='';
-            // $photo_name= ($request->image)->getClientOriginalName();
-            $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
-            ($request->image)->storeAs($folder_name,$photo_name,$disk="photo_gallery");
-            
-            $Photo_Gallery->image = $photo_name;
-        }
-      
-        $Photo_Gallery->save();
-        // $Photo_Gallery->rel_section()->sync($request->site_id,['type' => 'photos']);
-        
-        $Photo_Gallery->rel_section()->syncWithPivotValues($request->site_id, ['type' => 'photos']);
-
-        return redirect()->route('photo_gallery.index')->with(['success'=>'تم التعديل بنجاح']);
-        }
-        catch
-        (\Exception $e) 
-        {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
+        return  $this->xx->edit($id);
     }
-//-------------------------------------------------------------//
-     public function destroy(Request $request ,$id)
-    {
-        if(file_exists(storage_path().'/app/public/photo_gallery/'.$request->deleted_image)){
-            unlink(storage_path().'/app/public/photo_gallery/'.$request->deleted_image);
-        }
-           
-         try 
-         {
-            Section_All_Page::where('type_id',$id)->where('type','photos')->delete();
-            Photo_Gallery::find($id)->delete();
 
-            //call trait to handel aut-increament
-            $this->refreshTable('gallery_photo_images');
-            $this->refreshTable('photo_gallerys');
-     
-            return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
-         }
-        catch
-        (\Exception $e)
-        {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
-    }
-    //--------------------------------------------------------------------------
-    public function show_gallery($id)
+    public function update(Photo_Gallery_Request $request)
     {
-        //dd($id);
-     $Gallery_Photo= Gallery_Photo_Image::where('gallery_id',$id)->get();
-     return view('pages.Photo_Gallery.show_gallery_image',compact('Gallery_Photo','id'));
+        return  $this->xx->update($request);
     }
-    //--------------------------------------------------------------------------
-    public function add_gallery_images(Request $request,$id)
-    {
-        try{
-            // dd($request->image);
-             if(!empty($request->image)){
-                 foreach($request->image as $imagee){
-                   //  dd($photo);
-                  $folder_namee='gallery_photo_images_no_'. $id;
-                     //$photo_namee= ($imagee)->getClientOriginalName();
-                     $photo_namee= str_replace(' ', '_',($imagee)->getClientOriginalName());
-                    // dd($photo_namee);
-                     ($imagee)->storeAs($folder_namee,$photo_namee,$disk="photo_gallery");
-                        Gallery_Photo_Image::create([
-                         'gallery_id'=>$id,
-                         'image'=>$photo_namee,
-                         
-                     ]);
-                   
-                   
-                 }
-             }
- 
-             return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
-         }catch(\Exception $e){
-             return redirect()->back()->with(['error'=>$e->getMessage()]);
-         }
-    }
- //--------------------------------------------------------------------------
-    public function delete_gallery_images(Request $request ,$id){
 
-        if(file_exists(storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$id.'/'.$request->deleted_image)){
-            unlink(storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$id.'/'.$request->deleted_image);
-           }
+    public function show_gallery($id){
+        return  $this->xx->show_gallery($id);
+    }
     
-        Gallery_Photo_Image::findOrfail($id)->delete();
-
-        //call trait to handel aut-increament
-        $this->refreshTable('gallery_photo_images');
-     
-        return redirect()->back()->with(['success'=>'تم الحذف']);
+    public function add_gallery_images(Request $request,$id){
+        return  $this->xx->add_gallery_images($request,$id);
     }
-//--------------------------------------------------------------------------
 
-    public function deleteAll(Request $request)
+    public function delete_gallery_images(Request $request,$id){
+        return  $this->xx->delete_gallery_images($request,$id);
+    }
+    
+    public function destroy($id)
     {
-    $all_ids = explode(',',$request->delete_all_id);
-    // dd($all_ids);
-    foreach($all_ids as $id){
-        if($id=='on'){}else{
-         Section_All_Page::where('type_id',$id)->where('type','photos')->delete();
-         Photo_Gallery::find($id)->delete();
-        }
+      return  $this->xx->destroy($id);
     }
-     //call trait to handel aut-increament
-     $this->refreshTable('gallery_photo_images');
-     $this->refreshTable('photo_gallerys');
-     
-    // Photo_Gallery::whereIn('id',$all_ids)->delete();
-            
-    return redirect()->route('photo_gallery.index')->with(['success'=>'تم الحذف بنجاح']);
+
+    public function deleteAll(Request $request){
+        return $this->xx->bulkDelete($request);
+   }
+
+  public function yajra_data(Request $request)
+    {
+        //dd('ffff');
+        return $this->xx->yajra_data($request);
+       
     }
 
 }

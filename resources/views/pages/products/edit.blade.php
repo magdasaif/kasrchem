@@ -75,7 +75,6 @@
                                 'color'=>'#209c41',
                                 'size'=>$size-1,
                                 'multi_selected'=>$selected_sections,
-                                'type'=>$type,
                                 'number'=>$number
                             ];
                         ?>
