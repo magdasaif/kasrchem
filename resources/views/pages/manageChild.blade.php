@@ -22,7 +22,12 @@ foreach($childs as $child){
             $select_or_no='';
         }
     
-        if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
+       // if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
+       
+       //دى علشان اهندل انه ميظهرش الداتا او القسم بتاع القسم اللى هعدله
+       //ميظهرش اسم القسم الفرعى الخاصيين بالقسم اللى بعدل عليه
+       //ده مش هنستخدمه الا فى صفحه القسم والمورد لانهم مشتركين فى نفس الجدول
+       
         if(isset($main_id)){$main_id=$main_id;}else{$main_id=0;}
         if(isset($margin)){$margin=$margin;}else{$margin=0;}
 
