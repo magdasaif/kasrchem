@@ -9,18 +9,7 @@
         <div class="">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                {{Session::get('error')}}
-                </div>
-            @endif
-          
+        @include('layouts.messages')
             
             <div class="card">
               <div class="card-header">
@@ -54,11 +43,13 @@
                     <tbody>
                         <?php $i=1;?>
                         @foreach($partners as $partner)
-                        <?php $i++;?>
+                        <?php $i++;
+                        if(isset($partner->image->filename)){$img=$partner->image->filename;}else{$img='';}
+                        ?>
                         <tr>
                             <td>{{$i}}</td>
                                                         
-                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/".$partner->filename)?>"></td>
+                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/$img")?>"></td>
 
                             <td>{{$partner->name_ar}}</td>
                             <td><?php if($partner->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>

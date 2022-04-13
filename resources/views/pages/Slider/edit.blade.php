@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم :تعديل الصور المتحركة/title>
+<title>لوحة التحكم :{{$title}}/title>
  @endsection
 @section('content')
 <template>
@@ -8,26 +8,12 @@
     <div class="container-fluid">
         <div class="row">
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        @include('layouts.messages')
          
         
             <div class="card">
               <div class="card-header"  >
-                <h3 class="card-title">تعديل صورة</h3>
+                <h3 class="card-title">{{$title}}</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-sm bbtn" >
                         <a href="{{route('slider.index')}}" class="aa"> <li class="fas fa-image" ><span>   قائمة الصور </span></li></a>
@@ -36,23 +22,32 @@
               </div>
  <!--#############################################################-->
  <div class="modal-body" >
-   <form method="POST"  action="{{route('slider.update',$Slider->id)}}" enctype="multipart/form-data">
+   <form method="POST"  action="{{route('slider.update',encrypt($Slider->id))}}" enctype="multipart/form-data">
                 {{method_field('PATCH ')}}
 
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
-                    <label for="priority">الأولوية</label>
-                    <input type="text" class="form-control" id="priority" aria-describedby="priority" placeholder="Enter priority" name="priority"  value="{{ $Slider->priority}}" required>
-                    @error('priority')
+                    <label for="sort">الترتيب</label>
+                    <input type="number" class="form-control" id="sort" aria-describedby="sort" placeholder="Enter sort" name="sort"  value="{{ $Slider->sort}}" required>
+                    @error('sort')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="image">الصورة</label>
-                   <center> <img id="previewImg" style="width:30%;" src="<?php echo asset("storage/slider/{$Slider->image}")?>" class="uploaded-img"></center>
+
+                    @if(isset($Slider->image->filename))
+                        <center><img id="previewImg" width="30%" src="<?php echo asset("storage/slider/".$Slider->image->filename)?>" class="uploaded-img"> </center>
+                        <input type="hidden" name="deleted_image" value="{{$Slider->image->filename}}">
+                        <input type="hidden" name="image_id" value="{{$Slider->image->id}}">
+                    @else
+                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                        <input type="hidden" name="deleted_image"/>
+                    @endif
+                    
                    <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
@@ -61,7 +56,7 @@
                     </svg>
                     تعديل الصورة
                     </button></center>
-                   <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" >
+                   <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;"  onchange="readURL(this);">
                    <center><span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span></center>
                    @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -77,7 +72,7 @@
                             <option value="0" <?php if($Slider->status==0){echo'selected';}?> >غير مُفعل</option>
                     </select>
                 </div>
-                <input type="hidden" name="id" value="{{$Slider->id}}">
+                <input type="hidden" name="id" value="{{encrypt($Slider->id)}}">
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" >تعديل</button>
                 </div>
@@ -97,4 +92,6 @@
 
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
+
 @endsection

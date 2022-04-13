@@ -7,19 +7,9 @@
 <section class="content">
     <div class="container-fluid">
         <div class="">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-               <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                  </div>
-            @endif
+           
           <div class="col-12">
-        
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>

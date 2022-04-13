@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Slider extends Model
+
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+class Slider extends Model implements HasMedia
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory,SoftDeletes,InteractsWithMedia;
+    
     protected $dates = ['deleted_at'];
     protected $guarded=[];
     
@@ -20,4 +25,16 @@ class Slider extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+     //this for image optimization package 
+     public function registerMediaConversions(Media $media = null): void
+     {
+         $this->addMediaConversion('thumb')
+                 ->width(200)
+                 ->height(120);
+ 
+         $this->addMediaConversion('logo')
+                 ->width(90)
+                 ->height(90);
+     }
 }

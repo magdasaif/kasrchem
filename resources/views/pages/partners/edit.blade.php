@@ -9,21 +9,7 @@
         <div class="row">
           
           <div class="col-12">
-          @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> {{$title}}</h3>
@@ -66,7 +52,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
 
-                    @if($partner->image->filename)
+                    @if(isset($partner->image->filename))
                         <center><img id="previewImg" width="30%" src="<?php echo asset("storage/partners/".$partner->image->filename)?>" class="uploaded-img"> </center>
                         <input type="hidden" name="deleted_image" value="{{$partner->image->filename}}">
                         <input type="hidden" name="image_id" value="{{$partner->image->id}}">

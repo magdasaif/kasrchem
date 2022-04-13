@@ -8,20 +8,7 @@
     <div class="container-fluid">
         <div class="row">    
           <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+          @include('layouts.messages')
        
         
             <div class="card">
@@ -41,21 +28,30 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                 <div class="form-group">
-                    <label for="priority">الأولوية</label>
-                    <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="ادخل الأولوية" name="priority"  value="{{ old('priority') }}" required  oninvalid="this.setCustomValidity('قم بادخال الاولوية')"  oninput="this.setCustomValidity('')">
-                    @error('priority')
+                    <label for="sort">الترتيب</label>
+                    <input type="number" class="form-control" id="sort" aria-describedby="sort" placeholder="ادخل الترتيب" name="sort"  value="{{ old('sort') }}" required  oninvalid="this.setCustomValidity('قم بادخال الترتيب')"  oninput="this.setCustomValidity('')">
+                    @error('sort')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="image">صوره</label>
-                    <input type="file" class="form-control" name="image"  accept="image/*" required  oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
-                    <!-- <span style="color:red">dimensions [width must be between (850 and 1200)  , height must be between (315 and 600)]</span> -->
-                    <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
-                    @error('image')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+                <div class="row">
+
+                    <div class="col-lg-12">
+                    <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label> صوره <span style="color:rgb(199, 8, 8)">*</span></label>
+                            <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
+                            <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
+                        </div>
+                        @error('image')
+                            <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+
                 </div>
 
 
@@ -81,4 +77,6 @@
     </div>
 </section>
 </template>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection
+

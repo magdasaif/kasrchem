@@ -149,8 +149,8 @@ class PartnerRepository implements PartnerInterface{
             return redirect()->route('partner.index')->with(['success'=>'تم التعديل بنجاح']);
         }catch(\Exception $e){
             DB::rollback();
-            toastr()->error('حدث خطا اثناء الاضافه');
-            return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء الاضافه']);
+            toastr()->error('حدث خطا اثناء التعديل');
+            return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء التعديل']);
         }
     }
     //-------------------------------------------------------

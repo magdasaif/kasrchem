@@ -1,132 +1,76 @@
 <?php
 
 namespace App\Http\Controllers\Slider;
-use App\Http\Controllers\Controller;
 use App\Models\Slider;
-use App\Http\Requests\SliderRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SliderRequest;
 
+use App\Http\Interfaces\SliderInterface;
 use App\Traits\TableAutoIncreamentTrait;
+
 class SliderController extends Controller
 {
-    use TableAutoIncreamentTrait;
+    protected $xx;
+    public function __construct(SliderInterface $y) {
+        $this->xx = $y;
+    }
     
-     public function index()
+    public function index()
     {
-        $Slider=Slider::orderBy('priority','asc')->get();
-        return view('pages.Slider.Show',compact('Slider'));
+        return $this->xx->index();
     }
-//-----------------------------------------
-  public function create()
+    public function create()
     {
-        return view('pages.Slider.add');
+        return $this->xx->create();
     }
-//--------------------------------------------
+    
     public function store(SliderRequest $request)
     {
-      
-    try{
-            $validated = $request->validated();
-
-            //call trait to handel aut-increament
-            $this->refreshTable('sliders');
-     
-            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315','image requires']);
-           if($request->image)
-           {
-              $folder_name='';
-            //   $photo_name= ($request->image)->getClientOriginalName();
-              $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
-               ($request->image)->storeAs($folder_name,$photo_name,$disk="slider");
-               
-           }
-          $Slider = new Slider
-           ([
-            
-            'priority' => $request-> priority,
-            'status' =>  $request->status,
-            'image' =>$photo_name,
-           ]);
-        $Slider->save();
-
-            return redirect()->route('slider.index')->with(['success'=>'تمت الاضافه بنجاح']);
-        }catch(\Exception $e){
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }
+        return  $this->xx->store($request);
     }
 
-//--------------------------------------------
     public function edit($id)
     {
-        $Slider = Slider::findOrfail($id);
-        if(!$Slider)
-             return redirect()->back();
-            return view('pages.Slider.edit',compact('Slider'));
+        return  $this->xx->edit($id);
     }
-//--------------------------------------------
-  public function update(SliderRequest $request)
+
+    public function update(SliderRequest $request)
     {
-       // dd( $request->all());
-        try {
+        return  $this->xx->update($request);
+    }
 
-            $validated = $request->validated();
-            $Slider = Slider::findOrFail($request->id);
-            $Slider->priority = $request->priority;
-            $Slider->status = $request->status;
+    
+    public function destroy($id)
+    {
+      //  dd($id);
+      return  $this->xx->destroy($id);
+    }
 
-            if($request->image)
-            {
-            $request->validate(['image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315',]);
-            $folder_name='';
-            // $photo_name= ($request->image)->getClientOriginalName();
-            $photo_name= str_replace(' ', '_',($request->image)->getClientOriginalName());
-            ($request->image)->storeAs($folder_name,$photo_name,$disk="slider");
-            
-            $Slider->image = $photo_name;
-            }
+    public function deleteAll(Request $request){
+        return $this->xx->bulkDelete($request);
+   }
+
+  public function yajra_data(Request $request)
+    {
+        //dd('ffff');
+        return $this->xx->yajra_data($request);
+       
+    }
+    
   
-         ///------------------------------
-          $Slider->save();
-      return redirect()->route('slider.index')->with(['success'=>'تم التعديل بنجاح']);
-    }
-    catch
-    (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-    }
-  
-    }
 
-//--------------------------------------------
-  public function destroy(Request $request ,$id)
-    {
-       // dd($id);
-       $image_path=storage_path().'/app/public/slider/'.$request->deleted_image;
-       unlink($image_path);
-         try 
-         {
-         $Slider=Slider::find($id);  
-         $Slider->delete();
+// //--------------------------------------------
 
-          //call trait to handel aut-increament
-          $this->refreshTable('sliders');
-          
-         return redirect()->route('slider.index')->with(['success'=>'تم الحذف بنجاح']);
-        }
-        catch
-        (\Exception $e)
-        {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
-    }
-    public function deleteAll(Request $request)
-    {
-      $all_ids = explode(',',$request->delete_all_id);
-     // dd($all_ids);
-     Slider::whereIn('id',$all_ids)->delete();
+//     public function deleteAll(Request $request)
+//     {
+//       $all_ids = explode(',',$request->delete_all_id);
+//      // dd($all_ids);
+//      Slider::whereIn('id',$all_ids)->delete();
 
-     //call trait to handel aut-increament
-     $this->refreshTable('sliders');
+//      //call trait to handel aut-increament
+//      $this->refreshTable('sliders');
      
-     return redirect()->route('slider.index')->with(['success'=>'تم الحذف بنجاح']);
-    }
+//      return redirect()->route('slider.index')->with(['success'=>'تم الحذف بنجاح']);
+//     }
 }

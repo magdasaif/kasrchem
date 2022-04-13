@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم :الصور المتحركة</title>
+<title>لوحة التحكم :{{$title}}</title>
  @endsection
 @section('content')
 <template>
@@ -9,22 +9,12 @@
         <div class="">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                {{Session::get('error')}}
-                </div>
-            @endif
+        @include('layouts.messages')
 
         
             <div class="card">
               <div class="card-header" >
-                <h3 class="card-title" > الصور المتحركة</h3>
+                <h3 class="card-title" > {{$title}}</h3>
                 <div class="card-tools">
                  <!-- livewire add form-->
                     <button type="button" class="btn btn-sm bbtn" >
@@ -42,7 +32,7 @@
                         <tr >
                          <th>#</th>
                          <th>الصورة</th>
-                        <th>الأولوية</th>
+                        <th>الترتيب</th>
                         <th>الحالة</th>
                         <th>الاجراءات</th>
                         <th ><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
@@ -57,12 +47,12 @@
                                 
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/slider/{$slider->image}")?> alt="" ></td>
-                            <td>{{$slider->priority}}</td>
+                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/slider/{$slider->image->filename}")?> alt="" ></td>
+                            <td>{{$slider->sort}}</td>
 							<td style="font-weight: bold;font-size: 17px;"><?php if($slider->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                              
 							<td style="font-weight: bold;font-size: 17px;">
-							<a href="{{route('slider.edit',$slider->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+							<a href="{{route('slider.edit',encrypt($slider->id))}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                            
                              / &nbsp;
                                 <a  title="حذف" data-catid="{{$slider->id}}" data-toggle="modal" data-target="#delete{{$slider->id}}"> <i class="fa fa-trash red del"></i></a> 
@@ -75,15 +65,15 @@
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form class="delete" action="{{route('slider.destroy',$slider->id)}}" method="POST">
+                                <form class="delete" action="{{route('slider.destroy',encrypt($slider->id))}}" method="POST">
                                    
                                     <div class="modal-body">
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
-                                             <img  style="width: 90px;" src=<?php echo asset("storage/slider/{$slider->image}")?> alt="" >
+                                             <img  style="width: 90px;" src=<?php echo asset("storage/slider/{$slider->filename}")?> alt="" >
                                     </div>
-                                    <input type="hidden" name="deleted_image" value="{{$slider->image}}">
+                                    <input type="hidden" name="deleted_image" value="{{$slider->filename}}">
                                     <div class="modal-footer">
                                    
                                     <input type="hidden" name="_method" value="DELETE">
@@ -97,7 +87,7 @@
                             </div>
             <!--#############################################################-->
                         </td>
-                        <td ><input type="checkbox" value="{{$slider->id}}" class="box1" onclick="javascript:check();"></td>
+                        <td ><input type="checkbox" name="row_checkbox" value="{{$slider->id}}" class="box1" onclick="javascript:check();"></td>
 
                             </tr>
                        
