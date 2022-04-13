@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم :المعارض</title>
+<title>لوحة التحكم :{{$title}}</title>
  @endsection
 @section('content')
 <template>
@@ -9,23 +9,13 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
+        @include('layouts.messages')
             
 
         
             <div class="card">
               <div class="card-header" >
-              <h3 class="card-title"> المعارض</h3>
+              <h3 class="card-title"> {{$title}}</h3>
 
                 <div class="card-tools">
 
@@ -46,6 +36,7 @@
                         <th>#</th>
                         <th>الصورة</th>
                         <th>الاسم</th>
+                        <th>الترتيب</th>
                         <th>الحالة</th>
                         <th>الاجراءات</th>
                         <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
@@ -58,13 +49,20 @@
                             <tr>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$Photo_Gallery->image}")?> alt="" ></td>
-                            <td>{{$Photo_Gallery->title_ar}}</td>
+                            @if(sizeof($Photo_Gallery->mainImages())>0)
+                              @foreach($Photo_Gallery->mainImages() as $main) 
+                                  <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/photo_gallery/gallery_photo_images_no_".$Photo_Gallery->id."/".$main->filename)?>"></td>
+                              @endforeach
+                            @else
+                            <td></td>
+                            @endif
+                            <td>{{$Photo_Gallery->name_ar}}</td>
+                            <td>{{$Photo_Gallery->sort}}</td>
                             <td><?php if($Photo_Gallery->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                             <td style="font-weight: bold;font-size: 17px;"> 
-                             <a href="{{route('photo_gallery.edit',$Photo_Gallery->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+                             <a href="{{route('photo_gallery.edit',encrypt($Photo_Gallery->id))}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                              /
-                             <a href="{{ url('show_gallery_images/'.$Photo_Gallery->id) }}"  title="الصور"><i class="fa fa-camera yellow"></i></a>
+                             <a href="{{ url('show_gallery_images/'.encrypt($Photo_Gallery->id)) }}"  title="الصور"><i class="fa fa-camera yellow"></i></a>
 
                               /
                               <a  title="حذف" data-catid="{{$Photo_Gallery->id}}" data-toggle="modal" data-target="#delete{{$Photo_Gallery->id}}"> <i class="fa fa-trash red"></i></a>
@@ -77,7 +75,7 @@
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('photo_gallery.destroy',$Photo_Gallery->id)}}"  method="post">
+                                <form action="{{route('photo_gallery.destroy',encrypt($Photo_Gallery->id))}}"  method="post">
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">
@@ -85,9 +83,9 @@
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                             <input type="hidden" name="galary_id" id="$Photo_Gallery->id" value="{{$Photo_Gallery->id}}">
-                                            <img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$Photo_Gallery->image}")?> alt="" >
+                                            <img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$main->filename}")?> alt="" >
                                     </div>
-                                    <input type="hidden" name="deleted_image" value="{{$Photo_Gallery->image}}">
+                                    <input type="hidden" name="deleted_image" value="{{$main->filename}}">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <input type="submit" value="حذف"  class="btn btn-primary">
@@ -98,7 +96,7 @@
                             </div>
             <!--#############################################################-->
                         </td>
-                        <td><input type="checkbox" value="{{$Photo_Gallery->id}}" class="box1" onclick="javascript:check();"></td>
+                        <td><input type="checkbox" name="row_checkbox"  value="{{$Photo_Gallery->id}}" class="box1" onclick="javascript:check();"></td>
 
                             </tr>
                         

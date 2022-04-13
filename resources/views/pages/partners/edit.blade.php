@@ -36,7 +36,7 @@
  <!--#############################################################-->
  <div class="modal-body">
             
-            <form method="POST" action="{{route('partner.update',$partner->id)}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('partner.update',encrypt($partner->id))}}" enctype="multipart/form-data">
             {{method_field('PATCH ')}}
                 @csrf
 
@@ -65,7 +65,16 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
-                    <center><img id="previewImg" width="30%" src="<?php echo asset("storage/partners/$partner->image")?>" class="uploaded-img"> </center>
+
+                    @if($partner->image->filename)
+                        <center><img id="previewImg" width="30%" src="<?php echo asset("storage/partners/".$partner->image->filename)?>" class="uploaded-img"> </center>
+                        <input type="hidden" name="deleted_image" value="{{$partner->image->filename}}">
+                        <input type="hidden" name="image_id" value="{{$partner->image->id}}">
+                    @else
+                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                        <input type="hidden" name="deleted_image"/>
+                    @endif
+
                     <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
@@ -74,7 +83,7 @@
                     </svg>
                     تعديل الصورة
                     </button></center>
-                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" >
+                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" onchange="readURL(this);">
 
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
@@ -88,7 +97,14 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الترتيب </label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="{{$partner->sort}}">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
                 <div class="form-group">
                 <label for="image">الحالة</label>   
                     <select class="form-control" name="status">
@@ -96,7 +112,7 @@
                             <option value="0"<?php if($partner->status==0){echo'selected';}?>>غير مُفعل</option>
                     </select>
                 </div>
-                <input type="hidden" name="id" value="{{$partner->id}}">
+                <input type="hidden" name="id" value="{{encrypt($partner->id)}}">
                 <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
@@ -117,4 +133,5 @@
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
 
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection

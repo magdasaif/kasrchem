@@ -42,22 +42,22 @@
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
             <!----------------------------------------------------->
                  <div class="form-group">
-                    <label for="title_ar">اسم الصفحة  </label>
-                    <input type="text" class="form-control"  aria-describedby="title_ar" placeholder="ادخل اسم الصفحة" name="title_ar"  value="{{ old('title_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الصفحة باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <label for="name_ar">اسم الصفحة  </label>
+                    <input type="text" class="form-control"  aria-describedby="name_ar" placeholder="ادخل اسم الصفحة" name="name_ar"  value="{{ old('name_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم الصفحة باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
 
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم الصفحة باللغة العربية وايضا لا يكون ارقام فقط</span>
 
-                    @error('title_ar')
+                    @error('name_ar')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
                 </div>
             <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="title_en">اسم الصفحة بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="title_en" value="{{ old('title_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <label for="name_en">اسم الصفحة بالانجليزية</label>
+                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل اسم الصفحة بالانجليزية" name="name_en" value="{{ old('name_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم الصفحة باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
-                    @error('title_en')
+                    @error('name_en')
                     <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
                     @enderror
                 </div>
@@ -108,6 +108,15 @@
                     @enderror
                 </div>
              <!----------------------------------------------------->
+             <div class="form-group">
+                    <label for="exampleInputEmail1">الترتيب </label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
+             <!----------------------------------------------------->
                <div class="form-group">
                     <label for="image">الحالـة</label>
                     <select class="form-control" name="status"  required>
@@ -137,4 +146,5 @@
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection

@@ -65,14 +65,22 @@
                 </div>
             
                 
-                <div class="form-group">
-                    <label for="exampleInputEmail1">صوره</label>
+                <div class="row">
 
-                    <input type="file" class="form-control" name="image" accept="image/*"  required  oninvalid="this.setCustomValidity('قم بادخال  الصورة')"  oninput="this.setCustomValidity('')">
+                    <div class="col-lg-12">
+                       <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                    </div>
 
-                    @error('image')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label> صوره <span style="color:rgb(199, 8, 8)">*</span></label>
+                            <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
+                        </div>
+                        @error('image')
+                             <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                   
                 </div>
                 
                 <div class="form-group">
@@ -83,7 +91,15 @@
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الترتيب </label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
+                    @error('sort')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <hr>
+                
                 <div class="form-group">
                 <label for="exampleInputEmail1"> الحاله</label>
                     <select class="form-control" name="status">
@@ -108,4 +124,5 @@
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection

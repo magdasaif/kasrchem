@@ -24,7 +24,14 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        if(isset($this->id)){$cond=decrypt($this->id);}else{$cond='';}
+        if(isset($this->id)){
+            $cond=decrypt($this->id);
+            $req='';
+        }else{
+            $cond='';
+            $req='|required';
+        }
+        
         return [ 
             // 'supplier_id'   =>'required|exists:suppliers,id',
             'site_id'       =>'required|exists:site_sections,id',
@@ -33,7 +40,7 @@ class ProductRequest extends FormRequest
             'description_ar'=>'required',
             'description_en'=>'required',
             'sort'          =>'integer',
-            'image'         =>'image|mimes:jpg,png,jpeg,gif,svg|required,'. $cond,
+            'image'         =>'image|mimes:jpg,png,jpeg,gif,svg'. $req,
         ];
     }
     public function messages()

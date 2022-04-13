@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\ProductInterface;
 
+
 class ProductRepository implements ProductInterface{
 
     use TableAutoIncreamentTrait;
@@ -82,21 +83,21 @@ class ProductRepository implements ProductInterface{
                 //call to storeImage fun to save image in disk and return back with photo name
                 $photo_name=$this->storeImage($imageData);
 
+                 //start morph image for product main image
+                $image =new Image();
+                $image->imageable_type='App\Models\Product';
+                $image->imageable_id=$product->id;
+                $image->image_or_file='1';//image
+                $image->main_or_sub='1'; //main image
+                $image->filename=$photo_name;
+                $image->save();
+             
                 //optimize image
-                $product->addMedia($request->image)->toMediaCollection('media');
+                $product->addMedia($request->image)->toMediaCollection('product');
                  
-            }else{
-                $photo_name='';
             }
             
-             //start morph image for product main image
-             $image =new Image();
-             $image->imageable_type='App\Models\Product';
-             $image->imageable_id=$product->id;
-             $image->image_or_file='1';//image
-             $image->main_or_sub='1'; //main image
-             $image->filename=$photo_name;
-             $image->save();
+            
 
              
             if(!empty($request->photos)){
@@ -111,7 +112,8 @@ class ProductRepository implements ProductInterface{
                     
                     //call to storeImage fun to save image in disk and return back with photo name
                     $photo_name2=$this->storeImage($imageData);
-               
+                    $product->addMedia($photo)->toMediaCollection('sub_product');
+
                      //start morph image for product sub images
                     Image::create([
                         'imageable_type'=>'App\Models\Product',
@@ -157,7 +159,6 @@ class ProductRepository implements ProductInterface{
 
             DB::rollback();
             toastr()->error('حدث خطا اثناء الاضافه');
-          //  return redirect()->back();
             return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء الاضافه']);
         }
     }
@@ -175,9 +176,12 @@ class ProductRepository implements ProductInterface{
         $data['product_id']=$real_id;
         
         //subImages() is a scope function in product model
-        $data['Product_images'] = Product::find($real_id)->subImages();
+       // $data['Product_images'] = Product::find($real_id)->subImages();
+        
+      $data['Product_images']= Product::find($real_id)->getMedia('sub_product');//'sub_product','thumb'
+     
 
-         return view('pages.products.images',$data);
+        return view('pages.products.images',$data);
     }
     //------------------------add images-----------------------------------------//
     public function add_product_images($request,$product_id){
@@ -185,7 +189,7 @@ class ProductRepository implements ProductInterface{
         try{
                 //decrypt product_id which is encryptrd
                 $real_id=decrypt($product_id);
-
+                $product=Product::findOrfail($real_id);
               //  dd($real_id);
                 if(!empty($request->photos)){
                     foreach($request->photos as $photo){
@@ -207,6 +211,10 @@ class ProductRepository implements ProductInterface{
                             'main_or_sub'=>'2', //sub image
                             'filename'=>$photo_name
                         ]);
+
+                        //optimize image
+                        $product->addMedia($request->image)->toMediaCollection('sub_product');
+                        //$product->copy($product, 'new-collection', 'products');
                     }
                 }
 
@@ -355,13 +363,24 @@ class ProductRepository implements ProductInterface{
                 DB::beginTransaction();
         
                try{
-                   //vaildation
-                //$validated = $request->validated();
                 
                 $real_id=decrypt($request->id);
                 $product =Product::findOrfail($real_id);
-                if($request->image){
+                $product->name_ar=$request->name_ar;
+                $product->name_en=$request->name_en;
 
+                $product->description_ar=$request->description_ar;
+                $product->description_en=$request->description_en;
+                $product->sort= $request->sort;
+
+                (isset($request->video_link))? $product->video_link= $request->video_link:'';
+                (isset($request->link))? $product->link= $request->link:'' ;
+
+                $product->status= $request->status;
+
+                $product->save();
+                   
+                if($request->image){
                     if($request->deleted_image){
                       //  dd('1');
                         // handel image array to pass image path to trait function
@@ -371,7 +390,6 @@ class ProductRepository implements ProductInterface{
                         //call to unLinkImage fun to delete old image from disk 
                         $this->unLinkImage($imageData);
                     }
-                    
                     // handel image array to pass image data to trait function
                     $imageData=[
                         'image_name'    => $request->image,
@@ -379,10 +397,12 @@ class ProductRepository implements ProductInterface{
                         'disk_name'     => 'products',
                         'model'         =>  $product,
                     ];
-                    
                     //call to storeImage fun to save image in disk and return back with photo name
                     $photo_name=$this->storeImage($imageData);
 
+                    //optimize image
+                    $product->addMedia($request->image)->toMediaCollection('product');
+                        
                     //start morph image for product sub images
                     $img=Image::find($request->image_id);
 
@@ -391,35 +411,16 @@ class ProductRepository implements ProductInterface{
                         $img->filename=$photo_name;
                         $img->save();
 
-                    }else{
-                        if($request->image){
-                            //get last id of product to create folder named with this id +1
-                            //$this->getTableLastId('Product')
+                   }else{
+                            //start morph image for product main image
+                        $image =new Image();
+                        $image->imageable_type='App\Models\Product';
+                        $image->imageable_id=$product->id;
+                        $image->image_or_file='1';//image
+                        $image->main_or_sub='1'; //main image
+                        $image->filename=$photo_name;
+                        $image->save();
                          
-                            // handel image array to pass image data to trait function
-                             $imageData=[
-                                 'image_name'    => $request->image,
-                                 'folder_name'   => 'product_no_'. $product->id,
-                                 'disk_name'     => 'products',
-                                 'model'         =>  $product,
-                             ];
-                             
-                            //call to storeImage fun to save image in disk and return back with photo name
-                            $photo_name=$this->storeImage($imageData);
-
-                             //start morph image for product main image
-                            $image =new Image();
-                            $image->imageable_type='App\Models\Product';
-                            $image->imageable_id=$product->id;
-                            $image->image_or_file='1';//image
-                            $image->main_or_sub='1'; //main image
-                            $image->filename=$photo_name;
-                            $image->save();
-                         
-                            //optimize image
-                            $product->addMedia($request->image)->toMediaCollection('media');
-                             
-                        }
                      }
                   
                     // dd('2');
@@ -431,19 +432,7 @@ class ProductRepository implements ProductInterface{
                     
                 }
             
-                   $product->name_ar=$request->name_ar;
-                   $product->name_en=$request->name_en;
-   
-                   $product->description_ar=$request->description_ar;
-                   $product->description_en=$request->description_en;
-                   $product->sort= $request->sort;
-
-                   (isset($request->video_link))? $product->video_link= $request->video_link:'';
-                   (isset($request->link))? $product->link= $request->link:'' ;
-
-                    $product->status= $request->status;
-   
-                   $product->save();
+                   
    
                    //attach products with supplier
                 //    if(isset($request->supplier_id)){

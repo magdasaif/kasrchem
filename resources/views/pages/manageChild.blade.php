@@ -11,7 +11,6 @@ foreach($childs as $child){
       //supplier have multiple sections (parent&childs)
       //release have multiple sections (parent&childs)
       
-      if($type=='product'||$type=='supplier_section' ||$type=='release'){
         //to check if you come from add or edit form
         if(isset($multi_selected)){//edit
             if(in_array($child->id,$multi_selected)){
@@ -22,16 +21,13 @@ foreach($childs as $child){
         }else{//add
             $select_or_no='';
         }
-      }
-      elseif($type=='supplier' || $type=='site_section'){
-        //to check if you come from add or edit form
-        $select_or_no='';
-      }
-
-      if($type=='site_section'||$type=='supplier_section'||$type=='release'){$show_name="site_name_ar";}else{$show_name="name_ar";}
-      
-      
-        if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
+    
+       // if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
+       
+       //دى علشان اهندل انه ميظهرش الداتا او القسم بتاع القسم اللى هعدله
+       //ميظهرش اسم القسم الفرعى الخاصيين بالقسم اللى بعدل عليه
+       //ده مش هنستخدمه الا فى صفحه القسم والمورد لانهم مشتركين فى نفس الجدول
+       
         if(isset($main_id)){$main_id=$main_id;}else{$main_id=0;}
         if(isset($margin)){$margin=$margin;}else{$margin=0;}
 
@@ -42,7 +38,6 @@ foreach($childs as $child){
             'color'=>$colors[$number],
             'margin' =>$margin+30,
             'number'=>$number+1,
-            'type'=>$type,
              'main_id'=>$main_id,
              'parent_id'=>$parent_id
             //  'main_id'=>$child->id,
@@ -50,7 +45,7 @@ foreach($childs as $child){
         ];
         ?>
         @if($child->id!=$main_id)
-            <option  style="<?php if($type=='product'||$type=='supplier_section'||$type=='release'){echo'margin-right:'. ($margin) .'px;';}?>color: {{$color}};" value="{{ $child->id }}" <?php echo $select_or_no;?>> <?php echo $extra;?> {{ $child->$show_name }}</option>
+            <option  style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $child->id }}" <?php echo $select_or_no;?>> <?php echo $extra;?> {{ $child->name_ar }}</option>
             @if(count($child->childs))
                 @include('pages.manageChild',$new)
             @endif 

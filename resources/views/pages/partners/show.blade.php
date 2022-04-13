@@ -57,8 +57,8 @@
                         <?php $i++;?>
                         <tr>
                             <td>{{$i}}</td>
-
-                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/$partner->image->filename")?>"></td>
+                                                        
+                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/".$partner->filename)?>"></td>
 
                             <td>{{$partner->name_ar}}</td>
                             <td><?php if($partner->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
@@ -94,7 +94,7 @@
                             </div>
             <!--#############################################################-->
                             </td>
-                            <td><input type="checkbox" value="{{$partner->id}}" class="box1" onclick="javascript:check();"></td>
+                            <td><input type="checkbox" name="row_checkbox" value="{{$partner->id}}" class="box1" onclick="javascript:check();"></td>
 
                         </tr>
 
