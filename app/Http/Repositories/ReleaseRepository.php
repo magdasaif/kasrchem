@@ -124,8 +124,8 @@ class ReleaseRepository implements ReleaseInterface{
     {
         $real_id=decrypt($id);
         $data['releases']=Release::findOrfail($real_id);
-        if(!$data['releases']) return redirect()->back();
-        $data['sections']= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
+      //  $data['releases']->rel_section->dd();
+        $data['sections']= Sitesection::whereNull('parent_id')->where('visible', '!=' , 0)->get();
         $data['title']=' تعديل النشرة';
         return view('pages.Release.edit', $data);
     }

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم : الفيديوهات</title>
+<title>لوحة التحكم : {{$title}}</title>
  @endsection
 @section('content')
   <section class="content">
@@ -8,22 +8,10 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
-          
-
+        @include('layouts.messages')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">  الفيديوهات</h3>
+                <h3 class="card-title">  {{$title}}</h3>
 
                 <div class="card-tools">
 
@@ -44,22 +32,23 @@
                         <th>#</th>
                         <th>عنوان الفيديو</th>
                         <th>الحالة</th>
+                        <th>الترتيب</th>
                         <th>الاجراءات</th>
                         <th ><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                         </tr>
                     </thead>
                     <tbody>
                          <?php $i = 0; $status=1?>
-                        @foreach($Vid as $video)
+                        @foreach($videos as $video)
                             <tr>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
-                            <td>{{$video->title_ar}}</td>
+                            <td>{{$video->name_ar}}</td>
                             <td><?php if($video->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                           
+                            <td>{{$video->sort}}</td>
 
                             <td style="display: inline-flex;">
-                                <a href="{{route('video.edit',$video->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{route('video.edit',encrypt($video->id))}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                  
                                 &nbsp; / &nbsp;
                                 <a  title="حذف" data-catid="{$video->id}}" data-toggle="modal" data-target="#delete{{$video->id}}"> <i class="fa fa-trash red del"></i></a> 
@@ -72,7 +61,7 @@
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form class="delete" action="{{ route('video.destroy',$video->id) }}" method="POST">
+                                <form class="delete" action="{{ route('video.destroy',encrypt($video->id)) }}" method="POST">
                                 <div class="modal-body">
                                             <h3 class="text-center">
                                                 هل تريد الحذف بالفعل؟
@@ -93,7 +82,7 @@
                             </div>
             <!--#############################################################-->
                    </td>
-                   <td ><input type="checkbox" value="{{$video->id}}" class="box1" onclick="javascript:check();"></td>
+                   <td ><input  type="checkbox"  name="row_checkbox" value="{{$video->id}}" class="box1" onclick="javascript:check();"></td>
        
                             </tr>
                         

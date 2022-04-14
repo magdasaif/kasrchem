@@ -215,10 +215,6 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('delete_page_images/{id}','PageController@delete_page_images');
     });
 
-    //----------------------------------------cities------------------------------------//
-    Route::group(['namespace'=>'Cities'],function(){
-        Route::resource('city', 'CityController');
-    });
     //----------------------------Social links-----------------------------------------------//
     Route::group(['namespace'=>'SocialLinks'],function(){
         Route::resource('social', 'SocialController');

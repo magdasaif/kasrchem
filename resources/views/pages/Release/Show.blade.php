@@ -17,21 +17,7 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('layouts.messages')
  
             <div class="card">
               <div class="card-header">
@@ -58,6 +44,7 @@
                         <th>صورة النشرة </th>
                         <th>عنوان النشرة</th>
                         <th>الحالة</th>
+                        <th>الترتيب</th>
                         <th>الاجراءات</th>
                         <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
 
@@ -81,7 +68,7 @@
                             @endif
                              <td>{{$release->name_ar}}</td>
                              <td><?php if($release->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                        
+                             <td>{{$release->sort}}</td>
                             <td>
                                 <a href="{{route('release.edit',encrypt($release->id))}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                 /

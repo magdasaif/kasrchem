@@ -10,22 +10,7 @@
         <div class="row">
           
           <div class="col-12">
-           <!--=================start success msg ===========================-->
-          @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-           <!--=================start error msg ===========================-->
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-          @endif
+          @include('layouts.messages')
            <!--=================start card-header===========================-->
             <div class="card">
                 <!--=================start card-header===========================-->

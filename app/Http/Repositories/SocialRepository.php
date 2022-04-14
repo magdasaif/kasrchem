@@ -4,7 +4,7 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\SocialInterface;
 use App\Models\Social;
 use Yajra\DataTables\DataTables;
-
+use toastr;
 class SocialRepository implements SocialInterface{
     //--------------------------------------------------------//
     public function index()
@@ -38,13 +38,13 @@ class SocialRepository implements SocialInterface{
             $social->icon=$request->icon;
             $social->status= $request->status;
             $social->save();
-            //toastr()->success('تمت الاضافه بنجاح');
-
-            return redirect()->route('social.index')->with(['success'=>'تمت الاضافه بنجاح']);
+            toastr()->success('تمت الاضافه بنجاح');
+            return redirect()->route('social.index');
         }
         catch(\Exception $e)
         {
-            return redirect()->back()->withErrors(['error' =>'حدث خطا اثناء الاضافه']);
+            toastr()->error('حدث خطا اثناء الاضافه');
+            return redirect()->back(); 
         }
     }
     //--------------------------------------------------------//
@@ -67,26 +67,38 @@ class SocialRepository implements SocialInterface{
             $social->icon=$request->icon;
             $social->status= $request->status;
             $social->save();
-            return redirect()->route('social.index')->with(['success'=>'تم التعديل بنجاح']);
+            toastr()->success('تم التعديل بنجاح');
+            return redirect()->route('social.index');
         }
         catch(\Exception $e)
         {
-            return redirect()->back()->withErrors([ 'error' =>'حدث خطا اثناء التعديل']);
+            toastr()->error('حدث خطا اثناء التعديل');
+            return redirect()->back();
         }
     }
     //--------------------------------------------------------//
     public function destroy($id)
     {
-        $real_id=decrypt($id);
-        Social::findOrfail($real_id)->delete();
-        return redirect()->route('social.index')->with(['success'=>'تم الحذف بنجاح']);
+        try
+        {
+            $real_id=decrypt($id);
+            Social::findOrfail($real_id)->delete();
+            toastr()->success('تم الحذف بنجاح');
+            return redirect()->route('social.index');
+        }
+        catch(\Exception $e)
+        {
+            toastr()->error('حدث خطا اثناء الحذف');
+            return redirect()->back();
+        }
     }
     //--------------------------------------------------------//
     public function bulkDelete($request){
         $all_ids = explode(',',$request->delete_all_id);
         // dd($all_ids);
         Social::whereIn('id',$all_ids)->delete();
-        return redirect()->route('social.index')->with(['success'=>'تم الحذف بنجاح']);
+        toastr()->success('تم الحذف بنجاح');
+       return redirect()->route('social.index');
     }
     //--------------------------------------------------------//
 }

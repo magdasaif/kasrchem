@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم :المقالات</title>
+<title>لوحة التحكم :{{$title}}</title>
  @endsection
 @section('content')
 <template>
@@ -9,22 +9,12 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
+        @include('layouts.messages')
           
             
             <div class="card">
               <div class="card-header" >
-              <h3 class="card-title"> المقالات</h3>
+              <h3 class="card-title"> {{$title}}</h3>
 
                 <div class="card-tools">
 
@@ -46,6 +36,7 @@
                         <th>صورة المقال</th>
                         <th>عنوان المقال</th>
                         <th>الحالة</th>
+                        <th>الترتيب</th>
                         <th>الاجراءات</th>
                         <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
 
@@ -53,16 +44,18 @@
                     </thead>
                     <tbody>
                          <?php $i = 0; $status=1?>
-                        @foreach($Art as $article)
+                        @foreach($articles as $article)
                             <tr>
-                            <?php $i++; ?>
+                            <?php $i++;
+                            if(isset($article->image->filename)){$img=$article->image->filename;}else{$img='';}
+                            ?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/article/{$article->image}")?> alt="" ></td>
-                            <td >{{$article->title_ar}}</td>
+                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/article/{$img}")?> alt="" ></td>
+                            <td >{{$article->name_ar}}</td>
                             <td style="font-weight: bold;font-size: 17px;" ><?php if($article->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                           
+                            <td >{{$article->sort}}</td>
                             <td style="font-weight: bold;font-size: 17px;">
-							<a href="{{route('article.edit',$article->id)}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
+							<a href="{{route('article.edit',encrypt($article->id))}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
                             
 
                             / <a  title="حذف" data-catid="{{$article->id}}" data-toggle="modal" data-target="#delete{{$article->id}}"> <i class="fa fa-trash red"></i></a>
@@ -75,7 +68,7 @@
                                 <div class="card-header" >
                                     <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                 </div>
-                                <form action="{{route('article.destroy',$article->id)}}"  method="post">
+                                <form action="{{route('article.destroy',encrypt($article->id))}}"  method="post">
                                         {{method_field('delete')}}
                                         {{csrf_field()}}
                                     <div class="modal-body">

@@ -13,9 +13,8 @@
                             $margin="0",
                         ];
                         ?>
-                            
-                        <option style="color:<?php echo $color;?>"  value="{{$site->id}}">-{{$site->name_ar}}</option>
-                        @if(count($site->childs))
+                        <option style="color:<?php echo $color;?>"  value="{{$site->id}}" {{ (collect(old('site_id'))->contains($site->id)) ? 'selected':'' }}>-{{$site->name_ar}}</option>
+                       @if(count($site->childs))
                             @include('pages.manageChild',$new)
                         @endif
                         @endforeach

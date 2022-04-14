@@ -17,18 +17,19 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind('App\Http\Interfaces\PageInterface','App\Http\Repositories\PageRepository');
         $this->app->bind('App\Http\Interfaces\GalleryInterface','App\Http\Repositories\GalleryRepository');
         $this->app->bind('App\Http\Interfaces\SliderInterface','App\Http\Repositories\SliderRepository');
+        $this->app->bind('App\Http\Interfaces\ArticleInterface','App\Http\Repositories\ArticleRepository');
 
 
 
         $this->app->bind('App\Http\Interfaces\SupplierInterface','App\Http\Repositories\SupplierRepository');
 
-         //=======================================ReleaseInterface=============================================//
-         $this->app->bind('App\Http\Interfaces\ReleaseInterface','App\Http\Repositories\ReleaseRepository' );
-         //=======================================SocialInterface=============================================//
-          $this->app->bind('App\Http\Interfaces\SocialInterface','App\Http\Repositories\SocialRepository');
-        //=======================================BrancheInterface=============================================//
+                       //================ReleaseInterface================//
+        $this->app->bind('App\Http\Interfaces\ReleaseInterface','App\Http\Repositories\ReleaseRepository' );
+                        //================SocialInterface================//
+        $this->app->bind('App\Http\Interfaces\SocialInterface','App\Http\Repositories\SocialRepository');
+                        //================BrancheInterface================//
         $this->app->bind('App\Http\Interfaces\BrancheInterface','App\Http\Repositories\BrancheRepository');
-
-        //  $this->app->bind(ProductInterface::class, ProductRepository::class);
+                        //================VideoInterface================//
+        $this->app->bind('App\Http\Interfaces\VideoInterface','App\Http\Repositories\VideoRepository');
     }
 }
