@@ -23,7 +23,7 @@ foreach($childs as $child){
             $select_or_no='';
         }
     
-       // if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
+       if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
        
        //دى علشان اهندل انه ميظهرش الداتا او القسم بتاع القسم اللى هعدله
        //ميظهرش اسم القسم الفرعى الخاصيين بالقسم اللى بعدل عليه
