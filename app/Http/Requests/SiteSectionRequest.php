@@ -24,24 +24,38 @@ class SiteSectionRequest extends FormRequest
     public function rules()
     {
 
-        return $rules = [
-            'site_name_ar' => 'required',
-            'site_name_en' => 'required',
-            'statues' => 'required',
-            'priority' => 'required',
-           // 'image' => 'required',
+        
+            if(isset($this->id))
+            {
+                $cond=decrypt($this->id);
+                $req='';
+            }
+            else
+            {
+                $cond='';
+                $req='|required';
+            }
+            return [
+            'name_ar'  => 'required|unique:site_sections,name_ar,'.$cond,
+            'name_en'  => 'required|regex:/^[a-zA-Z_@.\s\#&+(){}:,% ^ =" ® © >< $ -][a-zA-Z0-9_@.\s\#&+(){}: ,% ^ = " ® ©> <$ -]+$/uu|unique:site_sections,name_en,'.$cond,
+            'status'   => 'required',
+            'sort'     =>'required|integer',
+            'image'    =>'mimes:jpg,png,jpeg,gif,svg|image'.$req,
         ];
     }
         public function messages()
         {
             return $messages = [
-                'site_name_ar.required' =>"اسم القسم بالعربى مطلوب ",
-                'site_name_ar.unique' => "هذا الاسم مسجل من قبل",
-                'site_name_en.required' =>"اسم القسم بالانجليزى مطلوب ",
-                'site_name_en.unique' => "هذا الاسم مسجل من قبل",
-                'statues.required' => 'الحالة مطلوبة',
-                'priority.required' => 'الاولوية مطلوبة ',
-               // 'image.required' => 'الصورة مطلوبة ',
+                'name_ar.required'     =>"اسم القسم بالعربية مطلوب ",
+                'name_ar.unique'        => "اسم القسم بالعربية مسجل مسبقا ...قم بادخال اسم اخر",
+                'name_en.required' =>"اسم القسم بالانجليزىة مطلوب ",
+                'name_en.unique'   =>"اسم القسم بالانجليزىة مسجل مسبقا ...قم بادخال اسم اخر",
+                'name_en.regex' => '  يجب ان يكون اسم القسم  باللغة الانجليزية وايضا لا يكون ارقام فقط وان لا يبدأ برقم',
+                'status.required'      => 'الحالة مطلوبة',
+                'priority.required'     => 'الاولوية مطلوبة ',
+                'image.required'        => 'الصورة مطلوبة ',
+                'image.mimes'           => 'الصورة يجب ان تكون بالامتدات التالية',
+                'sort.integer'          =>    'الترتيب يجب ان يكون رقم',
             ];
         }
 }

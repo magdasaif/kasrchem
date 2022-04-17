@@ -30,14 +30,14 @@
                 </div>
               </div>
                 <div class="modal-body">
-                    <form method="POST"  action="{{route('site_section.update',$section->id)}}" enctype="multipart/form-data">
+                    <form method="POST"  action="{{route('site_section.update',encrypt($section->id))}}" enctype="multipart/form-data">
                         {{method_field('PATCH ')}}
 
                         @csrf
                         {{-- <input name="_token" value="{{csrf_token()}}"> --}}
 
                      <!----------------------------------------------------->
-                  <div  class="form-group">
+                 <div  class="form-group">
                     <label for="site_or_sub">نوع القسم</label>
                     <select class="form-control" name="site_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع القسم')"  oninput="this.setCustomValidity('')">
                         <?php
@@ -65,9 +65,9 @@
                                     ];
                  
                               ?>
-                                <option style="color:<?php echo $color;?>"  value="{{$xx->id}}">-{{$xx->site_name_ar}}</option>
+                                <option style="color:<?php echo $color;?>"  value="{{$xx->id}}">-{{$xx->name_ar}}</option>
                                 @if(count($xx->childs))
-                                   @include('pages.products.manageChild',$new)
+                                   @include('pages.manageChild',$new)
                                 @endif
                               <?php
                               //     }
@@ -80,23 +80,23 @@
                      <!----------------------------------------------------->
 
                         <div class="form-group">
-                            <label for="Name"  class="mr-sm-2">اسم القسم بالعربية:</label>
+                            <label for="name_ar"  class="mr-sm-2">اسم القسم بالعربية:</label>
                             <!-- <input id="site_name_ar" type="text" name="site_name_ar"class="form-control" value="{{ $section->site_name_ar }}" required> -->
-                            <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالعربيه"  name="site_name_ar"  required >{{ $section->site_name_ar }}</textarea>
+                            <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالعربيه"  name="name_ar"  required >{{ $section->name_ar }}</textarea>
 
-                            @error('site_name_ar')
+                            @error('name_ar')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="Name"  class="mr-sm-2">اسم القسم بالانجليزية:</label>
+                            <label for="name_en"  class="mr-sm-2">اسم القسم بالانجليزية:</label>
                             <!-- <input id="site_name_en" type="text" name="site_name_en"class="form-control" value="{{ $section->site_name_en}}" required> -->
-                            <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالانجليزية"  name="site_name_en"  required >{{ $section->site_name_en}}</textarea>
+                            <textarea class="form-control" rows="4" aria-describedby="emailHelp" placeholder="ادخل اسم القسـم بالانجليزية"  name="name_en"  required >{{ $section->name_en}}</textarea>
 
 
 
-                            @error('site_name_en')
+                            @error('name_en')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
@@ -104,8 +104,16 @@
 
                         <div class="form-group">
                             <label for="image">صورة القسم</label>
-                            <center><img  id="previewImg" style="width: 30%;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></center>
-                          
+                            
+                            @if(isset($section->image->filename))
+                                <center><img id="previewImg" width="30%" src="<?php echo asset("storage/site_sections/section_no_".$section->id."/".$section->image->filename)?>" class="uploaded-img"> </center>
+                                <input type="hidden" name="deleted_image" value="{{$section->image->filename}}">
+                                <input type="hidden" name="morph_image_id" value="{{$section->image->id}}">
+                           @else
+                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                        <input type="hidden" name="deleted_image"/>
+                    @endif
+
                                 <br>
                                 <center><button type="button" id="btn_image" class="btn btn-primary" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
@@ -114,29 +122,29 @@
                                 </svg>
                                 تعديل الصورة
                                 </button></center>
-                            <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" >
+                            <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" onchange="readURL(this);" >
                             @error('image')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="priority">الأولوية</label>
-                            <input type="number" class="form-control" id="priority" aria-describedby="priority" placeholder="Enter priority" name="priority"  value="{{ $section->priority}}" required>
-                            @error('priority')
+                            <label for="priority">الترتيب</label>
+                            <input type="number" class="form-control" id="sort" aria-describedby="priority" placeholder="Enter priority" name="sort"  value="{{ $section->sort}}" required>
+                            @error('sort')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="image">الحالة</label>
-                            <select class="form-control" name="statues">
-                                    <option value="1" <?php if($section->statues==1){echo'selected';}?> >مُفعل</option>
-                                    <option value="0" <?php if($section->statues==0){echo'selected';}?> >غير مُفعل</option>
+                            <label for="status">الحالة</label>
+                            <select class="form-control" name="status">
+                                    <option value="1" <?php if($section->status==1){echo'selected';}?> >مُفعل</option>
+                                    <option value="0" <?php if($section->status==0){echo'selected';}?> >غير مُفعل</option>
                             </select>
                         </div>
                         
-                        <input type="hidden" name="id" value="{{$section->id}}">
+                        <input type="hidden" name="id" value="{{encrypt($section->id)}}">
                         <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">تعديل</button>
                         </div>
@@ -155,4 +163,5 @@
 
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection
