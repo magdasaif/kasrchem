@@ -118,8 +118,8 @@ class SectionRepository implements SectionInterface{
             //dd($all_sections);
         }
       
-        // if(!$parent_of_section){ $data['first_select']=0;}
-        // else{ $data['first_select']='';}
+        if(!$parent_of_section){ $data['first_select']=0;}
+        else{ $data['first_select']='';}
         return view('pages.Sitesection.edit',$data);
     }
     //----------------------------------------------------------------------
