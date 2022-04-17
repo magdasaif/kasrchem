@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم : أقسام الموقع</title>
+<title>لوحة التحكم :  {{$title}}</title>
  @endsection
 @section('content')
 <template>
@@ -9,20 +9,27 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
+                <!----------------start success ___ error----------------->
+                @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
             @endif
 
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+           @endif
+      <!------------------end success ___ error----------------->
 
              @if(Session::has('msg'))
-             <div class="alert alert-danger" style="font-size:15px; color: green;font-weight: bold;">
+             <center>
+               <div class="alert alert-danger" style="font-size: 15px; color: #009879; font-weight: bold; background-color: rgb(243, 243, 243);width: fit-content;border-color: #009879;">
             
               <!--------if section relate with child section----------->
              
@@ -31,7 +38,7 @@
              {{Session::get('msg')}}
              <ol> 
                 @foreach(session::get('data')  as $child_sections)
-                 <a href={{route('site_section.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px;font-style: oblique;">{{$child_sections->site_name_ar}}</li></a>
+                 <a href={{route('site_section.edit',encrypt($child_sections->id))}} target="_blank"><li style="color: #e3342f;">{{$child_sections->name_ar}}</li></a>
                 @endforeach
               </ol> 
              @endif
@@ -42,7 +49,7 @@
                 {{Session::get('msg_video')}}
              <ol> 
                 @foreach(session::get('data_video')  as $child_sections)
-                 <a href={{route('video.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px;font-style: oblique;">{{$child_sections->title_ar}}</li></a>
+                 <a href={{route('video.edit',encrypt($child_sections->id))}} target="_blank"><li style="color: #e3342f;">{{$child_sections->name_ar}}</li></a>
                 @endforeach
              </ol>
              @endif
@@ -52,7 +59,7 @@
              {{Session::get('msg_article')}}
              <ol> 
                 @foreach(session::get('data_article')  as $child_sections)
-                   <a href={{route('article.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px;font-style: oblique;">{{$child_sections->title_ar}}</li></a>
+                   <a href={{route('article.edit',encrypt($child_sections->id))}} target="_blank"><li style="color: #e3342f;">{{$child_sections->name_ar}}</li></a>
                 @endforeach
              </ol>
              @endif
@@ -63,7 +70,7 @@
              {{Session::get('msg_photo_gallery')}}
              <ol> 
                 @foreach(session::get('data_photo_gallery')  as $child_sections)
-                  <a href={{route('photo_gallery.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px">{{$child_sections->title_ar}}</li></a>
+                  <a href={{route('photo_gallery.edit',encrypt($child_sections->id))}} target="_blank"><li style="color: #e3342f;">{{$child_sections->name_ar}}</li></a>
                 @endforeach
              </ol>
              @endif
@@ -73,28 +80,21 @@
              {{Session::get('msg_release')}}
              <ol> 
                 @foreach(session::get('data_release')  as $child_sections)
-                  <a href={{route('release.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px">{{$child_sections->title_ar}}</li></a>
+                  <a href={{route('release.edit',encrypt($child_sections->id))}} target="_blank"><li style="color: #e3342f;">{{$child_sections->name_ar}}</li></a>
                 @endforeach
              </ol>
              @endif
 
 
-             @if (Session::get('data_supllier')&& sizeof(Session::get('data_supllier'))!=0)  
-             {{Session::get('msg_supllier')}}
-             <ol> 
-                @foreach(session::get('data_supllier')  as $child_sections)
-                  <a href={{route('supplier.edit',$child_sections->id)}} target="_blank"><li style="color:blue;font-size:12px">{{$child_sections->name_ar}}</li></a>
-                @endforeach
-             </ol>
-             @endif
               <!-------------------------------------------------------------------->
              {{Session::get('msg2')}}
             </div>
+           </center>
             @endif
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">أقسام الموقع</h3>
+                <h3 class="card-title">{{$title}}</h3>
 
                 <div class="card-tools">
 
@@ -122,22 +122,23 @@
                    <tbody>
                          <?php $i = 0; $statues=1?>
 
-                        @foreach($site_section as $section)
+                        @foreach($Sitesections as $section)
                             <tr>
-                            <?php $i++; ?>
-                            <td>{{ $i }}</td>
-                            <td>{{$section->site_name_ar}}</td>
+                            <?php 
+                                $i++;
+                                if(isset($section->image->filename)){$img=$section->image->filename;}else{$img='';}
+                            ?>
+                            <!-- <td> {{$i}} <img src="{{$section->getFirstMediaUrl('sections','logo')}}" /> </td> -->
+                            <td> {{$i}}</td> 
+                            <td>{{$section->name_ar}}</td>
 
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/site_section_image/{$section->image}")?> alt="" ></td>
-                            <td>{{$section->priority}}</td>
-
-                           
-
-                            <td><?php if($section->statues==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/section_no_$section->id/{$img}")?> alt="" ></td>
+                            <td>{{$section->sort}}</td>
+                           <td><?php if($section->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                               <td> 
-                                <a href="{{route('site_section.edit',$section->id)}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
+                                <a href="{{route('site_section.edit',encrypt($section->id))}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                    /
-                                   {{-- <a   onclick=" check_related_section('{{$section->id}}','{{$section->site_name_ar}}');" title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a>  --}}
+                                   <!-- {{-- <a   onclick=" check_related_section('{{$section->id}}','{{$section->site_name_ar}}');" title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a>  --}} -->
                                    <a    title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a> 
 
                                   <!--############################ model for delete #################################-->
@@ -148,12 +149,12 @@
                                     <div class="card-header" >
                                       <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                     </div>
-                                    <form class="delete" action="{{route('site_section.destroy',$section->id)}}" method="post">
+                                    <form class="delete" action="{{route('site_section.destroy',encrypt($section->id))}}" method="post">
                                       {{method_field('delete')}}
                                       {{csrf_field()}}
                                     <div class="modal-body">
                                       <!-----------------footer and content from javascript basedon related or not with section-------->
-                                      <div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >{{$section-> site_name_ar}}</div>
+                                      <div  style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" >{{$section-> name_ar}}</div>
                                       <h3 style="text-align: center;font-size: 22px;color: black;" class="text-center">هل تريد الحذف بالفعل؟</h3>
                                        </div>
                                     <div class="modal-footer">
