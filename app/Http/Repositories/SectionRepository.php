@@ -112,12 +112,14 @@ class SectionRepository implements SectionInterface{
         else
         {
             $data['first_select']='';
-            $parent_of_section = Sitesection::findOrfail($section->parent_id);
-            $data['all_sections ']=Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+            $data['parent_of_section'] =$parent_of_section= Sitesection::findOrfail($section->parent_id);
+           // dd($parent_of_section);
+            $data['all_sections']=$all_sections=Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+            //dd($all_sections);
         }
       
-        if(!$parent_of_section){ $data['first_select']=0;}
-        else{ $data['first_select']='';}
+        // if(!$parent_of_section){ $data['first_select']=0;}
+        // else{ $data['first_select']='';}
         return view('pages.Sitesection.edit',$data);
     }
     //----------------------------------------------------------------------

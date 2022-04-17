@@ -48,7 +48,7 @@
                           else
                           {
                         ?>
-                           <option value="{{ $parent_of_section->id}}" selected> {{ $parent_of_section->site_name_ar}}</option>
+                           <option value="{{ $parent_of_section->id}}" selected> {{ $parent_of_section->name_ar}}</option>
                            <option value="0"  > قسم رئيسى</option>
                        <?php
                           }    
