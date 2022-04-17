@@ -45,9 +45,11 @@
                         @foreach($Slider as $slider)
                             <tr>
                                 
-                            <?php $i++; ?>
+                            <?php $i++;
+                            if(isset($slider->image->filename)){$img=$slider->image->filename;}else{$img='';}
+                            ?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/slider/{$slider->image->filename}")?> alt="" ></td>
+                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/slider/{$img}")?> alt="" ></td>
                             <td>{{$slider->sort}}</td>
 							<td style="font-weight: bold;font-size: 17px;"><?php if($slider->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                              

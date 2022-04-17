@@ -1,31 +1,17 @@
 @extends('layouts.master')
 @section('title')
-<title>لوحة التحكم :ااضافةمقال</title>
+<title>لوحة التحكم :{{$title}}</title>
  @endsection
 @section('content')
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+           
           <div class="col-12">
-
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header" >
-                <h3 class="card-title"  >اضافة مقال </h3>
+                <h3 class="card-title"  >{{$title}} </h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-sm bbtn" >
@@ -41,31 +27,28 @@
                 @csrf
                 {{-- <input name="_token" value="{{csrf_token()}}"> --}}
                   <!----------------------------------------------------->
-               <!--========================================================-->
-               @include('categories.Category_models.select_category_adding')
-               <!--========================================================-->
                @include('pages.Sitesection.tree_view_section_adding')
                <!----------------------------------------------------->
 
                <div class="form-group">
-                    <label for="title_ar">عنوان المقال </label>
-                    <input type="text" class="form-control" aria-describedby="title_ar" placeholder="ادخل عنوان المقال" name="title_ar"  value="{{ old('title_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المقال باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <label for="name_ar">عنوان المقال </label>
+                    <input type="text" class="form-control" aria-describedby="name_ar" placeholder="ادخل عنوان المقال" name="name_ar"  value="{{ old('name_ar') }}" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المقال باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
 
                     <span style="color:red;display:none;font-weight: bold;" id="error_name"> يجب ان يكون اسم المقال باللغة العربية وايضا لا يكون ارقام فقط</span>
 
-                    @error('title_ar')
+                    @error('name_ar')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
 
                <!----------------------------------------------------->
                <div class="form-group">
-                    <label for="title_en">عنوان المقال بالانجليزية</label>
-                    <input type="text" class="form-control" id="title_en" aria-describedby="title_en" placeholder="ادخل عنوان المقال بالانجليزية" name="title_en"  value="{{ old('title_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم المقال باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
+                    <label for="name_en">عنوان المقال بالانجليزية</label>
+                    <input type="text" class="form-control" id="name_en" aria-describedby="name_en" placeholder="ادخل عنوان المقال بالانجليزية" name="name_en"  value="{{ old('name_en') }}" required onkeypress="return CheckEnglishCharactersOnly(event);"  oninvalid="this.setCustomValidity('يجب ان يكون اسم المقال باللغة الانجليزية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">
 
                     <span style="color:red;display:none;font-weight: bold;" id="error_name_en"> يجب ان يكون اسم المقال باللغة الانجليزية وايضا لا يكون ارقام فقط</span>
 
-                    @error('title_en')
+                    @error('name_en')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
@@ -89,13 +72,33 @@
                     @enderror
                 </div>
               <!----------------------------------------------------->
-                <div class="form-group">
-                    <label for="image">صوره</label>
-                    <input type="file" class="form-control" name="image" accept="image/*" required oninvalid="this.setCustomValidity('قم بادخال الصورة')"  oninput="this.setCustomValidity('')">
-                    @error('image')
+              <hr>
+                <div class="row">
+
+                    <div class="col-lg-12">
+                       <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>صورة <span style="color:rgb(199, 8, 8)">*</span></label>
+                            <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
+                        </div>
+                        @error('image')
+                             <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                   
+                </div>
+             <!----------------------------------------------------->
+             <div class="form-group">
+                    <label for="exampleInputEmail1">الترتيب</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
+                    @error('sort')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <hr>
              <!----------------------------------------------------->
 
                 <div class="form-group">
@@ -121,13 +124,9 @@
 </section>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-
-<!-- add script for categories and changes on it -->
-<script src="{{ URL::asset('/js/product/add_script.js') }}"></script>
-
 <!-- tinymce -->
 <script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ URL::asset('/js/tiny.js') }}"></script>
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
-
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection

@@ -258,7 +258,7 @@
           <li>
               <a href="{{route('page.index')}}" class="nav-link">
                   <i class="nav-icon fas fa fa-code orange"></i>
-                  <p>  قائمةالصفحات </p>
+                  <p>  قائمة الصفحات </p>
               </a>
           </li>
          </ul>
@@ -275,13 +275,13 @@
           <li>
               <a href="{{route('photo_gallery.create')}}" class="nav-link">
                   <i class="nav-icon fas fa-plus orange"></i>
-                  <p> اضافة معرض </p>
+                  <p> اضافة  معرض </p>
               </a>
           </li>
           <li>
               <a href="{{route('photo_gallery.index')}}" class="nav-link">
                   <i class="nav-icon fas fa fa-camera orange"></i>
-                  <p>  قائمةالمعارض </p>
+                  <p>  قائمة المعارض </p>
               </a>
           </li>
          </ul>

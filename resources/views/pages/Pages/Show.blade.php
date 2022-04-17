@@ -35,6 +35,7 @@
                         <th>#</th>
                         <th>اسم الصفحة</th>
                         <th>الحالة</th>
+                        <th>الترتيب</th>
                         <th>الاجراءات</th>
                         <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
 
@@ -48,7 +49,7 @@
                             <td>{{ $i }}</td>
                             <td>{{$Pagee->name_ar}}</td>
 							<td style="font-weight: bold;font-size: 17px;"><?php if($Pagee->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
- 
+                            <td>{{$Pagee->sort}}</td>
 							<td style="font-weight: bold;font-size: 17px;">
 							<a href="{{route('page.edit',encrypt($Pagee->id))}}"  title="تعديل"><i class="fa fa-edit blue"></i></a>
 							/

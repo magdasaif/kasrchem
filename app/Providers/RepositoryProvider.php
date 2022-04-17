@@ -17,6 +17,7 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind('App\Http\Interfaces\PageInterface','App\Http\Repositories\PageRepository');
         $this->app->bind('App\Http\Interfaces\GalleryInterface','App\Http\Repositories\GalleryRepository');
         $this->app->bind('App\Http\Interfaces\SliderInterface','App\Http\Repositories\SliderRepository');
+        $this->app->bind('App\Http\Interfaces\ArticleInterface','App\Http\Repositories\ArticleRepository');
 
 
 

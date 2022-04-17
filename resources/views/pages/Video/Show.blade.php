@@ -8,23 +8,7 @@
         <div class="row">
 
         <div class="col-12">
-            <!----------------start success ___ error----------------->
-        @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-      <!------------------end success ___ error----------------->
+        @include('layouts.messages')
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">  {{$title}}</h3>
@@ -48,6 +32,7 @@
                         <th>#</th>
                         <th>عنوان الفيديو</th>
                         <th>الحالة</th>
+                        <th>الترتيب</th>
                         <th>الاجراءات</th>
                         <th ><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
                         </tr>
@@ -60,7 +45,7 @@
                             <td>{{ $i }}</td>
                             <td>{{$video->name_ar}}</td>
                             <td><?php if($video->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                           
+                            <td>{{$video->sort}}</td>
 
                             <td style="display: inline-flex;">
                                 <a href="{{route('video.edit',encrypt($video->id))}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>

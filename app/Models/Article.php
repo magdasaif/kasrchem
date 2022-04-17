@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Article extends Model
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Article extends Model implements HasMedia
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory,SoftDeletes,InteractsWithMedia;
     protected $dates = ['deleted_at'];
     
-    //public $fillable = ['main_cate_id','sub1_id','sub2_id','sub3_id','title_ar','title_en','content_ar','content_en','image','status'];
     protected $guarded=[];
     protected $table = 'articles';
 
@@ -27,4 +30,15 @@ class Article extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
     
+      //this for image optimization package 
+      public function registerMediaConversions(Media $media = null): void
+      {
+          $this->addMediaConversion('thumb')
+                  ->width(200)
+                  ->height(120);
+  
+          $this->addMediaConversion('logo')
+                  ->width(90)
+                  ->height(90);
+      }
 }

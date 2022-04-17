@@ -35,6 +35,7 @@
                             <th>صوره الشريك</th>
                             <th>اسم الشريك</th>
                             <th>الحاله</th>
+                            <th>الترتيب</th>
                             <th>الاجراءات</th>
                             <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
 
@@ -53,7 +54,7 @@
 
                             <td>{{$partner->name_ar}}</td>
                             <td><?php if($partner->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                           
+                            <td>{{$partner->sort}}</td>
 
                             <td>
                                 <a href="{{url('partner/'.encrypt($partner ->id).'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>

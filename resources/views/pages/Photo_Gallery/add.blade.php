@@ -115,9 +115,6 @@
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('/js/regax_name/regax_name.js') }}"></script>
-
-<!-- add script for categories and changes on it -->
-<script src="{{ URL::asset('/js/product/add_script.js') }}"></script>
 <script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 
 @endsection

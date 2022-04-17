@@ -9,21 +9,7 @@
         <div class="row">
 
         <div class="col-12">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        @include('layouts.messages')
           
             
             <div class="card">
@@ -51,6 +37,7 @@
                             <th>الهاتف</th>
                             <th>البريد الالكترونى</th>
                             <th>الحاله</th>
+                            <th>الترتيب</th>
                             <th>الاجراءات</th>
                             <th><input type="checkbox" name="select_all" onclick="checkAll('box1',this)"></th>
 
@@ -73,7 +60,7 @@
                            @endif
                            
                             <td><?php if($branche->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                        
+                            <td>{{$branche->sort}}</td>
                             <td>
                                 <a href="{{url('branches/'.encrypt($branche ->id).'/edit/')}}"  title="تعديل" style="font-weight: bold;font-size: 17px;"><i class="fa fa-edit blue"></i></a>
                                 /
