@@ -48,7 +48,7 @@ class SectionRepository implements SectionInterface{
 
     //----------------------------------------------------------------------
     
-    public function create(){
+public function create(){
         $data['title']='اضافه قسم';
         $data['parent_sites']= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
         return view('pages.Sitesection.add',$data);
