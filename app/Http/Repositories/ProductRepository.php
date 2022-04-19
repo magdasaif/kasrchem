@@ -30,8 +30,19 @@ class ProductRepository implements ProductInterface{
         $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->paginate(10);
        return view('pages.products.show',$data);
     }
+   //*********************************************************************************/
+function search($request)
+{
+   // dd($request->all());
+    $title='المنتجات';
+    $search_text = $request->query_text;
+   //  $search_text = $_GET['query_text'];
+    //dd($search_text);
+     $searching_result=Product::withoutTrashed()->where('name_ar','LIKE','%'.$search_text.'%')->paginate(10);
+    return view('pages.products.show',compact('searching_result','title'));
 
-    //******************************show product add form*****************************/
+}
+   //******************************show product add form*****************************/
     public function create(){
         $data['title']       ='اضافه منتج';
         $data['suppliers']   = Supplier::withoutTrashed()->whereNull('parent_id')->get();

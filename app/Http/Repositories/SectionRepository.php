@@ -24,9 +24,30 @@ class SectionRepository implements SectionInterface{
     {
         $data['title']  ='الاقسام';
         $data['Sitesections']=Sitesection::where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
+
+        $searching_result=Sitesection::where('visible', '!=' , 0)->get();
+        $data['searching_count']=count($searching_result);
        return view('pages.Sitesection.Sitesection',$data);
     }
+    //-----------------------------------------------------------------------------//
+        function search($request)
+        {
+        // dd($request->all());
+             $data['title']  ='الاقسام';
+            $search_text = $request->query_text;
+            //dd($search_text);
+            $data['Sitesections']=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
+          
+              $searching_result=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
+              $searching_count=$data['searching_count']=count($searching_result);
+             // dd($searching_count);
+             // return view('pages.products.show',compact('searching_result','title'));
+            return view('pages.Sitesection.Sitesection',$data);
+
+        }
+
     //----------------------------------------------------------------------
+    
     public function create(){
         $data['title']='اضافه قسم';
         $data['parent_sites']= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();

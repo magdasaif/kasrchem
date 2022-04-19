@@ -273,3 +273,9 @@ Route::controller('datatables', 'DatatablesController', [
     'anyData'  => 'datatables.data',
     'getIndex' => 'datatables',
 ]);
+//---------------------------------searching-----------------------------------
+Route::get('/search','Products\ProductController@search')->name('searching');
+
+Route::get('/search_section','SiteSection\SiteSectionController@search')->name('search_section');
+
+Route::get('/search_video','Video\VideoController@search')->name('search_video');
