@@ -4,11 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Main_Category;
-class Sitesection extends Model
+
+
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Sitesection extends Model implements HasMedia
 {
     use HasFactory;
-   // public $fillable = ['id','parent_id','site_name_ar','site_name_en','priority','statues','image'];
+    use InteractsWithMedia;
+    
     protected $table = 'site_sections';
     protected $guarded=[];
     
@@ -20,5 +26,23 @@ class Sitesection extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+ //==============resize image===================
+ public function registerMediaConversions(Media $media = null): void
+ {
+     //---------sitesection method looks like with 3 size conversions-----------
+     $this->addMediaConversion('index')
+           ->width(90)
+           ->height(90);
+
+     $this->addMediaConversion('logo')
+           ->width(190)
+           ->height(190);
+
+     $this->addMediaConversion('adding')
+     ->width(200)
+     ->height(120);
+     //-------------------------------------------------------------
+ }
+
     
 }
