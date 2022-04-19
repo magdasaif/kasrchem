@@ -107,6 +107,22 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
+                    <!--=======================searchand form ============================-->
+       
+            <div class="col-md-6" style="margin-top:40px">
+              <form action="{{ route('search_section') }}" method="GET" style="display: flex;">
+         
+                 <div class="form-group">
+                    <input type="text" class="form-control" name="query_text" placeholder=" بحث باسم القسم ....."  value="{{ request()->input('query_text') }}">
+                    <span class="text-danger">@error('query_text'){{ $message }} @enderror</span>
+                 </div>
+                 <div class="form-group">
+                  <button type="submit" class="btn btn-primary">بحث</button>
+                 </div>
+              </form>
+            </div>
+              <br>
+          <!--===========================================================================-->
                 <table class="table table-hover styled-table">
                   <thead>
                     <tr>
@@ -121,7 +137,7 @@
                   
                    <tbody>
                          <?php $i = 0; $statues=1?>
-
+                         @if($searching_count != 0 && $Sitesections)
                         @foreach($Sitesections as $section)
                             <tr>
                             <?php 
@@ -170,11 +186,19 @@
 
                             </tr>
                         @endforeach
-
+                        @else
+                             <tr><td colspan="8" style="text-align: center;font-size: 18px;color: red;">لا يوجد بيانات !</td></tr>
+                           @endif
                     </tbody>
                 </table>
               </div>
-            
+              <div class="pagination-block">
+                @if(isset($Sitesections))
+            {{  $Sitesections->appends(request()->input())->links('layouts.paginationlinks') }}
+            @else
+            {{ $Sitesections->links('layouts.paginationlinks')}}
+            @endif
+            </div>
           </div>
         </div>
         </div>

@@ -18,6 +18,21 @@ class VideoRepository implements VideoInterface{
         return view('pages.Video.Show',$data);
 
     }
+    //-----------------------------------------------------------------------------//
+    function search($request)
+    {
+    // dd($request->all());
+        $data['title']  ='الفيديوهات';
+        $search_text = $request->query_text;
+        //dd($search_text);
+        $data['videos']=Video::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(1);
+        $searching_result=Video::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
+        $searching_count=$data['searching_count']=count($searching_result);
+        // dd($searching_count);
+        // return view('pages.products.show',compact('searching_result','title'));
+        return view('pages.Sitesection.Sitesection',$data);
+
+    }
     //--------------------------------------------------------//
     public function yajra_data($request)
     { 

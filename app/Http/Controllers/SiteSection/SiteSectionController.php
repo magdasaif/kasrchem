@@ -49,8 +49,9 @@ class SiteSectionController extends Controller
         return $this->xx->destroy($id); 
     }
   //--------------------------------------------
-     
-   
-     //-------------------------------------------- 
-    }
+  public function search(Request $request){
+    //  dd('ddddd');
+      return $this->xx->search($request);
+  } 
+}
 
