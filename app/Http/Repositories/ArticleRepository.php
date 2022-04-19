@@ -4,17 +4,17 @@ namespace App\Http\Repositories;
 
 use App\Models\Image;
 use App\Models\Article;
-use App\Models\Partner;
 use App\Traits\ImageTrait;
 use App\Models\Sitesection;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\ArticleInterface;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Traits\MediaTrait;
 class ArticleRepository implements ArticleInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
     
     public function index(){
         $data['title']  ='المقالات';
@@ -45,31 +45,9 @@ class ArticleRepository implements ArticleInterface{
              $article->rel_section()->attach($request->site_id,['type' => 'articles']);
 
            if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => '',
-                    'disk_name'     => 'article',
-                ];
-                
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
-                 //start morph image for product main imagحe
-                $image =new Image();
-                $image->imageable_type='App\Models\Article';
-                $image->imageable_id=$article->id;
-                $image->image_or_file='1';//image
-                $image->main_or_sub='1'; //main image
-                $image->filename=$photo_name;
-                $image->save();
-             
                 //optimize image
                 $article->addMedia($request->image)->toMediaCollection('article');
             }
-
-            
-
              DB::commit();
             toastr()->success('تمت الاضافه بنجاح');
             return redirect()->route('article.index')->with(['success'=>'تمت الاضافه بنجاح']);
@@ -100,59 +78,27 @@ class ArticleRepository implements ArticleInterface{
             
             $Article=Article::findOrfail($real_id);
             $Article-> name_ar= $request->name_ar;
-            $Article->name_en = $request->name_en;
+            $Article-> name_en = $request->name_en;
             $Article-> content_ar = $request->content_ar;
-            $Article->content_en = $request->content_en;
+            $Article-> content_en = $request->content_en;
             $Article-> status=$request->status;
             $Article-> sort=$request->sort;
             $Article->save();
             $Article->rel_section()->syncWithPivotValues($request->site_id,['type' => 'articles']);
 
            if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => '',
-                    'disk_name'     => 'article',
-                ];
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
                 //optimize image
                 $Article->addMedia($request->image)->toMediaCollection('article');
-                    
-                //start morph image for product sub images
-                $img=Image::find($request->image_id);
 
-                if($img){ // if there are image stored before-->update it
+                if(isset($request->media_url)){
+                    //remove  folder from disk //remove old media
+                    Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                    // rmdir(storage_path().'/app/public/media/'.$request->media_id);
 
-                    $img->filename=$photo_name;
-                    $img->save();
-                    
-                }else{// if there are no image stored before-->add it
-                    
-                        //start morph image for product main image
-                        $image =new Image();
-                        $image->imageable_type='App\Models\Article';
-                        $image->imageable_id=$Article->id;
-                        $image->image_or_file='1';//image
-                        $image->main_or_sub='1'; //main image
-                        $image->filename=$photo_name;
-                        $image->save();
-                    
-                }
-                
-                if($request->deleted_image){
-                    //  dd('1');
-                    // handel image array to pass image path to trait function
-                    $imageData=[
-                        'path'=>storage_path().'/app/public/article/'.$request->deleted_image,
-                    ];
-                    //call to unLinkImage fun to delete old image from disk 
-                    $this->unLinkImage($imageData);
+                    //call trait to handel aut-increament
+                    $this->refreshTable('media');
                 }
              }
-
 
             //toastr()->success('تمت الاضافه بنجاح');
             DB::commit();
@@ -161,7 +107,8 @@ class ArticleRepository implements ArticleInterface{
         }catch(\Exception $e){
             DB::rollback();
             toastr()->error('حدث خطا اثناء التعديل');
-            return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء التعديل']);
+             return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء التعديل']);
+           // return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
         }
             
     }

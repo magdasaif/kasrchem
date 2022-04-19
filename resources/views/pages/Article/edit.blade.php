@@ -90,11 +90,9 @@
                <!----------------------------------------------------->
                <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
-
-                    @if(isset($article->image->filename))
-                        <center><img id="previewImg" width="30%" src="<?php echo asset("storage/article/".$article->image->filename)?>" class="uploaded-img"> </center>
-                        <input type="hidden" name="deleted_image" value="{{$article->image->filename}}">
-                        <input type="hidden" name="image_id" value="{{$article->image->id}}">
+                    @if(($article->getFirstMediaUrl('article','edit')))
+                        <center><img id="previewImg"src="{{$article->getFirstMediaUrl('article','edit')}}" class="uploaded-img"> </center>
+                        <input type="hidden" name="media_url" value="{{$article->getFirstMediaUrl('article')}}">
                     @else
                         <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
                         <input type="hidden" name="deleted_image"/>

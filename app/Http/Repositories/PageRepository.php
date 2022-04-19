@@ -4,16 +4,17 @@ namespace App\Http\Repositories;
 
 use App\Models\Page;
 use App\Models\Image;
-use App\Models\Partner;
 use App\Traits\ImageTrait;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Interfaces\PageInterface;
 use App\Traits\TableAutoIncreamentTrait;
+use App\Traits\MediaTrait;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PageRepository implements PageInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
     
     public function index(){
         $data['Page']=Page::withoutTrashed()->orderBy('sort','asc')->paginate(10);
@@ -51,27 +52,8 @@ class PageRepository implements PageInterface{
 
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
-                    // handel image array to pass image data to trait function
-                    $imageData=[
-                        'image_name'    => $photo,
-                        'folder_name'   => 'page_no_'. $page->id,
-                        'disk_name'     => 'pages',
-                    ];
-                    
-                    //call to storeImage fun to save image in disk and return back with photo name
-                    $photo_name2=$this->storeImage($imageData);
-               
-                     //start morph image for product sub images
-                    Image::create([
-                        'imageable_type'=>'App\Models\Page',
-                        'imageable_id'=>$page->id,
-                        'image_or_file'=>'1',//image
-                        'main_or_sub'=>'2', //sub image
-                        'filename'=>$photo_name2
-                    ]);
-
                     //optimize image
-                    $page->addMedia($photo)->toMediaCollection('pages');
+                    $page->addMedia($photo)->toMediaCollection('sub_pages');
                 }
             }
             
@@ -93,7 +75,11 @@ class PageRepository implements PageInterface{
         $real_id=decrypt($id);
         
         $data['page']       = Page::findOrfail($real_id);
-        $data['title']      ='تعديل صفحه';    
+        $data['title']      ='تعديل صفحه';
+
+        //this will retrevie all images for collection 'sub_pages'
+		$data['Pages_images'] = Page::find($real_id)->getMedia('sub_pages');
+        
          return view('pages.pages.edit',$data);
         
     }
@@ -131,9 +117,10 @@ class PageRepository implements PageInterface{
         
         $data['title']          ='الصور الفرعيه';
         $data['page_id']        = $real_id;
-        $page_data              = Page::findorfail($real_id);
-        $data['Pages_images']   = $page_data->images;
-       
+
+        //this will retrevie all images for collection 'sub_pages'
+		$data['Pages_images']   = Page::find($real_id)->getMedia('sub_pages');
+               
        return view('pages.Pages.images',$data);
     }
     //-----------------------------------------------------------------------------
@@ -146,25 +133,6 @@ class PageRepository implements PageInterface{
           //  dd($real_id);
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
-                    // handel image array to pass image data to trait function
-                    $imageData=[
-                        'image_name'    => $photo,
-                        'folder_name'   => 'page_no_'. $real_id,
-                        'disk_name'     => 'pages',
-                    ];
-                    
-                    //call to storeImage fun to save image in disk and return back with photo name
-                    $photo_name=$this->storeImage($imageData);
-
-                    //start morph image for product sub images
-                    Image::create([
-                        'imageable_type'=>'App\Models\Page',
-                        'imageable_id'=>$real_id,
-                        'image_or_file'=>'1',//image
-                        'main_or_sub'=>'2', //sub image
-                        'filename'=>$photo_name
-                    ]);
-                    
                     //optimize image
                     $page->addMedia($photo)->toMediaCollection('sub_pages');
                 }
@@ -182,17 +150,10 @@ class PageRepository implements PageInterface{
     public function delete_page_images($request){
         //dd($request->all());
         try{
-            // handel image array to pass image path to trait function
-            $imageData=[
-                'path'=>storage_path().'/app/public/pages/page_no_'.decrypt($request->page_id).'/'.$request->image_name,
-            ];
-
-            //call to unLinkImage fun to delete image from disk 
-            $this->unLinkImage($imageData);
-            Image::findOrfail($request->image_id)->delete();
-
+           
+            Media::findOrfail($request->media_id)->delete();
             //call trait to handel aut-increament
-            $this->refreshTable('images');
+            $this->refreshTable('media');
             
             toastr()->success('تم الحذف بنجاح');
             return redirect()->back()->with(['success'=>'تم الحذف']);

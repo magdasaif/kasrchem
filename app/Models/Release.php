@@ -51,17 +51,18 @@ public function scopeMainImage()
     public function registerMediaConversions(Media $media = null): void
     {
         //---------release method looks like with 3 size conversions-----------
-        $this->addMediaConversion('index')
-              ->width(90)
-              ->height(90);
+        $this->addMediaConversion('edit')
+        ->width(300)
+        ->height(200);
 
         $this->addMediaConversion('logo')
               ->width(190)
               ->height(190);
 
-        $this->addMediaConversion('adding')
-        ->width(200)
-        ->height(120);
+        
+        $this->addMediaConversion('index')
+              ->width(90)
+              ->height(90);
         //-------------------------------------------------------------
     }
 }

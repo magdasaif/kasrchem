@@ -20,7 +20,8 @@ class PageRequest extends FormRequest
             $cond='';
             $req='|required';
         }
-        
+
+       
         return [
      
         'name_ar'        =>'required|unique:pages,name_ar,'.$cond,
@@ -32,7 +33,7 @@ class PageRequest extends FormRequest
         'content_en'     => 'required',
         'status'         => 'required',
         'sort'           =>'integer',
-        'photos.*'       => 'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315'. $cond,
+        'photos.*'       => 'required|image|mimes:jpg,png,jpeg,gif,svg',
           
         ];
     } 
@@ -58,7 +59,6 @@ class PageRequest extends FormRequest
 
         'sort.integer'             =>'الترتيب يجب ان يكون رقم',
 
-        'photos.*.dimensions'      =>'الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]',
         ];
     }
 }

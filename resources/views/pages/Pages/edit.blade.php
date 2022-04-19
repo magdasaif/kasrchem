@@ -34,7 +34,7 @@
             <label for="exampleInputEmail1">الصور الفرعيه</label>
 
             <input type="file" class="form-control" name="photos[]" accept="image/*" multiple required>
-            <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
+            <!-- <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span> -->
 
             @error('photos')
             <small class="form-text text-danger">{{$message}}</small>
@@ -48,11 +48,10 @@
     </form>
 <!-- ------------------------------------------------------------------------- -->
  <div class="row">
-            @foreach($page->images as $image)
+            @foreach($Pages_images as $image)
                  <div class="col">
-                    <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/pages/page_no_$page->id/$image->filename")?>">
+                 <img  src="{{$image->getUrl('edit')}}">
                     <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$image->id}}" style="margin-right: 55px;"> حذف</button>
-
                 </div>
                 
                  <!--############################ model for delete #################################-->
@@ -76,8 +75,7 @@
                             <div class="modal-footer">
 
                                 <input type="hidden" name="page_id" value="{{encrypt($page->id)}}">
-                                <input type="hidden" name="image_name" value="{{$image->filename}}">
-                                <input type="hidden" name="image_id" value="{{$image->id}}">
+                                <input type="hidden" name="media_id" value="{{$image->id}}">
 
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                 <button type="submit" class="btn btn-primary" >حذف</button>

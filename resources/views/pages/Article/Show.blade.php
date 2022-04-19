@@ -46,11 +46,9 @@
                          <?php $i = 0; $status=1?>
                         @foreach($articles as $article)
                             <tr>
-                            <?php $i++;
-                            if(isset($article->image->filename)){$img=$article->image->filename;}else{$img='';}
-                            ?>
+                            <?php $i++;?>
                             <td>{{ $i }}</td>
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/article/{$img}")?> alt="" ></td>
+                            <td><img src="{{$article->getFirstMediaUrl('article','index')}}"></td>
                             <td >{{$article->name_ar}}</td>
                             <td style="font-weight: bold;font-size: 17px;" ><?php if($article->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                             <td >{{$article->sort}}</td>

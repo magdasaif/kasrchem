@@ -25,11 +25,15 @@ class Page extends Model implements HasMedia
       //this for image optimization package 
       public function registerMediaConversions(Media $media = null): void
       {
-          $this->addMediaConversion('thumb')
-                  ->width(200)
-                  ->height(120);
-  
-          $this->addMediaConversion('logo')
+        $this->addMediaConversion('edit')
+            ->width(300)
+            ->height(200);
+  //الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]
+          $this->addMediaConversion('sub_img')
+                  ->width(900)
+                  ->height(400);
+
+         $this->addMediaConversion('index')
                   ->width(90)
                   ->height(90);
       }
