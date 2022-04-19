@@ -140,15 +140,10 @@
                          @if($searching_count != 0 && $Sitesections)
                         @foreach($Sitesections as $section)
                             <tr>
-                            <?php 
-                                $i++;
-                                if(isset($section->image->filename)){$img=$section->image->filename;}else{$img='';}
-                            ?>
-                            <!-- <td> {{$i}} <img src="{{$section->getFirstMediaUrl('sections','logo')}}" /> </td> -->
+                            <?php $i++;?>
                             <td> {{$i}}</td> 
                             <td>{{$section->name_ar}}</td>
-
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/site_sections/section_no_$section->id/{$img}")?> alt="" ></td>
+                            <td> <img src="{{$section->getFirstMediaUrl('sections','index')}}" /> </td>
                             <td>{{$section->sort}}</td>
                            <td><?php if($section->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                               <td> 

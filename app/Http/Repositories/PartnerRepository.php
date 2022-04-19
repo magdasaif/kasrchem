@@ -1,18 +1,17 @@
 <?php
 
 namespace App\Http\Repositories;
-
-use App\Models\Image;
 use App\Models\Partner;
 use App\Traits\ImageTrait;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\PartnerInterface;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Traits\MediaTrait;
 class PartnerRepository implements PartnerInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
     
     public function index(){
         $data['title']  ='الشركاء';
@@ -41,32 +40,11 @@ class PartnerRepository implements PartnerInterface{
              $partner->save();
              
            if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => '',
-                    'disk_name'     => 'partners',
-                ];
-                
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
-                 //start morph image for product main imagحe
-                $image =new Image();
-                $image->imageable_type='App\Models\Partner';
-                $image->imageable_id=$partner->id;
-                $image->image_or_file='1';//image
-                $image->main_or_sub='1'; //main image
-                $image->filename=$photo_name;
-                $image->save();
-             
-                //optimize image
-                $partner->addMedia($request->image)->toMediaCollection('partner');
+               //optimize image
+               $partner->addMedia($request->image)->toMediaCollection('partner');
             }
 
-            
-
-             DB::commit();
+            DB::commit();
             toastr()->success('تمت الاضافه بنجاح');
             return redirect()->route('partner.index')->with(['success'=>'تمت الاضافه بنجاح']);
         }catch(\Exception $e){
@@ -96,52 +74,21 @@ class PartnerRepository implements PartnerInterface{
             $partner->status= $request->status;
             $partner->external_link= $request->external_link;
             $partner->save();
-            
-           if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => '',
-                    'disk_name'     => 'partners',
-                ];
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
 
+
+            if($request->image){
                 //optimize image
                 $partner->addMedia($request->image)->toMediaCollection('partner');
-                    
-                //start morph image for product sub images
-                $img=Image::find($request->image_id);
 
-                if($img){ // if there are image stored before-->update it
+                if(isset($request->media_url)){
+                    //remove  folder from disk //remove old media
+                    Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                    // rmdir(storage_path().'/app/public/media/'.$request->media_id);
 
-                    $img->filename=$photo_name;
-                    $img->save();
-                    
-                }else{// if there are no image stored before-->add it
-                    
-                        //start morph image for product main image
-                        $image =new Image();
-                        $image->imageable_type='App\Models\Partner';
-                        $image->imageable_id=$partner->id;
-                        $image->image_or_file='1';//image
-                        $image->main_or_sub='1'; //main image
-                        $image->filename=$photo_name;
-                        $image->save();
-                    
-                }
-                
-                if($request->deleted_image){
-                    //  dd('1');
-                    // handel image array to pass image path to trait function
-                    $imageData=[
-                        'path'=>storage_path().'/app/public/partners/'.$request->deleted_image,
-                    ];
-                    //call to unLinkImage fun to delete old image from disk 
-                    $this->unLinkImage($imageData);
+                    //call trait to handel aut-increament
+                    $this->refreshTable('media');
                 }
              }
-
 
             //toastr()->success('تمت الاضافه بنجاح');
             DB::commit();

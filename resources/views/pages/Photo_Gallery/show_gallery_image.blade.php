@@ -46,7 +46,7 @@
             <div class="row">
             @foreach($Gallery_Photo as $xx)
             <div class="col">
-                  <img  style="width: 150px; height: 150px;" src="<?php echo asset("storage/photo_gallery/gallery_photo_images_no_$id/{$xx->filename}")?>">
+                 <img  src="{{$xx->getUrl('edit')}}">
                   <br><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete{{$xx->id}}" style="margin-right: 55px;" > حذف</button> 
                 </div>
                 
@@ -70,8 +70,9 @@
                                              </h3>
 
                                     </div>
-                                    <input type="hidden" name="deleted_image" value="{{$xx->filename}}">
-                                    <input type="hidden" value="{{$id}}" name="gallery_id">
+                                    <input type="hidden" name="gallery_id" value="{{$id}}">
+                                    <input type="hidden" name="media_id" value="{{$xx->id}}">
+                                    
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <button type="submit" class="btn btn-success" >حذف</button>

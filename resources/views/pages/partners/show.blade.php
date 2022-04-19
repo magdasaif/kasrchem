@@ -44,14 +44,11 @@
                     <tbody>
                         <?php $i=1;?>
                         @foreach($partners as $partner)
-                        <?php $i++;
-                        if(isset($partner->image->filename)){$img=$partner->image->filename;}else{$img='';}
-                        ?>
+                        <?php $i++;?>
                         <tr>
                             <td>{{$i}}</td>
                                                         
-                            <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/partners/$img")?>"></td>
-
+                            <td><img src="{{$partner->getFirstMediaUrl('partner','index')}}"></td>
                             <td>{{$partner->name_ar}}</td>
                             <td><?php if($partner->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                             <td>{{$partner->sort}}</td>

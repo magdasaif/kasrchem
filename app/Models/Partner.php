@@ -27,21 +27,17 @@ class Partner extends Model implements HasMedia
 
     
 
-    //this for image optimization package 
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('edit')
-            ->width(300)
-            ->height(200);
-
-        $this->addMediaConversion('logo')
-                ->width(90)
-                ->height(90);
-
-        $this->addMediaConversion('index')
-                ->width(90)
-                ->height(90);
-    }
+      //this for image optimization package 
+      public function registerMediaConversions(Media $media = null): void
+      {
+          $this->addMediaConversion('edit')
+          ->width(300)
+          ->height(200);
+                  
+          $this->addMediaConversion('index')
+          ->width(90)
+          ->height(90);
+      }
 
     
 }

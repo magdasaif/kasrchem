@@ -27,7 +27,7 @@ class CreateSiteInfosTable extends Migration
             $table->string('site_fax');
             $table->string('site_whatsapp');
             
-            $table->string('site_logo');
+            //$table->string('site_logo');
             
             $table->string('ios_link');
             $table->string('android_link');

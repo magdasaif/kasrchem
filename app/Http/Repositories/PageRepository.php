@@ -3,7 +3,6 @@
 namespace App\Http\Repositories;
 
 use App\Models\Page;
-use App\Models\Image;
 use App\Traits\ImageTrait;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;

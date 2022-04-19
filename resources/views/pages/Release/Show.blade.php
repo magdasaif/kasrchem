@@ -58,14 +58,8 @@
                             <tr>
                             <?php $i++; ?>
                             <td> {{$i}}</td>
-                            @if(sizeof($release->mainImage())>0)
-                            @foreach($release->mainImage() as $xx)
-                            <td><img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/releases/release_no_$release->id/{$xx->filename}")?> alt="" ></td>
-                            
-                            @endforeach
-                            @else
-                            <td></td>
-                            @endif
+                            <td><img src="{{$release->getFirstMediaUrl('releases','index')}}"></td>                              
+
                              <td>{{$release->name_ar}}</td>
                              <td><?php if($release->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
                              <td>{{$release->sort}}</td>

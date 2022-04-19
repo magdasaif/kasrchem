@@ -12,10 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\GalleryInterface;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Traits\MediaTrait;
 class GalleryRepository implements GalleryInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
     
     public function index(){
         $data['title']      ='معرض الصور';
@@ -47,56 +48,15 @@ class GalleryRepository implements GalleryInterface{
             $photo_gallery->rel_section()->attach($request->site_id,['type' => 'photos']);
              
            if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'gallery_photo_images_no_'. $photo_gallery->id,
-                    'disk_name'     => 'photo_gallery',
-                ];
-                
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
-                //optimize image
+               //optimize image
                 $photo_gallery->addMedia($request->image)->toMediaCollection('gallery');
                 
-            }else{
-                $photo_name='';
             }
-
-             //start morph image for product main imagحe
-             $image =new Image();
-             $image->imageable_type='App\Models\Photo_Gallery';
-             $image->imageable_id=$photo_gallery->id;
-             $image->image_or_file='1';//image
-             $image->main_or_sub='1'; //main image
-             $image->filename=$photo_name;
-             $image->save();
-
-
+            
              if(!empty($request->photos)){
                 foreach($request->photos as $photo){
-
-                     // handel image array to pass image data to trait function
-                      $imageData=[
-                       'image_name'    => $photo,
-                       'folder_name'   => 'gallery_photo_images_no_'. $photo_gallery->id,
-                       'disk_name'     => 'photo_gallery',
-                       ];
-                       
-                       //call to storeImage fun to save image in disk and return back with photo name
-                       $photo_name=$this->storeImage($imageData);
-
-                       //start morph image for product sub images
-                       Image::create([
-                           'imageable_type'=>'App\Models\Photo_Gallery',
-                           'imageable_id'=>$photo_gallery->id,
-                           'image_or_file'=>'1',//image
-                           'main_or_sub'=>'2', //sub image
-                           'filename'=>$photo_name
-                       ]);
-                       //optimize image
-               $photo_gallery->addMedia($photo)->toMediaCollection('sub_gallery');
+                    //optimize image
+                    $photo_gallery->addMedia($photo)->toMediaCollection('sub_gallery');
                 }
             }
             
@@ -138,50 +98,20 @@ class GalleryRepository implements GalleryInterface{
                 $Photo_Gallery->rel_section()->sync();
             }
           
-
-           if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'gallery_photo_images_no_'. $Photo_Gallery->id,
-                    'disk_name'     => 'photo_gallery',
-                ];
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
+            if($request->image){
                 //optimize image
                 $Photo_Gallery->addMedia($request->image)->toMediaCollection('gallery');
-                    
-                //start morph image for product sub images
-                $img=Image::find($request->image_id);
 
-                if($img){ // if there are image stored before-->update it
+                if(isset($request->media_url)){
+                    //remove  folder from disk //remove old media
+                    Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                    // rmdir(storage_path().'/app/public/media/'.$request->media_id);
 
-                    $img->filename=$photo_name;
-                    $img->save();
-                    
-                }else{// if there are no image stored before-->add it
-                    
-                        //start morph image for product main image
-                        $image =new Image();
-                        $image->imageable_type='App\Models\Photo_Gallery';
-                        $image->imageable_id=$Photo_Gallery->id;
-                        $image->image_or_file='1';//image
-                        $image->main_or_sub='1'; //main image
-                        $image->filename=$photo_name;
-                        $image->save();
-                    
+                    //call trait to handel aut-increament
+                    $this->refreshTable('media');
                 }
-                if($request->deleted_image){
-                //  dd('1');
-                    // handel image array to pass image path to trait function
-                    $imageData=[
-                        'path'=>storage_path().'/app/public/photo_gallery/'.$request->deleted_image,
-                    ];
-                    //call to unLinkImage fun to delete old image from disk 
-                    $this->unLinkImage($imageData);
-                }
-            }
+             }
+         
             DB::commit();
             toastr()->success('تم التعديل بنجاح');
             return redirect()->route('photo_gallery.index')->with(['success'=>'تم التعديل بنجاح']);
@@ -206,8 +136,8 @@ class GalleryRepository implements GalleryInterface{
          $data['title'] = 'اضافة صور لمعرض';
          $data['id']    = $real_id;
          
-         //subImages() is a scope function in gallery model
-         $data['Gallery_Photo'] = Photo_Gallery::find($real_id)->subImages();
+         //this will retrevie all images for collection 'sub_gallery'
+		$data['Gallery_Photo']   = Photo_Gallery::find($real_id)->getMedia('sub_gallery');
 
          //when use media library package
         // $data['Gallery_Photo']= Photo_Gallery::find($real_id)->getMedia('sub_gallery');//'sub_product','thumb'
@@ -225,27 +155,8 @@ class GalleryRepository implements GalleryInterface{
             // dd($request->image);
              if(!empty($request->photos)){
                  foreach($request->photos as $photo){
-
-                      // handel image array to pass image data to trait function
-                       $imageData=[
-                        'image_name'    => $photo,
-                        'folder_name'   => 'gallery_photo_images_no_'. $real_id,
-                        'disk_name'     => 'photo_gallery',
-                        ];
-                        
-                        //call to storeImage fun to save image in disk and return back with photo name
-                        $photo_name=$this->storeImage($imageData);
-
-                        //start morph image for product sub images
-                        Image::create([
-                            'imageable_type'=>'App\Models\Photo_Gallery',
-                            'imageable_id'=>$real_id,
-                            'image_or_file'=>'1',//image
-                            'main_or_sub'=>'2', //sub image
-                            'filename'=>$photo_name
-                        ]);
-                        //optimize image
-                $photo_gallery->addMedia($photo)->toMediaCollection('sub_gallery');
+                    //optimize image
+                    $photo_gallery->addMedia($photo)->toMediaCollection('sub_gallery');
                  }
              }
  
@@ -262,21 +173,10 @@ class GalleryRepository implements GalleryInterface{
     }
  //--------------------------------------------------------------------------
     public function delete_gallery_images($request ,$id){
-
         try{
-           // dd($request->gallery_id);
-            $real_id=decrypt($id);
-            // handel image array to pass image path to trait function
-            $imageData=[
-                'path'=>storage_path().'/app/public/photo_gallery/gallery_photo_images_no_'.$request->gallery_id.'/'.$request->deleted_image,
-            ];
-
-            //call to unLinkImage fun to delete image from disk 
-            $this->unLinkImage($imageData);
-            Image::findOrfail($real_id)->delete();
-
+            Media::findOrfail($request->media_id)->delete();
             //call trait to handel aut-increament
-            $this->refreshTable('images');
+            $this->refreshTable('media');
             
             toastr()->success('تم الحذف بنجاح');
             return redirect()->back()->with(['success'=>'تم الحذف']);

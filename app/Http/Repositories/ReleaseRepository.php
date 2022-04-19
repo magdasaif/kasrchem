@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Repositories;
-use App\Http\Interfaces\ReleaseInterface;
-use Illuminate\Support\Facades\DB;
-use App\Traits\TableAutoIncreamentTrait;
-use App\Models\Release;
-use App\Models\Sitesection;
+use toastr;
 use App\Models\Image;
+use App\Models\Release;
 use App\Traits\ImageTrait;
+use App\Models\Sitesection;
 use App\Models\Section_All_Page;
 use Yajra\DataTables\DataTables;
-use toastr;
-
+use Illuminate\Support\Facades\DB;
+use App\Traits\TableAutoIncreamentTrait;
+use App\Http\Interfaces\ReleaseInterface;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Traits\MediaTrait;
 class ReleaseRepository implements ReleaseInterface{
-    use TableAutoIncreamentTrait;
-    use ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
     //----------------------show release function----------------------------------//
     public function index()
     {
@@ -59,35 +59,13 @@ class ReleaseRepository implements ReleaseInterface{
             //============================image===========================================//
             if($request->image)
             {
-                
-                   //---------------------------------2-----------------------------
-                // handel image array to pass image_data to ImageTrait function
-                $imageData=
-                [
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'release_no_'.$releases->id,
-                    'disk_name'     => 'releases',
-                ];
-               //call to storeImage fun that save image in disk and return back with photo name from trait to insert in db
-                $photo_name=$this->storeImage($imageData);
-               //==============================insert in morh table "images"===========================================//
-               //start morph image for product main image
-                $image =new Image();
-                $image->imageable_type='App\Models\Release';
-                $image->imageable_id=$releases->id;
-                $image->image_or_file='1';//image
-                $image->main_or_sub='1'; //main image
-                $image->filename=$photo_name;
-                $image->save();
-                       //-----------2-relate image with media with collection name "releases"---------------
+                 //-----------2-relate image with media with collection name "releases"---------------
                $releases->addMedia($request->image)->toMediaCollection('releases');
 
             }
         //============================files===========================================//
           if($request->file)
             {
-                
-               
                 // handel file array to pass file_data to ImageTrait function
                 $fileData=
                 [
@@ -149,35 +127,18 @@ class ReleaseRepository implements ReleaseInterface{
         //============================image===========================================//
             if($request->image)
             {
-               
-                 //-------------1--- unlink old image----------------------
-                if($request->old_image){
-                    //هيحذفها لو هى موجودة فى الفولدر
-                    //------------call to unLinkImage fun that unLink old_image in disk----------------
-                    $imageData= 
-                    [
-                        'path'  => storage_path().'/app/public/releases/release_no_'.$real_id.'/'.$request->old_image,
-                    ];
-                    $this->unLinkImage($imageData);
-                }
-                  //----------------------------store in disk------------------------------------------------------
-                // handel image array to pass image_data to ImageTrait function
-                $imageData=
-                [
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'release_no_'.$releases->id,
-                    'disk_name'     => 'releases',
-                ];
-               //call to storeImage fun that save image in disk and return back with photo name from trait to insert in db
-                $photo_name=$this->storeImage($imageData);
-           
-               //=====================update in morph table "images"===================//
-               
-                $morphic_image=Image::findOrFail($request->morph_image_id);
-                $morphic_image->filename=$photo_name;
-                $morphic_image->save();
-                  //-----------3-relate image with media with collection name "releases"---------------
-                  $releases->addMedia($request->image)->toMediaCollection('releases');
+               //optimize image
+               $releases->addMedia($request->image)->toMediaCollection('releases');
+
+               if(isset($request->media_url)){
+                   //remove  folder from disk //remove old media
+                   Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                   // rmdir(storage_path().'/app/public/media/'.$request->media_id);
+
+                   //call trait to handel aut-increament
+                   $this->refreshTable('media');
+               }
+                  
             }
         //============================files===========================================//
         if($request->filee)
@@ -222,24 +183,21 @@ class ReleaseRepository implements ReleaseInterface{
    }
     //---------------------soft delete------------------------------------//
     public function destroy($id)
-    {
-          // dd($id);
-           $real_id=decrypt($id);
-      try
+    {  
+        try
         {
+            // dd($id);
+            $real_id=decrypt($id);
             //Section_All_Page::where('type_id',$real_id)->where('type','releases')->delete();
             Release::find($real_id)->delete();
-          //call trait to handel aut-increament
+            //call trait to handel aut-increament
             $this->refreshTable('releases');
             toastr()->success(' تم الحذف بنجاح');
-             return redirect()->route('release.index');
-       }
-       catch
-       (\Exception $e)
-       {
-        toastr()->error(' حدث خطااثناء الحذف');
-        return redirect()->back();  
-         }
+            return redirect()->route('release.index');
+        }catch(\Exception $e){
+            toastr()->error(' حدث خطااثناء الحذف');
+            return redirect()->back();  
+        }
 
     }
     //---------------------------------------------------------//

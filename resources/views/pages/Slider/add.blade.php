@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label> صوره <span style="color:rgb(199, 8, 8)">*</span></label>
                             <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
-                            <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
+                            <!-- <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span> -->
                         </div>
                         @error('image')
                             <small class="form-text text-danger">{{$message}}</small>

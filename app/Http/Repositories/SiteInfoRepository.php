@@ -2,12 +2,14 @@
 
 namespace App\Http\Repositories;
 use App\Models\SiteInfo;
-use App\Http\Interfaces\SiteInfoInterface;
 use App\Traits\ImageTrait;
-
+use App\Http\Interfaces\SiteInfoInterface;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Traits\MediaTrait;
+use App\Traits\TableAutoIncreamentTrait;
 class SiteInfoRepository implements SiteInfoInterface{
 
-    use ImageTrait;
+    use ImageTrait,TableAutoIncreamentTrait,MediaTrait;
     
     public function edit(){
         $data['title']  ='اعدادت الموقع';
@@ -34,36 +36,26 @@ class SiteInfoRepository implements SiteInfoInterface{
             
             $info-> ios_link= ($request->ios_link)?$request->ios_link:'';
             $info-> android_link= ($request->android_link)?$request->android_link:'';
-           
- 
+
             if($request->site_logo)
             {
-             if($request->deleted_image!=null)
-             {
-                // handel image array to pass image path to trait function
-                  $imageData=[
-                    'path'=>storage_path().'/app/public/setting/'.$request->deleted_image,
-                ];
-                //call to unLinkImage fun to delete old image from disk 
-                $this->unLinkImage($imageData);
-                
-              }
-             //----------------- //----------------- //-----------------
-                // handel image array to pass image data to trait function
-                 $imageData=[
-                    'image_name'    => $request->site_logo,
-                    'folder_name'   => '',
-                    'disk_name'     => 'setting',
-                ];
-                
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
+                //optimize image
+                $info->addMedia($request->site_logo)->toMediaCollection('site_logo');
 
-                $info->site_logo = $photo_name;
-              }
- 
-              $info->save();
+               if(isset($request->media_url)){
+                   //remove  folder from disk //remove old media
+                   Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                   // rmdir(storage_path().'/app/public/media/'.$request->media_id);
 
+                   //call trait to handel aut-increament
+                   $this->refreshTable('media');
+               }
+                  
+            }
+            $info->save();
+
+               
+                 
               toastr()->success('تمت التعديل بنجاح');
              return redirect()->back()->with(['success'=>'تم التعديل بنجاح']);
         }

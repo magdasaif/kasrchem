@@ -7,25 +7,9 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-          <!----------------start success ___ error----------------->
-          @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-           @endif
-      <!------------------end success ___ error----------------->
+  
           <div class="col-12">
-        
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$title}}</h3>
@@ -91,12 +75,22 @@
                         @enderror
                     </div>
                     <!----------------------image----------------------------->
-                    <div class="form-group">
-                        <label for="image">صوره*</label>
-                        <input type="file" class="form-control" name="image" accept="image/*" required>
-                        @error('image')
-                        <small class="form-text text-danger">{{$message}}</small>
-                        @enderror
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>صورة المنتج الاساسية:  <span style="color:rgb(199, 8, 8)">*</span></label>
+                                <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
+                            </div>
+                            @error('image')
+                                <small class="form-text text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+
                     </div>
                     <!----------------------status----------------------------->
                      <div class="form-group">
@@ -122,4 +116,5 @@
     </div>
 </section>
 </template>
+<script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection

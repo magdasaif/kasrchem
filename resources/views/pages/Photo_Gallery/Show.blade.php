@@ -49,13 +49,7 @@
                             <tr>
                             <?php $i++; ?>
                             <td>{{ $i }}</td>
-                            @if(sizeof($Photo_Gallery->mainImages())>0)
-                              @foreach($Photo_Gallery->mainImages() as $main) 
-                                  <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/photo_gallery/gallery_photo_images_no_".$Photo_Gallery->id."/".$main->filename)?>"></td>
-                              @endforeach
-                            @else
-                            <td></td>
-                            @endif
+                            <td><img src="{{$Photo_Gallery->getFirstMediaUrl('gallery','index')}}"></td>
                             <td>{{$Photo_Gallery->name_ar}}</td>
                             <td>{{$Photo_Gallery->sort}}</td>
                             <td><?php if($Photo_Gallery->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
@@ -83,9 +77,8 @@
                                                 هل تريد الحذف بالفعل؟
                                              </h3>
                                             <input type="hidden" name="galary_id" id="$Photo_Gallery->id" value="{{$Photo_Gallery->id}}">
-                                            <img  style="width: 90px; height: 90px;" src=<?php echo asset("storage/photo_gallery/{$main->filename}")?> alt="" >
+                                            <img  style="width: 90px; height: 90px;" src="{{$Photo_Gallery->getFirstMediaUrl('gallery','index')}}" alt="" >
                                     </div>
-                                    <input type="hidden" name="deleted_image" value="{{$main->filename}}">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
                                         <input type="submit" value="حذف"  class="btn btn-primary">

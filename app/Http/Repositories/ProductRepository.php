@@ -16,12 +16,12 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\ProductInterface;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Traits\MediaTrait;
 
 class ProductRepository implements ProductInterface{
 
-    use TableAutoIncreamentTrait;
-    use ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
 
     //******************************get all products data*****************************/
     public function index(){
@@ -80,59 +80,14 @@ function search($request)
             // $product->suppliers()->attach($request->supplier_id);
 
             if($request->image){
-                //get last id of product to create folder named with this id +1
-                //$this->getTableLastId('Product')
-             
-                // handel image array to pass image data to trait function
-                 $imageData=[
-                     'image_name'    => $request->image,
-                     'folder_name'   => 'product_no_'. $product->id,
-                     'disk_name'     => 'products',
-                     'model'         =>$product,
-                 ];
-                 
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
-                 //start morph image for product main image
-                $image =new Image();
-                $image->imageable_type='App\Models\Product';
-                $image->imageable_id=$product->id;
-                $image->image_or_file='1';//image
-                $image->main_or_sub='1'; //main image
-                $image->filename=$photo_name;
-                $image->save();
-             
                 //optimize image
                 $product->addMedia($request->image)->toMediaCollection('product');
                  
             }
-            
-            
-
              
             if(!empty($request->photos)){
                 foreach($request->photos as $photo){
-                    // handel image array to pass image data to trait function
-                    $imageData=[
-                        'image_name'    => $photo,
-                        'folder_name'   => 'product_no_'. $product->id,
-                        'disk_name'     => 'products',
-                        'model'         =>$product,
-                    ];
-                    
-                    //call to storeImage fun to save image in disk and return back with photo name
-                    $photo_name2=$this->storeImage($imageData);
                     $product->addMedia($photo)->toMediaCollection('sub_product');
-
-                     //start morph image for product sub images
-                    Image::create([
-                        'imageable_type'=>'App\Models\Product',
-                        'imageable_id'=>$product->id,
-                        'image_or_file'=>'1',//image
-                        'main_or_sub'=>'2', //sub image
-                        'filename'=>$photo_name2
-                    ]);
                 }
             }
 
@@ -204,27 +159,8 @@ function search($request)
               //  dd($real_id);
                 if(!empty($request->photos)){
                     foreach($request->photos as $photo){
-                        // handel image array to pass image data to trait function
-                        $imageData=[
-                            'image_name'    => $photo,
-                            'folder_name'   => 'product_no_'. $real_id,
-                            'disk_name'     => 'products',
-                        ];
-                        
-                        //call to storeImage fun to save image in disk and return back with photo name
-                        $photo_name=$this->storeImage($imageData);
-
-                        //start morph image for product sub images
-                        Image::create([
-                            'imageable_type'=>'App\Models\Product',
-                            'imageable_id'=>$real_id,
-                            'image_or_file'=>'1',//image
-                            'main_or_sub'=>'2', //sub image
-                            'filename'=>$photo_name
-                        ]);
-
                         //optimize image
-                        $product->addMedia($request->image)->toMediaCollection('sub_product');
+                        $product->addMedia($photo)->toMediaCollection('sub_product');
                         //$product->copy($product, 'new-collection', 'products');
                     }
                 }
@@ -245,17 +181,9 @@ function search($request)
     public function delete_product_images($request){
 
         try{
-            // handel image array to pass image path to trait function
-            $imageData=[
-                'path'=>storage_path().'/app/public/products/product_no_'.$request->product_id.'/'.$request->image_name,
-            ];
-
-            //call to unLinkImage fun to delete image from disk 
-            $this->unLinkImage($imageData);
-            Image::findOrfail($request->image_id)->delete();
-
+            Media::findOrfail($request->media_id)->delete();
             //call trait to handel aut-increament
-            $this->refreshTable('images');
+            $this->refreshTable('media');
             
             toastr()->success('تم الحذف بنجاح');
             return redirect()->back()->with(['success'=>'تم الحذف']);
@@ -390,73 +318,27 @@ function search($request)
                 $product->status= $request->status;
 
                 $product->save();
-                   
-                if($request->image){
-                    if($request->deleted_image){
-                      //  dd('1');
-                        // handel image array to pass image path to trait function
-                        $imageData=[
-                            'path'=>storage_path().'/app/public/products/product_no_'.$real_id.'/'.$request->deleted_image,
-                        ];
-                        //call to unLinkImage fun to delete old image from disk 
-                        $this->unLinkImage($imageData);
-                    }
-                    // handel image array to pass image data to trait function
-                    $imageData=[
-                        'image_name'    => $request->image,
-                        'folder_name'   => 'product_no_'. $real_id,
-                        'disk_name'     => 'products',
-                        'model'         =>  $product,
-                    ];
-                    //call to storeImage fun to save image in disk and return back with photo name
-                    $photo_name=$this->storeImage($imageData);
 
+                if(isset($request->site_id)){
+                    $product->rel_section()->sync($request->site_id);
+                }else{
+                    $product->rel_section()->sync();
+                }
+              
+                if($request->image){
+                   
                     //optimize image
                     $product->addMedia($request->image)->toMediaCollection('product');
-                        
-                    //start morph image for product sub images
-                    $img=Image::find($request->image_id);
-
-                    if($img){
-
-                        $img->filename=$photo_name;
-                        $img->save();
-
-                   }else{
-                            //start morph image for product main image
-                        $image =new Image();
-                        $image->imageable_type='App\Models\Product';
-                        $image->imageable_id=$product->id;
-                        $image->image_or_file='1';//image
-                        $image->main_or_sub='1'; //main image
-                        $image->filename=$photo_name;
-                        $image->save();
-                         
-                     }
+                    if(isset($request->media_url)){
+                        //remove  folder from disk //remove old media
+                        Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                        // rmdir(storage_path().'/app/public/media/'.$request->media_id);
+    
+                        //call trait to handel aut-increament
+                        $this->refreshTable('media');
+                    }
                   
-                    // dd('2');
-
-                     //optimize image
-                      //  $product->addMedia($request->image)->toMediaCollection('media');
-                
-                    //$product->mainImages()->filename=$photo_name;////////هنا عايزاه يعدل ع الصوره الاساسيه بس 
-                    
                 }
-            
-                   
-   
-                   //attach products with supplier
-                //    if(isset($request->supplier_id)){
-                //          $product->suppliers()->sync($request->supplier_id);
-                //    }else{
-                //        $product->suppliers()->sync();
-                //    }
-                
-                   if(isset($request->site_id)){
-                         $product->rel_section()->sync($request->site_id);
-                   }else{
-                       $product->rel_section()->sync();
-                   }
 
                     DB::commit();
                     toastr()->success('تمت التعديل بنجاح');

@@ -80,38 +80,19 @@
        <div class="flex-center position-ref full-height">
        <div class="links" style="position: absolute;top: 60px;"> <a style="font-size: 20px;font-weight: bold;color: green;" href="{{ url('/home') }}" >ابدأ مشروعك</a></div>
              <div class="content">
-            <?php
-              if(file_exists(storage_path().'/app/public/setting/')){
-                $handle = opendir(storage_path().'/app/public/setting/');
-                while($file = readdir($handle)){
-                    if($file !== '.' && $file !== '..'){
-                        //echo '<img src="pictures/'.$file.'" border="0" />';
-                        echo'<img style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src='.asset("storage/setting/$file").' alt="" > ';
-                    }
-                }
-            }else{
-                echo'<img style=" margin-bottom: 135px;border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width: 100%;" src='.asset("/images/logo.jpg").' alt="" > ';
-            }
-            ?>
+             @if((App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')))
+             <img src="{{App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')}}">
+            @else
+            <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='{{asset("/images/logo.png")}}' alt="" >
+            @endif
+
             </div>
         </div>
     @else
      <div class="content">
-            <?php
-            if(file_exists(storage_path().'/app/public/setting/')){
-                $handle = opendir(storage_path().'/app/public/setting/');
-
-                while($file = readdir($handle)){
-                    if($file !== '.' && $file !== '..'){
-                        //echo '<img src="pictures/'.$file.'" border="0" />';
-                        echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
-                    }
-                }
-            }else{
-                echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("/images/logo.png").' alt="" >  ';
-
-            }
-            ?>
+    
+              <img src="{{App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')}}">
+            
                 
             </div>
    <!-------------------------------------------------->
@@ -194,76 +175,7 @@
 @endif
       <!------------------------------------------------------------------------->
 
-<center>
-
-<span class="title">اللون :</span>
-                            <!--  -->
-                            
-      <span class="title">اللون :</span>
-        <ul class="colors" id="list_id">
-            
-            <li name="Color" id="1" class="color">
-                <span style="background-color:aqua"> aqua</span>
-            </li>
-            
-            <li name="Color" id="2" class="color">
-                <span style="background-color:gold"> gold</span>
-            </li>
-            
-        </ul>
-
-
-        <ul id='myid'>
-            <li id='1'>First</li>
-            <li id='2'>Second</li>
-            <li id='3'>Third</li>
-            <li id='4'>Fourth</li>
-            <li id='5'>Fifth</li>
-        </ul>
-
-</center>
                             
       </body>
 </html>
-
-
-<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-<script>
-  
-        $(document).ready(function() {
-
-
-            $("#list_id li").click(function() {
-                     alert(this.id); // id of clicked li by directly accessing DOMElement property
-               
-                var ColorId = this.id;
-                alert(ColorId);
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-
-                if (ColorId) {
-                    $.ajax({
-                        url: "{{ URL::to('Color') }}/" + ColorId,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            $('select[name="Size"]').empty();
-                            $.each(data, function(key, value) {
-                                $('select[name="Size"]').append('<option value="' +
-                                    value + '">' + value + '</option>');
-                            });
-                        },
-                    });
-                } else {
-                    console.log('AJAX load did not work');
-                }
-            });
-        });
-    </script>
-
-    
 @endsection

@@ -72,21 +72,12 @@
 <div class="container">
 
             <div class="content">
-            <?php
-            if(file_exists(storage_path().'/app/public/setting/')){
-                $handle = opendir(storage_path().'/app/public/setting/');
-
-                while($file = readdir($handle)){
-                    if($file !== '.' && $file !== '..'){
-                        //echo '<img src="pictures/'.$file.'" border="0" />';
-                        echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("storage/setting/$file").' alt="" >  ';
-                    }
-                }
-            }else{
-                echo'<img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='.asset("/images/logo.png").' alt="" >  ';
-
-            }
-            ?>
+            
+            @if((App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')))
+              <img src="{{App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')}}">
+            @else
+            <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='{{asset("/images/logo.png")}}' alt="" >
+            @endif
             </div>
 
         <!-- </div> -->

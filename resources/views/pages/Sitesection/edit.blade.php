@@ -7,19 +7,9 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            @if(Session::has('error'))
-                <div class="alert alert-danger">
-                    {{Session::get('error')}}
-                </div>
-            @endif
+          
           <div class="col-12">
-        
+          @include('layouts.messages')
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">تعديل قسم</h3>
@@ -105,14 +95,14 @@
                         <div class="form-group">
                             <label for="image">صورة القسم</label>
                             
-                            @if(isset($section->image->filename))
-                                <center><img id="previewImg" width="30%" src="<?php echo asset("storage/site_sections/section_no_".$section->id."/".$section->image->filename)?>" class="uploaded-img"> </center>
-                                <input type="hidden" name="deleted_image" value="{{$section->image->filename}}">
-                                <input type="hidden" name="morph_image_id" value="{{$section->image->id}}">
-                           @else
-                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
-                        <input type="hidden" name="deleted_image"/>
-                    @endif
+                            @if(($section->getFirstMediaUrl('sections','edit')))
+                                <center><img id="previewImg"src="{{$section->getFirstMediaUrl('sections','edit')}}" class="uploaded-img"> </center>
+                                <input type="hidden" name="media_url" value="{{$section->getFirstMediaUrl('sections')}}">
+                            @else
+                                <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                                <input type="hidden" name="deleted_image"/>
+                            @endif
+                            <br>
 
                                 <br>
                                 <center><button type="button" id="btn_image" class="btn btn-primary" >

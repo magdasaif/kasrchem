@@ -1,35 +1,40 @@
 <?php
 
 namespace Database\Seeders;
-use Illuminate\Support\Facades\DB;
+use App\Models\SiteInfo;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
+use App\Traits\TableAutoIncreamentTrait;
 class setting_Seeder extends Seeder
-{
+{ use TableAutoIncreamentTrait;
 
     public function run()
     {
 
         DB::table('site_infos')->delete();
-        $site_infos = array(
-            array(
-                'site_name_ar' => "ايرادكو يونيتد",
-                 'site_name_en' => "Erad United",
-                 'site_desc_ar'=>'وصف موقع ايرادكو',
-                 'site_desc_en'=>'description for eradco site',
-                 'site_mail'=>'eradunited@murabba.dev',
-                 'site_phone'=>'01020304050',
-                 'site_fax'=>'01020304050',
-                 'site_whatsapp'=>'01020304050',
-                 'site_logo'=>'logo.jpg' ,
-                 'ios_link'=>'https://murabba.com/' ,
-                 'android_link'=>'https://murabba.com/' ,
+        
+        //call trait to handel aut-increament
+        $this->refreshTable('site_infos');
+        
+        $info = new SiteInfo;
+        $info->site_name_ar="ايرادكو يونيتد";
+        $info->site_name_en="Erad United";
+        $info->site_desc_ar="وصف موقع ايرادكو";
+        $info->site_desc_en="description for eradco site";
+        $info->site_mail="eradunited@murabba.dev";
+        $info->site_phone="01020304050";
+        $info->site_fax="01020304050";
+        $info->site_whatsapp="01020304050";
+        $info->ios_link="https://murabba.com/";
+        $info->android_link="https://murabba.com/";
+        $info->created_at=date('Y-m-d H:i:s');
+        $info->updated_at=date('Y-m-d H:i:s');
+        $info->save();
 
-                 'created_at'=>date('Y-m-d H:i:s'),
-                 'updated_at'=>date('Y-m-d H:i:s'),
-                ),
-        );
-        DB::table('site_infos')->insert($site_infos);
+        //optimize image
+        // $image=asset('images/logo2.jpg');//default
+        //  $info->addMedia($image)->toMediaCollection('site_logo');
+        
 
 
 }

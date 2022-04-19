@@ -1,24 +1,25 @@
 <?php
 
 namespace App\Http\Repositories;
-use App\Models\Sitesection;
-use App\Models\Section_All_Page;
+use toastr;
+use App\Models\Image;
 use App\Models\Video;
 use App\Models\Article;
-use App\Models\Photo_Gallery;
 use App\Models\Release;
-use App\Models\Image;
 use App\Traits\ImageTrait;
+use App\Traits\MediaTrait;
+use App\Models\Sitesection;
+use App\Models\Photo_Gallery;
+use App\Models\Section_All_Page;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Traits\TableAutoIncreamentTrait;
 use App\Http\Interfaces\SectionInterface;
-use toastr;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class SectionRepository implements SectionInterface{
 
-    use TableAutoIncreamentTrait;
-    use ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
     //----------------------------------------------------------------------
     public function index()
     {
@@ -39,7 +40,7 @@ class SectionRepository implements SectionInterface{
             $data['Sitesections']=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
           
               $searching_result=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
-              $searching_count=$data['searching_count']=count($searching_result);
+              $data['searching_count']=count($searching_result);
              // dd($searching_count);
              // return view('pages.products.show',compact('searching_result','title'));
             return view('pages.Sitesection.Sitesection',$data);
@@ -70,11 +71,7 @@ public function create(){
             //==============store in  site_sections table===============
             $Sitesection =new Sitesection();
              //check if parent or child from select
-             if($request->site_or_sub=='0') 
-             { $Sitesection->parent_id=Null; }
-             else
-              { $Sitesection->parent_id=$request->site_or_sub;}
-
+             if($request->site_or_sub=='0'){ $Sitesection->parent_id=Null; }else{ $Sitesection->parent_id=$request->site_or_sub;}
             //$Sitesection->parent_id = $parent_id_value,
             $Sitesection->name_ar   = $request->name_ar;
             $Sitesection->name_en   = $request->name_en;
@@ -83,25 +80,7 @@ public function create(){
             $Sitesection->save();
             //=======================image media=========//
             if($request->image)
-            {
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'section_no_'.$Sitesection->id,
-                    'disk_name'     => 'site_sections',
-                ];
-                 //call to storeImage fun to save image in disk and return back with photo name
-                 $photo_name=$this->storeImage($imageData);
-
-                 //start morph image for product main image
-                $image =new Image();
-                $image->imageable_type='App\Models\Sitesection';
-                $image->imageable_id=$Sitesection->id;
-                $image->image_or_file='1';//image
-                $image->main_or_sub='1'; //main image
-                $image->filename=$photo_name;
-                $image->save();
-                //-----------media library-----------------
+            { //-----------media library-----------------
               $Sitesection->addMedia($request->image)->toMediaCollection('sections');
             }
             //---------------------------------------------------
@@ -119,8 +98,6 @@ public function create(){
     //----------------------------------------------------------------------
     public function edit($id)
     {
-        $real_id=decrypt($id);
-        $data['title']='تعديل قسم';
         $real_id=decrypt($id);
         $data['title']='تعديل قسم';
         $data['section'] =$section= Sitesection::findOrfail($real_id);  //data of edited supplier
@@ -156,60 +133,24 @@ public function create(){
             $Sitesection->sort= $request->sort;
             $Sitesection->status= $request->status;
 
-            if($request->site_or_sub=='0'){ $Sitesection->parent_id=Null;}
-            else {$Sitesection->parent_id=$request->site_or_sub;}
+            if($request->site_or_sub=='0'){ $Sitesection->parent_id=Null;}else{$Sitesection->parent_id=$request->site_or_sub;}
             $Sitesection->save();
-            
-           if($request->image)
-           {
-               //----------------1------------------
-                if($request->deleted_image)
-                { 
-                    //هيحذفها لو هى موجودة فى الفولدر
-                    //------------call to unLinkImage fun that unLink old_image in disk----------------
-                    $imageData= 
-                    [
-                        'path'  => storage_path().'/app/public/site_sections/section_no_'.$real_id.'/'.$request->deleted_image,
-                    ];
-                    $this->unLinkImage($imageData);
-                }
-                 //----------------2------------------
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => 'section_no_'.$Sitesection->id,
-                    'disk_name'     => 'site_sections',
-                ];
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-                 //=====================update in morph table "images"===================//
-               
-               $morphic_image=Image::findOrFail($request->morph_image_id);
-               // if there are image stored before-->update it
-               $morphic_image->filename=$photo_name;
-               $morphic_image->save();
-          //--------جزء لو الصورة موجودة فى جدول المورف ولا لا --------------
-            //    if($morphic_image)
-            //     { 
-            //        // if there are image stored before-->update it
-            //         $morphic_image->filename=$photo_name;
-            //         $morphic_image->save();
-            //     }
-            //     else
-            //     {
-            //         // if there are no image stored before-->add it
-            //         $image =new Image();
-            //         $image->imageable_type='App\Models\Sitesection';
-            //         $image->imageable_id=$Sitesection->id;
-            //         $image->image_or_file='1';//image
-            //         $image->main_or_sub='1'; //main image
-            //         $image->filename=$photo_name;
-            //         $image->save();  
-            //     }
-          //-----------3-relate image with media with collection name "releases"--------------
-             $Sitesection->addMedia($request->image)->toMediaCollection('Sitesection');      
-       //=======================================================================================//    
-        }
+
+            if($request->image)
+            {
+               //optimize image
+               $Sitesection->addMedia($request->image)->toMediaCollection('sections');
+
+               if(isset($request->media_url)){
+                   //remove  folder from disk //remove old media
+                   Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                   // rmdir(storage_path().'/app/public/media/'.$request->media_id);
+
+                   //call trait to handel aut-increament
+                   $this->refreshTable('media');
+               }
+                  
+            }
             DB::commit();
             toastr()->success('تمت التعديل بنجاح');
             return redirect()->route('site_section.index');
@@ -280,7 +221,7 @@ public function create(){
                 'data_video'        =>$videoo,
                 'data_article'      =>$article,
                 'data_photo_gallery'=>$photo_gallery,
-                'data_release'        =>$releases,
+                'data_release'      =>$releases,
                 'msg2'=>' قم بتغييرالقسم اولا واعد المحاولة'
                 ]);           
        

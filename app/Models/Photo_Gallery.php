@@ -46,10 +46,6 @@ class Photo_Gallery extends Model implements HasMedia
         $this->addMediaConversion('edit')
         ->width(300)
         ->height(200);
-
-        $this->addMediaConversion('logo')
-                ->width(90)
-                ->height(90);
                 
         $this->addMediaConversion('index')
         ->width(90)

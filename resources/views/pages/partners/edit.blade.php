@@ -52,11 +52,10 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">صوره</label>
 
-                    @if(isset($partner->image->filename))
-                        <center><img id="previewImg" width="30%" src="<?php echo asset("storage/partners/".$partner->image->filename)?>" class="uploaded-img"> </center>
-                        <input type="hidden" name="deleted_image" value="{{$partner->image->filename}}">
-                        <input type="hidden" name="image_id" value="{{$partner->image->id}}">
-                    @else
+                    @if($partner->getFirstMediaUrl('partner','edit'))
+                         <center><img id="previewImg"src="{{$partner->getFirstMediaUrl('partner','edit')}}" class="uploaded-img"> </center>
+                         <input type="hidden" name="media_url" value="{{$partner->getFirstMediaUrl('partner')}}">
+                     @else
                         <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
                         <input type="hidden" name="deleted_image"/>
                     @endif

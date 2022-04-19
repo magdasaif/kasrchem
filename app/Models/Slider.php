@@ -33,9 +33,10 @@ class Slider extends Model implements HasMedia
         ->width(300)
         ->height(200);
  
-         $this->addMediaConversion('logo')
-                 ->width(90)
-                 ->height(90);
+         //الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]
+         $this->addMediaConversion('slider_img')
+         ->width(900)
+         ->height(400);
                  
         $this->addMediaConversion('index')
         ->width(90)

@@ -68,16 +68,13 @@
                     <label for="image">صورة النشرة*</label>
 
 
-                    @if(sizeof($releases->mainImage())>0)
-                    @foreach($releases->mainImage() as $xx)
-                        <center><img id="previewImg" style="width: 30%;"src=<?php echo asset("storage/releases/release_no_$releases->id/{$xx->filename}")?> alt="" ></center>
-                        <input type="hidden" name="morph_image_id" value="{{$xx->id}}">
-                        <input type="hidden" name="old_image" value="{{$xx->filename}}">
-                        @endforeach
-                     @else
-                     <center><img id="previewImg" style="width: 30%;" src="" alt="" ></center>
-
-                     @endif
+                    @if(($releases->getFirstMediaUrl('releases','edit')))
+                        <center><img id="previewImg"src="{{$releases->getFirstMediaUrl('releases','edit')}}" class="uploaded-img"> </center>
+                        <input type="hidden" name="media_url" value="{{$releases->getFirstMediaUrl('releases')}}">
+                    @else
+                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                        <input type="hidden" name="deleted_image"/>
+                    @endif
                     <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">

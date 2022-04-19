@@ -129,44 +129,23 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">صورة المنتج الاساسية</label>
-
-                    @if(sizeof($product->mainImages())>0)
-                        @foreach($product->mainImages() as $main)
-                            <center> <img  id="previewImg" style="width: 30%;" src="<?php echo asset("storage/products/product_no_$product->id/$main->filename")?>" class="uploaded-img" title="للتعديل  اضغط على الصورة"> </center>
-                            <input type="hidden" name="image_id" value="{{$main->id}}">
-
-                            <br>
-                            <center>
-                                <button type="button" id="btn_image" class="btn btn-primary" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-                                        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"></path>
-                                    </svg>
-                                    تعديل الصورة                                      
-                                </button>
-                            </center>
-                            <input type="hidden" name="deleted_image" value="{{$main->filename}}">
-                            <input type="file" class="form-control" name="image"  id="my_file" accept="image/*" style="display: none;" onchange="readURL(this);">
-
-                     @endforeach
+                    @if(($product->getFirstMediaUrl('product','edit')))
+                        <center><img id="previewImg"src="{{$product->getFirstMediaUrl('product','edit')}}" class="uploaded-img"> </center>
+                        <input type="hidden" name="media_url" value="{{$product->getFirstMediaUrl('product')}}">
                     @else
-                    <div class="row">
-                        <div class="col-lg-12">
                         <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>صورة المنتج الاساسية:  <span style="color:rgb(199, 8, 8)">*</span></label>
-                                <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
-                                <input type="hidden" name="deleted_image"/>
-                            </div>
-                            @error('image')
-                                <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                    </div>
+                        <input type="hidden" name="deleted_image"/>
                     @endif
-                    
+                    <br>
+                    <center><button type="button" id="btn_image" class="btn btn-primary" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"></path>
+                    </svg>
+                    تعديل الصورة
+                    </button></center>
+                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;" onchange="readURL(this);">
+
                     @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

@@ -77,16 +77,7 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$product->name_ar}}</td>
-                            <!-- <td><img src="{{$product->getFirstMediaUrl('product')}}"></td> -->
-
-                            @if(sizeof($product->mainImages())>0)
-                              @foreach($product->mainImages() as $main) 
-                                  <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_".$product->id."/".$main->filename)?>"></td>
-                              @endforeach
-                            @else
-                            <td></td>
-                            @endif
-                              
+                            <td><img src="{{$product->getFirstMediaUrl('product','index')}}"></td>
                             <td>{{$product->sort}}</td>
                             <td><?php if($product->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
 
@@ -150,16 +141,7 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$product->name_ar}}</td>
-                            <!-- <td><img src="{{$product->getFirstMediaUrl('product')}}"></td> -->
-
-                            @if(sizeof($product->mainImages())>0)
-                              @foreach($product->mainImages() as $main) 
-                                  <td><img  style="width: 90px; height: 90px;" src="<?php echo asset("storage/products/product_no_".$product->id."/".$main->filename)?>"></td>
-                              @endforeach
-                            @else
-                            <td></td>
-                            @endif
-                              
+                            <td><img src="{{$product->getFirstMediaUrl('product','index')}}"></td>                              
                             <td>{{$product->sort}}</td>
                             <td><?php if($product->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
 

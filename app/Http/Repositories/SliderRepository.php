@@ -5,14 +5,16 @@ namespace App\Http\Repositories;
 use App\Models\Image;
 use App\Models\Slider;
 use App\Traits\ImageTrait;
+use App\Traits\MediaTrait;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Interfaces\SliderInterface;
 use App\Traits\TableAutoIncreamentTrait;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class SliderRepository implements SliderInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
 
     //-----------------------------------------------------------------------------------
     public function index(){
@@ -38,30 +40,9 @@ class SliderRepository implements SliderInterface{
              $slider->save();
              
            if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => '',
-                    'disk_name'     => 'slider',
-                ];
-                
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
-
-                 //start morph image for product main imagحe
-                $image =new Image();
-                $image->imageable_type='App\Models\Slider';
-                $image->imageable_id=$slider->id;
-                $image->image_or_file='1';//image
-                $image->main_or_sub='1'; //main image
-                $image->filename=$photo_name;
-                $image->save();
-             
                 //optimize image
                 $slider->addMedia($request->image)->toMediaCollection('slider');
             }
-
-            
 
              DB::commit();
             toastr()->success('تمت الاضافه بنجاح');
@@ -96,50 +77,21 @@ class SliderRepository implements SliderInterface{
             $Slider->status = $request->status;
             $Slider->save();
             
-           if($request->image){
-                // handel image array to pass image data to trait function
-                $imageData=[
-                    'image_name'    => $request->image,
-                    'folder_name'   => '',
-                    'disk_name'     => 'slider',
-                ];
-                //call to storeImage fun to save image in disk and return back with photo name
-                $photo_name=$this->storeImage($imageData);
+            if($request->image)
+            {
+               //optimize image
+               $Slider->addMedia($request->image)->toMediaCollection('slider');
 
-                //optimize image
-                $Slider->addMedia($request->image)->toMediaCollection('slider');
-                    
-                //start morph image for product sub images
-                $img=Image::find($request->image_id);
+               if(isset($request->media_url)){
+                   //remove  folder from disk //remove old media
+                   Media::find($this->get_media_id($request->media_url))->delete(); // this will also remove folder from disk
+                   // rmdir(storage_path().'/app/public/media/'.$request->media_id);
 
-                if($img){ // if there are image stored before-->update it
-
-                    $img->filename=$photo_name;
-                    $img->save();
-                    
-                }else{// if there are no image stored before-->add it
-                    
-                        //start morph image for product main image
-                        $image =new Image();
-                        $image->imageable_type='App\Models\Slider';
-                        $image->imageable_id=$Slider->id;
-                        $image->image_or_file='1';//image
-                        $image->main_or_sub='1'; //main image
-                        $image->filename=$photo_name;
-                        $image->save();
-                    
-                }
-                
-                if($request->deleted_image){
-                    //  dd('1');
-                    // handel image array to pass image path to trait function
-                    $imageData=[
-                        'path'=>storage_path().'/app/public/slider/'.$request->deleted_image,
-                    ];
-                    //call to unLinkImage fun to delete old image from disk 
-                    $this->unLinkImage($imageData);
-                }
-             }
+                   //call trait to handel aut-increament
+                   $this->refreshTable('media');
+               }
+                  
+            }
 
 
             //toastr()->success('تمت الاضافه بنجاح');
@@ -148,7 +100,7 @@ class SliderRepository implements SliderInterface{
             return redirect()->route('slider.index')->with(['success'=>'تم التعديل بنجاح']);
         }catch(\Exception $e){
             DB::rollback();
-            return redirect()->back()->with(['error' => $e->getMessage()]);
+            //return redirect()->back()->with(['error' => $e->getMessage()]);
             toastr()->error('حدث خطا اثناء التعديل');
             return redirect()->back()->withErrors(['error'=>'حدث خطا اثناء التعديل']);
         }

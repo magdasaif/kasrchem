@@ -63,13 +63,13 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">لوجو</label>
 
-
-                    @if($info->site_logo && file_exists(asset("storage/setting/$info->site_logo")))
-                    <center> <img  id="previewImg" style="width: 30%;" src="<?php echo asset("storage/setting/$info->site_logo")?>" class="uploaded-img" title="للتعديل  اضغط على الصورة"> </center>
+                    @if(($info->getFirstMediaUrl('site_logo','logo')))
+                        <center><img id="previewImg"src="{{$info->getFirstMediaUrl('site_logo','logo')}}" class="uploaded-img"> </center>
+                        <input type="hidden" name="media_url" value="{{$info->getFirstMediaUrl('site_logo')}}">
                     @else
-                    <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg" title="للتعديل  اضغط على الصورة"></center>
+                        <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
+                        <input type="hidden" name="deleted_image"/>
                     @endif
-                    
                     <br>
                     <center>
                         <button type="button" id="btn_image" class="btn btn-primary" >
@@ -80,9 +80,8 @@
                             تعديل اللوجو                                      
                         </button>
                     </center>
-                    <input type="hidden" name="deleted_image" <?php if($info->site_logo){echo 'value="$info->site_logo"';}?>>
                     <input type="file" class="form-control" name="site_logo"  id="my_file" accept="image/*" style="display: none;" onchange="readURL(this);">
-                    <center><span style="color:red">يجب اختيار صوره من نوع png  او svg  واقصى احداثياتها [300*300]</span></center>
+                    <!-- <center><span style="color:red">يجب اختيار صوره من نوع png  او svg  واقصى احداثياتها [300*300]</span></center> -->
                     @error('site_logo')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

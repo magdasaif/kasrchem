@@ -83,7 +83,7 @@
              <!----------------------------------------------------->
              
              <div class="form-group">
-                    <label for="exampleInputEmail1">ترتيب المنتج</label>
+                    <label for="exampleInputEmail1">ترتيب </label>
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="<?php if(old('sort')){echo old('sort');}else{echo'0';}?>">
                     @error('sort')
                     <small class="form-text text-danger">{{$message}}</small>

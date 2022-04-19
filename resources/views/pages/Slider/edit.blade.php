@@ -39,16 +39,14 @@
                 <div class="form-group">
                     <label for="image">الصورة</label>
 
-                    @if(isset($Slider->image->filename))
-                        <center><img id="previewImg" width="30%" src="<?php echo asset("storage/slider/".$Slider->image->filename)?>" class="uploaded-img"> </center>
-                        <input type="hidden" name="deleted_image" value="{{$Slider->image->filename}}">
-                        <input type="hidden" name="image_id" value="{{$Slider->image->id}}">
+                    @if(($Slider->getFirstMediaUrl('slider','edit')))
+                        <center><img id="previewImg"src="{{$Slider->getFirstMediaUrl('slider','edit')}}" class="uploaded-img"> </center>
+                        <input type="hidden" name="media_url" value="{{$Slider->getFirstMediaUrl('slider')}}">
                     @else
                         <center> <img src="{{ asset('images/logo2.jpg') }}" class="img-thumbnail img-preview" style="width:30%;" alt="" id="previewImg"></center>
                         <input type="hidden" name="deleted_image"/>
                     @endif
-                    
-                   <br>
+                    <br>
                     <center><button type="button" id="btn_image" class="btn btn-primary" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
                     <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
@@ -57,7 +55,7 @@
                     تعديل الصورة
                     </button></center>
                    <input type="file" class="form-control" name="image" id="my_file" accept="image/*" style="display: none;"  onchange="readURL(this);">
-                   <center><span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span></center>
+                   <!-- <center><span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span></center> -->
                    @error('image')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror

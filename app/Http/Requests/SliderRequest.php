@@ -31,7 +31,8 @@ class SliderRequest extends FormRequest
         return [
             'status' => 'required',
             'sort' => 'required',
-           'image' => 'image|mimes:jpeg,png,jpg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315'.$req,
+           'image' => 'image|mimes:jpeg,png,jpg,gif,svg'.$req,
+        //    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|dimensions:max_width=1200,max_height=600,min_width=850,min_height=315'.$req,
         ];
     }
     public function messages()
@@ -41,7 +42,7 @@ class SliderRequest extends FormRequest
             'sort.required' => 'الترتيب مطلوبة ',
               'image.required' => 'الصورة مطلوبة ',
               'image.image' => 'يجب ان يكون الملف المرفق صورة',
-              'image.dimensions' => 'أبعاد الصوره [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]',
+             // 'image.dimensions' => 'أبعاد الصوره [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]',
         ];
     }
 }
