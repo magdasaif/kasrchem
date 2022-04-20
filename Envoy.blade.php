@@ -1,19 +1,19 @@
 @servers(['local' => '127.0.0.1', 'dev' => 'root@66.7.221.45 -p 1157', 'production' => 'root@stillunknownserver -p 1157'])
 
 @setup
-    $repo = 'ssh://s3/training/eradco/dashboard';
+    $repo = 'ssh://s3/MD/dev/eradco/kasrchem/backend';
     $branch = 'dev';
 
     date_default_timezone_set('Africa/Cairo');
     $date = date('YmdHis');
 
-    $appDir = '/home/viewmurabba/public_html/eradunited';
+    $appDir = '/home/viewmurabba/public_html/kasrchem';
 
     $buildsDir = $appDir . '/backendreleases';
 
     $deploymentDir = $buildsDir . '/' . $date;
 
-    $serve = $appDir . '/dashboard';
+    $serve = $appDir . '/backend';
     $env = $appDir . '/.env';
     $htaccess = $appDir . '/htaccess.txt';
     $storage = $appDir . '/storage';
@@ -21,7 +21,7 @@
     $composer = '/opt/cpanel/composer/bin/composer';
     $phpver = 'ea-php74';
 
-    $dbname = 'viewmurabba_trainingeradico';
+    $dbname = 'viewmurabba_kasrchem';
 
     $owner = 'viewmurabba';
     $group = 'viewmurabba';
