@@ -24,26 +24,45 @@ class SectionRepository implements SectionInterface{
     public function index()
     {
         $data['title']  ='الاقسام';
-        $data['Sitesections']=Sitesection::where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
-
-        $searching_result=Sitesection::where('visible', '!=' , 0)->get();
+        $data['Sitesections']=Sitesection::where('visible',1)->orderBy('sort','asc')->paginate(10);
+        $searching_result=Sitesection::where('visible', 1)->get();
         $data['searching_count']=count($searching_result);
        return view('pages.Sitesection.Sitesection',$data);
     }
     //-----------------------------------------------------------------------------//
         function search($request)
         {
-        // dd($request->all());
-             $data['title']  ='الاقسام';
-            $search_text = $request->query_text;
-            //dd($search_text);
-            $data['Sitesections']=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
+            //dd($request->all());
+            if($request->ajax())
+            {
+                $data['title']  ='الاقسام';
+                $search_text = $request->get('query');
+                //$search_text = str_replace(" ", "%", $search_text);//replace space
+                
+                $searching_result=Sitesection::where('visible',1)->where('name_ar','LIKE','%'.$search_text.'%')->get();
+                
+                $data['searching_count']=count($searching_result); //count result
+                $data['searching']="search";
+                $data['Sitesections']=Sitesection::
+                where('name_ar','LIKE','%'.$search_text.'%')->where('visible',1)
+                ->orderBy('sort','asc')
+                ->paginate(10);
+               return view('pages.Sitesection.pagination_data',$data)->render();   
+            }
+
+
+            //-----------SEARCH BY SUBMIT------------------//
+        // // dd($request->all());
+        //      $data['title']  ='الاقسام';
+        //     $search_text = $request->query_text;
+        //     //dd($search_text);
+        //     $data['Sitesections']=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
           
-              $searching_result=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
-              $data['searching_count']=count($searching_result);
+            //   $searching_result=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
+            //   $data['searching_count']=count($searching_result);
              // dd($searching_count);
              // return view('pages.products.show',compact('searching_result','title'));
-            return view('pages.Sitesection.Sitesection',$data);
+            // return view('pages.Sitesection.Sitesection',$data);
 
         }
 
