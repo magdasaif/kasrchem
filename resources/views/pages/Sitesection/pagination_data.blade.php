@@ -23,7 +23,7 @@
                                       <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                     </div>
                                     <form class="delete" action="{{route('site_section.destroy',encrypt($section->id))}}" method="post">
-                                      {{method_field('delete')}}
+                                    {{method_field('delete')}}
                                       {{csrf_field()}}
                                     <div class="modal-body">
                                       <!-----------------footer and content from javascript basedon related or not with section-------->
