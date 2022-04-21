@@ -17,12 +17,8 @@ class CreateSuppliersTable extends Migration
             $table->id();
             $table->string('name_ar');
             $table->string('name_en');
-<<<<<<< HEAD
-            // $table->string('logo');
-=======
             $table->string('logo');
             $table->integer('sort');
->>>>>>> ed0918f9da3e9e6c1b7f461ea3b242ada7243ee2
             $table->longText('description_ar');
             $table->longText('description_en');
             $table->integer('parent_id');
