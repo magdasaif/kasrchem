@@ -276,6 +276,9 @@ Route::controller('datatables', 'DatatablesController', [
 //---------------------------------searching-----------------------------------
 Route::get('/search','Products\ProductController@search')->name('searching');
 
-Route::get('/search_section','SiteSection\SiteSectionController@search')->name('search_section');
+//Route::get('/search_section','SiteSection\SiteSectionController@search')->name('search_section');
+Route::get('/Sitesection/fetch_data', 'SiteSection\SiteSectionController@search');
+
+//  Route::get('/search_section{query_text}','SiteSection\SiteSectionController@search')->name('search_section');
 
 Route::get('/search_video','Video\VideoController@search')->name('search_video');

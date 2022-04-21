@@ -27,7 +27,7 @@ class ProductRepository implements ProductInterface{
     public function index(){
         $data['title']      ='المنتجات';
         // $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->get();
-        $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->paginate(10);
+        $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->paginate(1);
        return view('pages.products.show',$data);
     }
    //*********************************************************************************/
@@ -38,7 +38,7 @@ function search($request)
     $search_text = $request->query_text;
    //  $search_text = $_GET['query_text'];
     //dd($search_text);
-     $searching_result=Product::withoutTrashed()->where('name_ar','LIKE','%'.$search_text.'%')->paginate(10);
+     $searching_result=Product::withoutTrashed()->where('name_ar','LIKE','%'.$search_text.'%')->paginate(1);
     return view('pages.products.show',compact('searching_result','title'));
 
 }
