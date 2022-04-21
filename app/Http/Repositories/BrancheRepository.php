@@ -14,6 +14,29 @@ class BrancheRepository implements BrancheInterface{
          $data['title']='قائمه الفروع';
          $data['branches']=Branche::withoutTrashed()->orderBy('sort','asc')->paginate(10);
         return view('pages.branches.show',$data); }
+         //-----------------------------------------------------------------------------//
+         function search($request)
+         {
+            if($request->ajax())
+            {
+                $data['title']='قائمه الفروع';
+                $search_text = $request->get('query');
+                $data['searching']="search";
+                $data['branches']=Branche::withoutTrashed()
+                ->where('name_ar','LIKE','%'.$search_text.'%')
+                ->orWhere('name_en', 'like', '%'.$search_text.'%')
+                ->orWhere('sort', 'like', '%'.$search_text.'%')
+                ->orWhere('address_ar', 'like', '%'.$search_text.'%')
+                ->orWhere('address_en', 'like', '%'.$search_text.'%')
+                ->orWhere('email', 'like', '%'.$search_text.'%')
+                ->orWhere('phone', 'like', '%'.$search_text.'%')
+                ->orWhere('fax', 'like', '%'.$search_text.'%')
+                ->orWhere('latitude', 'like', '%'.$search_text.'%')
+                ->orWhere('longitude', 'like', '%'.$search_text.'%')
+                ->paginate(10);
+               return view('pages.branches.paginate_branche',$data)->render();   
+            }
+         }
     //--------------------------------------------------------//
     public function yajra_data($request)
     { 

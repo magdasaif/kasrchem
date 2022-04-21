@@ -22,6 +22,21 @@ class SliderRepository implements SliderInterface{
         $data['Slider']=Slider::withoutTrashed()->orderBy('sort','asc')->paginate(10);
         return view('pages.slider.show',$data);
     }
+     //-----------------------------------------------------------------------------//
+     function search($request)
+     {
+        if($request->ajax())
+        {
+            $data['title']  ='الصور المتحركه';
+            $search_text = $request->get('query');
+            $data['searching']="search";
+            $data['Slider']=Slider::withoutTrashed()
+            ->where('sort','LIKE','%'.$search_text.'%')
+            ->paginate(10);
+           return view('pages.slider.paginate_slider',$data)->render();   
+        }
+ 
+     }
     //-----------------------------------------------------------------------------------
     public function create(){
         $data['title']='اضافه صفحه';

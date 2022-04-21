@@ -83,7 +83,7 @@
 
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label>صورة المنتج الاساسية:  <span style="color:rgb(199, 8, 8)">*</span></label>
+                                <label>صورة القسم:  <span style="color:rgb(199, 8, 8)">*</span></label>
                                 <input class="form-control" name="image" onchange="readURL(this);" type="file" accept="image/*" required >                            
                             </div>
                             @error('image')

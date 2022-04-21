@@ -53,5 +53,8 @@ class ReleaseController extends Controller
     {
         return $this->data->bulkDelete($request);
     }
-
+    public function search(Request $request){
+        //  dd('ddddd');
+          return $this->data->search($request);
+      }
 }

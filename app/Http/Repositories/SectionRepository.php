@@ -9,6 +9,7 @@ use App\Models\Release;
 use App\Traits\ImageTrait;
 use App\Traits\MediaTrait;
 use App\Models\Sitesection;
+use App\Traits\SearchTrait;
 use App\Models\Photo_Gallery;
 use App\Models\Section_All_Page;
 use Yajra\DataTables\DataTables;
@@ -19,56 +20,44 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class SectionRepository implements SectionInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait,SearchTrait;
     //----------------------------------------------------------------------
     public function index()
     {
         $data['title']  ='الاقسام';
-        $data['Sitesections']=Sitesection::where('visible',1)->orderBy('sort','asc')->paginate(2);
+        $data['Sitesections']=Sitesection::where('visible',1)->orderBy('sort','asc')->paginate(10);
         $searching_result=Sitesection::where('visible', 1)->get();
         $data['searching_count']=count($searching_result);
        return view('pages.Sitesection.Sitesection',$data);
     }
     //-----------------------------------------------------------------------------//
-        function search($request)
+    function search($request)
+    {
+        //dd($request->all());
+        if($request->ajax())
         {
-            //dd($request->all());
-            if($request->ajax())
-            {
-                $data['title']  ='الاقسام';
-                $search_text = $request->get('query');
-                //$search_text = str_replace(" ", "%", $search_text);//replace space
-                
-                $searching_result=Sitesection::where('visible',1)->where('name_ar','LIKE','%'.$search_text.'%')->orWhere('name_en', 'like', '%'.$search_text.'%')->orWhere('status', 'like', '%'.$search_text.'%')->orWhere('sort', 'like', '%'.$search_text.'%')->get();
-                
-                $data['searching_count']=count($searching_result); //count result
-                $data['searching']="search";
-                $data['Sitesections']=Sitesection::
-                where('name_ar','LIKE','%'.$search_text.'%')->where('visible',1)
-                ->orderBy('sort','asc')
-                ->paginate(2);
-               return view('pages.Sitesection.pagination_data',$data)->render();   
-            }
-
-
-            //-----------SEARCH BY SUBMIT------------------//
-        // // dd($request->all());
-        //      $data['title']  ='الاقسام';
-        //     $search_text = $request->query_text;
-        //     //dd($search_text);
-        //     $data['Sitesections']=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(10);
-          
-            //   $searching_result=Sitesection::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
-            //   $data['searching_count']=count($searching_result);
-            //  // dd($searching_count);
-            //  // return view('pages.products.show',compact('searching_result','title'));
-            // return view('pages.Sitesection.Sitesection',$data);
-
+            $data['title']  ='الاقسام';
+            $search_text = $request->get('query');
+            //$search_text = str_replace(" ", "%", $search_text);//replace space
+            
+            $searching_result=Sitesection::where('visible',1)->where('name_ar','LIKE','%'.$search_text.'%')->orWhere('name_en', 'like', '%'.$search_text.'%')->orWhere('status', 'like', '%'.$search_text.'%')->orWhere('sort', 'like', '%'.$search_text.'%')->get();
+            
+            $data['searching_count']=count($searching_result); //count result
+            $data['searching']="search";
+            $data['Sitesections']=Sitesection::
+            where('name_ar','LIKE','%'.$search_text.'%')->where('visible',1)
+            ->orderBy('sort','asc')
+            ->paginate(10);
+           return view('pages.Sitesection.pagination_data',$data)->render();   
         }
+
+
+    }
 
     //----------------------------------------------------------------------
     
-public function create(){
+    public function create()
+    {
         $data['title']='اضافه قسم';
         $data['parent_sites']= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
         return view('pages.Sitesection.add',$data);

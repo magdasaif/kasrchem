@@ -19,6 +19,26 @@ class PageRepository implements PageInterface{
         $data['Page']=Page::withoutTrashed()->orderBy('sort','asc')->paginate(10);
         return view('pages.pages.Show',$data);
     }
+     //-----------------------------------------------------------------------------//
+     function search($request)
+     {  
+         if($request->ajax())
+        {
+            $search_text = $request->get('query');
+            $data['searching']="search";
+            $data['Page']=Page::withoutTrashed()
+            ->where('name_ar','LIKE','%'.$search_text.'%')
+            ->orWhere('name_en', 'like', '%'.$search_text.'%')
+            ->orWhere('description_ar', 'like', '%'.$search_text.'%')
+            ->orWhere('description_en', 'like', '%'.$search_text.'%')
+            ->orWhere('content_ar', 'like', '%'.$search_text.'%')
+            ->orWhere('content_en', 'like', '%'.$search_text.'%')
+            ->paginate(10);
+           return view('pages.pages.paginate_page',$data)->render();   
+        }
+ 
+        
+     }
     //---------------------------------------------------------------------------
 
     public function create(){

@@ -23,6 +23,23 @@ class GalleryRepository implements GalleryInterface{
         $data['Photo_Gal']  =Photo_Gallery::withoutTrashed()->orderBy('sort','asc')->paginate(10);
         return view('pages.Photo_Gallery.Show',$data);
     }
+     //-----------------------------------------------------------------------------//
+     function search($request)
+     {
+    
+        if($request->ajax())
+        {
+            $data['title']      ='معرض الصور';
+            $search_text = $request->get('query');
+            $data['searching']="search";
+            $data['Photo_Gal']=Photo_Gallery::withoutTrashed()
+            ->where('name_ar','LIKE','%'.$search_text.'%')
+            ->orWhere('name_en', 'like', '%'.$search_text.'%')
+            ->orWhere('sort', 'like', '%'.$search_text.'%')
+            ->paginate(10);
+           return view('pages.Photo_Gallery.paginate_photo_gallery',$data)->render();   
+        }
+     }
     //-------------------------------------------------------------------------------------
     public function create(){
         $data['title']      ='اضافه معرض';

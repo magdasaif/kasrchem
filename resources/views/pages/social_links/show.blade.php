@@ -138,6 +138,11 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
+               <!--=======================searchand form ============================-->
+               <input type="hidden" name="hidden_blade" id="hidden_blade" value="show" />
+                <input type="hidden" name="hidden_blade" id="hidden_model" value="social" />
+                                        @include('pages.search_form')
+                <!--===========================================================================-->
                 <table  id="datatable" class="table table-hover styled-table">
             <!--#############################################################-->
                     <thead>
@@ -152,54 +157,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1;?>
-                        @foreach($socialLinks as $social)
-                        <?php $i++;?>
-                        <tr>
-                            <td>{{$i}}</td>
-                            <td>{{$social->name}}</td>
-                            <td ><li class="{{$social->icon}} "></li></td>
-
-                            <td><?php if($social->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                            
-                            <td>
-                                <a href="{{url('social/'.encrypt($social ->id).'/edit/')}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
-                                /
-                                <a href="#" style="font-weight: bold;font-size: 17px;" title="حذف" data-catid="{{$social ->id}}" data-toggle="modal" data-target="#delete{{$social ->id}}"> <i class="fa fa-trash red"></i></a>
-                              <!--############################ model for delete #################################-->     
-                         <div class="modal modal-danger fade" id="delete{{$social ->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="card-header" >
-                                    <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
-                                </div>
-                                <form action="{{route('social.destroy',encrypt($social ->id))}}"  method="post">
-                                        {{method_field('delete')}}
-                                        {{csrf_field()}}
-                                    <div class="modal-body">
-                                            <h3 class="text-center">
-                                                هل تريد الحذف بالفعل؟
-                                             </h3>
-                                             <div   style="text-align: center;font-size: 22px;color: red; text-decoration: underline;" > {{$social->name}}</div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">الغاء </button>
-                                        <input type="submit" value="حذف"  class="btn btn-primary">
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
-                            </div>
-                           <!--#############################################################-->
-                            </td>
-                            <td ><input type="checkbox"  name="row_checkbox" value="{{$social->id}}" class="box1" onclick="javascript:check();"></td>
-
-                        </tr>
-
-                       
-
-                        @endforeach
-                    
+                       <!--=======================body  ============================-->
+                      @include('pages.social_links.paginate_social')
+                       <!--========================================================-->
+                          
                     </tbody>              
                <!--#############################################################-->
 
@@ -216,4 +177,5 @@
   </section>
   <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('/js/delete_all.js') }}"></script>
+<script src="{{ URL::asset('/js/search_paginate.js') }}"></script>
 @endsection

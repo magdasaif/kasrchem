@@ -27,19 +27,26 @@ class ProductRepository implements ProductInterface{
     public function index(){
         $data['title']      ='المنتجات';
         // $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->get();
-        $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->paginate(1);
+        $data['products']   = Product::withoutTrashed()->orderBy('sort','asc')->paginate(10);
        return view('pages.products.show',$data);
     }
    //*********************************************************************************/
 function search($request)
 {
-   // dd($request->all());
-    $title='المنتجات';
-    $search_text = $request->query_text;
-   //  $search_text = $_GET['query_text'];
-    //dd($search_text);
-     $searching_result=Product::withoutTrashed()->where('name_ar','LIKE','%'.$search_text.'%')->paginate(1);
-    return view('pages.products.show',compact('searching_result','title'));
+    if($request->ajax())
+    {
+        $data['title']      ='المنتجات';
+        $search_text = $request->get('query');
+        $data['searching']="search";
+        $data['products']=Product::withoutTrashed()
+        ->where('name_ar','LIKE','%'.$search_text.'%')
+        ->orWhere('name_en', 'like', '%'.$search_text.'%')
+        ->orWhere('sort', 'like', '%'.$search_text.'%')
+        ->orWhere('description_ar', 'like', '%'.$search_text.'%')
+        ->orWhere('description_en', 'like', '%'.$search_text.'%')
+        ->paginate(10);
+       return view('pages.products.paginate_product',$data)->render();   
+    }
 
 }
    //******************************show product add form*****************************/

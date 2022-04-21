@@ -22,7 +22,22 @@ class ReleaseRepository implements ReleaseInterface{
         $data['title']='النشرات';
         return view('pages.Release.Show', $data);
     }
-   
+    //-----------------------------------------------------------------------------//
+    function search($request)
+    {
+        if($request->ajax())
+        {
+            $data['title']='النشرات';
+            $search_text = $request->get('query');
+            $data['searching']="search";
+            $data['releases']=Release::withoutTrashed()
+            ->where('name_ar','LIKE','%'.$search_text.'%')
+            ->orWhere('name_en', 'like', '%'.$search_text.'%')
+            ->orWhere('sort', 'like', '%'.$search_text.'%')
+            ->paginate(10);
+           return view('pages.Release.paginate_release',$data)->render();   
+        }
+    }
     //------------------------create adding form ---------------------------------//
     public function create()
     {

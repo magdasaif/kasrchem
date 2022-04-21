@@ -109,15 +109,9 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                     <!--=======================searchand form ============================-->
-       
-            <div class="col-md-6" style="margin-top:40px">
-                 <div class="form-group" style="border: 3px solid;color: azure;">
-                    <!-- <input type="text" class="form-control" name="query_text"     onkeyup="search_func(this.value);" placeholder=" بحث باسم القسم ....."   value="{{ request()->input('query_text') }}"> -->
-                    <input type="text" class="form-control" name="query_text"   id="serach"   placeholder=" بحث باسم القسم ....."   value="{{ request()->input('query_text') }}">
-                 </div>
-            </div>
-              <br>  
-          <!--===========================================================================-->
+                    <input type="hidden" name="hidden_blade" id="hidden_blade" value="Sitesection" />
+                        @include('pages.search_form')
+                   <!--===========================================================================-->
                 <table class="table table-hover styled-table">
                   <thead>
                     <tr>
@@ -132,12 +126,12 @@
                   
                    <tbody>
                         
-                 
+                 <!--=======================body  ============================-->
                    @include('pages.Sitesection.pagination_data')
-   
+                  <!--========================================================-->
                     </tbody>
                 </table>
-                <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+  
 
                
               </div>
@@ -148,71 +142,8 @@
   </section>
 </template>
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-
- <script type="text/javascript">
-  $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-    /*******************************************************
-     function search_func(query_text)
-    {
-      $.ajax({
-        type : 'get',
-
-      url : '{{URL::to('search_section')}}',
-        data:{'query_text':query_text},
-
-       // var llink = APP_URL+"/search_section/"+query_text;
-        // url: llink,
-       // data:{'query_text':query_text},
-        success:function(data)
-        {
-       // alert(data);
-         $('tbody').html('');
-       $('tbody').html(data);
-        }
-      });
-   
-    }
-   ********************************************************/
-$(document).ready(function(){
-
- function fetch_data(page,query)
- {
-  $.ajax({
-    //Route::get('/pagination/fetch_data', 'PaginationController@fetch_data');
-   url:"/Sitesection/fetch_data?page="+page+"&query="+query,
-   success:function(data)
-   {
-    //alert(data);
-    //*******PUT DATA IN BODY OF TABLE*******
-    $('tbody').html('');
-    $('tbody').html(data);
-   }
-  })
- }
-
- $(document).on('keyup', '#serach', function(){
-  var query = $('#serach').val();
-  var page = $('#hidden_page').val();
-
-    fetch_data(page,query);
-
- });
-
- $(document).on('click', '.pagination a', function(event){
-  event.preventDefault();
-  var page = $(this).attr('href').split('page=')[1];
-  $('#hidden_page').val(page);
-  
-  var query = $('#serach').val();
-
-  $('li').removeClass('active');
-        $(this).parent().addClass('active');
-  fetch_data(page, query);
- });
-
-});
-
-</script>
+<script src="{{ URL::asset('/js/search_paginate.js') }}"></script>
+ 
 
 @endsection
 

@@ -21,7 +21,26 @@ class ArticleRepository implements ArticleInterface{
         $data['articles']=Article::withoutTrashed()->orderBy('sort','asc')->paginate(10);
          return view('pages.article.show',$data);
     }
+ //-----------------------------------------------------------------------------//
+ function search($request)
+ {
 
+    if($request->ajax())
+    {
+        $data['title']  ='المقالات';
+        $search_text = $request->get('query');
+        $data['searching']="search";
+        $data['articles']=Article::withoutTrashed()
+        ->where('name_ar','LIKE','%'.$search_text.'%')
+        ->orWhere('name_en', 'like', '%'.$search_text.'%')
+        ->orWhere('content_ar', 'like', '%'.$search_text.'%')
+        ->orWhere('content_en', 'like', '%'.$search_text.'%')
+        ->paginate(10);
+       return view('pages.article.paginate_article',$data)->render();   
+    }
+
+ }
+ //-----------------------------------------------------
     public function create(){
         $data['title']='اضافه مقال';
         $data['sections']  = Sitesection::where('visible', '!=' , 0)->whereNull('parent_id')->get();
