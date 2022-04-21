@@ -76,7 +76,6 @@ Route::apiResource('/media', 'MediaController', array("as" => "api"));
 
 //---------------------posts/article------------------------
 Route::apiResource('/posts', 'PostsController', array("as" => "api"));
-Route::apiResource('/posts', 'PostsController', array("as" => "api"));
 
 //---------------------latest posts------------------------
 Route::get('/latest_posts',[LatestMultiMediaController::class,'latest_posts']);
@@ -115,7 +114,6 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
  Route::get('/suppliers_section',[SupplierController::class,'sectionsAndSupplier']);
  
  ///------------------------------about us------------------------------------
- Route::get('/about_us',[CommonController::class,'about_us']);
  
  Route::get('/setting',[CommonController::class,'setting']);
 

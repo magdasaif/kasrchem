@@ -62,17 +62,17 @@ class LatestProductController extends Controller
 
         if($lang=='ar'){
           $selected="name_ar as name";
-          $selected2="desc_ar as desc";
+          $selected2="description_ar as desc";
       }else{
            $selected="name_en as name";
-           $selected2="desc_en as desc";
+           $selected2="description_en as desc";
       }
    
          $products = LatestProductResource::collection(
-              Product::select('id',$selected,$selected2,'price','offer_price','min_amount as min','max_amount as max','amount as stock','image','security_permit as security_clearance','link')
+              Product::select('id','video_link','link',$selected,$selected2)
               ->withoutTrashed()
               ->where('status','1')
-              ->orderBy('created_at','desc')
+              ->orderBy('sort','asc')
               ->limit(15)
               ->get()
           );

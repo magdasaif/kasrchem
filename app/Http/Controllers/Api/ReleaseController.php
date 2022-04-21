@@ -8,6 +8,7 @@ use App\Models\Sitesection;
 use Illuminate\Http\Request;
 
 use App\Models\Release_Section;
+use App\Models\Section_All_Page;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReleaseResource;
 use App\Http\Resources\ReleaseSectionResource;
@@ -76,18 +77,13 @@ class ReleaseController extends Controller
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
          
          if($lang=='ar'){
-             $selected="title_ar as title";
+             $selected="name_ar as title";
          }else{
-              $selected="title_en as title";
+              $selected="name_en as title";
          }
         
-         // $relases =  ReleaseResource::collection(Release::select('id',$selected,'image','file')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
-
-          $releases_ids=Release_Section::where('sitesection_id',$main_cate_id)->pluck('release_id');
-          
-          $rr=Release::select('id',$selected,'image','file')->whereIn('id',$releases_ids)->where('status','1')->paginate($perpage);
-          $relases =  ReleaseResource::collection($rr);
-
+         $media_ids=Section_All_Page::where('sitesection_id',$main_cate_id)->where('type','releases')->pluck('type_id');
+         $relases=ReleaseResource::collection(Release::select('id',$selected)->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage));
           return response($relases,200,['OK']);
     }
 
@@ -138,20 +134,20 @@ class ReleaseController extends Controller
     public function sectionsAndRelease(Request $request)
     {
       $lang=$request->header('locale');
+
+      if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
       
-      $all=Sitesection::select('site_sections.id as section_id','site_name_ar','site_name_en')
-      ->join('releases_sections', 'releases_sections.sitesection_id', '=', 'site_sections.id')
-      ->groupBy('section_id')
-      ->get();
-      
-      $section=ReleaseSectionResource::collection($all);
-      $section->map(function($i) { $i->type = 'all'; });
       if($lang=='ar'){
-        $section->map(function($i) { $i->lang = 'ar'; });
-     }else{
-        $section->map(function($i) { $i->lang = 'en'; });
-     }
-      return response($section,200,['OK']);
+          $selected="name_ar as title";
+      }else{
+           $selected="name_en as title";
+      }
+
+      $media_ids=Section_All_Page::where('type','releases')->pluck('type_id');
+      $relases=ReleaseResource::collection(Release::select('id',$selected)->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage));
+      
+      
+      return response($relases,200,['OK']);
     }
     
 }

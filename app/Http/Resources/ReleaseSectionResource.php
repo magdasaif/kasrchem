@@ -15,19 +15,20 @@ class ReleaseSectionResource extends JsonResource
         if($lang=='ar')
         {
              $name= $this->site_name_ar;
-             $title="title_ar as title";
+             $title="name_ar as title";
         }
        else
         {
             $name= $this->site_name_en;
-            $title="title_en as title";
+            $title="name_en as title";
         }
 
         if($type=='all'){
             $all=Release::select('*','releases.id as id',$title)
-                            ->join('releases_sections', 'releases_sections.release_id', '=', 'releases.id')
-                            ->where('releases_sections.sitesection_id',$this->section_id)
-                            ->get();
+                        ->join('section_all_pages', 'section_all_pages.sitesection_id', '=', 'site_sections.id')
+                        ->where('section_all_pages.sitesection_id',$this->section_id)
+                        ->get();
+                        
         }elseif($type=='latest'){                
             $all=Release::select('*','releases.id as id',$title)
                             ->join('releases_sections', 'releases_sections.release_id', '=', 'releases.id')

@@ -4,30 +4,17 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AboutResource extends JsonResource
+class SettingResource extends JsonResource
 {
 
     public function toArray($request)
     {
       //  $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
 
-        //about us details
-        if(isset($this->image)){
-            //$path=storage_path().'/app/public/about_us/';
-            
-            return [
-                'title'=>$this->title,
-                'mission' =>$this->mission,
-                'vision' =>$this->vision,
-                'goal' =>$this->goal,
-                'image' =>asset('storage/about_us/' . $this->image),
-                
-            ];
-        }
-        else{//setting details
+       
 
-            if(file_exists(storage_path().'/app/public/setting/'.$this->site_logo)){
-                $path=asset('storage/setting/'.$this->site_logo);
+            if($this->getFirstMediaUrl('site_logo','logo')){
+                $path=$this->getFirstMediaUrl('site_logo','logo');
             }else{
                  $path= asset('public/images/logo.png');
                  //public_path().'/images/logo.png';
@@ -44,7 +31,7 @@ class AboutResource extends JsonResource
                 'ios_link' =>$this->ios_link,
                 'android_link' =>$this->android_link,
             ];
-        }
+        
     }
 
 }

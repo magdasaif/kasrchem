@@ -10,34 +10,22 @@ class SearchResource extends JsonResource
     public function toArray($request)
     {
         if($this->type=='Product'){
-           $path= asset('storage/products/product_no_'.$this->id.'/' . $this->image);
+           $path= $this->getFirstMediaUrl('product','edit');
         }
         elseif($this->type=='Article'){
-            $path= asset('storage/article/'. $this->image);
+            $path= $this->getFirstMediaUrl('article','edit');
         }
         elseif($this->type=='Release'){
-            $path= asset('storage/release/release_'.$this->id.'/'. $this->image);
-        }
-        elseif($this->type=='Main_Category'){
-            $path= asset('storage/categories/first/'. $this->image);
+            $path= $this->getFirstMediaUrl('releases','edit');
         }
         elseif($this->type=='Partner'){
-            $path= asset('storage/partners/'. $this->image);
+            $path= $this->getFirstMediaUrl('partner','edit');
         }
         elseif($this->type=='Sitesection'){
-            $path= asset('storage/site_sections/site_section_image/'. $this->image);
-        }
-        elseif($this->type=='Sub_Category2'){
-            $path= asset('storage/categories/first/'. $this->image);
-        }
-        elseif($this->type=='Sub_Category3'){
-            $path= asset('storage/categories/second/'. $this->image);
-        }
-        elseif($this->type=='Supplier'){
-            $path= asset('storage/supplier/'. $this->logo);
+            $path= $this->getFirstMediaUrl('sections','edit');
         }
         elseif($this->type=='Photo_Gallery'){
-            $path= asset('storage/photo_gallery/gallery_photo_images_no_'.$this->id.'/'. $this->image);
+            $path= $this->getFirstMediaUrl('gallery','edit');
         }
         elseif($this->type=='Video'){
             $path=  $this->link;

@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Release;
 
-use App\Models\Gallery_Photo_Image;
+use App\Models\Photo_Gallery;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class LatestMultiMediaResource extends JsonResource
 {
@@ -14,13 +15,12 @@ class LatestMultiMediaResource extends JsonResource
         $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
 
         if($type=='latest_galleries'){
-            $images = Gallery_Photo_Image::where('gallery_id',$this->id)->get();
+            $images = Photo_Gallery::find($this->id)->getMedia('sub_gallery');
             $new_images=array();
             foreach($images as $ii){
                 $selected=[
-                    'id'=>$ii->id,
-                // 'image'=>$path.$ii->image,
-                    'image'=>asset('storage/photo_gallery/gallery_photo_images_no_'.$this->id.'/' . $ii->image),
+                   'id'=>$ii->id,
+                   'image'=> $ii->getUrl('edit')
                 ];
             array_push($new_images,$selected);
             }
@@ -29,20 +29,23 @@ class LatestMultiMediaResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                //'image' => $path_main.$this->image,
-                'image' => asset('storage/photo_gallery/' . $this->image),
+                'image' => $this->getFirstMediaUrl('gallery','edit'),
                 'images' => $new_images,
             ];
         //  return parent::toArray($request);
         }elseif($type=='latest_releases'){
+           
+            $files=Release::find($this->id)->mainFile();
+            $new_files='';
+            foreach($files as $fi){
+                $new_files=asset('storage/releases/release_no_'.$this->id.'/' . $fi->filename);
+            }
             return [
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-             //   'image' =>$path.$this->image,
-                'image' =>  asset('storage/release/release_'.$this->id.'/' . $this->image),
-              //  'attachment' => $path.$this->file,
-                'attachment' =>  asset('storage/release/release_'.$this->id.'/' . $this->file),
+                'image' =>  $this->getFirstMediaUrl('releases','edit'),
+                'attachment' =>  $new_files,
                
             ];
 
@@ -51,7 +54,7 @@ class LatestMultiMediaResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                'image' =>asset('storage/article/' . $this->image),
+                'image' =>$this->getFirstMediaUrl('article','edit'),
             ];
 
         }elseif($type=='latest_videos'){

@@ -4,13 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Models\Main_Category;
-use App\Models\Sub_Category2;
-use App\Models\Sub_Category3;
-use App\Models\Sub_Category4;
-
-use App\Models\Product_Feature;
-use App\Models\Product_attachment;
 
 class LatestProductResource extends JsonResource
 {
@@ -30,15 +23,8 @@ class LatestProductResource extends JsonResource
                 'id' =>$this->id,
                 'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
                 'description' => $this->desc,
-                'price' =>$this->price,
-                'offer_price' =>$this->offer_price,
-                'min' =>$this->min_amount,
-                'max' =>$this->max_amount,
-                'stock' =>$this->amount,
-                'security_clearance' =>$this->security_permit,
                 'link' =>$this->link,
-               // 'image' => $path.$this->image,
-                'image' => asset('storage/products/product_no_'.$this->id.'/' . $this->image),
+                'image' => $this->getFirstMediaUrl('product','edit'),
             ];
        
         //  return parent::toArray($request);

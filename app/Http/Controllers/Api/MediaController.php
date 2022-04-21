@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Models\Video;
 use App\Models\Article;
-
 use App\Models\Release;
-use Illuminate\Http\Request;
 use App\Models\Photo_Gallery;
 use App\Models\Release_Section;
 use App\Models\Section_All_Page;
 
-use App\Http\Controllers\Controller;
+
 
 use App\Http\Resources\MediaResource;
 use App\Http\Resources\PostsResource;
@@ -91,9 +92,9 @@ class MediaController extends Controller
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
 
          if($lang=='ar'){
-             $selected="title_ar as title";
+             $selected="name_ar as title";
          }else{
-              $selected="title_en as title";
+              $selected="name_en as title";
          }
 
 
@@ -101,22 +102,23 @@ class MediaController extends Controller
 
         if($mediatype=='videos'){
 
-            $fetch=Video::select('id',$selected,'link')->whereIn('id',$media_ids)->where('status','1')->paginate($perpage);
+            $fetch=Video::select('id',$selected,'link')->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage);
             return response($fetch,200,['OK']);
         }elseif($mediatype=='photos'){
 
-            $fetch=GalleryResource::collection(Photo_Gallery::select('id',$selected,'image')->whereIn('id',$media_ids)->where('status','1')->paginate($perpage));
+            $fetch=GalleryResource::collection(Photo_Gallery::select('id',$selected)->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage));
              $fetch->map(function($t) { $t->type = 'first_fun'; });
              return response($fetch,200,['OK']);
 
         }elseif($mediatype=='articles'){
 
-            $fetch=PostsResource::collection(Article::select('id',$selected,'image')->whereIn('id',$media_ids)->where('status','1')->paginate($perpage));
+            $fetch=PostsResource::collection(Article::select('id',$selected)->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage));
             return response($fetch,200,['OK']);
         }elseif($mediatype=='releases'){
 
-            $releases_ids=Release_Section::where('sitesection_id',$main_cate_id)->pluck('release_id');
-            $fetch=ReleaseResource::collection(Release::select('id',$selected,'image','file')->whereIn('id',$releases_ids)->where('status','1')->paginate($perpage));
+            //$releases_ids=Release_Section::where('sitesection_id',$main_cate_id)->pluck('release_id');
+            //$fetch=ReleaseResource::collection(Release::select('id',$selected,'image','file')->whereIn('id',$releases_ids)->where('status','1')->paginate($perpage));
+            $fetch=ReleaseResource::collection(Release::select('id',$selected)->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage));
             return response($fetch,200,['OK']);
         }
 

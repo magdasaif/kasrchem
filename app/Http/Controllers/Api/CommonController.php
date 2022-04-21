@@ -4,8 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\AboutResource;
-use App\Models\AboutUs;
+use App\Http\Resources\SettingResource;
 use App\Models\SiteInfo;
 
 use Illuminate\Support\Facades\Validator;
@@ -15,28 +14,6 @@ use App\Models\Contact;
 
 class CommonController extends Controller
 {
-    public function about_us(Request $request)
-    {
-        //use header to read parameter passed in header
-        $lang=$request->header('locale');
-
-        if ($lang=='ar') {
-            $selected ="title_ar as title";
-            $selected2="mission_ar as mission";
-            $selected3="vision_ar as vision";
-            $selected4="goal_ar as goal";
-        } else {
-            $selected="title_en as title";
-            $selected2="mission_en as mission";
-            $selected3="vision_en as vision";
-            $selected4="goal_en as goal";
-        }
-        $about= new AboutResource(AboutUs::select('image', $selected, $selected2, $selected3, $selected4)->first());
-        //  $about->map(function($i) { $i->type = 'about_us'; });
-        return response($about, 200, ['OK']);
-    }
-
-
     /**
      * @OA\Get (
      *      path="/setting",
@@ -94,7 +71,7 @@ class CommonController extends Controller
             $selected="site_name_en as site_name";
             $selected2="site_desc_en as site_description";
         }
-        $setting=new AboutResource(SiteInfo::select('*', $selected, $selected2)->first());
+        $setting=new SettingResource(SiteInfo::select('*', $selected, $selected2)->first());
         // $setting->map(function($i) { $i->type = 'setting'; });
         return response($setting, 200, ['OK']);
     }

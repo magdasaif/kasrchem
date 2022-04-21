@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
-use App\Models\Video;
+use App\Models\Section_All_Page;
+use App\Http\Controllers\Controller;
 
 class VideoController extends Controller
 {
@@ -28,20 +29,6 @@ class VideoController extends Controller
      *      ),
      *      @OA\Parameter(
      *          name="category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="sub_category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="type_id",
      *          in="query",
      *          @OA\Schema(
      *              type="string",
@@ -76,22 +63,22 @@ class VideoController extends Controller
     public function index(Request $request)
     {
     //select products in selected categories 
-         $main_cate_id=$request->category_id;
-         $sub2_id=$request->sub_category_id;
-         $sub3_id=$request->type_id;
+         $section_id=$request->category_id;
          
           //use header to read parameter passed in header 
           $lang=$request->header('locale');
+         
+          $videos_ids=Section_All_Page::where('sitesection_id',$section_id)->where('type','videos')->pluck('type_id');
 
          
          if($lang=='ar'){
-             $selected="title_ar as title";
+             $selected="name_ar as title";
          }else{
-              $selected="title_en as title";
+              $selected="name_en as title";
          }
         // if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
         //  $posts =  Video::select('id',$selected,'link')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage);
-         $posts =  Video::select('id',$selected,'link')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->get();
-         return response($posts,200,['OK']);
+         $videos =  Video::select('id',$selected,'link')->whereIn('id',$videos_ids)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->get();
+         return response($videos,200,['OK']);
     }
 }

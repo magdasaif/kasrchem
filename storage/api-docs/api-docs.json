@@ -222,20 +222,6 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "sub_category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
                 "responses": {
@@ -712,20 +698,6 @@
                     },
                     {
                         "name": "category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "sub_category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_id",
                         "in": "query",
                         "schema": {
                             "type": "string"
@@ -1397,20 +1369,6 @@
                     },
                     {
                         "name": "category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "sub_category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_id",
                         "in": "query",
                         "schema": {
                             "type": "string"
