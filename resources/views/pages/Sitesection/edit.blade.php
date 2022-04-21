@@ -30,18 +30,9 @@
                  <div  class="form-group">
                     <label for="site_or_sub">نوع القسم</label>
                     <select class="form-control" name="site_or_sub" style="height: 50px;" required oninvalid="this.setCustomValidity('اختر نوع القسم')"  oninput="this.setCustomValidity('')">
-                        <?php
-                          if($first_select=='0')
-                          {
-                              echo'<option value="0" selected > قسـم رئيسى</option>';
-                          }
-                          else
-                          {
-                        ?>
-                           <option value="{{ $parent_of_section->id}}" selected> {{ $parent_of_section->name_ar}}</option>
-                           <option value="0"  > قسم رئيسى</option>
+                          <option value='0' <?php if($section->parent_id == 0){echo'selected';}?>>قسـم رئيسى</option>
                        <?php
-                          }    
+                         
                           foreach ($all_sections as $xx)
                           {
                             
@@ -52,13 +43,16 @@
                                         'number'=>2,
                                         $type="site_section",
                                         'site_id'=>$xx->id,
+                                        'main_id'=>$section->id,//pramiry key of section we edit on it 
+                                        'parent_id'=>$section->parent_id //parent_id of another section
                                     ];
                  
                               ?>
                               <?php if($section->id!=$xx->id){?>
-                                <option style="color:<?php echo $color;?>"  value="{{$xx->id}}">-{{$xx->name_ar}}</option>
+                                <option style="color:<?php echo $color;?>"  value="{{$xx->id}}" <?php if($section->parent_id == $xx->id){echo'selected';}?>>-{{$xx->name_ar}}</option>
                                <?php
-                            }?>
+                            }
+                            ?>
                                 @if(count($xx->childs))
                                    @include('pages.manageChild',$new)
                                 @endif
