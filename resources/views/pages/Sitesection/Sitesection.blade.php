@@ -109,6 +109,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                     <!--=======================searchand form ============================-->
+<<<<<<< HEAD
        
             <div class="col-md-6" style="margin-top:40px">
                  <div class="form-group" style="border: 3px solid;color: azure;">
@@ -118,6 +119,11 @@
             </div>
               <br>  
           <!--===========================================================================-->
+=======
+                    <input type="hidden" name="hidden_blade" id="hidden_blade" value="Sitesection" />
+                        @include('pages.search_form')
+                   <!--===========================================================================-->
+>>>>>>> search_all
                 <table class="table table-hover styled-table">
                   <thead>
                     <tr>
@@ -132,11 +138,20 @@
                   
                    <tbody>
                         
+<<<<<<< HEAD
                    @include('pages.Sitesection.pagination_data')
    
                     </tbody>
                 </table>
                 <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+=======
+                 <!--=======================body  ============================-->
+                   @include('pages.Sitesection.pagination_data')
+                  <!--========================================================-->
+                    </tbody>
+                </table>
+  
+>>>>>>> search_all
 
                
               </div>
@@ -147,6 +162,7 @@
   </section>
 </template>
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<<<<<<< HEAD
 
  <script type="text/javascript">
   $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
@@ -212,6 +228,10 @@ $(document).ready(function(){
 });
 
 </script>
+=======
+<script src="{{ URL::asset('/js/search_paginate.js') }}"></script>
+ 
+>>>>>>> search_all
 
 @endsection
 

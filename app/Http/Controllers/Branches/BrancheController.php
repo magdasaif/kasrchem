@@ -59,5 +59,8 @@ class BrancheController extends Controller
     {
         return $this->xx->bulkDelete($request);
     }
-    
+    public function search(Request $request){
+        //  dd('ddddd');
+          return $this->xx->search($request);
+      }
 }

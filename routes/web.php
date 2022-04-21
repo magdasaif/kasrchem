@@ -274,6 +274,7 @@ Route::controller('datatables', 'DatatablesController', [
     'getIndex' => 'datatables',
 ]);
 //---------------------------------searching-----------------------------------
+<<<<<<< HEAD
 Route::get('/search','Products\ProductController@search')->name('searching');
 
 //Route::get('/search_section','SiteSection\SiteSectionController@search')->name('search_section');
@@ -282,3 +283,17 @@ Route::get('/Sitesection/fetch_data', 'SiteSection\SiteSectionController@search'
 //  Route::get('/search_section{query_text}','SiteSection\SiteSectionController@search')->name('search_section');
 
 Route::get('/search_video','Video\VideoController@search')->name('search_video');
+=======
+// Route::get('/search','Products\ProductController@search')->name('searching');//Products search
+Route::get('/Sitesection/fetch_data', 'SiteSection\SiteSectionController@search'); //section search
+Route::get('/Show/fetch_data/video', 'Video\VideoController@search'); //Video search
+Route::get('/show/fetch_data/slider', 'Slider\SliderController@search'); //slider search
+Route::get('/show/fetch_data/article', 'Article\ArticleController@search'); //article search
+Route::get('/show/fetch_data/partner', 'Partners\PartnerController@search'); //partner search
+Route::get('/Show/fetch_data/release', 'Release\ReleaseController@search'); //release search
+Route::get('/show/fetch_data/product', 'Products\ProductController@search'); //Products search
+Route::get('/show/fetch_data/branche', 'Branches\BrancheController@search'); //branches search
+Route::get('/Show/fetch_data/page', 'Pages\PageController@search'); //pages search
+Route::get('/Show/fetch_data/photo_gallery', 'Photo_Gallery\Photo_GalleryController@search'); //Photo_Gallery search
+Route::get('/show/fetch_data/social', 'SocialLinks\SocialController@search'); //SocialLinks search
+>>>>>>> search_all

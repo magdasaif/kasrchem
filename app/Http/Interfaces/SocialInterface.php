@@ -10,5 +10,6 @@ interface SocialInterface {
     public function update($request);
     public function destroy($id);
     public function bulkDelete($request);
+    public function search($request);
 }
 ?>

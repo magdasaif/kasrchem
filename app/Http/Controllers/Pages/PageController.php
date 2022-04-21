@@ -70,6 +70,9 @@ class PageController extends Controller
         return $this->xx->delete_page_images($request);
   }
   // --------------end pages images funcrion -----------------------
-
+  public function search(Request $request){
+    //  dd('ddddd');
+      return $this->xx->search($request);
+  }
     
 }

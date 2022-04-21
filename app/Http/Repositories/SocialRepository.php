@@ -14,6 +14,21 @@ class SocialRepository implements SocialInterface{
         return view('pages.social_links.show',$data);
 
     }
+     //-----------------------------------------------------------------------------//
+     function search($request)
+     {
+        if($request->ajax())
+        {
+            $data['title']='وسائل التواصل';
+            $search_text = $request->get('query');
+            $data['searching']="search";
+            $data['socialLinks']=Social::where('name','LIKE','%'.$search_text.'%')
+            ->orWhere('icon', 'like', '%'.$search_text.'%')
+            ->orWhere('link', 'like', '%'.$search_text.'%')
+            ->paginate(10);
+           return view('pages.social_links.paginate_social',$data)->render();   
+        }
+     }
     //--------------------------------------------------------//
     public function yajra_data($request)
     { 

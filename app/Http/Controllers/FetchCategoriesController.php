@@ -21,6 +21,11 @@ class FetchCategoriesController extends Controller
          //dd($data);
         return response()->json($data); //then sent this data to ajax success
         return $data;
+
+
+
+
+
     }
     //--------------------------------------------
     public function findsub2($id)

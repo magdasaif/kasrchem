@@ -9,6 +9,7 @@ use App\Models\Release;
 use App\Traits\ImageTrait;
 use App\Traits\MediaTrait;
 use App\Models\Sitesection;
+use App\Traits\SearchTrait;
 use App\Models\Photo_Gallery;
 use App\Models\Section_All_Page;
 use Yajra\DataTables\DataTables;
@@ -19,7 +20,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class SectionRepository implements SectionInterface{
 
-    use TableAutoIncreamentTrait,ImageTrait,MediaTrait;
+    use TableAutoIncreamentTrait,ImageTrait,MediaTrait,SearchTrait;
     //----------------------------------------------------------------------
     public function index()
     {
@@ -30,8 +31,12 @@ class SectionRepository implements SectionInterface{
        return view('pages.Sitesection.Sitesection',$data);
     }
     //-----------------------------------------------------------------------------//
-        function search($request)
+    function search($request)
+    {
+        //dd($request->all());
+        if($request->ajax())
         {
+<<<<<<< HEAD
             //dd($request->all());
             if($request->ajax())
             {
@@ -64,11 +69,30 @@ class SectionRepository implements SectionInterface{
              // return view('pages.products.show',compact('searching_result','title'));
             // return view('pages.Sitesection.Sitesection',$data);
 
+=======
+            $data['title']  ='الاقسام';
+            $search_text = $request->get('query');
+            //$search_text = str_replace(" ", "%", $search_text);//replace space
+            
+            $searching_result=Sitesection::where('visible',1)->where('name_ar','LIKE','%'.$search_text.'%')->orWhere('name_en', 'like', '%'.$search_text.'%')->orWhere('status', 'like', '%'.$search_text.'%')->orWhere('sort', 'like', '%'.$search_text.'%')->get();
+            
+            $data['searching_count']=count($searching_result); //count result
+            $data['searching']="search";
+            $data['Sitesections']=Sitesection::
+            where('name_ar','LIKE','%'.$search_text.'%')->where('visible',1)
+            ->orderBy('sort','asc')
+            ->paginate(10);
+           return view('pages.Sitesection.pagination_data',$data)->render();   
+>>>>>>> search_all
         }
+
+
+    }
 
     //----------------------------------------------------------------------
     
-public function create(){
+    public function create()
+    {
         $data['title']='اضافه قسم';
         $data['parent_sites']= Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->get();
         return view('pages.Sitesection.add',$data);
@@ -177,6 +201,7 @@ public function create(){
         catch(\Exception $e)
         {
         DB::rollback();
+       return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         toastr()->error(' حدث خطااثناء التعديل');
         return redirect()->back();   
         }

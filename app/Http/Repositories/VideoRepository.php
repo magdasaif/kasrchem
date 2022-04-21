@@ -21,16 +21,18 @@ class VideoRepository implements VideoInterface{
     //-----------------------------------------------------------------------------//
     function search($request)
     {
-    // dd($request->all());
-        $data['title']  ='الفيديوهات';
-        $search_text = $request->query_text;
-        //dd($search_text);
-        $data['videos']=Video::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->orderBy('sort','asc')->paginate(1);
-        $searching_result=Video::where('name_ar','LIKE','%'.$search_text.'%')->where('visible', '!=' , 0)->get();
-        $searching_count=$data['searching_count']=count($searching_result);
-        // dd($searching_count);
-        // return view('pages.products.show',compact('searching_result','title'));
-        return view('pages.Sitesection.Sitesection',$data);
+       if($request->ajax())
+       {
+           $data['title']  ='الفيديوهات';
+           $search_text = $request->get('query');
+           $data['searching']="search";
+           $data['videos']=Video::withoutTrashed()
+           ->where('name_ar','LIKE','%'.$search_text.'%')
+           ->orWhere('name_en', 'like', '%'.$search_text.'%')
+           ->orWhere('link', 'like', '%'.$search_text.'%')
+           ->paginate(10);
+          return view('pages.Video.paginate_video',$data)->render();   
+       }
 
     }
     //--------------------------------------------------------//

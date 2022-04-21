@@ -47,15 +47,6 @@ Route::get('/sections',[SiteSectionController::class,'index']);
 ///-------------------------------section_category----------
 Route::get('/sections/{id}',[SiteSectionController::class,'get_section_category']);
 
-///-------------------------------category_sub_category--------
-Route::get('/categories/{id}/subs',[SiteSectionController::class,'get_category_sub_category']);
-
-///-------------------------------sub_category_types--------------
-Route::get('/sub_categories/{id}/types',[SiteSectionController::class,'get_sub_category_types']);
-
-///-------------------------------sub_types_types----------------
-Route::get('/types/{id}/sub_types',[SiteSectionController::class,'get_types_sub_types']);
-
 ///------------------------slider-------------------------------
 Route::get('/sliders',[sliderController::class,'index']);
 

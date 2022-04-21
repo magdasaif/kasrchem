@@ -3,29 +3,31 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Sitesection;
 
 class sectionResource extends JsonResource
 {
-   
     public function toArray($request)
     {
+       // return $this->all();
         
         $lang = $this->when( property_exists($this,'lang'), function() { return $this->lang; } );
         if($lang=='ar')
         {
-             $section_name= $this->site_name_ar;
+             $section_name= $this->name_ar;
         }
        else
         {
-            $section_name= $this->site_name_en;
+            $section_name= $this->name_en;
         }
-        $path=storage_path().'/app/public/site_sections/site_section_image/';
+
+        
         return [
             'id'=>$this->id,
             // 'name' =>$section_name,
             'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $section_name),
-           // 'image' => $path.$this->image,
-            'image' => asset('storage/site_sections/site_section_image/' . $this->image),
+            'image' => $this->getFirstMediaUrl('sections','edit'),
              
         ];
     }

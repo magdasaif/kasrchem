@@ -34,13 +34,9 @@ class Sitesection extends Model implements HasMedia
            ->width(90)
            ->height(90);
 
-     $this->addMediaConversion('logo')
-           ->width(190)
-           ->height(190);
-
-     $this->addMediaConversion('adding')
-     ->width(200)
-     ->height(120);
+           $this->addMediaConversion('edit')
+           ->width(300)
+           ->height(200);
      //-------------------------------------------------------------
  }
 

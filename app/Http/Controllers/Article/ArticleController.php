@@ -61,7 +61,10 @@ class ArticleController extends Controller
         return $this->xx->yajra_data($request);
        
     }
-
+    public function search(Request $request){
+        //  dd('ddddd');
+          return $this->xx->search($request);
+      } 
    
 // //--------------------------------------------
 //     public function destroy(Request $request ,$id)

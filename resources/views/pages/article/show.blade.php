@@ -28,6 +28,14 @@
               </div> 
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
+<<<<<<< HEAD
+=======
+                 <!--=======================searchand form ============================-->
+                 <input type="hidden" name="hidden_blade" id="hidden_blade" value="show" />
+                <input type="hidden" name="hidden_blade" id="hidden_model" value="article" />
+                                        @include('pages.search_form')
+                <!--===========================================================================-->
+>>>>>>> search_all
                 <table id="datatable" class="table table-hover styled-table" >
             <!--#############################################################-->
                   <thead>
@@ -43,6 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
+<<<<<<< HEAD
                          <?php $i = 0; $status=1?>
                         @foreach($articles as $article)
                             <tr>
@@ -96,6 +105,11 @@
 
                         @endforeach
 
+=======
+                         <!--=======================body  ============================-->
+                              @include('pages.article.paginate_article')
+                           <!--========================================================-->
+>>>>>>> search_all
                     </tbody>
 					
 							
@@ -119,4 +133,8 @@
 </template>
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('/js/delete_all.js') }}"></script>
+<<<<<<< HEAD
+=======
+<script src="{{ URL::asset('/js/search_paginate.js') }}"></script>
+>>>>>>> search_all
 @endsection

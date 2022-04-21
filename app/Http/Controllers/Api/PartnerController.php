@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Partner;
 use App\Http\Resources\PartnerResource;
-use Illuminate\Support\Facades\Validator;
 class PartnerController extends Controller
 {
 
@@ -55,7 +54,7 @@ class PartnerController extends Controller
     public function getpartners(Request $request)
     {
       $lang=$request->header('locale');
-      $Partner=PartnerResource::collection(Partner::where('status','1')->get());
+      $Partner=PartnerResource::collection(Partner::where('status','1')->withoutTrashed()->orderBy('sort','asc')->get());
       if($lang=='ar'){
           $Partner->map(function($i) { $i->lang = 'ar'; });
       }else{

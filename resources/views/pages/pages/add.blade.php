@@ -52,7 +52,7 @@
                     <label for="exampleInputEmail1">الصور الفرعيه</label>
 
                     <input type="file" class="form-control" name="photos[]" accept="image/*" multiple>
-                    <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span>
+                    <!-- <span style="color:red">الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]</span> -->
 
                     @error('photos')
                     <small class="form-text text-danger">{{$message}}</small>

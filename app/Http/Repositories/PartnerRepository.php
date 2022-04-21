@@ -18,7 +18,23 @@ class PartnerRepository implements PartnerInterface{
         $data['partners']=Partner::withoutTrashed()->orderBy('sort','asc')->paginate(10);
          return view('pages.partners.show',$data);
     }
-
+ //-----------------------------------------------------------------------------//
+ function search($request)
+     {
+        if($request->ajax())
+        {
+            $data['title']  ='الشركاء';
+            $search_text = $request->get('query');
+            $data['searching']="search";
+            $data['partners']=Partner::withoutTrashed()
+            ->where('name_ar','LIKE','%'.$search_text.'%')
+            ->orWhere('name_en', 'like', '%'.$search_text.'%')
+            ->orWhere('external_link', 'like', '%'.$search_text.'%')
+            ->paginate(10);
+           return view('pages.partners.paginate_partner',$data)->render();   
+        }
+     }
+     //-----------------------------------------------
     public function create(){
         $data['title']='اضافه شريك';
         return view('pages.partners.add',$data);

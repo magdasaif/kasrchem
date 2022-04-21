@@ -32,54 +32,54 @@
 #    - *clear_cache
 #  when: always
 
-composer:
-  stage: build
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-composer
-    paths:
-      - vendor/
-  script:
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-  #    - *copy_env_file
-  #    - cp -p ".env.example" ".env"
-  #   - php artisan key:generate
-  artifacts:
-    expire_in: 1 month
-    paths:
-      - vendor/
-      - .env
+# composer:
+#   stage: build
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-composer
+#     paths:
+#       - vendor/
+#   script:
+#     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+#   #    - *copy_env_file
+#   #    - cp -p ".env.example" ".env"
+#   #   - php artisan key:generate
+#   artifacts:
+#     expire_in: 1 month
+#     paths:
+#       - vendor/
+#       - .env
 
-npm:
-  stage: build
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}-npm
-    paths:
-      - node_modules/
-  script:
-    - echo "Hello from NPM"
-  #      - npm install
-  #      - npm run production
-  artifacts:
-    expire_in: 1 month
-    paths:
-      - node_modules/
-      - public/css/
-      - public/js/
+# npm:
+#   stage: build
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}-npm
+#     paths:
+#       - node_modules/
+#   script:
+#     - echo "Hello from NPM"
+#   #      - npm install
+#   #      - npm run production
+#   artifacts:
+#     expire_in: 1 month
+#     paths:
+#       - node_modules/
+#       - public/css/
+#       - public/js/
 
-codestyle:
-  stage: test
-  dependencies: []
-  script:
-    - echo "Hello from CODESTYLE"
-#    - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app
+# codestyle:
+#   stage: test
+#   dependencies: []
+#   script:
+#     - echo "Hello from CODESTYLE"
+# #    - phpcs --standard=PSR2 --extensions=php --ignore=app/Support/helpers.php app
 
-phpunit:
-  stage: test
-  dependencies:
-    - composer
-  script:
-    - echo "Hello from PHPUNIT"
-#    - phpunit --coverage-text --colors=never
+# phpunit:
+#   stage: test
+#   dependencies:
+#     - composer
+#   script:
+#     - echo "Hello from PHPUNIT"
+# #    - phpunit --coverage-text --colors=never
 
 staging:
   stage: deploy
@@ -100,7 +100,7 @@ staging:
   #    - php artisan deploy auth.drones.murabba.dev -s upload
   environment:
     name: dev
-    url: https://dashboard.eradunited.murabba.dev
+    url: https://backend.kasrchem.murabba.dev
   only:
     - dev
 production:
@@ -114,7 +114,7 @@ production:
   #    - php artisan deploy droners.com -s upload
   environment:
     name: production
-    url: https://eradunited.com
+    url: https://kasrchem.com
   when: manual
   only:
     - master

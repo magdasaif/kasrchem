@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Http\Resources\SliderResource;
-use Illuminate\Support\Facades\Validator;
 class sliderController extends Controller
 {
   /**
@@ -44,7 +43,7 @@ class sliderController extends Controller
     use ApiResponseTrait;
     public function index()
     {
-      $Slider=SliderResource::collection(Slider::where('status','1')->orderBy('priority','asc')->get());
+      $Slider=SliderResource::collection(Slider::where('status','1')->withoutTrashed()->orderBy('sort','asc')->get());
       return response($Slider,200,['OK']);
     }
 

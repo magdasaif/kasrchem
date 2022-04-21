@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Eradco System",
-        "description": "Eradco API Documentation",
+        "title": "kasrchem System",
+        "description": "kasrchem API Documentation",
         "contact": {
             "email": "engyasmeenali@gmail.com"
         },
@@ -10,7 +10,6 @@
     },
     "servers": [
         {
-            // "url": "https://backend.eradunited.training.murabba.dev/api",
             "url": "https://dashboard.eradunited.murabba.dev/api",
             "description": "API Server"
         }
@@ -838,20 +837,6 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "sub_category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
                 "responses": {
@@ -1189,182 +1174,14 @@
                 "tags": [
                     "Sections"
                 ],
-                "summary": "Get Section Category",
-                "description": "Returns Section Category",
-                "operationId": "getsectioncategory",
+                "summary": "Get Section child",
+                "description": "Returns Section child",
+                "operationId": "getsubsection",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "section ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    },
-                    {
-                        "name": "locale",
-                        "in": "header",
-                        "description": "App Locale",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "ar",
-                            "enum": [
-                                "ar",
-                                "en"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    }
-                }
-            }
-        },
-        "/categories/{id}/subs": {
-            "get": {
-                "tags": [
-                    "Sections"
-                ],
-                "summary": "Get Category Sub Categories",
-                "description": "Returns Category Sub Categories",
-                "operationId": "Get Category Sub Categories",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Category ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    },
-                    {
-                        "name": "locale",
-                        "in": "header",
-                        "description": "App Locale",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "ar",
-                            "enum": [
-                                "ar",
-                                "en"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    }
-                }
-            }
-        },
-        "/sub_categories/{id}/types": {
-            "get": {
-                "tags": [
-                    "Sections"
-                ],
-                "summary": "Get Sub Category Types",
-                "description": "Returns Sub Category Types",
-                "operationId": "Get Sub Category Types",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Sub Category ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    },
-                    {
-                        "name": "locale",
-                        "in": "header",
-                        "description": "App Locale",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "ar",
-                            "enum": [
-                                "ar",
-                                "en"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    }
-                }
-            }
-        },
-        "/types/{id}/sub_types": {
-            "get": {
-                "tags": [
-                    "Sections"
-                ],
-                "summary": "Get Type Sub Types",
-                "description": "Returns  Type Sub Types",
-                "operationId": "Get Type Sub Types",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Type ID",
                         "required": true,
                         "schema": {
                             "type": "integer",
