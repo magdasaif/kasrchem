@@ -158,6 +158,7 @@ public function create(){
         catch(\Exception $e)
         {
         DB::rollback();
+       return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         toastr()->error(' حدث خطااثناء التعديل');
         return redirect()->back();   
         }

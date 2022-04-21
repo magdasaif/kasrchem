@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Branche;
-use Illuminate\Support\Facades\Validator;
 class BranchController  extends Controller
 {
    /**
@@ -55,12 +54,15 @@ class BranchController  extends Controller
       $lang=$request->header('locale');
       if($lang=='ar')
       {
-        $Branche = Branche::select('id','name_ar AS title','address_ar AS address','phone','fax','email','latitude','longitude')->where('status','1')->get();
+        $title='name_ar AS title';
+        $address='address_ar AS address';
        }
       else
-      { 
-        $Branche = Branche::select('id','name_en AS title','address_en AS address','phone','fax','email','latitude','longitude')->where('status','1')->get();
+      { $title='name_en AS title';
+        $address='address_en AS address';
       }
+      $Branche = Branche::select('id',$title,$address,'phone','fax','email','latitude','longitude')->withoutTrashed()->where('status','1')->orderBy('sort','asc')->get();
+
         return response($Branche,200,['OK']);
     }
 

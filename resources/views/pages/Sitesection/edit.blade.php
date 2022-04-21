@@ -55,7 +55,10 @@
                                     ];
                  
                               ?>
+                              <?php if($section->id!=$xx->id){?>
                                 <option style="color:<?php echo $color;?>"  value="{{$xx->id}}">-{{$xx->name_ar}}</option>
+                               <?php
+                            }?>
                                 @if(count($xx->childs))
                                    @include('pages.manageChild',$new)
                                 @endif

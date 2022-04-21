@@ -18,12 +18,10 @@ class PartnerResource extends JsonResource
         {
             $partner_name= $this->name_en;
         }
-        $path=storage_path().'/app/public/partners/';
         return [
             'id'=>$this->id,
             'name' =>$partner_name,
-           // 'image' => $path.$this->image,
-           'image'=>asset('storage/partners/' . $this->image),
+            'image'=>$this->getFirstMediaUrl('partner','edit'),
             'link'=>$this->external_link,
              
         ];
