@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
   <?php $i = 0; $status=1?>
                          @if($searching_count != 0 && $Sitesections)
                         @foreach($Sitesections as $section)
@@ -6,20 +6,7 @@
                             <?php $i++;?>
                             <td> {{$i}}</td> 
                             <td>{{$section->name_ar}}</td>
-=======
 
-                            <?php $i = 0; $status=1 ?>
-                         @if($searching_count != 0 && $Sitesections)
-                          @foreach($Sitesections as $section)
-                            <tr>
-                            <?php 
-                                $i++;
-                                if(isset($section->image->filename)){$img=$section->image->filename;}else{$img='';}
-                            ?>
-                            <td> {{$i}}</td> 
-                            <td>{{$section->name_ar}}</td>
-
->>>>>>> search_all
                             <td> <img src="{{$section->getFirstMediaUrl('sections','index')}}" /> </td>
                             <td>{{$section->sort}}</td>
                            <td><?php if($section->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
@@ -38,11 +25,7 @@
                                       <h4 class="modal-title " id="myModalLabel">تاكيد الحذف</h4>
                                     </div>
                                     <form class="delete" action="{{route('site_section.destroy',encrypt($section->id))}}" method="post">
-<<<<<<< HEAD
                                     {{method_field('delete')}}
-=======
-                                      {{method_field('delete')}}
->>>>>>> search_all
                                       {{csrf_field()}}
                                     <div class="modal-body">
                                       <!-----------------footer and content from javascript basedon related or not with section-------->
@@ -61,14 +44,8 @@
                            </td>
 
                             </tr>
-<<<<<<< HEAD
                         @endforeach
                         <tr>
-=======
-                       
-                            @endforeach
-                            <tr>
->>>>>>> search_all
                           <td colspan="8" align="center">
                           
                   
@@ -80,17 +57,7 @@
                 
                           </td>
                           </tr>
-<<<<<<< HEAD
                         @else
                              <tr><td colspan="8" style="text-align: center;font-size: 18px;color: red;">لا يوجد بيانات !</td></tr>
                            @endif
                  
-=======
-                <!--------------------------------------------------->
-                         @else
-                            <tr><td colspan="8" style="text-align: center;font-size: 18px;color: red;">لا يوجد بيانات !</td></tr>
-                          @endif
-                          
-                        
-               
->>>>>>> search_all

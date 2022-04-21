@@ -109,21 +109,11 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                     <!--=======================searchand form ============================-->
-<<<<<<< HEAD
-       
-            <div class="col-md-6" style="margin-top:40px">
-                 <div class="form-group" style="border: 3px solid;color: azure;">
-                    <!-- <input type="text" class="form-control" name="query_text"     onkeyup="search_func(this.value);" placeholder=" بحث باسم القسم ....."   value="{{ request()->input('query_text') }}"> -->
-                    <input type="text" class="form-control" name="query_text"   id="serach"   placeholder=" بحث باسم القسم ....."   value="{{ request()->input('query_text') }}">
-                 </div>
-            </div>
-              <br>  
-          <!--===========================================================================-->
-=======
+
                     <input type="hidden" name="hidden_blade" id="hidden_blade" value="Sitesection" />
                         @include('pages.search_form')
                    <!--===========================================================================-->
->>>>>>> search_all
+
                 <table class="table table-hover styled-table">
                   <thead>
                     <tr>
@@ -138,20 +128,14 @@
                   
                    <tbody>
                         
-<<<<<<< HEAD
+
                    @include('pages.Sitesection.pagination_data')
    
                     </tbody>
                 </table>
                 <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
-=======
-                 <!--=======================body  ============================-->
-                   @include('pages.Sitesection.pagination_data')
-                  <!--========================================================-->
-                    </tbody>
-                </table>
-  
->>>>>>> search_all
+
+           
 
                
               </div>
@@ -162,32 +146,11 @@
   </section>
 </template>
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-<<<<<<< HEAD
+
 
  <script type="text/javascript">
   $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-    /*******************************************************
-     function search_func(query_text)
-    {
-      $.ajax({
-        type : 'get',
 
-      url : '{{URL::to('search_section')}}',
-        data:{'query_text':query_text},
-
-       // var llink = APP_URL+"/search_section/"+query_text;
-        // url: llink,
-       // data:{'query_text':query_text},
-        success:function(data)
-        {
-       // alert(data);
-         $('tbody').html('');
-       $('tbody').html(data);
-        }
-      });
-   
-    }
-   ********************************************************/
 $(document).ready(function(){
 
  function fetch_data(page,query)
@@ -228,10 +191,7 @@ $(document).ready(function(){
 });
 
 </script>
-=======
-<script src="{{ URL::asset('/js/search_paginate.js') }}"></script>
- 
->>>>>>> search_all
+
 
 @endsection
 
