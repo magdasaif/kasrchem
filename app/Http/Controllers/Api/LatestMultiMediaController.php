@@ -133,7 +133,7 @@ class LatestMultiMediaController extends Controller
                $selected="name_en as title";
           }
           
-          $r=Release::select('id',$selected)->where('status','1')->orderby('sort','asc')->limit(15)->get();
+          $r=Release::select('id',$selected)->withoutTrashed()->where('status','1')->orderby('sort','asc')->limit(15)->get();
 
           $relases=ReleaseResource::collection($r);
           
