@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "kasrchem System",
-        "description": "kasrchem API Documentation",
+        "title": "Eradco System",
+        "description": "Eradco API Documentation",
         "contact": {
             "email": "engyasmeenali@gmail.com"
         },
@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "https://backend.kasrchem.murabba.dev/api/v1",
+            "url": "https://backend.kasrchem.murabba.dev/api/v2",
             "description": "API Server"
         }
     ],
@@ -218,20 +218,6 @@
                     },
                     {
                         "name": "category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "sub_category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_id",
                         "in": "query",
                         "schema": {
                             "type": "string"
@@ -540,6 +526,67 @@
                 }
             }
         },
+        "/media": {
+            "get": {
+                "tags": [
+                    "Multimedia"
+                ],
+                "summary": "Get list of Media",
+                "operationId": "getMediaList",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
         "/pages": {
             "get": {
                 "tags": [
@@ -716,20 +763,6 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "sub_category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
                 "responses": {
@@ -832,7 +865,7 @@
                         }
                     },
                     {
-                        "name": "category_id",
+                        "name": "section_id",
                         "in": "query",
                         "schema": {
                             "type": "string"
@@ -934,104 +967,6 @@
                             "format": "int64"
                         }
                     },
-                    {
-                        "name": "locale",
-                        "in": "header",
-                        "description": "App Locale",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "ar",
-                            "enum": [
-                                "ar",
-                                "en"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    }
-                }
-            }
-        },
-        "/releases": {
-            "get": {
-                "tags": [
-                    "Multimedia"
-                ],
-                "summary": "Get list of Releases",
-                "operationId": "Get list of Releases",
-                "parameters": [
-                    {
-                        "name": "locale",
-                        "in": "header",
-                        "description": "App Locale",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "ar",
-                            "enum": [
-                                "ar",
-                                "en"
-                            ]
-                        }
-                    },
-                    {
-                        "name": "category_id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    }
-                }
-            }
-        },
-        "/release_section": {
-            "get": {
-                "tags": [
-                    "Multimedia"
-                ],
-                "summary": "Get list of sections with release",
-                "description": "Returns list of sections with release",
-                "operationId": "getReleasList",
-                "parameters": [
                     {
                         "name": "locale",
                         "in": "header",
@@ -1174,8 +1109,8 @@
                 "tags": [
                     "Sections"
                 ],
-                "summary": "Get Section child",
-                "description": "Returns Section child",
+                "summary": "Get Section childs",
+                "description": "Returns Section childs",
                 "operationId": "getsubsection",
                 "parameters": [
                     {
@@ -1253,19 +1188,103 @@
                         "schema": {
                             "type": "string"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/releases": {
+            "get": {
+                "tags": [
+                    "Multimedia"
+                ],
+                "summary": "Get list of Releases",
+                "operationId": "Get list of Releases",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
+                        }
                     },
                     {
-                        "name": "sub_category_id",
+                        "name": "category_id",
                         "in": "query",
                         "schema": {
                             "type": "string"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
                     },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/release_section": {
+            "get": {
+                "tags": [
+                    "Multimedia"
+                ],
+                "summary": "Get list of sections with release",
+                "description": "Returns list of sections with release",
+                "operationId": "getReleasList",
+                "parameters": [
                     {
-                        "name": "type_id",
-                        "in": "query",
+                        "name": "locale",
+                        "in": "header",
+                        "description": "App Locale",
+                        "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "ar",
+                            "enum": [
+                                "ar",
+                                "en"
+                            ]
                         }
                     }
                 ],
