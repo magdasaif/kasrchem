@@ -150,7 +150,7 @@ return [
          */
         'constants' => [
          //https://git.murabba.com/MD/dev/eradco/kasrchem/backend
-        'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST','https://dashboard.eradunited.murabba.dev/api'),
+        'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST','https://backend.kasrchem.murabba.dev/api/v1'),
 
     ],
     ],
