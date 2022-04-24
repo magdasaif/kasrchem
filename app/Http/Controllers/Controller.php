@@ -12,10 +12,10 @@ class Controller extends BaseController
  /**
      * @OA\Info(
      *      version="1.0.0",
-     *      title="Eradco System",
-     *      description="Eradco API Documentation",
+     *      title="kasrchem System",
+     *      description="kasrchem API Documentation",
      *      @OA\Contact(
-     *          email="engyasmeenali@gmail.com"
+     *          email="admin@kasrchem.com"
      *      ),
      * )
      *

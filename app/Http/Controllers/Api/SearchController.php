@@ -12,11 +12,7 @@ use App\Models\Article;
 use App\Models\Product;
 use App\Models\Release;
 use App\Models\Partner;
-use App\Models\Main_Category;
 use App\Models\Sitesection;
-use App\Models\Sub_Category2;
-use App\Models\Sub_Category3;
-use App\Models\Supplier;
 use App\Models\Photo_Gallery;
 
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
@@ -81,38 +77,34 @@ class SearchController extends Controller
     {
        
         if ($request->filled('search')) {
+
             $s = $request->get('search');
+            
             if (app('request')->header('locale') === 'en') {
-                $results =  Search::add(Article::select('id','title_en as name','image'), [ 'title_en', 'content_en'])
-                    ->add(Product::select('id','name_en as name','image'), ['name_en','desc_en'])
-                    ->add(Release::select('id','title_en as name','image'), ['title_en'])
-                    ->add(Main_Category::select('id','subname_en as name','image'), ['subname_en'])
-                    ->add(Partner::select('id','name_en as name','image'), ['name_en'])
-                    ->add(Sitesection::select('id','site_name_en as name','image'), ['site_name_en'])
-                    ->add(Sub_Category2::select('id','subname2_en as name','image2'), ['subname2_en'])
-                    ->add(Sub_Category3::select('id','subname_en as name','image'), ['subname_en'])
-                    ->add(Supplier::select('id','name_en as name','logo'), ['name_en','description_en'])
-                    ->add(Video::select('id','title_en as name','link'), ['title_en'])
-                    ->add(Photo_Gallery::select('id','title_en as name','image'), ['title_en'])
-                    ->beginWithWildcard()
-                    ->paginate()
-                    ->get($s);
-            } else {
-                $results =  Search::add(Article::select('id','title_ar as name','image'), ['title_ar', 'content_ar'])
-                    ->add(Product::select('id','name_ar as name','image'), ['name_ar','desc_ar'])
-                    ->add(Release::select('id','title_ar as name','image'), ['title_ar'])
-                    ->add(Main_Category::select('id','subname_ar as name','image'), ['subname_ar'])
-                    ->add(Partner::select('id','name_ar as name','image'), ['name_ar'])
-                    ->add(Sitesection::select('id','site_name_ar as name','image'), ['site_name_ar'])
-                    ->add(Sub_Category2::select('id','subname2_ar as name','image2'), ['subname2_ar'])
-                    ->add(Sub_Category3::select('id','subname_ar as name','image'), ['subname_ar'])
-                    ->add(Supplier::select('id','name_ar as name','logo'), ['name_ar','description_ar'])
-                    ->add(Video::select('id','title_ar as name','link'), ['title_ar'])
-                    ->add(Photo_Gallery::select('id','title_en as name','image'), ['title_en'])
-                    ->beginWithWildcard()
-                    ->paginate()
-                    ->get($s);
+                    $select0='name_en as name';
+                    $select1='name_en';
+                    $select2='content_en';
+                    $select3='description_en';
+            }else{
+                $select0='name_ar as name';
+                $select1='name_ar';
+                $select2='content_ar';
+                $select3='description_ar';
             }
+          
+          
+            $results =  Search::add(Article::select('id',$select0)->withoutTrashed(), [ $select1, $select2])
+                ->add(Product::select('id',$select0)->withoutTrashed(), [$select1,$select3])
+                ->add(Release::select('id',$select0)->withoutTrashed(), [$select1])
+                ->add(Partner::select('id',$select0)->withoutTrashed(), [$select1])
+                ->add(Sitesection::select('id',$select0)->where('visible',1), [$select1])
+                ->add(Video::select('id',$select0,'link')->withoutTrashed(), [$select1])
+                ->add(Photo_Gallery::select('id',$select0)->withoutTrashed(), [$select1])
+                ->beginWithWildcard()
+                ->paginate()
+                ->get($s);
+           
+
             $results->map(function ($item) {
                 $item['type'] =   class_basename($item);
             });

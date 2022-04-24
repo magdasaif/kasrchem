@@ -110,24 +110,29 @@ class SectionRepository implements SectionInterface{
     {
         $real_id=decrypt($id);
         $data['title']='تعديل قسم';
-        $data['section'] =$section= Sitesection::findOrfail($real_id);  //data of edited supplier
-        if($section->parent_id==null)
-        {
-            $data['first_selec']=0; // قسـم رئيسى selected
-            $parent_of_section='';//مفيش parent
-            $data['all_sections'] =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id','!=',$id)->get();
-        }
-        else
-        {
-            $data['first_select']='';
-            $data['parent_of_section'] =$parent_of_section= Sitesection::findOrfail($section->parent_id);
-           // dd($parent_of_section);
-            $data['all_sections']=$all_sections=Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
-            //dd($all_sections);
-        }
+        
+        $data['section']       = Sitesection::findOrfail($real_id);  //data of edited Sitesection
+        $data['all_sections']  = Sitesection::where('visible', '!=' , 0)->whereNull('parent_id')->where('id','!=',$real_id)->get();
+
+
+        // $data['section'] =$section= Sitesection::findOrfail($real_id);  //data of edited supplier
+        // if($section->parent_id==null)
+        // {
+        //     $data['first_selec']=0; // قسـم رئيسى selected
+        //     $parent_of_section='';//مفيش parent
+        //     $data['all_sections'] =Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id','!=',$id)->get();
+        // }
+        // else
+        // {
+        //     $data['first_select']='';
+        //     $data['parent_of_section'] =$parent_of_section= Sitesection::findOrfail($section->parent_id);
+        //    // dd($parent_of_section);
+        //     $data['all_sections']=$all_sections=Sitesection::where('parent_id', '=', Null)->where('visible', '!=' , 0)->where('id', '!=', $parent_of_section->id)->get(); //  كبيرنت والاتشيلد الخاصيين بيه علشان اللى كان مختاره ميظهرش فى السليكت
+        //     //dd($all_sections);
+        // }
       
-        if(!$parent_of_section){ $data['first_select']=0;}
-        else{ $data['first_select']='';}
+        // if(!$parent_of_section){ $data['first_select']=0;}
+        // else{ $data['first_select']='';}
         return view('pages.Sitesection.edit',$data);
     }
     //----------------------------------------------------------------------

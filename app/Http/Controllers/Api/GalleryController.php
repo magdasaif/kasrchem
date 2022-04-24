@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Http\Resources\GalleryResource;
 use App\Models\Photo_Gallery;
+
+use App\Models\Section_All_Page;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\GalleryResource;
 
 class GalleryController extends Controller
 {
@@ -29,20 +30,6 @@ class GalleryController extends Controller
      *      ),
      *      @OA\Parameter(
      *          name="category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="sub_category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="type_id",
      *          in="query",
      *          @OA\Schema(
      *              type="string",
@@ -78,23 +65,22 @@ class GalleryController extends Controller
     {
     //select galleries in selected categories 
          $main_cate_id=$request->category_id;
-         $sub2_id=$request->sub_category_id;
-         $sub3_id=$request->type_id;
 
          //use header to read parameter passed in header 
         $lang=$request->header('locale');
         
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
-         
+       
+         $media_ids=Section_All_Page::where('sitesection_id',$main_cate_id)->where('type','photos')->pluck('type_id');
+
          if($lang=='ar'){
-             $selected="title_ar as title";
+             $selected="name_ar as title";
          }else{
-              $selected="title_en as title";
+              $selected="name_en as title";
          }
-        
-         $posts =  GalleryResource::collection(Photo_Gallery::select('id',$selected,'image')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
-         $posts->map(function($t) { $t->type = 'first_fun'; });
-         return response($posts,200,['OK']);
+         $gallery=GalleryResource::collection(Photo_Gallery::select('id',$selected)->whereIn('id',$media_ids)->withoutTrashed()->where('status','1')->orderby('sort','asc')->paginate($perpage));
+         $gallery->map(function($t) { $t->type = 'first_fun'; });
+         return response($gallery,200,['OK']);
     }
 
     /**
@@ -156,9 +142,9 @@ class GalleryController extends Controller
         $lang=$request->header('locale');
         
         if($lang=='ar'){
-            $selected="title_ar as title";
+            $selected="name_ar as title";
         }else{
-            $selected="title_en as title";
+            $selected="name_en as title";
         }
 
         $all_posts = Photo_Gallery::select('id',$selected,'image')->where('id','=',$id)->get();

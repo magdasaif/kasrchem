@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
+use App\Models\Section_All_Page;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\PostsResource;
-use App\Models\Article;
 
 class PostsController extends Controller
 {
@@ -30,20 +31,6 @@ class PostsController extends Controller
      *      ),
      *      @OA\Parameter(
      *          name="category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="sub_category_id",
-     *          in="query",
-     *          @OA\Schema(
-     *              type="string",
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="type_id",
      *          in="query",
      *          @OA\Schema(
      *              type="string",
@@ -79,22 +66,22 @@ class PostsController extends Controller
     {
         //select posts in selected categories
         
-         $main_cate_id=$request->category_id;
-         $sub2_id=$request->sub_category_id;
-         $sub3_id=$request->type_id;
-         
-          //use header to read parameter passed in header 
+         $section_id=$request->category_id;
+
+         //use header to read parameter passed in header 
          $lang=$request->header('locale');
 
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
+       
+         $articles_ids=Section_All_Page::where('sitesection_id',$section_id)->where('type','articles')->pluck('type_id');
 
          if($lang=='ar'){
-             $selected="title_ar as title";
+             $selected="name_ar as title";
          }else{
-              $selected="title_en as title";
+              $selected="name_en as title";
          }
          
-         $posts =  PostsResource::collection(Article::select('id',$selected,'image')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
+         $posts =  PostsResource::collection(Article::select('id',$selected)->whereIn('id',$articles_ids)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->paginate($perpage));
          return response($posts,200,['OK']);
     }
 
@@ -157,14 +144,14 @@ class PostsController extends Controller
         //use header to read parameter passed in header 
         $lang=$request->header('locale');
         if($lang=='ar'){
-            $selected="title_ar as title";
+            $selected="name_ar as title";
             $selected2="content_ar as description";
         }else{
-            $selected="title_en as title";
+            $selected="name_en as title";
             $selected2="content_en as description";
         }
 
-        $all_posts = Article::select('id',$selected,'image',$selected2,'created_at as date')->where('id','=',$id)->get();
+        $all_posts = Article::select('id',$selected,$selected2,'created_at as date')->where('id',$id)->get();
 
         $all_posts = PostsResource::collection($all_posts);
 

@@ -8,7 +8,9 @@ use App\Models\Release;
 use App\Models\Sitesection;
 use Illuminate\Http\Request;
 use App\Models\Photo_Gallery;
+use App\Models\Section_All_Page;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ReleaseResource;
 use App\Http\Resources\ReleaseSectionResource;
 use App\Http\Resources\LatestMultiMediaResource;
 
@@ -66,12 +68,12 @@ class LatestMultiMediaController extends Controller
         $lang=$request->header('locale');
 
           if($lang=='ar'){
-               $selected="title_ar as title";
+               $selected="name_ar as title";
           }else{
-               $selected="title_en as title";
+               $selected="name_en as title";
           }
          
-         $posts = LatestMultiMediaResource::collection(Photo_Gallery::select('id',$selected,'image')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
+         $posts = LatestMultiMediaResource::collection(Photo_Gallery::select('id',$selected)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->limit(15)->get());
          $posts->map(function($t) { $t->type = 'latest_galleries'; });
          return response($posts,200,['OK']);
     }
@@ -126,25 +128,16 @@ class LatestMultiMediaController extends Controller
         $lang=$request->header('locale');
 
           if($lang=='ar'){
-               $selected="title_ar as title";
+               $selected="name_ar as title";
           }else{
-               $selected="title_en as title";
+               $selected="name_en as title";
           }
           
-     //     $posts = LatestMultiMediaResource::collection(Release::select('id',$selected,'image','file')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
-     //     $posts->map(function($t) { $t->type = 'latest_releases'; });
-     //     return response($posts,200,['OK']);
+          $r=Release::select('id',$selected)->withoutTrashed()->where('status','1')->orderby('sort','asc')->limit(15)->get();
 
-
-     
-          $all=Sitesection::select('site_sections.id as section_id','site_name_ar','site_name_en')
-               ->join('releases_sections', 'releases_sections.sitesection_id', '=', 'site_sections.id')
-               ->groupBy('section_id')
-               ->get();
-
-          $section=ReleaseSectionResource::collection($all);
-          $section->map(function($i) { $i->type = 'latest'; });
-          return response($section,200,['OK']);
+          $relases=ReleaseResource::collection($r);
+          
+          return response($relases,200,['OK']);
 
     }
     
@@ -198,12 +191,12 @@ class LatestMultiMediaController extends Controller
         $lang=$request->header('locale');
 
           if($lang=='ar'){
-               $selected="title_ar as title";
+               $selected="name_ar as title";
           }else{
-               $selected="title_en as title";
+               $selected="name_en as title";
           }
          
-         $posts = LatestMultiMediaResource::collection(Article::select('id',$selected,'image')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
+         $posts = LatestMultiMediaResource::collection(Article::select('id',$selected)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->limit(15)->get());
          $posts->map(function($t) { $t->type = 'latest_posts'; });
          return response($posts,200,['OK']);
     }
@@ -257,12 +250,12 @@ class LatestMultiMediaController extends Controller
         $lang=$request->header('locale');
 
           if($lang=='ar'){
-               $selected="title_ar as title";
+               $selected="name_ar as title";
           }else{
-               $selected="title_en as title";
+               $selected="name_en as title";
           }
          
-         $posts = LatestMultiMediaResource::collection(Video::select('id',$selected,'link')->where('status','1')->orderBy('created_at','desc')->limit(15)->get());
+         $posts = LatestMultiMediaResource::collection(Video::select('id',$selected,'link')->withoutTrashed()->where('status','1')->orderBy('sort','asc')->limit(15)->get());
          $posts->map(function($t) { $t->type = 'latest_videos'; });
          return response($posts,200,['OK']);
     }

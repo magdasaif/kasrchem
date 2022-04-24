@@ -63,7 +63,7 @@ class PageController extends Controller
            $selected2="content_en as content";
            $selected3="name_en as title";
       }
-      $Page = Page::select('id',$selected3,$selected,$selected2)->where('status','1')->orderBy('sort','asc')->get();
+      $Page = Page::select('id',$selected3,$selected,$selected2)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->get();
 
       $Page = PageResource::collection($Page);
       $Page->map(function($i) { $i->type = 'all'; });

@@ -24,6 +24,7 @@ foreach($childs as $child){
         }
     
        if(isset($parent_id)){$parent_id=$parent_id;}else{$parent_id=0;}
+       if($parent_id==$child->id){$select_or_no='selected';}
        
        //دى علشان اهندل انه ميظهرش الداتا او القسم بتاع القسم اللى هعدله
        //ميظهرش اسم القسم الفرعى الخاصيين بالقسم اللى بعدل عليه

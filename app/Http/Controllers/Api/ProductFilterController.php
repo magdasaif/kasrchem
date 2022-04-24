@@ -82,7 +82,7 @@ class ProductFilterController extends Controller
         }
 
          $products = ProductResource::collection(
-                Product::select('*',$selected,$selected2)
+                Product::select('id','video_link','link',$selected,$selected2)
                 ->withoutTrashed()
                 ->whereIn('id',$products_ids)
                 ->where('status','1')
@@ -163,7 +163,7 @@ class ProductFilterController extends Controller
 
         // $all_product = Product::select('*',$selected,$selected2)->where('id','=',$id)->get();
 
-        $all_product = Product::select('*',$selected,$selected2)->withoutTrashed()->where('id','=',$id)->get();
+        $all_product = Product::select('id','video_link','link',$selected,$selected2)->withoutTrashed()->where('id','=',$id)->get();
         $product = ProductResource::collection($all_product);
 
         if($lang=='ar'){

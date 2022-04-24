@@ -1,10 +1,10 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Eradco System",
-        "description": "Eradco API Documentation",
+        "title": "kasrchem System",
+        "description": "kasrchem API Documentation",
         "contact": {
-            "email": "engyasmeenali@gmail.com"
+            "email": "admin@kasrchem.com"
         },
         "version": "1.0.0"
     },

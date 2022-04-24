@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Release;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReleaseResource extends JsonResource
@@ -9,24 +10,20 @@ class ReleaseResource extends JsonResource
    
     public function toArray($request)
     {
-        $path=storage_path().'/app/public/release/release_'.$this->id.'/';
 
-        $type = $this->when( property_exists($this,'type'), function() { return $this->type; } );
-
-        if($type=='release_section'){
-          
+        $files=Release::find($this->id)->mainFile();
+        $new_files='';
+        foreach($files as $fi){
+            $new_files=asset('storage/releases/release_no_'.$this->id.'/' . $fi->filename);
         }
-        
         return [
 
             'id' =>$this->id,
             'title' =>$this->title,
-         //   'image' =>$path.$this->image,
-            'image' =>  asset('storage/release/release_'.$this->id.'/' . $this->image),
-          //  'attachment' => $path.$this->file,
-            'attachment' =>  asset('storage/release/release_'.$this->id.'/' . $this->file),
+            'image' =>  $this->getFirstMediaUrl('releases','edit'),
+            'attachment' =>  $new_files,
            
-        ];
+        ];           
       //  return parent::toArray($request);
     }
 }

@@ -52,6 +52,7 @@ class VideoRepository implements VideoInterface{
         DB::beginTransaction(); //to handel multiple insertion
         try
         {
+           // dd($request->all());
              //call trait to handel aut-increament
             $this->refreshTable('videos');
             //---------------store in videos table --------------------
@@ -62,6 +63,7 @@ class VideoRepository implements VideoInterface{
             $video->sort=$request->sort;
             $video->status= $request->status;
             $video->save();
+            //dd($request->site_id);
             //---------------store in section all pages table -----------
             $video->rel_section()->attach($request->site_id,['type' => 'videos']);
             //-----------------------------------------------------------
@@ -72,6 +74,7 @@ class VideoRepository implements VideoInterface{
         catch(\Exception $e)
         {
             DB::rollback();
+          //  return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             toastr()->error('حدث خطا اثناء الاضافه');
             return redirect()->back();   
         }
