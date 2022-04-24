@@ -15,9 +15,9 @@ class UserSeeder extends Seeder
             array(
                 'name' => "admin",
                 'type' => "admin",
-                'email'=>'admin@eradunited.com',
+                'email'=>'admin@kasrchem.com',
                 'email_verified_at'=>date('Y-m-d H:i:s'),
-                'password'=>Hash::make('admin123'),
+                'password'=>Hash::make('OW57yim?xz_.ez=]bn'),
                 
                 
                 'created_at'=>date('Y-m-d H:i:s'),
