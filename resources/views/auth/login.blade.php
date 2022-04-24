@@ -75,9 +75,7 @@
             
             @if((App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')))
               <img src="{{App\Models\SiteInfo::find('1')->getFirstMediaUrl('site_logo','logo')}}">
-            @else
-            <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;width:10%;" src='{{asset("/images/logo.png")}}' alt="" >
-            @endif
+             @endif
             </div>
 
         <!-- </div> -->
