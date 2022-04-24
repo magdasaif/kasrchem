@@ -65,26 +65,26 @@ class ReleaseController extends Controller
      */
     public function index(Request $request)
     {
-    //select Release in selected categories 
+    //select Release in selected categories
          $main_cate_id=$request->category_id;
      //     $sub2_id=$request->sub_category_id;
      //     $sub3_id=$request->type_id;
-         
-          //use header to read parameter passed in header 
+
+          //use header to read parameter passed in header
         $lang=$request->header('locale');
 
          if($request->perpage){$perpage=$request->perpage;}else{$perpage=10;}
-         
+
          if($lang=='ar'){
              $selected="title_ar as title";
          }else{
               $selected="title_en as title";
          }
-        
+
          // $relases =  ReleaseResource::collection(Release::select('id',$selected,'image','file')->where('main_cate_id',$main_cate_id)->where('sub2_id',$sub2_id)->where('sub3_id',$sub3_id)->where('status','1')->paginate($perpage));
 
           $releases_ids=Release_Section::where('sitesection_id',$main_cate_id)->pluck('release_id');
-          
+
           $rr=Release::select('id',$selected,'image','file')->whereIn('id',$releases_ids)->where('status','1')->paginate($perpage);
           $relases =  ReleaseResource::collection($rr);
 
@@ -92,7 +92,7 @@ class ReleaseController extends Controller
     }
 
 
-          /**
+    /**
      * @OA\Get(
      *      path="/release_section",
      *      operationId="getReleasList",
@@ -138,12 +138,12 @@ class ReleaseController extends Controller
     public function sectionsAndRelease(Request $request)
     {
       $lang=$request->header('locale');
-      
+
       $all=Sitesection::select('site_sections.id as section_id','site_name_ar','site_name_en')
       ->join('releases_sections', 'releases_sections.sitesection_id', '=', 'site_sections.id')
       ->groupBy('section_id')
       ->get();
-      
+
       $section=ReleaseSectionResource::collection($all);
       $section->map(function($i) { $i->type = 'all'; });
       if($lang=='ar'){
@@ -153,5 +153,5 @@ class ReleaseController extends Controller
      }
       return response($section,200,['OK']);
     }
-    
+
 }
