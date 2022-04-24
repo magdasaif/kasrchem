@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "https://backend.kasrchem.murabba.dev/api/v2",
+            "url": "https://backend.kasrchem.murabba.dev/api",
             "description": "API Server"
         }
     ],
