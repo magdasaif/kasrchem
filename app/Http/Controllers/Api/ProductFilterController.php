@@ -63,8 +63,9 @@ class ProductFilterController extends Controller
      */
     public function index(Request $request)
     {
+    
     //select products in selected categories 
-         $section_id=$request->category_id;
+         $section_id=$request->section_id;
          
         //use header to read parameter passed in header 
         $lang=$request->header('locale');
@@ -73,6 +74,8 @@ class ProductFilterController extends Controller
          
          $products_ids=Section_All_Page::where('sitesection_id',$section_id)->where('type','products')->pluck('type_id');
          
+         //return response($products_ids,200,['OK']); 
+
          if($lang=='ar'){
             $selected="name_ar as name";
             $selected2="description_ar as desc";
