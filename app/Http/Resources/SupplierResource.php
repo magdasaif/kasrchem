@@ -23,7 +23,7 @@ class SupplierResource extends JsonResource
             $supplier_name= $this->name_en;
             $supplier_description=$this->description_en;
         }
-        if($this->parent_id=='0'){
+      /*  if($this->parent_id=='0'){
             $is_root=true;
             
             if(count($this->childs)){//child
@@ -56,20 +56,21 @@ class SupplierResource extends JsonResource
         }else{
             $child_supplier='[]';
         }
-        
-       $x= Supplier_imagesResource::collection (Supplier_image::where('supplier_id',$this->id)->get());
-        $path=storage_path().'/app/public/supplier/';
+        */
+
+       //$x= Supplier_imagesResource::collection (Supplier_image::where('supplier_id',$this->id)->get());
+       // $path=storage_path().'/app/public/supplier/';
         return [
             // 'lang'=>$lang,
             'id'=>$this->id,
             'name' =>$supplier_name,
-            'parent_id' =>$this->parent_id,
-            'is_root'=>$is_root,
-            'is_leaf'=>$is_leaf,
-            'logo' => asset('storage/supplier/supplier_no_'.$this->id.'/'. $this->logo),
-            'images'=> $x,
-            'description'=>$description,
-            'child' =>$child_supplier,
+           // 'parent_id' =>$this->parent_id,
+          //  'is_root'=>$is_root,
+           // 'is_leaf'=>$is_leaf,
+            'logo' => $this->getFirstMediaUrl('supplier','edit'),
+           // 'images'=> $x,
+            'description'=>$supplier_description,
+           // 'child' =>$child_supplier,
         ];
     }
 }
