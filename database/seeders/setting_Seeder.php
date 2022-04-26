@@ -17,11 +17,11 @@ class setting_Seeder extends Seeder
         $this->refreshTable('site_infos');
         
         $info = new SiteInfo;
-        $info->site_name_ar="ايرادكو يونيتد";
-        $info->site_name_en="Erad United";
-        $info->site_desc_ar="وصف موقع ايرادكو";
-        $info->site_desc_en="description for eradco site";
-        $info->site_mail="eradunited@murabba.dev";
+        $info->site_name_ar="قصر كيم";
+        $info->site_name_en="Kasr chem";
+        $info->site_desc_ar="وصف موقع قصر كيم";
+        $info->site_desc_en="description for Kasr  chem site";
+        $info->site_mail="kasrchem.murabba.dev";
         $info->site_phone="01020304050";
         $info->site_fax="01020304050";
         $info->site_whatsapp="01020304050";
