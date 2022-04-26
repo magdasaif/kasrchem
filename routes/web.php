@@ -180,7 +180,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('partner_datatable', 'PartnerController@yajra_data')->name('partner_datatable');
 
     });
-    //----------------------------release-------------------------------------------------
+ 
     //----------------------------release-------------------------------------------------
     Route::group(['namespace'=>'Release'],function(){
         Route::resource('release', 'ReleaseController')->except(['show']);
@@ -287,4 +287,13 @@ Route::get('/show/fetch_data/branche', 'Branches\BrancheController@search'); //b
 Route::get('/Show/fetch_data/page', 'Pages\PageController@search'); //pages search
 Route::get('/Show/fetch_data/photo_gallery', 'Photo_Gallery\Photo_GalleryController@search'); //Photo_Gallery search
 Route::get('/show/fetch_data/social', 'SocialLinks\SocialController@search'); //SocialLinks search
+Route::get('/show/fetch_data/supplier', 'New_supplier\New_supplierController@search'); //New_supplier search
 
+   //----------------------------new_supplier-------------------------------------------------
+   Route::group(['namespace'=>'New_supplier'],function(){
+    Route::resource('new_supplier', 'New_supplierController');
+    Route::post('delete_all_new_supplier', 'New_supplierController@deleteAll')->name('delete_all_new_supplier');
+
+    Route::get('new_supplier_datatable', 'New_supplierController@yajra_data')->name('new_supplier_datatable');
+
+});

@@ -32,6 +32,6 @@ class RepositoryProvider extends ServiceProvider
                         //================VideoInterface================//
         $this->app->bind('App\Http\Interfaces\VideoInterface','App\Http\Repositories\VideoRepository');
                         //================SectionInterface================//
-          $this->app->bind('App\Http\Interfaces\SectionInterface','App\Http\Repositories\SectionRepository');
+        $this->app->bind('App\Http\Interfaces\SectionInterface','App\Http\Repositories\SectionRepository');
     }
 }

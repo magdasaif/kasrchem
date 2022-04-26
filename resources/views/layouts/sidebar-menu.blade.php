@@ -57,7 +57,29 @@
           </li>
          </ul>
       </li>
-
+ <!-------------------------------new_supplier------------------------------------------->
+ <li class="nav-item has-treeview" >
+        <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-users  green"></i>
+          <p  class="ttitle"> الموردين</p> 
+          <i class="left fas fa-angle-right" style="margin-right: 37%;"></i>
+        </a>
+        <ul class="nav nav-treeview">
+          <li>
+              <a href="{{route('new_supplier.create')}}" class="nav-link">
+                  <i class="nav-icon fas fa-plus orange"></i>
+                  <p> اضافة مورد </p>
+              </a>
+          </li>
+         
+          <li>
+              <a href="{{route('new_supplier.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users orange"></i>
+                  <p>  قائمة الموردين</p>
+              </a>
+          </li>
+         </ul>
+      </li>
       <!----------------------------products new---------------------------------------------->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">

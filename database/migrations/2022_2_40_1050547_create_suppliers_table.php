@@ -19,10 +19,6 @@ class CreateSuppliersTable extends Migration
             $table->string('name_en');
             $table->longText('description_ar');
             $table->longText('description_en');
-            // $table->integer('parent_id');
-            $table->unsignedBigInteger('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('suppliers')->onDelete('cascade');
-
             $table->integer('sort');
             $table->integer('status');
 
