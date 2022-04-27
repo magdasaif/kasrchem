@@ -41,7 +41,14 @@ class SectionRepository implements SectionInterface{
             $search_text = $request->get('query');
             //$search_text = str_replace(" ", "%", $search_text);//replace space
             
-            $searching_result=Sitesection::where('visible',1)->where('name_ar','LIKE','%'.$search_text.'%')->orWhere('name_en', 'like', '%'.$search_text.'%')->orWhere('status', 'like', '%'.$search_text.'%')->orWhere('sort', 'like', '%'.$search_text.'%')->get();
+            $searching_result=Sitesection::where('visible',1)
+                                ->where('name_ar','LIKE','%'.$search_text.'%')
+                                ->orWhere('name_en', 'like', '%'.$search_text.'%')
+                                ->orWhere('status', 'like', '%'.$search_text.'%')
+                                ->orWhere('sort', 'like', '%'.$search_text.'%')
+                                ->orWhere('description_ar', 'like', '%'.$search_text.'%')
+                                ->orWhere('description_en', 'like', '%'.$search_text.'%')
+                                ->get();
             
             $data['searching_count']=count($searching_result); //count result
             $data['searching']="search";
@@ -83,15 +90,23 @@ class SectionRepository implements SectionInterface{
              //check if parent or child from select
              if($request->site_or_sub=='0'){ $Sitesection->parent_id=Null; }else{ $Sitesection->parent_id=$request->site_or_sub;}
             //$Sitesection->parent_id = $parent_id_value,
-            $Sitesection->name_ar   = $request->name_ar;
-            $Sitesection->name_en   = $request->name_en;
-            $Sitesection->sort      = $request->sort;
-            $Sitesection->status    = $request->status;
+            $Sitesection->name_ar        = $request->name_ar;
+            $Sitesection->name_en        = $request->name_en;
+            $Sitesection->description_ar = $request->description_ar;
+            $Sitesection->description_en = $request->description_en;
+            $Sitesection->sort           = $request->sort;
+            $Sitesection->status         = $request->status;
             $Sitesection->save();
             //=======================image media=========//
             if($request->image)
             { //-----------media library-----------------
               $Sitesection->addMedia($request->image)->toMediaCollection('sections');
+            }
+            //-------------add sub images--------------------
+            if(!empty($request->photos)){
+                foreach($request->photos as $photo){
+                    $Sitesection->addMedia($photo)->toMediaCollection('sub_section');
+                }
             }
             //---------------------------------------------------
             DB::commit();
@@ -244,6 +259,71 @@ class SectionRepository implements SectionInterface{
         }
 
     }
+
+
+
+//******************************start sections images  ******************************/
+    //------------------------show images--------------------------------------//
+    public function section_images($section_id)
+    {
+       //decrypt section_id which is encryptrd
+        $real_id=decrypt($section_id);
+
+        $data['title']='صور اﻻقسام';
+        $data['section_id']=$real_id;
+    
+       $data['section_images']= Sitesection::find($real_id)->getMedia('sub_section');//'sub_section','thumb'
+
+        return view('pages.Sitesection.images',$data);
+    }
+    //------------------------add images-----------------------------------------//
+    public function add_section_images($request,$section_id){
+         //dd($request->all());
+        try{
+                //decrypt section_id which is encryptrd
+                $real_id=decrypt($section_id);
+                $section=Sitesection::findOrfail($real_id);
+              //  dd($real_id);
+                if(!empty($request->photos)){
+                    foreach($request->photos as $photo){
+                        //optimize image
+                        $section->addMedia($photo)->toMediaCollection('sub_section');
+                    }
+                }
+
+                toastr()->success('تمت الاضافه بنجاح');
+                return redirect()->back()->with(['success'=>'تمت الاضافه بنجاح']);
+               //  return redirect()->route('products.index')->with(['success'=>'تمت الاضافه بنجاح']);
+   
+           }catch(\Exception $e){
+            // dd('eee');
+               toastr()->error('حدث خطا اثناء الاضافه');
+               return redirect()->back()->with(['error'=>'حدث خطا اثناء الاضافه']);
+   
+            //   return redirect()->back()->with(['error'=>$e->getMessage()]);
+           }
+    }
+    //------------------------delete images--------------------------------------//
+    public function delete_section_images($request){
+
+        try{
+            Media::findOrfail($request->media_id)->delete();
+            //call trait to handel aut-increament
+            $this->refreshTable('media');
+            
+            toastr()->success('تم الحذف بنجاح');
+            return redirect()->back()->with(['success'=>'تم الحذف']);
+        }catch(\Exception $e){
+            toastr()->error('حدث خطا اثناء الحذف');
+            return redirect()->back()->with(['error'=>'حدث خطا اثناء الحذف']);
+        }
+    }
+//******************************end product images  ******************************/
+
+
+
+
+
 //----------------------------------------------------------------------
     public function bulkDelete($request)
     {

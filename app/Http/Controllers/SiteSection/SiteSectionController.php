@@ -53,5 +53,18 @@ class SiteSectionController extends Controller
     //  dd('ddddd');
       return $this->xx->search($request);
   } 
+//--------------------------------------------
+  public function section_images($section_id){
+    return $this->xx->section_images($section_id);
+  }
+  //--------------------------------------------
+  public function add_section_images(Request $request,$section_id){
+    return $this->xx->add_section_images($request,$section_id);
+  }
+  //--------------------------------------------
+  public function delete_section_images(Request $request){
+    return $this->xx->delete_section_images($request);
+  }
+  
 }
 

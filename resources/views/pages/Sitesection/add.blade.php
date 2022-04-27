@@ -92,6 +92,17 @@
                         </div>
 
                     </div>
+                    <!----------------------sub image-----------------------------> 
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">صور القســم الفرعيه</label>
+
+                        <input type="file" class="form-control" name="photos[]" accept="image/*" multiple>
+
+                        @error('image')
+                        <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+
                     <!----------------------status----------------------------->
                      <div class="form-group">
                         <label for="status">الحالـة</label>
@@ -101,7 +112,22 @@
                         </select>
                     </div>
                     <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">الوصف بالعربيه</label>
+                    <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="description_ar" >{!! old('description_ar')!!}</textarea>
+                    @error('description_ar')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
 
+                <div class="form-group">
+                    <label for="exampleInputEmail1">الوصف بالانجليزيه</label>
+                    <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="description_en" >{!! old('description_en')!!}</textarea>
+                    @error('description_en')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
+                </div>
+                <!-------------------------------------------------------------------->
                     <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">اضافه</button>
                     </div>
@@ -116,5 +142,9 @@
     </div>
 </section>
 </template>
+
+<script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ URL::asset('/js/tiny.js') }}"></script>
 <script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
 @endsection

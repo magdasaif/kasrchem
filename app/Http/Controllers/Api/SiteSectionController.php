@@ -124,7 +124,7 @@ class SiteSectionController extends Controller
 public function get_section_category(Request $request,$section_id)
 {
     $lang=$request->header('locale');
-    $main_category=sectionResource::collection(Sitesection::where('parent_id',$section_id)->where('status','1')->get());
+    $main_category=sectionResource::collection(Sitesection::where('parent_id',$section_id)->where('status','1')->where('visible',1)->get());
     if($lang=='ar'){
         $main_category->map(function($i) { $i->lang = 'ar'; });
     }else{
@@ -132,7 +132,77 @@ public function get_section_category(Request $request,$section_id)
     }
     return response($main_category,200,['OK']);
 }
-//----------------------------------------------------------------------//
 
+/**
+     * @OA\Get(
+     *      path="/sections_imgs/{id}",
+     *      operationId="getSectionImgs",
+     *      tags={"Sections"},
+     *      summary="Get Section Images",
+     *      description="Returns Section Images",
+     *     @OA\Parameter(
+	 *         in="path",
+     *          name= "id",
+     *          description= "section ID",
+     *          required=true,
+     *        @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *      @OA\Parameter(
+     *          name="locale",
+     *          description="App Locale",
+     *          required=true,
+     *          in="header",
+     *          @OA\Schema(
+     *              type="string",
+     *              enum={"ar", "en"},
+     *              default="ar"
+     *          ) ),
+     * 
+    
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *     )
+     */
+    public function section_imgs($id,Request $request)
+    {
+        $lang=$request->header('locale');
 
+        $s=Sitesection::where('id',$id)->get();
+
+        $section=sectionResource::collection($s);
+
+        if($lang=='ar'){
+            $section->map(function($i) { $i->lang = 'ar'; });
+        }else{
+        $section->map(function($i) { $i->lang = 'en'; });
+        }
+        $section->map(function($i) { $i->type = 'show_imgs'; });
+
+        return response($section,200,['OK']);
+    }
+    //----------------------------------------------------------------------//
 }

@@ -43,9 +43,8 @@ Route::get('/test', function () {
 
 ///-------------------------------sections-----------------
 Route::get('/sections',[SiteSectionController::class,'index']);
-
-///-------------------------------section_category----------
 Route::get('/sections/{id}',[SiteSectionController::class,'get_section_category']);
+Route::get('/sections_imgs/{id}',[SiteSectionController::class,'section_imgs']);
 
 ///------------------------slider-------------------------------
 Route::get('/sliders',[sliderController::class,'index']);

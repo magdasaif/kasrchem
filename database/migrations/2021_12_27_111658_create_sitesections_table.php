@@ -15,6 +15,9 @@ class CreateSitesectionsTable extends Migration
 
             $table->text('name_ar');
             $table->text('name_en');
+         
+            $table->longText('description_ar');
+            $table->longText('description_en');
 
             $table->integer('sort');//proirity
 

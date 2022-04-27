@@ -95,9 +95,18 @@ Route::group(['middleware' => 'auth'], function () {
     //------------------site_section------------------------------------------------------
     Route::group(['namespace'=>'SiteSection'],function(){
     Route::resource('site_section', 'SiteSectionController');
-      //=======check if section related with release or supplier=========//
-  Route::GET('/check_section/{section_id}','CheckSectionController@check_section');
-  //================================================================//
+
+       //-------------------sections images routes (show/add/delete)-------------------
+       Route::get('section_img/{id}','SiteSectionController@section_images');
+       Route::post('add_section_images/{id}','SiteSectionController@add_section_images');
+       Route::get('delete_section_images/{id}','SiteSectionController@delete_section_images');
+
+
+    //=======check if section related with release or supplier=========//
+   
+     Route::GET('/check_section/{section_id}','CheckSectionController@check_section');
+
+    //================================================================//
 
     });
     //-----------------------slider-------------------------------------------------------

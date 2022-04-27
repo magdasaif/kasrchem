@@ -9,8 +9,11 @@
 
                             <td> <img src="{{$section->getFirstMediaUrl('sections','index')}}" /> </td>
                             <td>{{$section->sort}}</td>
-                           <td><?php if($section->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
-                              <td> 
+                            <td><?php if($section->status==1){echo'<i class="fas fa-check green"></i>';}else{echo'<i class="fas fa-times red"></i>';}?></td>
+                            <td>
+                                <a href="{{ url('section_img/'.encrypt($section->id)) }}"><button type="button" class="btn btn-sm btn-warning" > الصور</button></a>
+                            </td>  
+                            <td> 
                                 <a href="{{route('site_section.edit',encrypt($section->id))}}" style="font-weight: bold;font-size: 17px;" title="تعديل"><i class="fa fa-edit blue"></i></a>
                                    /
                                    <!-- {{-- <a   onclick=" check_related_section('{{$section->id}}','{{$section->site_name_ar}}');" title="حذف" data-catid="{{$section->id}}" data-toggle="modal" data-target="#delete{{$section->id}}"> <i class="fa fa-trash red del"></i></a>  --}} -->

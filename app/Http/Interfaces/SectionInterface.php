@@ -11,6 +11,9 @@ interface SectionInterface {
     public function bulkDelete($request);
     public function yajra_data($request);
     public function search($request);
+    public function section_images($section_id);
+    public function add_section_images($request,$section_id);
+    public function delete_section_images($request);
 
 }
 ?>
