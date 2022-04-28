@@ -13,8 +13,8 @@ class SettingResource extends JsonResource
 
        
 
-            if($this->getFirstMediaUrl('site_logo','logo')){
-                $path=$this->getFirstMediaUrl('site_logo','logo');
+            if($this->getFirstMediaUrl('site_logo')){
+                $path=$this->getFirstMediaUrl('site_logo');
             }else{
                  $path= asset('public/images/logo.png');
                  //public_path().'/images/logo.png';

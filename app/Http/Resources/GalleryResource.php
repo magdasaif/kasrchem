@@ -19,7 +19,7 @@ class GalleryResource extends JsonResource
             foreach($images as $ii){
                 $selected=[
                    'id'=>$ii->id,
-                   'image'=> $ii->getUrl('edit')
+                   'image'=> $ii->getUrl()
                 ];
             array_push($new_images,$selected);
             }
@@ -29,7 +29,7 @@ class GalleryResource extends JsonResource
             'id' =>$this->id,
             'title' =>$this->title,
             //'image' => $path_main.$this->image,
-            'image' => $this->getFirstMediaUrl('gallery','edit'),
+            'image' => $this->getFirstMediaUrl('gallery'),
             'images' => $new_images,
         ];
       //  return parent::toArray($request);

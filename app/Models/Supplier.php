@@ -28,12 +28,32 @@ class Supplier extends Model implements HasMedia
     //this for image optimization package 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('edit')
-        ->width(300)
-        ->height(200);
-                
-        $this->addMediaConversion('index')
-        ->width(90)
-        ->height(90);
+            //---------------------conversion for dashboard -------------------------------------
+                $this->addMediaConversion('index')
+                ->format('webp')
+                ->width(90)
+                ->height(90);
+       
+              $this->addMediaConversion('edit')
+                ->format('webp')
+                ->width(300)
+                ->height(200);
+       
+            //---------------------conversion for front -------------------------------------
+              $this->addMediaConversion('phone')
+                   ->format('webp')
+                   ->width(320);
+       
+              $this->addMediaConversion('tablet')
+                   ->format('webp')
+                   ->width(786);
+       
+              $this->addMediaConversion('desktop')
+                   ->format('webp')
+                   ->width(1024);
+       
+              $this->addMediaConversion('largeDesktop')
+                   ->format('webp')
+                   ->width(1440);
     }
 }

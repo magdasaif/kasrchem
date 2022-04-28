@@ -21,7 +21,7 @@ class PartnerResource extends JsonResource
         return [
             'id'=>$this->id,
             'name' =>$partner_name,
-            'image'=>$this->getFirstMediaUrl('partner','edit'),
+            'image'=>$this->getFirstMediaUrl('partner'),
             'link'=>$this->external_link,
              
         ];

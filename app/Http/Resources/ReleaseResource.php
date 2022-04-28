@@ -20,7 +20,7 @@ class ReleaseResource extends JsonResource
 
             'id' =>$this->id,
             'title' =>$this->title,
-            'image' =>  $this->getFirstMediaUrl('releases','edit'),
+            'image' =>  $this->getFirstMediaUrl('releases'),
             'attachment' =>  $new_files,
            
         ];           

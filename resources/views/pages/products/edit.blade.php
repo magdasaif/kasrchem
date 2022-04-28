@@ -42,53 +42,7 @@
                     <!----------------------------------------------------->
                 </div>
                 <!----------------------------------------------------->
-         
-                <div class="form-group" style="display:none">
-                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
-                             <?php
-                            $selected_supplier=array();
-                            if(count($product->suppliers)>0){
-                                foreach ($product->suppliers as $supplier_select){
-                                array_push($selected_supplier,$supplier_select->id);
-                                }
-                            }
-                             ?>
-                            
-                    <select class="form-control" name="supplier_id[]"  multiple >
-                            
-                        @foreach ($suppliers as $supplier)
-                        <?php
-                            $margin="0";
-                            $color="#c20620";
-                            $size="15";
-                            $type='product';
-                            $number=2;
-                            if(in_array($supplier->id,$selected_supplier)){
-                                $select_or_no='selected';
-                            }else{
-                                $select_or_no='';
-                            }
-
-
-                           $new= [
-                                'childs' => $supplier->childs,
-                                'margin'=>$margin+30,
-                                'color'=>'#209c41',
-                                'size'=>$size-1,
-                                'selected_supplier'=>$selected_supplier,
-                                'type'=>$type,
-                                'number'=>$number
-                            ];
-                        ?>
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};font-size: {{$size}}px;" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}elseif($supplier->id == Session::get('supplier_id')){echo 'selected';}else{echo $select_or_no;}?>> - {{ $supplier->name_ar }}</option>
-                            @if(count($supplier->childs))
-                                @include('pages.manageChild',$new)
-                            @endif
-                        @endforeach
-                        
-                    </select>
-                </div>
-                <hr>
+        
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
@@ -201,9 +155,6 @@
                 </form>
                 </div>
  <!--#############################################################-->
- <!--========================================================-->
- @include('categories.Category_models.categories_model_adding')
-    <!--========================================================-->
 
  		</div>
             </div>

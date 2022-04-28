@@ -12,7 +12,7 @@ class PagesImagesResource extends JsonResource
            return 
            [
                 'id'=>$this->id,
-                'image'=>$this->getUrl('edit'),
+                'image'=>$this->getUrl(),
            ] ;
     }
 }

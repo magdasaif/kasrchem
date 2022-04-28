@@ -50,19 +50,32 @@ public function scopeMainImage()
         //==============resize image===================
     public function registerMediaConversions(Media $media = null): void
     {
-        //---------release method looks like with 3 size conversions-----------
-        $this->addMediaConversion('edit')
-        ->width(300)
-        ->height(200);
-
-        $this->addMediaConversion('logo')
-              ->width(190)
-              ->height(190);
-
-        
-        $this->addMediaConversion('index')
-              ->width(90)
-              ->height(90);
-        //-------------------------------------------------------------
+        //---------------------conversion for dashboard -------------------------------------
+            $this->addMediaConversion('index')
+            ->format('webp')
+            ->width(90)
+            ->height(90);
+   
+          $this->addMediaConversion('edit')
+            ->format('webp')
+            ->width(300)
+            ->height(200);
+   
+        //---------------------conversion for front -------------------------------------
+          $this->addMediaConversion('phone')
+               ->format('webp')
+               ->width(320);
+   
+          $this->addMediaConversion('tablet')
+               ->format('webp')
+               ->width(786);
+   
+          $this->addMediaConversion('desktop')
+               ->format('webp')
+               ->width(1024);
+   
+          $this->addMediaConversion('largeDesktop')
+               ->format('webp')
+               ->width(1440);
     }
 }

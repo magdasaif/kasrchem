@@ -29,16 +29,41 @@ class Sitesection extends Model implements HasMedia
  //==============resize image===================
  public function registerMediaConversions(Media $media = null): void
  {
-     //---------sitesection method looks like with 3 size conversions-----------
-     $this->addMediaConversion('index')
+         //---------------------conversion for dashboard -------------------------------------
+         $this->addMediaConversion('index')
+           ->format('webp')
            ->width(90)
            ->height(90);
 
            $this->addMediaConversion('edit')
+           ->format('webp')
            ->width(300)
            ->height(200);
+
+           //---------------------conversion for front -------------------------------------
+           $this->addMediaConversion('phone')
+           ->format('webp')
+           ->width(320);
+
+           $this->addMediaConversion('tablet')
+           ->format('webp')
+           ->width(786);
+
+           $this->addMediaConversion('desktop')
+           ->format('webp')
+           ->width(1024);
+
+           $this->addMediaConversion('largeDesktop')
+           ->format('webp')
+           ->width(1440);
+        
      //-------------------------------------------------------------
  }
+
+//mobile -->
+//templet
+//desktop
+//largedesktop
 
     
 }

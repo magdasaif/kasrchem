@@ -33,7 +33,7 @@ class sectionResource extends JsonResource
             foreach($images as $ii){
                 $selected=[
                    'id'=>$ii->id,
-                   'image'=> $ii->getUrl('edit')
+                   'image'=> $ii->getUrl()
                 ];
             array_push($new_images,$selected);
             }
@@ -50,7 +50,7 @@ class sectionResource extends JsonResource
                 'id'=>$this->id,
                 // 'name' =>$section_name,
                 'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $section_name),
-                'image' => $this->getFirstMediaUrl('sections','edit'),
+                'image' => $this->getFirstMediaUrl('sections'),
                  
             ];
         }

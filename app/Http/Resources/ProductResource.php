@@ -24,7 +24,7 @@ class ProductResource extends JsonResource
                 'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
                 'description' => $this->desc,
                 'link' => $this->link,
-                'image' => $this->getFirstMediaUrl('product','edit'),
+                'image' => $this->getFirstMediaUrl('product'),
             ];
         }else{
         
@@ -35,7 +35,7 @@ class ProductResource extends JsonResource
             foreach($images as $ii){
                 $selected=[
                    'id'=>$ii->id,
-                   'image'=> $ii->getUrl('edit')
+                   'image'=> $ii->getUrl()
                 ];
             array_push($new_images,$selected);
             }
@@ -56,7 +56,7 @@ class ProductResource extends JsonResource
 
                 'id' =>$this->id,
                 'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
-                'image' => $this->getFirstMediaUrl('product','edit'),
+                'image' => $this->getFirstMediaUrl('product'),
                 'description' => $this->desc,
                 'video_link' => $this->video_link,
                 'link' => $this->link,

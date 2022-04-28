@@ -19,14 +19,35 @@ class SiteInfo extends Model implements HasMedia
      //this for image optimization package 
      public function registerMediaConversions(Media $media = null): void
      {
-        $this->addMediaConversion('nav')
-        ->width(40)
-        ->height(40);
- 
-         //الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]
-         $this->addMediaConversion('logo')
-         ->width(300)
-         ->height(300);
+        //---------------------conversion for dashboard -------------------------------------
+
+            $this->addMediaConversion('nav')
+                ->format('webp')
+                ->width(40)
+                ->height(40);
+        
+            //الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]
+            $this->addMediaConversion('logo')
+                ->format('webp')
+                ->width(300)
+                ->height(300);
+         
+            //---------------------conversion for front -------------------------------------
+            $this->addMediaConversion('phone')
+                    ->format('webp')
+                    ->width(320);
+        
+            $this->addMediaConversion('tablet')
+                    ->format('webp')
+                    ->width(786);
+        
+            $this->addMediaConversion('desktop')
+                    ->format('webp')
+                    ->width(1024);
+        
+            $this->addMediaConversion('largeDesktop')
+                    ->format('webp')
+                    ->width(1440);
                  
      }
 }

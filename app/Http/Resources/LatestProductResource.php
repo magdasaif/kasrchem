@@ -24,7 +24,7 @@ class LatestProductResource extends JsonResource
                 'name' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->name),
                 'description' => $this->desc,
                 'link' =>$this->link,
-                'image' => $this->getFirstMediaUrl('product','edit'),
+                'image' => $this->getFirstMediaUrl('product'),
             ];
        
         //  return parent::toArray($request);

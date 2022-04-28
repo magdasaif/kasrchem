@@ -13,7 +13,8 @@ class SliderResource extends JsonResource
         return [
             'id'=>$this->id,
             'priority'=>$this->sort,
-            'image' => $this->getFirstMediaUrl('slider','slider_img'),
+            //'image' => $this->getFirstMediaUrl('slider','slider_img'),
+            'image' => $this->getFirstMediaUrl('slider'),
             
              
         ];

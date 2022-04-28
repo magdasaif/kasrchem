@@ -30,42 +30,7 @@
             <!----------------------------------------------------->
             @include('pages.Sitesection.tree_view_section_adding')
             <!----------------------------------------------------->
-                <div class="form-group" style="display:none">
-                    <label for="exampleInputEmail1">الموردين</label> <span style="font-size: initial;color: red;"> [ قم بتحديد الموردين ] </span>
-                    <br>
-                    <center>
-                            <span style="color:#d54646;font-weight: bold;"> لاضافه مورد</span>
-                            <i  class="nav-icon fas fa-plus green" type="button"   data-toggle="modal" data-target="#SupplierModel" style="margin-right: 23px;font-weight: bold;"></i>
-                    </center>
-                    <select class="form-control" name="supplier_id[]"  multiple >
-                        @foreach ($suppliers as $supplier)
-                        <?php
-                            $margin="0";
-                            $color="#c20620";
-                            
-                            $new=[
-                                'margin' =>0,
-                                'childs' => $supplier->childs,
-                                'color'=>'#209c41',
-                                'number'=>2,
-                                'type'=>"product",
-                                'main_id'=>$supplier->id,//pramiry key of supplier we edit on it
-                                'parent_id'=>'0',
-                            ];
-                        ?>
-                            <option style="margin-right:{{$margin}}px;color: {{$color}};" value="{{ $supplier->id }}" <?php if (collect(old('supplier_id'))->contains($supplier->id)) {echo 'selected';}  if($supplier->id == Session::get('supplier_id')){echo 'selected';}?>> - {{ $supplier->name_ar }}</option>
-                            @if(count($supplier->childs))
-                                @include('pages.manageChild',$new)
-                            @endif
-                        @endforeach
-                    </select>
-
-                    <hr>
-                </div>
-
-                
-                
-
+         
                 <div class="form-group">
                     <label for="exampleInputEmail1">اسم المنتج بالعربيه</label>
                     <textarea class="form-control" rows="5" aria-describedby="emailHelp" placeholder="Enter name" name="name_ar" id="regax_name_ar" onkeyup="check_regax_name_ar();" onkeypress="return CheckArabicCharactersOnly(event);"   required oninvalid="this.setCustomValidity('يجب ان يكون اسم المنتج باللغة العربية وايضا لا يكون ارقام فقط')"  oninput="this.setCustomValidity('')">{!! old('name_ar')!!}</textarea>
@@ -197,9 +162,6 @@
 
         </div>
  <!--#############################################################-->
-<!--========================================================-->
-@include('categories.Category_models.categories_model_adding')
-    <!--========================================================-->
  		</div>
             </div>
         </div>
