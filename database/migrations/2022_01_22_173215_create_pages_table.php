@@ -21,6 +21,9 @@ class CreatePagesTable extends Migration
             $table->longText('content_ar');
             $table->longText('content_en');
 
+            $table->longText('comment_ar');
+            $table->longText('comment_en');
+
             $table->integer('sort');
             
             $table->integer('status');

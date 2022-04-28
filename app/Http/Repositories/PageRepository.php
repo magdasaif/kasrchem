@@ -32,7 +32,9 @@ class PageRepository implements PageInterface{
             ->orWhere('description_ar', 'like', '%'.$search_text.'%')
             ->orWhere('description_en', 'like', '%'.$search_text.'%')
             ->orWhere('content_ar', 'like', '%'.$search_text.'%')
-            ->orWhere('content_en', 'like', '%'.$search_text.'%')
+            ->orWhere('content_en', 'like', '%'.$search_text.'%') 
+            ->orWhere('comment_ar', 'like', '%'.$search_text.'%')
+            ->orWhere('comment_en', 'like', '%'.$search_text.'%')
             ->paginate(10);
            return view('pages.pages.paginate_page',$data)->render();   
         }
@@ -63,6 +65,8 @@ class PageRepository implements PageInterface{
                 'description_en' =>  $request->description_en,
                 'content_ar'     =>  $request->content_ar,
                 'content_en'     =>  $request->content_en,
+                'comment_ar'     =>  $request->comment_ar,
+                'comment_en'     =>  $request->comment_en,
                 'sort'           =>  $request->sort,
                 'status'         =>  $request->status,
             ]);
@@ -115,6 +119,8 @@ class PageRepository implements PageInterface{
             $Page->description_en   = $request->description_en;
             $Page->content_ar       = $request->content_ar;
             $Page->content_en       = $request->content_en;
+            $Page->comment_ar       = $request->comment_ar;
+            $Page->comment_en       = $request->comment_en;
             $Page->sort             = $request->sort;
             $Page->status           = $request->status;
             $Page->save();

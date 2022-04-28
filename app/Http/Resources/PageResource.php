@@ -23,8 +23,9 @@ class PageResource extends JsonResource
                 'name'=>$this->title,
                 'slug' =>str_replace(' ', '_',$this->title),
                 'images'=> $x,
-                'sample'=>$this->sample,
-                'content'=>$this->content,
+                'sample' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->sample),
+                'content'=>preg_replace("/\r\n|\r|\n/", '<br/>', $this->content),
+                'comment'=>preg_replace("/\r\n|\r|\n/", '<br/>', $this->comment),
             ]; 
         }else{
             return [
@@ -32,7 +33,7 @@ class PageResource extends JsonResource
                 'name'=>$this->title,
                 'slug' =>str_replace(' ', '_',$this->title),
                 'images'=> $x,
-                'sample'=>$this->sample,
+                'sample' =>preg_replace("/\r\n|\r|\n/", '<br/>', $this->sample),
             ];
         }
     }

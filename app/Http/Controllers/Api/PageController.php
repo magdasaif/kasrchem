@@ -58,12 +58,14 @@ class PageController extends Controller
           $selected="description_ar as sample";
           $selected2="content_ar as content";
           $selected3="name_ar as title";
+          $selected4="comment_ar as comment";
       }else{
            $selected="description_en as sample";
            $selected2="content_en as content";
            $selected3="name_en as title";
+           $selected4="comment_en as comment";
       }
-      $Page = Page::select('id',$selected3,$selected,$selected2)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->get();
+      $Page = Page::select('id',$selected4,$selected3,$selected2,$selected)->withoutTrashed()->where('status','1')->orderBy('sort','asc')->get();
 
       $Page = PageResource::collection($Page);
       $Page->map(function($i) { $i->type = 'all'; });
@@ -132,14 +134,16 @@ class PageController extends Controller
         $selected="description_ar as sample";
         $selected2="content_ar as content";
         $selected3="name_ar as title";
+        $selected4="comment_ar as comment";
        // $search='name_ar';
     }else{
          $selected="description_en as sample";
          $selected2="content_en as content";
          $selected3="name_en as title";
+         $selected4="comment_en as comment";
         // $search='name_en';
     }
-     $Page = Page::select('id',$selected3,$selected,$selected2)->withoutTrashed()->where('status','1')->where('id',$id)->get();
+     $Page = Page::select('id',$selected4,$selected3,$selected2,$selected)->withoutTrashed()->where('status','1')->where('id',$id)->get();
 
      //revert slug without underscore_
       // $new_word=str_replace('_', ' ',$id);

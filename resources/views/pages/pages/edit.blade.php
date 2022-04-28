@@ -169,6 +169,24 @@
                 </div>
                 <!----------------------------------------------------->
                 <div class="form-group">
+                    <label for="comment_ar">التعليق</label>
+                    <textarea  class="form-control tinymce-editor" rows="4" name="comment_ar" id="comment_ar" placeholder="ادخل التعليق " style="border-radius: 6px;" > {!! $page->comment_ar!!}</textarea>
+                    @error('comment_ar')
+                    <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
+                    @enderror
+                </div>
+            <!----------------------------------------------------->
+               <div class="form-group">
+                    <label for="comment_en"> التعليق بالانجليزية</label>
+                    
+                    <textarea  class="form-control tinymce-editor" rows="4" name="comment_en" id="comment_en" placeholder="ادخل التعليق بالانجليزية"  style="border-radius: 6px;">{!! $page->comment_en!!}</textarea>
+
+                    @error('comment_en')
+                    <small class="form-text text-danger" style="font-size: 15px;font-weight: bold;">{{$message}}</small>
+                    @enderror
+                </div>
+            <!----------------------------------------------------->
+                <div class="form-group">
                     <label for="exampleInputEmail1">الترتيب </label>
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="sort" value="{{$page->sort}}">
                     @error('sort')
