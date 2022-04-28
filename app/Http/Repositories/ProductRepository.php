@@ -52,7 +52,7 @@ function search($request)
    //******************************show product add form*****************************/
     public function create(){
         $data['title']       ='اضافه منتج';
-        $data['suppliers']   = Supplier::withoutTrashed()->whereNull('parent_id')->get();
+        //$data['suppliers']   = Supplier::withoutTrashed()->whereNull('parent_id')->get();
         $data['sections']   = Sitesection::where('visible', '!=' , 0)->whereNull('parent_id')->get();
         //-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
        return view('pages.products.add',$data);
@@ -290,7 +290,7 @@ function search($request)
         $real_id=decrypt($id);
         $data['title']      ='تعديل منتج';
         $data['product']    = Product::findOrfail($real_id);
-        $data['suppliers']  = Supplier::withoutTrashed()->whereNull('parent_id')->get();
+      //  $data['suppliers']  = Supplier::withoutTrashed()->whereNull('parent_id')->get();
         $data['sections']   = Sitesection::where('visible', '!=' , 0)->whereNull('parent_id')->get();
 
         //-----------------------------------//
