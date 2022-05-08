@@ -160,6 +160,8 @@ class SectionRepository implements SectionInterface{
             $Sitesection = Sitesection::findOrfail($real_id);
             $Sitesection->name_ar=$request->name_ar;
             $Sitesection->name_en=$request->name_en;
+            $Sitesection->description_ar = $request->description_ar;
+            $Sitesection->description_en = $request->description_en;
             $Sitesection->sort= $request->sort;
             $Sitesection->status= $request->status;
 

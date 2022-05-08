@@ -130,6 +130,25 @@
                                     <option value="0" <?php if($section->status==0){echo'selected';}?> >غير مُفعل</option>
                             </select>
                         </div>
+
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">الوصف بالعربيه</label>
+                        <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="description_ar" >{{ $section->description_ar }}</textarea>
+                        @error('description_ar')
+                        <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">الوصف بالانجليزيه</label>
+                        <textarea class="form-control tinymce-editor" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter descrption" name="description_en" >{{ $section->description_en }}</textarea>
+                        @error('description_en')
+                        <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <!-------------------------------------------------------------------->
+
                         
                         <input type="hidden" name="id" value="{{encrypt($section->id)}}">
                         <div class="modal-footer">
@@ -147,7 +166,8 @@
 </template>
 
 <script src="{{ URL::asset('/js/jquery-3.3.1.min.js') }}"></script>
-
+<script src="{{ URL::asset('assets/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ URL::asset('/js/tiny.js') }}"></script>
 <!-- edit script for edit_upload_image-->
 <script src="{{ URL::asset('/js/edit_upload_image/edit_upload_image_script.js') }}"></script>
 <script src="{{ URL::asset('/js/imagePreview.js') }}"></script>
