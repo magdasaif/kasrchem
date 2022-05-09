@@ -42,6 +42,7 @@ class Slider extends Model implements HasMedia
 
              //الأبعاد [يجب أن يكون العرض بين (850 و 1200) ، ويجب أن يكون الارتفاع بين (315 و 600)]
                 $this->addMediaConversion('slider_img')
+                    ->format('webp')
                     ->width(900)
                     ->height(400);
        
