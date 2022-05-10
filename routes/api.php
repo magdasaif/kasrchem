@@ -110,7 +110,7 @@ Route::get('/supplier/{id}',[SupplierController::class,'getSupplier']);
  Route::get('/related_products/{id}',[RelatedProductController::class,'show']);
  
 //---------------------categories with supplier ------------------------
- Route::get('/suppliers_section',[SupplierController::class,'sectionsAndSupplier']);
+ //Route::get('/suppliers_section',[SupplierController::class,'sectionsAndSupplier']);
  
  ///------------------------------about us------------------------------------
  
