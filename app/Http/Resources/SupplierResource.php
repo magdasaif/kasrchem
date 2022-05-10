@@ -67,7 +67,7 @@ class SupplierResource extends JsonResource
            // 'parent_id' =>$this->parent_id,
           //  'is_root'=>$is_root,
            // 'is_leaf'=>$is_leaf,
-            'logo' => $this->getFirstMediaUrl('supplier'),
+            'logo' => $this->getFirstMediaUrl('supplier','desktop'),
            // 'images'=> $x,
             'description'=>$supplier_description,
            // 'child' =>$child_supplier,

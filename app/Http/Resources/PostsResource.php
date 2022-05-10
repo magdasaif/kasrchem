@@ -21,7 +21,7 @@ class PostsResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                'image' =>$this->getFirstMediaUrl('article'),
+                'image' =>$this->getFirstMediaUrl('article','desktop'),
                 // 'description' => strip_tags($this->description),
                 'description' => $this->description,
                 'date' =>$this->date,
@@ -32,7 +32,7 @@ class PostsResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                'image' =>$this->getFirstMediaUrl('article'),
+                'image' =>$this->getFirstMediaUrl('article','desktop'),
             ];
         }
       //  return parent::toArray($request);

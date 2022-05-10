@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Models\Gallery_Photo_Image;
 use App\Models\Photo_Gallery;
 
 class GalleryResource extends JsonResource
@@ -19,7 +18,7 @@ class GalleryResource extends JsonResource
             foreach($images as $ii){
                 $selected=[
                    'id'=>$ii->id,
-                   'image'=> $ii->getUrl()
+                   'image'=> $ii->getUrl('desktop')
                 ];
             array_push($new_images,$selected);
             }
@@ -29,7 +28,7 @@ class GalleryResource extends JsonResource
             'id' =>$this->id,
             'title' =>$this->title,
             //'image' => $path_main.$this->image,
-            'image' => $this->getFirstMediaUrl('gallery'),
+            'image' => $this->getFirstMediaUrl('gallery','desktop'),
             'images' => $new_images,
         ];
       //  return parent::toArray($request);

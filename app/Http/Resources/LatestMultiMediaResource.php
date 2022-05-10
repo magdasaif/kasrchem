@@ -20,7 +20,7 @@ class LatestMultiMediaResource extends JsonResource
             foreach($images as $ii){
                 $selected=[
                    'id'=>$ii->id,
-                   'image'=> $ii->getUrl()
+                   'image'=> $ii->getUrl('desktop')
                 ];
             array_push($new_images,$selected);
             }
@@ -29,7 +29,7 @@ class LatestMultiMediaResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                'image' => $this->getFirstMediaUrl('gallery'),
+                'image' => $this->getFirstMediaUrl('gallery','desktop'),
                 'images' => $new_images,
             ];
         //  return parent::toArray($request);
@@ -44,7 +44,7 @@ class LatestMultiMediaResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                'image' =>  $this->getFirstMediaUrl('releases'),
+                'image' =>  $this->getFirstMediaUrl('releases','desktop'),
                 'attachment' =>  $new_files,
                
             ];
@@ -54,7 +54,7 @@ class LatestMultiMediaResource extends JsonResource
 
                 'id' =>$this->id,
                 'title' =>$this->title,
-                'image' =>$this->getFirstMediaUrl('article'),
+                'image' =>$this->getFirstMediaUrl('article','desktop'),
             ];
 
         }elseif($type=='latest_videos'){
